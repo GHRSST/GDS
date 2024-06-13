@@ -1,0 +1,17 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro
+options:  # The options key will be applied to all chapters, but not sub-sections
+  numbered: True
+chapters:
+- file: conventions
+- file: overview
+- file: sea_surface_temperature
+- file: naming
+- file: structure
+- file: l2p
+- file: l3
+- file: l4
+
