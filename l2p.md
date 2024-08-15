@@ -15,7 +15,7 @@ jupytext:
 
 ## Overview description of the GHRSST L2P data product
 
-The GHRSST Level-2 Pre-processed (L2P) products are the basic building blocks from which all other GHRSST SST data products can be derived. L2P data products should ideally be made available within the GHRSST R/GTS framework to the user community in real time within 3 hours after the reception of data at the satellite. For every L2P file that is generated, appropriate ISO metadata (specified in [Add reference to Section 12.1](#section12.1)) must also be created and registered at the GHRSST Master Metadata Repository (MMR) system (see [Add reference to AD-1](#AD-1) for more details).
+The GHRSST Level-2 Pre-processed (L2P) products are the basic building blocks from which all other GHRSST SST data products can be derived. L2P data products should ideally be made available within the GHRSST R/GTS framework to the user community in real time within 3 hours after the reception of data at the satellite. For every L2P file that is generated, appropriate ISO metadata (specified in [Overview description of the GMPE data product](#section12.1)) must also be created and registered at the GHRSST Master Metadata Repository (MMR) system (see [AD-1](#AD-1) for more details).
 
 L2P products include SST data as delivered by a data provider in their native format (swath, grid, or vector), together with a number of ancillary fields that simplify interpretation an application of the SST data. The main difference between input L2 SST data file and the output GHRSST L2P data file is that additional confidence data and sensor specific error estimates for each pixel value are included and the original SST data files are reformatted into the L2P specification. No adjustments to the input L2 SST measurements are allowed but instead, sensor specific error statistics are used to provide bias error and standard deviation estimates. A user wishing to correct L2P SST data can apply these estimates to the SST values directly. Full orbit input data files may be split into ascending and descending files or smaller granules and a unique L2P output may be generated for each file. The common format of L2P products allows data users to code with the security so that as new satellite derived SST data sets are brought on-line, very minimal code changes are required to make full use of new L2P data. Time previously spent on coding different i/o routines for each satellite data set can now be spent applying the data to various applications and societal benefits instead. 
 
@@ -68,45 +68,46 @@ GDS-2.1 L2P data products are configured as shown in the table below, [Summary d
 | **satellite_zenith_angle**          | Calculated satellite zenith angle (measured at the Earth's surface between the satellite and the zenith)                                                                                                                        | degrees      |         | Optional                                          |
 | **solar_zenith_angle**              | Calculated solar zenith angle (the angle between the local zenith and the line of sight to the sun, measured at the Earth's surface)                                                                                            | degrees      |         | Optional                                         |
 | **surface_solar_irradiance**        | Near contemporaneous surface solar irradiance                                                                                                                                                                                   | Wm-2         |         | Optional                                         |
-| **ssi_dtime_from_sst**              | Time difference between the **surface_solar_irradiance** value and SST measurement                                                                                                                                                  | hours        |         | Mandatory when surface_solar_irradiance included |
+| **ssi_dtime_from_sst**              | Time difference between the **surface_solar_irradiance** value and SST measurement                                                                                                                                                  | hours        |         | Mandatory when **surface_solar_irradiance** included |
 | **source_of_ssi**                   | Sources of  **surface_solar_irradiance** data                                                                                                                                                                                       | code         |         | Optional                                         |
-
---- 
-
+ 
+<br>
 <a id="section9.2"></a>
 
 ## L2P data record format specification
 [The table below, L2P SST data record content,](#table9-2) provides an overview of the GHRSST L2P product pixel data record that should be created for each input L2 SST measurement contained within a L2P file. In the following sections, each variable within the L2P data file is described in detail.
 
 <a id="table9-2"></a>
+
 #### L2P SST data record content.
 
 | Variable Name (Defintion Section, CDL Example)            | Description            | Units/data type  |
 |-----------------------------------------------------------|------------------------|------------------|
 | **sea_surface_temperature** (see [Variable sea_surface_temperature](#section9.3), [CDL example description of sea_surface_temperature variable](#table9-3)) | SST measurement values from input L2 satellite data set. L2 SST data are not adjusted in any manner and are identical to the input data set. Use attribute '**sea_surface_temperature:source =** "<code from [GHRSST Unique Text Strings and Numeric Codes](#section7.9)>" to specify the L2 input product source. | kelvin int |
 | **sst_dtime** (see [Variable sst_dtime](#section9.4), [CDL example description of sst_dtime variable](#table9-5)) | Deviation in time of SST measurement from reference time stored in the netCDF global variable time (defined as the start time of granule for L2P). Minimum resolution should be one second. | seconds short |
-| **sses_bias** (See [Variable sses_bias](#section9.5), Data producers are reminded to choose appropriate scale_factors and add_offsets for their data, and to strive for scale_factors as close to 0.01 as possible without "oversaturating" the values, [Add reference to table 9-6](#table9-6)) | Sensor Specific Error Statistic (SSES) bias error estimate generated by data provider. The specific SSES methodology should be described in L2P documentation from the data provider. The GHRSST ST-VAL TAG will maintain a summary document of all SSES schemes at https://www.ghrsst.org/resources/single-sensor-error-statistic-sses/ | kelvin byte |
-| **sses_standard_deviation** (See [Variable sses_standard_deviation](#section9.6), [Add reference to table 9-7](#table9-7)) | SSES standard deviation uncertainty generated by data provider. The specific SSES methodology should be described in L2P documentation from the data provider. The GHRSST ST-VAL TAG will maintain a summary document of all SSES schemes at https://www.ghrsst.org/resources/single-sensor-error-statistic-sses/ | kelvin byte |
-| **dt_analysis** (See [Variable dt_analysis](#section9.7), [Add reference to table 9-9](#table9-9)) | The difference between input SST and a GHRSST L4 SST analysis from the previous 24 hour period. The GHRSST L4 analysis chosen for a given L2P data set variable should be consistent for all L2P products as far as practically possible. If no L4 analysis is available then an alternative L4 analysis or a reference mean SST climatology may be used. If storage as byte does not allow the provider to offer the full precision required for this field, storage as a short is optionally permitted though byte is preferred. | kelvin byte (or short) |
-| **wind_speed** (See [Variable wind_speed](#section9.8), [Add reference to table 9-10](#table9-10)) | 10 m surface wind speed near contemporaneous to the input SST measurement from satellite or analysis. Wind speed data should be provided at a minimum resolution of 1 ms-1 and data producers shall use scale_factor and add_offset to scale data to an appropriate resolution (higher resolution is better). The difference in time between SST measurement and wind_speed data shall be recorded in the L2P variable **wind_speed_dtime_from_sst**. If all the times have the same value, then using an attribute **wind_speed:time_offset** is sufficient and the variable **wind_speed_dtime_from_sst** is not required. If multiple sources of wind speed data are used, the variable **source_of_wind_speed** shall be used to indicate their source following the format requirements shown in Section . In addition, the units of all sources used in the file shall be identical. If a unique source is used (this is recommended) the attribute ‘**wind_speed:source =** “< string defined by best practice in [GHRSST Unique Text Strings and Numeric Codes](#section7.9)>” is considered sufficient. | ms-1 byte |
-| **wind_speed_dtime_from_sst** ([Variable wind_speed_dtime_from_sst](#section9.9), [Add reference to Table 9-11](#table9-11)) | Time difference of **wind_speed data** from input L2 SST measurement specified in hours. | Hours byte |
-| **source_of_wind_speed** ([Variable source_of_wind_speed](#section9.10)[Add reference to table 9-12](#table9-12)) | When multiple sources of wind speed data are used in the variable **wind_speed**, the variable **source_of_wind_speed** shall be used to record the source of the wind speed data used. If a unique source of wind speed data is used (this is recommended) the variable attribute **'wind_speed:source =** "<string defined by best practice in [GHRSST Unique Text Strings and Numeric Codes](#section7.9) >" shall be sufficient and the variable **source_of_wind_speed** is not required. If the values in that single source all have the same time, then a variable level attribute **wind_speed:time_offset =** “difference time in hours” are considered sufficient and the variable **wind_speed_dtime_from_sst** is not required. | Code byte |
-| **sea_ice_fraction** ([Variable sea_ice_fraction](#section9.11), [Add reference to table 9-13](#table9-13)) | Fractional Sea Ice contamination data. Ranges from 0 to 1. This field is only required if there is actually sea ice in the input L2 data set. Do not provide an array of missing data values. When multiple sources of sea ice fraction data are used in the **variable sea_ice_fraction**, the variable **source_of_sea_ice_fraction** shall be used to record the source of the sea ice fraction data used and the difference in time between SST measurement and **sea_ice_fraction** data shall be recorded in the variable **sea_ice_fraction_dtime_from_sst**. In addition, the units of all sources used in the file shall be identical. If a unique source of sea ice fraction data is used (this is recommended), the variable attribute **'sea_ice_fraction:source =** "<string defined by best practice in [GHRSST Unique Text Strings and Numeric Codes](#section7.9)>". If the values in that single source all have the same time, then a variable level attribute **sea_ice_fraction:time_offset** = “difference time in hours” are considered sufficient and the variables **source_of_sea_ice_fraction** and **sea_ice_fraction_dtime_from_sst** are not required. The variable attribute **sea_ice_fraction:sea_ice_treatment** shall specify how the sea ice information has been treated by the data provider. | Percent byte |
-| **sea_ice_fraction_dtime_from_sst** ([Variable sea_ice_fraction_dtime_from_sst](#section9.12), [Add reference to table 9-14](#table9-14)) | Time difference of **sea_ice_fraction** data from input L2 SST measurement specified in hours. This variable is mandatory when multiple sources of **sea_ice_fraction** are used. If only one source is used, simply set a variable attribute **sea_ice_fraction: time_offset** = “difference time in hours”. | Hours byte |
-| **source_of_sea_ice_fraction** ([Variable source_of_sea_ice_fraction](#section9.13), [Add reference to table 9-15](#table9-15)) | When multiple sources of sea ice fraction data are used in the variable **sea_ice_fraction**, the variable **source_of_sea_ice_fraction** shall be used to record the source of the sea ice fraction data used. If a unique source of sea ice fraction data is used (this is recommended), the variable attribute **'sea_ice_fraction:source =** "<string defined by best practice in [GHRSST Unique Text Strings and Numeric Code](#section7.9)>" is sufficient and the variable **source_of_sea_ice_fraction** is not needed. | Code byte |
-| **aerosol_dynamic_indicator** ([Variable aerosol_dynamic_indicator](#section9.14), [Add reference to table 9-16](#table9-16)) | The variable **aerosol_dynamic_indicator** (ADI) is used to indicate the presence of atmospheric aerosols that may cause errors in the atmospheric correction of infrared satellite data when retrieving SST. The variable **aerosol_dynamic_indicator** is mandatory only when the input SST data set has been derived from an infrared satellite instrument. The atmospheric aerosol data used to fill the variable **aerosol_dynamic_indicator** is chosen by the data provider as the most appropriate aerosol indicator for a given input SST data set. (e.g., SDI might be used for MSG SEVIRI, a view difference might be used for AATSR, and aerosol optical depth may be used from a model or another satellite system). When multiple sources of atmospheric aerosol indicator data are used in the variable **aerosol_dynamic_indicator**, the variable **source_of_adi** shall be used to record the source of the aerosol indicator data used. In addition, the units of all sources used in the file shall be identical. If a unique source of atmospheric aerosol indicator data is used (this is recommended), the variable attribute '**aerosol_dynamic_indicator:source =** "<string defined by best practice in [GHRSST Unique Text Strings and Numeric Codes](#section7.9)>" is sufficient and the variable **source_of_aerosol_dynamic_indicator** is not required. If all the times have the same value, then using an attribute **aerosol_dynamic_indicator:time_offset** is sufficient and the variable **adi_dtime_from_sst** is not required. | Scaled value byte |
-| **adi_dtime_from_sst** ([Variable adi_dtime_from_sst](#section9.15), [Add reference to table 9-17](#table9-17)) | The time difference between the **aerosol_dynamic_indicator** value and SST measurement recorded in hours. | Hours byte |
-| **source_of_adi** ([Variable source_of_adi](#section9.16), [Add reference to table 9-18](#table9-18)) | When multiple sources of atmospheric aerosol indicator data are used in the variable **aerosol_dynamic_indicator**, the variable **source_of_adi** shall be used to record the source of the aerosol indicator data used. If a unique source of atmospheric aerosol indicator data is used (this is recommended), the variable attribute **aerosol_dynamic_indicator:source =** "<string defined by best practice in [GHRSST Unique Text Strings and Numeric Codes](#section7.9)>" is sufficient and the **variable source_of_adi** is not required. | Code byte |
-| **l2p_flags** ([Variable l2p_flags](#section9.17), [Add reference to table 9-19](#table9-19)) | The variable **l2p_flags** is used to (a) specify the type of input SST data (either infrared or passive microwave instrument derived), (b) pass through native flags from the input L2 SST data set and (c) record any additional information considered important for the user of an L2P data set. The variable l2p_flags is split into two sections: the first 6 bits of the L2P variable l2p_flags are generic flags that are common to all L2P data files; bits 6-15 are defined by the L2P data provider and are specific to each L2 input data stream. The tables below define the bit field and their meanings. The least significant bit (bit 0) starts on the right. <table border="1"><tr><td>**Bit**</td> <td>**Common Flags**</td></tr><tr><td>0</td><td>Passive microwave data</td></tr><tr><td>1</td><td>Land</td></tr><tr><td>2</td><td>Ice</td></tr><tr><td>3</td><td>Lake (if known)</td></tr><tr><td>4</td><td>River (if known)</td></tr><tr><td>5</td><td>Spare</td></tr></table> <br> <table border="1"><tr><td>**Bit**</td> <td>**l2p_flags definition**</td></tr><tr><td>6-15</td><td>Defined by L2 data provider <br> and described in the **flag_meanings** <br> and **flags_mask** variable attributes. <br> Please refer to L2P data provider documentation. </td></tr></table>|
-|**quality_level** ([Variable quality_level](#section9.18), [Add reference to table 9-21](#table9-21)) | The L2P variable **quality_level** is used to provide an overall indication of L2P data quality. The L2P variable quality_level will reflect CEOS QA4EO (Quality Indicator) guidelines. An incremental scale from 0 no data,1 (bad e.g. cloud, rain, to close to land – under no conditions use this data) 2 (worst quality usable data), to 5 (best quality usable data) shall be used. | Code byte |
-| Optional/experimental fields defined by data provider ([Optional experimental L2P variables included by data provider](#section9.24), [Add reference to table 9-28](#table9-28)) | Optional/experimental data | Defined by RDAC |
+| **sses_bias** (See [Variable sses_bias](#section9.5), Data producers are reminded to choose appropriate scale_factors and add_offsets for their data, and to strive for scale_factors as close to 0.01 as possible without "oversaturating" the values, [CDL example description of sses_bias variable](#table9-6)) | Sensor Specific Error Statistic (SSES) bias error estimate generated by data provider. The specific SSES methodology should be described in L2P documentation from the data provider. The GHRSST ST-VAL TAG will maintain a summary document of all SSES schemes at https://www.ghrsst.org/resources/single-sensor-error-statistic-sses/ | kelvin byte |
+| **sses_standard_deviation** (See [Variable sses_standard_deviation](#section9.6), [CDL example description of sses_standard_deviation variable](#table9-7)) | SSES standard deviation uncertainty generated by data provider. The specific SSES methodology should be described in L2P documentation from the data provider. The GHRSST ST-VAL TAG will maintain a summary document of all SSES schemes at https://www.ghrsst.org/resources/single-sensor-error-statistic-sses/ | kelvin byte |
+| **dt_analysis** (See [Variable dt_analysis](#section9.7), [CDL example description of dt_analysis variable](#table9-9)) | The difference between input SST and a GHRSST L4 SST analysis from the previous 24 hour period. The GHRSST L4 analysis chosen for a given L2P data set variable should be consistent for all L2P products as far as practically possible. If no L4 analysis is available then an alternative L4 analysis or a reference mean SST climatology may be used. If storage as byte does not allow the provider to offer the full precision required for this field, storage as a short is optionally permitted though byte is preferred. | kelvin byte (or short) |
+| **wind_speed** (See [Variable wind_speed](#section9.8), [CDL example description of wind_speed variable](#table9-10)) | 10 m surface wind speed near contemporaneous to the input SST measurement from satellite or analysis. Wind speed data should be provided at a minimum resolution of 1 ms-1 and data producers shall use scale_factor and add_offset to scale data to an appropriate resolution (higher resolution is better). The difference in time between SST measurement and wind_speed data shall be recorded in the L2P variable **wind_speed_dtime_from_sst**. If all the times have the same value, then using an attribute **wind_speed:time_offset** is sufficient and the variable **wind_speed_dtime_from_sst** is not required. If multiple sources of wind speed data are used, the variable **source_of_wind_speed** shall be used to indicate their source following the format requirements shown in Section . In addition, the units of all sources used in the file shall be identical. If a unique source is used (this is recommended) the attribute ‘**wind_speed:source =** “< string defined by best practice in [GHRSST Unique Text Strings and Numeric Codes](#section7.9)>” is considered sufficient. | ms-1 byte |
+| **wind_speed_dtime_from_sst** ([Variable wind_speed_dtime_from_sst](#section9.9), [CDL example description of wind_speed_dtime_from_sst variable](#table9-11)) | Time difference of **wind_speed data** from input L2 SST measurement specified in hours. | Hours byte |
+| **source_of_wind_speed** ([Variable source_of_wind_speed](#section9.10)[CDL example description of source_of_wind_speed variable](#table9-12)) | When multiple sources of wind speed data are used in the variable **wind_speed**, the variable **source_of_wind_speed** shall be used to record the source of the wind speed data used. If a unique source of wind speed data is used (this is recommended) the variable attribute **'wind_speed:source =** "<string defined by best practice in [GHRSST Unique Text Strings and Numeric Codes](#section7.9) >" shall be sufficient and the variable **source_of_wind_speed** is not required. If the values in that single source all have the same time, then a variable level attribute **wind_speed:time_offset =** “difference time in hours” are considered sufficient and the variable **wind_speed_dtime_from_sst** is not required. | Code byte |
+| **sea_ice_fraction** ([Variable sea_ice_fraction](#section9.11), [CDL example description of sea_ice_fraction variable](#table9-13)) | Fractional Sea Ice contamination data. Ranges from 0 to 1. This field is only required if there is actually sea ice in the input L2 data set. Do not provide an array of missing data values. When multiple sources of sea ice fraction data are used in the **variable sea_ice_fraction**, the variable **source_of_sea_ice_fraction** shall be used to record the source of the sea ice fraction data used and the difference in time between SST measurement and **sea_ice_fraction** data shall be recorded in the variable **sea_ice_fraction_dtime_from_sst**. In addition, the units of all sources used in the file shall be identical. If a unique source of sea ice fraction data is used (this is recommended), the variable attribute **'sea_ice_fraction:source =** "<string defined by best practice in [GHRSST Unique Text Strings and Numeric Codes](#section7.9)>". If the values in that single source all have the same time, then a variable level attribute **sea_ice_fraction:time_offset** = “difference time in hours” are considered sufficient and the variables **source_of_sea_ice_fraction** and **sea_ice_fraction_dtime_from_sst** are not required. The variable attribute **sea_ice_fraction:sea_ice_treatment** shall specify how the sea ice information has been treated by the data provider. | Percent byte |
+| **sea_ice_fraction_dtime_from_sst** ([Variable sea_ice_fraction_dtime_from_sst](#section9.12), [CDL example description of sea_ice_fraction_dtime_from_sst variable](#table9-14)) | Time difference of **sea_ice_fraction** data from input L2 SST measurement specified in hours. This variable is mandatory when multiple sources of **sea_ice_fraction** are used. If only one source is used, simply set a variable attribute **sea_ice_fraction: time_offset** = “difference time in hours”. | Hours byte |
+| **source_of_sea_ice_fraction** ([Variable source_of_sea_ice_fraction](#section9.13), [CDL example description of source_of_sea_ice_fraction variable](#table9-15)) | When multiple sources of sea ice fraction data are used in the variable **sea_ice_fraction**, the variable **source_of_sea_ice_fraction** shall be used to record the source of the sea ice fraction data used. If a unique source of sea ice fraction data is used (this is recommended), the variable attribute **'sea_ice_fraction:source =** "<string defined by best practice in [GHRSST Unique Text Strings and Numeric Code](#section7.9)>" is sufficient and the variable **source_of_sea_ice_fraction** is not needed. | Code byte |
+| **aerosol_dynamic_indicator** ([Variable aerosol_dynamic_indicator](#section9.14), [CDL example description of aerosol_dynamic_indicator variable](#table9-16)) | The variable **aerosol_dynamic_indicator** (ADI) is used to indicate the presence of atmospheric aerosols that may cause errors in the atmospheric correction of infrared satellite data when retrieving SST. The variable **aerosol_dynamic_indicator** is mandatory only when the input SST data set has been derived from an infrared satellite instrument. The atmospheric aerosol data used to fill the variable **aerosol_dynamic_indicator** is chosen by the data provider as the most appropriate aerosol indicator for a given input SST data set. (e.g., SDI might be used for MSG SEVIRI, a view difference might be used for AATSR, and aerosol optical depth may be used from a model or another satellite system). When multiple sources of atmospheric aerosol indicator data are used in the variable **aerosol_dynamic_indicator**, the variable **source_of_adi** shall be used to record the source of the aerosol indicator data used. In addition, the units of all sources used in the file shall be identical. If a unique source of atmospheric aerosol indicator data is used (this is recommended), the variable attribute '**aerosol_dynamic_indicator:source =** "<string defined by best practice in [GHRSST Unique Text Strings and Numeric Codes](#section7.9)>" is sufficient and the variable **source_of_aerosol_dynamic_indicator** is not required. If all the times have the same value, then using an attribute **aerosol_dynamic_indicator:time_offset** is sufficient and the variable **adi_dtime_from_sst** is not required. | Scaled value byte |
+| **adi_dtime_from_sst** ([Variable adi_dtime_from_sst](#section9.15), [CDL example description of adi_dtime_from_sst variable](#table9-17)) | The time difference between the **aerosol_dynamic_indicator** value and SST measurement recorded in hours. | Hours byte |
+| **source_of_adi** ([Variable source_of_adi](#section9.16), [CDL example description of source_of_adi variable](#table9-18)) | When multiple sources of atmospheric aerosol indicator data are used in the variable **aerosol_dynamic_indicator**, the variable **source_of_adi** shall be used to record the source of the aerosol indicator data used. If a unique source of atmospheric aerosol indicator data is used (this is recommended), the variable attribute **aerosol_dynamic_indicator:source =** "<string defined by best practice in [GHRSST Unique Text Strings and Numeric Codes](#section7.9)>" is sufficient and the **variable source_of_adi** is not required. | Code byte |
+| **l2p_flags** ([Variable l2p_flags](#section9.17), [Bit field definitions for the L2P variable l2p_flags](#table9-19)) | The variable **l2p_flags** is used to (a) specify the type of input SST data (either infrared or passive microwave instrument derived), (b) pass through native flags from the input L2 SST data set and (c) record any additional information considered important for the user of an L2P data set. The variable l2p_flags is split into two sections: the first 6 bits of the L2P variable l2p_flags are generic flags that are common to all L2P data files; bits 6-15 are defined by the L2P data provider and are specific to each L2 input data stream. The tables below define the bit field and their meanings. The least significant bit (bit 0) starts on the right. <table border="1"><tr><td>**Bit**</td> <td>**Common Flags**</td></tr><tr><td>0</td><td>Passive microwave data</td></tr><tr><td>1</td><td>Land</td></tr><tr><td>2</td><td>Ice</td></tr><tr><td>3</td><td>Lake (if known)</td></tr><tr><td>4</td><td>River (if known)</td></tr><tr><td>5</td><td>Spare</td></tr></table> <br> <table border="1"><tr><td>**Bit**</td> <td>**l2p_flags definition**</td></tr><tr><td>6-15</td><td>Defined by L2 data provider <br> and described in the **flag_meanings** <br> and **flags_mask** variable attributes. <br> Please refer to L2P data provider documentation. </td></tr></table>|
+|**quality_level** ([Variable quality_level](#section9.18), [CDL example description of quality_level variable](#table9-21)) | The L2P variable **quality_level** is used to provide an overall indication of L2P data quality. The L2P variable **quality_level** will reflect CEOS QA4EO (Quality Indicator) guidelines. An incremental scale from 0 no data,1 (bad e.g. cloud, rain, to close to land – under no conditions use this data) 2 (worst quality usable data), to 5 (best quality usable data) shall be used. | Code byte |
+| Optional/experimental fields defined by data provider ([Optional experimental L2P variables included by data provider](#section9.24), [CDL template for data provider defined L2P variables](#table9-28)) | Optional/experimental data | Defined by RDAC |
 
 <a id="section9.3"></a>
 
-## 9.3 Variable sea_surface_temperature
-The variable ‘sea_surface_temperature’ contains the native unmodified L2 SST of the input data file. The ‘sea_surface_temperature’ variable shall be included in a L2P product with the format requirements shown in the table, [CDL example description of sea_surface_temperature variable](#table9-3).
+## Variable sea_surface_temperature
+The variable ‘**sea_surface_temperature**’ contains the native unmodified L2 SST of the input data file. The ‘**sea_surface_temperature**’ variable shall be included in a L2P product with the format requirements shown in the table, [CDL example description of sea_surface_temperature variable](#table9-3).
 
 <a id="table9-3"></a>
+
 #### CDL example description of sea_surface_temperature variable
 | Comments                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | Variable name definition | Description                         | Unit |
 |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------|-------------------------------------|------|
@@ -114,7 +115,7 @@ The variable ‘sea_surface_temperature’ contains the native unmodified L2 SST
 | Example CDL Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |                          |                                     |      |
 | **short sea_surface_temperature(time, nj, ni) ;<br>   sea_surface_temperature:long_name = "sea surface skin temperature" ;<br>   sea_surface_temperature:standard_name="sea_surface_skin_temperature";<br>   sea_surface_temperature:units = "kelvin" ; <br>   sea_surface_temperature:_FillValue = -32768s ;<br>   sea_surface_temperature:add_offset = 273.15f ;<br>   sea_surface_temperature:scale_factor = 0.01f ;<br> sea_surface_temperature:valid_range = -200s, 5000s ;<br>   sea_surface_temperature:coverage_content_type = "physicalMeasurement" ; <br>  sea_surface_temperature:coordinates = "lon lat" ;<br>   sea_surface_temperature:grid_mapping = "polar_stereographic" ;<br>   sea_surface_temperature:comment = “Temperature of the skin of the  ocean.”   <br> sea_surface_temperature:depth = “10 micrometers”** |                          |                                     |      |
 | Comments                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |                          |                                     |      |
-| The standard_name attribute should be CF-1.7 or later compliant as described in **[Add reference to AD-3](#AD-3)** [Add reference to Table 9-4](#table9-4). More details on standard names for SST are given in [Add reference to Table 7-3](#table7-3).                                          
+| The standard_name attribute should be CF-1.7 or later compliant as described in **[Add reference to AD-3](#AD-3)** [GHRSST short SST names and CF-1.4 standard names for sea_surface_temperature](#table9-4). More details on standard names for SST are given in [GHRSST <SST Type> code and summary table](#table7-3).                                          
 
 <a id="table9-4"></a>
 
@@ -130,9 +131,11 @@ The variable ‘sea_surface_temperature’ contains the native unmodified L2 SST
 <a id="section9.4"></a>
 
 ## Variable sst_dtime
+
 The difference in seconds from the reference time, stored in the netCDF coordinate variable time **[GDS-2.1 Data Product File Structure](#section8)**. The variable ‘**sst_dtime**’ shall be included with the format requirements shown in the table, [CDL example description of sst_dtime variable](#table9-5). Note that in L2P, the storage type is short, but for L3, the storage type is long.
 
 <a id="table9-5"></a>
+
 #### CDL example description of sst_dtime variable
 | Storage type definition                                                                                                                                                                                                                                                                                                                                                                                                                                               | Variable name definition | Description                                                             | Unit   |
 |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------|-------------------------------------------------------------------------|--------|
@@ -144,6 +147,7 @@ The difference in seconds from the reference time, stored in the netCDF coordina
 <a id="section9.5"></a>
 
 ## Variable sses_bias 
+
 Providing uncertainty estimates for each SST measurement is one of the key user requirements for GHRSST L2P SST data products. Uncertainty estimates allow users to select the accuracy level suitable for their application and to make optimum use of the SST observations (e.g. in data assimilation).
 
 The uncertainties associated with each observation in a data stream are provided as Sensor Specific Error Statistic (SSES) https://www.ghrsst.org/resources/single-sensor-error-statistic-sses/. The SSES are based on understanding the errors associated with the in-flight performance of an individual satellite instrument for the retrieval of SST from the measured radiances. The SSES are provided as a mean bias error and its associated standard deviation.
@@ -152,7 +156,7 @@ There are a variety of methods for determining SSES as they depend on the specif
 
 The SSES common principles are maintained on the GHRSST website at https://www.ghrsst.org/resources/single-sensor-error-statistic-sses/, and have been approved by the GHRSST Science Team. The L2P provider must provide documentation that summarizes the theoretical basis of their SSES scheme, its implementation, any recommendations for users, and its conformance to the agreed SSES common principles. The SSES documentation will be maintained through the GHRSST website at https://www.ghrsst.org/resources/single-sensor-error-statistic-sses/. 
 
-The variable ‘**sses_bias**’ is used to store SSES bias estimates and shall be included with the L2P format requirements shown in the table, [CDL example description of ssess_bias variable](#table9-6). Data producers are reminded to choose appropriate scale_factors and add_offsets for their data, and to strive for scale_factors as close to 0.01 as possible without “oversaturating” the values.
+The variable ‘**sses_bias**’ is used to store SSES bias estimates and shall be included with the L2P format requirements shown in the table, [CDL example description of ssess_bias variable](#table9-6). Data producers are reminded to choose appropriate **scale_factors** and **add_offsets** for their data, and to strive for **scale_factors** as close to 0.01 as possible without “oversaturating” the values.
 
 <a id="table9-6"></a>
 
@@ -168,9 +172,10 @@ The variable ‘**sses_bias**’ is used to store SSES bias estimates and shall 
 <a id="section9.6"></a>
 
 ## Variable sses_standard_deviation
+
 SSES standard deviation estimates are generated by the L2P data provider and are specific to a particular satellite instrument, and must conform to the SSES common principles. The SSES common principles are maintained on the GHRSST website at https://www.ghrsst.org/resources/single-sensor-error-statistic-sses/, and have been approved by the GHRSST Science Team. The L2P provider must provide documentation that summarises the theoretical basis of their SSES scheme, its implementation, any recommendations for users, and its conformance to the agreed SSES common principles. The SSES documentation will be maintained through the GHRSST website at https://www.ghrsst.org/resources/single-sensor-error-statistic-sses/.
 
-The variable ‘**sses_standard_deviation**’ shall be included with the format requirements shown in the table, [CDL example description of sses_standard_deviation variable](#table9-7). Data producers are reminded to choose appropriate scale_factors and add_offsets for their data, and to strive for scale_factors as close to 0.01 as possible without “oversaturating” the values.
+The variable ‘**sses_standard_deviation**’ shall be included with the format requirements shown in the table, [CDL example description of sses_standard_deviation variable](#table9-7). Data producers are reminded to choose appropriate **scale_factors** and **add_offsets** for their data, and to strive for **scale_factors** as close to 0.01 as possible without “oversaturating” the values.
 
 <a id="table9-7"></a>
 #### CDL example description of sses_standard_deviation variable
@@ -184,22 +189,21 @@ The variable ‘**sses_standard_deviation**’ shall be included with the format
 
 <a id="section9.7"></a>
 
-
 ## Variable dt_analysis
 The L2P variable **dt_analysis** is the temperature difference between an input L2 SST measurement and a reference SST L4 analysis data set. **dt_analysis** may be used to indicate potential areas of diurnal variability or gross outliers in the L2 input SST measurement data set by looking for large deviations from the previous analysis SST data. Note that **dt_analysis** is an indicator field and the temperature anomalies may be difficult to interpret in regions of high SST gradients. Furthermore, interpretation requires a good understanding of the strengths and weaknesses (e.g. space and time de-correlations) of the chosen reference L4 analysis system. 
 
 The GDS-2.1 specifies the following:
 
-  **dt_analysis** shall be derived using:
+> **dt_analysis** shall be derived using:
+
 <a id="equation9-1"></a>
-
-##### dt_analysis equation 
-
-dt_analysis = SST<sub>input</sub> – L4<sub>SST</sub>
-
-Where SST<sub>input</sub> is the input satellite L2 measurement and L4<sub>SST</sub> is a previous day analysis from a GHRSST L4 System selected by the data provider. If a previous analysis SSTfnd data file is not available for use in [dt_analysis equation](#equation9-1), then a mean reference SST or climatology should be used in its place as defined in the table, [Reference SST data sets for use in dt_analysis computationTable 9-8](#table9-8).
-
-The **dt_analysis** value shall be inserted into the **dt_analysis** field of the L2P product for the pixel in question as described in [CDL example description of dt_analysis variable](#table9-9)
+> #### dt_analysis equation
+> dt_analysis = SST<sub>input</sub> – L4<sub>SST</sub>
+<br>
+> Where SST<sub>input</sub> is the input satellite L2 measurement and L4<sub>SST</sub> is a previous day analysis from a GHRSST L4 System selected by the data provider. If a previous analysis SSTfnd data file is not available for use in [dt_analysis equation](#equation9-1), then a mean reference SST or climatology should be used in its place as defined in the table, [Reference SST data sets for use in dt_analysis computation](#table9-8).
+<br>
+> The **dt_analysis** value shall be inserted into the **dt_analysis** field of the L2P product for the pixel in question as described in [CDL example description of dt_analysis variable](#table9-9)
+<br>
 
 <a id="table9-8"></a>
 #### Reference SST data sets for use in dt_analysis computation
@@ -207,6 +211,7 @@ The **dt_analysis** value shall be inserted into the **dt_analysis** field of th
 |---------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------|
 | Use code from L4 analysis | The mean SSTfnd computed for a n- day period. This product is computed from data provider SSTfnd data products in real time each day             | https://www.ghrsst.org/ghrsst-data-services/ghrsst-catalogue/          |
 | GMPE_GLOBAL               | Daily, 25 km median average SST and sea ice product created using 10 operational SST analysis products from operational centres around the world | https://ghrsst-pp.metoffice.gov.uk/ostia-website/gmpe-monitoring.html  |
+<br>
 
 <a id="table9-9"></a>
 
@@ -215,31 +220,32 @@ The **dt_analysis** value shall be inserted into the **dt_analysis** field of th
 |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|------|
 | Byte or short                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | **dt_analysis**              | Deviation from previous day (T-1) L4 SSTfnd analysis as defined in the table, [Reference SST data sets for use in dt_analysis computation](#table9-8). If no analysis is available, the reference mean SST climatology should be used as defined in the table, [Reference SST data sets for use in dt_analysis computation](#table9-8) | K    |
 | Example CDL Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |                          |                                                                                                                                                                    |      |
-|  byte dt_analysis (time, nj, ni) ;   dt_analysis:long_name = "Deviation from last SST analysis" ;   dt_analysis:units = "kelvin" ;   dt_analysis:_FillValue = -128b ;   dt_analysis:add_offset = 0.0f ;   dt_analysis:scale_factor = 0.1f ;   dt_analysis:valid_range = -127b, 127b ;   dt_analysis:coverage_content_type = "auxiliaryInformation" ;   dt_analysis:coordinates = "lon lat" ;   dt_analysis:grid_mapping = "polar_stereographic" ;   dt_analysis:reference = "UKMO-L4HRfnd-GLOB-OSTIA" ;   dt_analysis:comment = “The difference between this SST and the previous day’s SST.” |                          |                                                                                                                                                                    |      |
+|  **byte dt_analysis (time, nj, ni) ;   dt_analysis:long_name = "Deviation from last SST analysis" ;   dt_analysis:units = "kelvin" ;   dt_analysis:_FillValue = -128b ;   dt_analysis:add_offset = 0.0f ;   dt_analysis:scale_factor = 0.1f ;   dt_analysis:valid_range = -127b, 127b ;   dt_analysis:coverage_content_type = "auxiliaryInformation" ;   dt_analysis:coordinates = "lon lat" ;   dt_analysis:grid_mapping = "polar_stereographic" ;   dt_analysis:reference = "UKMO-L4HRfnd-GLOB-OSTIA" ;   dt_analysis:comment = “The difference between this SST and the previous day’s SST.”** |                          |                                                                                                                                                                    |      |
 | Comments                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |                          |                                                                                                                                                                    |      |
-| The reference variable attribute should be used to specify the analysis or climatology used to compute dt_analysis as shown in the example above following the guidelines in the table [Reference SST data sets for use in dt_analysis computation](#table9-8) and **[Add reference to Table/Section 7.9](#section7.9)**.                                                                                                                                                                                                                                                                                                                                                                                                           |                          |                                                                                                                                                                    |      |
+| The reference variable attribute should be used to specify the analysis or climatology used to compute dt_analysis as shown in the example above following the guidelines in the table [Reference SST data sets for use in dt_analysis computation](#table9-8) and [GHRSST Unique String Texts and Numeric Codes](#section7.9).                                                                                                                                                                                                                                                                                                                                                                                                           |                          |                                                                                                                                                                    |      |
+<br>
 
 <a id="section9.8"></a>
- 
+
 ## Variable wind_speed
 The L2P variable **wind_speed** contains a best estimate of the **10m surface wind speed, ideally at the time of SST data acquisition** (although this is rarely possible). Wind speed measurements are required within the GDS as an indicator of the turbulent state of the air sea interface to interpret the relationship between satellite and subsurface SST data and assess the severity of any skin SST temperature deviation, thermal stratification and for use in diurnal variability adjustment schemes. At low wind speeds, especially in clear sky conditions, stronger diurnal variability is expected leading to higher surface layer temperature gradients and the potential for significant de-coupling of the skin/sub-skin SST from the SST at depth.
 
 Ideally a near contemporaneous wind speed measurement from satellite sensors should be used but this is impossible for all sensors due to the limited number of satellite wind speed sensors available. As a surrogate for a measured wind speed value, analysis product estimates (e.g., from numerical weather prediction models) may be used as an indication of the surface wind speed. The GDS specifies the following rules:
-
-A 10m surface wind speed value assigned to each SST measurement pixel using the variable **‘wind_speed’**. The following criteria shall apply:
-
-- Simultaneous microwave 10m wind speed measurements obtained from the same instrument providing the SST measurement shall be used when available to set the L2P confidence data variable **wind_speed**.
-
-- In the absence of a simultaneous surface wind speed measurement, an analysis product estimated 10m surface wind speed shall be used to set the L2P variable wind_speed.
-
-The difference in time expressed in hours between the time of SST measurement and the time of wind speed data should be entered into the L2P confidence data variable **wind_speed_dtime_from_sst** as described in [Variable wine_speed_dtime_from_sst](#Section 9.9). In the case of an analysis field, this should be the central (mean) time of an integrated value. If all of the wind speeds have a single time value, as in the case of an analysis or model that gives the wind speeds at an instant in time, then the **wind_speed_dtime_from_sst** variable is not needed and instead a variable level attribute named **time_offset** is used. The attribute **time_offset** should store the difference in hours between the **wind_speed** and the reference time, stored in the variable **time**.
-
-If a single source of data is used in the L2P variable **wind_speed**, the L2P variable **source_of_wind_speed** is not required and the **wind_speed:source** attribute value is sufficient. In that case, it shall be a single source text string defined by the data provider using the text string naming best practice given in [GHRSS Unique Text Strings and Numeric Codes](#section7.9).
-
-If multiple sources of data are used, source information should be indicated in the L2P variable **source_of_wind_speed** as defined by the data provider and as described in detail in [Variable source_of_wind_speed](#Section 9.10), and the **wind_speed:source** attribute shall have the value **"source_of_wind_speed"**. In addition, the units of all sources used in the file shall be identical.
-
-The GDS L2P variable wind_speed shall be included in GDS-2.1 L2P products with the format requirements shown in the table, [CDL example description of wind_speed variable](#table9-9).
-
+<br>
+> A 10m surface wind speed value assigned to each SST measurement pixel using the variable **‘wind_speed’**. The following criteria shall apply:
+<br>
+>> Simultaneous microwave 10m wind speed measurements obtained from the same instrument providing the SST measurement shall be used when available to set the L2P confidence data variable **wind_speed**.
+<br>
+>> In the absence of a simultaneous surface wind speed measurement, an analysis product estimated 10m surface wind speed shall be used to set the L2P variable **wind_speed**.
+<br>
+> The difference in time expressed in hours between the time of SST measurement and the time of wind speed data should be entered into the L2P confidence data variable **wind_speed_dtime_from_sst** as described in [Variable wine_speed_dtime_from_sst](#Section 9.9). In the case of an analysis field, this should be the central (mean) time of an integrated value. If all of the wind speeds have a single time value, as in the case of an analysis or model that gives the wind speeds at an instant in time, then the **wind_speed_dtime_from_sst** variable is not needed and instead a variable level attribute named **time_offset** is used. The attribute **time_offset** should store the difference in hours between the **wind_speed** and the reference time, stored in the variable **time**.
+<br>
+> If a single source of data is used in the L2P variable **wind_speed**, the L2P variable **source_of_wind_speed** is not required and the **wind_speed:source** attribute value is sufficient. In that case, it shall be a single source text string defined by the data provider using the text string naming best practice given in [GHRSST Unique Text Strings and Numeric Codes](#section7.9).
+<br>
+> If multiple sources of data are used, source information should be indicated in the L2P variable **source_of_wind_speed** as defined by the data provider and as described in detail in [Variable source_of_wind_speed](#Section 9.10), and the **wind_speed:source** attribute shall have the value **"source_of_wind_speed"**. In addition, the units of all sources used in the file shall be identical.
+<br>
+> The GDS L2P variable **wind_speed** shall be included in GDS-2.1 L2P products with the format requirements shown in the table, [CDL example description of wind_speed variable](#table9-9).
+<br>
 <a id="table9-9"></a>
 #### CDL example description of wind_speed variable
 | Storage type definition                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Variable name definition | Description                                                                | Unit  |
@@ -272,9 +278,7 @@ The variable **wind_speed_dtime_from_sst** reports the time difference between w
 The source of data used to set the L2P ancillary data variable **wind_speed** shall be indicated in the L2P variable **source_of_wind_speed** when more than one source of wind speed data is used in the L2P product. When only one source is used, this variable is not needed and the appropriate text string indicating the source is placed in the **source** attribute of the **wind_speed** variable. For multiple sources, the GDS-2.1 requires the following:
 
 - The variable in question should contain an attribute called **flag_meanings** and another one called **flag_values**. The **flag_values** attribute shall contain a comma-separated list of the numeric codes for the sources of data used whose order matches the comma-separated text strings in the **flag_meanings** attribute.
-
 - These text strings and numeric codes do not need to be unique across different data sets or even ancillary variables, but must be consistent within a given variable and clearly specified within each netCDF variable and its attributes. A best practice for naming the text strings in provided in [GHRSST Unique Text Strings and Numeric Codes](#Section 7.9).
-
 - The variable **‘source_of_wind_speed’** shall conform to the format requirements shown in the table, [CDL example description of wind_speed_dtime_from_sst variable](#table9-11).
 
 <a id="table9-12"></a>
@@ -293,27 +297,27 @@ The source of data used to set the L2P ancillary data variable **wind_speed** sh
 ## Variable sea_ice_fraction 
 Some SST data are contaminated in part or wholly by sea ice and the L2P variable **sea_ice_fraction** is used to quantify the fraction of an area contaminated with sea ice. Some input SST data streams provide a flag to indicate that the SST measurement is contaminated by sea ice (e.g., AMSR-E). The GDS-2.1 specifies the following rules:
 
-- If an input data set pixel fractional sea ice estimate exists, this should be used to in the L2P variable **sea_ice_fraction** as described in the table, [CDL example description of source_of_wind_speed variable](#table9-12).
-
-- Best practice suggests that one should approach the issue in the following way. If an input data set pixel sea ice flag does not exist, and the pixel is located in or close to a region that may be ice contaminated, a reference sea ice data set defined should be used to determine the value of the L2P confidence flag **sea_ice_fraction**.
-
-- If an input data set pixel sea ice **flag** exists (i.e. indicating sea ice but not the fractional amount of coverage), this should be used to set the L2P variable **sea_ice_fraction** to 1. 
-
-- If the SST input data set includes a sea ice flag in the data stream, bit 3 of the L2P confidence data variable **l2p_flag** should be set for this pixel as described in [Variable l2p_flags](#section9.17).
-
-The difference in time expressed in hours between the time of SST measurement and the time of sea ice fraction measurement should be entered into the L2P variable **sea_ice_fraction_dtime_from_sst** as described in [Variable sea_ice_fraction_dtime_from_sst](#Section 9.12). In the case of an analysis field, this should be the central (mean) time of an integrated value. If all of the ice observations have a single time value, as in the case of an analysis or model that gives the sea ice values at an instant in time, then the **sea_ice_fraction_dtime_from_sst** variable is not needed and instead a variable level attribute named **time_offset** is used. The attribute **time_offset** should store the difference in hours between the **sea_ice_fraction** and the reference time, stored in the variable **time**.
-
-If a single source of data is used in the L2P variable **sea_ice_fraction**, the L2P variable **source_of_sea_ice_fraction** is not required and instead the **sea_ice_fraction:source** attribute value is sufficient. It shall be a single source text string defined by the data provider using the text string naming best practice given in [GHRSST Unique Text Strings and Numeric Codes](#Section 7.9). 
-
-If multiple sources of data are used, source information should be indicated in the L2P variable **source_of_sea_ice_fraction** as defined by the data provider and as described in detail in [Variable source_of_sea_ice_fraction](#Section 9.13), and the **sea_ice_fraction:source** attribute shall have the value **"source_of_sea_ice_fraction"**. In addition, the units of all sources used in the file shall be identical.
-
-The variable attribute **sea_ice_fraction:sea_ice_treatment** shall specify how the sea ice information has been treated by the data provider. Valid options are: "Use unmodified (one source)”, “use unmodified (multiple ice sources)”, or “modified using onboard sensors"
-
-The variable **sea_ice_fraction** will be included with the format requirements shown in [CDL example description of source_of_wind_speed variable](#table9-12).
+> If an input data set pixel fractional sea ice estimate exists, this should be used to in the L2P variable **sea_ice_fraction** as described in the table, [CDL example description of source_of_wind_speed variable](#table9-12).
+<br>
+> Best practice suggests that one should approach the issue in the following way. If an input data set pixel sea ice flag does not exist, and the pixel is located in or close to a region that may be ice contaminated, a reference sea ice data set defined should be used to determine the value of the L2P confidence flag **sea_ice_fraction**.
+<br>
+> If an input data set pixel sea ice **flag** exists (i.e. indicating sea ice but not the fractional amount of coverage), this should be used to set the L2P variable **sea_ice_fraction** to 1.
+<br>
+> If the SST input data set includes a sea ice flag in the data stream, bit 3 of the L2P confidence data variable **l2p_flag** should be set for this pixel as described in [Variable l2p_flags](#section9.17).
+<br>
+> The difference in time expressed in hours between the time of SST measurement and the time of sea ice fraction measurement should be entered into the L2P variable **sea_ice_fraction_dtime_from_sst** as described in [Variable sea_ice_fraction_dtime_from_sst](#section9.12). In the case of an analysis field, this should be the central (mean) time of an integrated value. If all of the ice observations have a single time value, as in the case of an analysis or model that gives the sea ice values at an instant in time, then the **sea_ice_fraction_dtime_from_sst** variable is not needed and instead a variable level attribute named **time_offset** is used. The attribute **time_offset** should store the difference in hours between the **sea_ice_fraction** and the reference time, stored in the variable **time**.
+<br>
+> If a single source of data is used in the L2P variable **sea_ice_fraction**, the L2P variable **source_of_sea_ice_fraction** is not required and instead the **sea_ice_fraction:source** attribute value is sufficient. It shall be a single source text string defined by the data provider using the text string naming best practice given in [GHRSST Unique Text Strings and Numeric Codes](#Section7.9). 
+<br>
+> If multiple sources of data are used, source information should be indicated in the L2P variable **source_of_sea_ice_fraction** as defined by the data provider and as described in detail in [Variable source_of_sea_ice_fraction](#Section9.13), and the **sea_ice_fraction:source** attribute shall have the value **"source_of_sea_ice_fraction"**. In addition, the units of all sources used in the file shall be identical.
+<br>
+> The variable attribute **sea_ice_fraction:sea_ice_treatment** shall specify how the sea ice information has been treated by the data provider. Valid options are: "Use unmodified (one source)”, “use unmodified (multiple ice sources)”, or “modified using onboard sensors"
+<br>
+> The variable **sea_ice_fraction** will be included with the format requirements shown in [CDL example description of sea_ice_fraction variable](#table9-13).
 
 <a id="table9-13"></a>
 
-#### CDL example description of source_of_wind_speed variable
+#### CDL example description of sea_ice_fraction variable
 
 | Storage type definition                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Variable name definition | Description                                                               | Unit      |
 |---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------|---------------------------------------------------------------------------|-----------|
@@ -327,7 +331,7 @@ The variable **sea_ice_fraction** will be included with the format requirements 
 
 ## Variable sea_ice_fraction_dtime_from_sst
 
-The variable **sea_ice_fraction_dtime_from_sst** reports the time difference between sea ice fraction data from SST measurement in hours. The variable **sea_ice_fraction_dtime_from_sst** shall be included with the format requirements shown in [Table 9-13](#table9-13). In the case of an analysis field, this should be the central (mean) time of an integrated value. If all of the values are the same, this variable is not required. Instead, use the variable level attribute named **time_offset** with the variable **sea_ice_fraction**. The attribute **time_offset** should store the difference in hours between the sea_ice_fraction and the reference time, stored in the variable **time**.
+The variable **sea_ice_fraction_dtime_from_sst** reports the time difference between sea ice fraction data from SST measurement in hours. The variable **sea_ice_fraction_dtime_from_sst** shall be included with the format requirements shown in [CDL example description of sea_ice_fraction_dtime_from_sst variable](#table9-14). In the case of an analysis field, this should be the central (mean) time of an integrated value. If all of the values are the same, this variable is not required. Instead, use the variable level attribute named **time_offset** with the variable **sea_ice_fraction**. The attribute **time_offset** should store the difference in hours between the sea_ice_fraction and the reference time, stored in the variable **time**.
 
 <a id="table9-14"></a>
 
@@ -347,11 +351,11 @@ The variable **sea_ice_fraction_dtime_from_sst** reports the time difference bet
 
 ## Variable source_of_sea_ice_fraction
 
-The source of data used to set the L2P ancillary data variable sea_ice_fraction shall be indicated in the L2P variable source_of_sea_ice_fraction when more than one source of sea ice fraction data is used in the L2P product. When only one source is used, this variable is not needed and the appropriate text string indicating the source is placed in the source attribute of the sea_ice_fraction variable. For multiple sources, the GDS-2.1 requires the following:
+The source of data used to set the L2P ancillary data variable **sea_ice_fraction** shall be indicated in the L2P variable **source_of_sea_ice_fraction** when more than one source of sea ice fraction data is used in the L2P product. When only one source is used, this variable is not needed and the appropriate text string indicating the source is placed in the source attribute of the **sea_ice_fraction** variable. For multiple sources, the GDS-2.1 requires the following:
 
-- The variable in question should contain an attribute called flag_meanings and another one called flag_values. The flag_values attribute shall contain a comma-separated list of the numeric codes for the sources of data used whose order matches the comma-separated text strings in the flag_meanings attribute.
-- These text strings and numeric codes do not need to be unique across different data sets or even ancillary variables, but must be consistent within a given variable and clearly specified within each netCDF variable and its attributes. A best practice for naming the text strings in provided in [GHRSST Unique Text Strings and Numeric Codes](#section7.9).
-- The variable ‘**source_of_sea_ice_fraction**’ shall conform to the format requirements shown in the table [CDL example description of source_of_sea_ice_fraction variable](#table9-15).
+> The variable in question should contain an attribute called flag_meanings and another one called **flag_values**. The **flag_values** attribute shall contain a comma-separated list of the numeric codes for the sources of data used whose order matches the comma-separated text strings in the **flag_meanings** attribute.
+> These text strings and numeric codes do not need to be unique across different data sets or even ancillary variables, but must be consistent within a given variable and clearly specified within each netCDF variable and its attributes. A best practice for naming the text strings in provided in [GHRSST Unique Text Strings and Numeric Codes](#section7.9).
+> The variable ‘**source_of_sea_ice_fraction**’ shall conform to the format requirements shown in the table [CDL example description of source_of_sea_ice_fraction variable](#table9-15).
 
 <a id="table9-15"></a>
 
@@ -368,16 +372,16 @@ The source of data used to set the L2P ancillary data variable sea_ice_fraction 
 
 <a id="section9.14"></a>
 
-# Variable aerosol_dynamic_indicator
+## Variable aerosol_dynamic_indicator
 
 The L2P variable **aerosol_dynamic_indicator** contains an indicator of potential atmospheric aerosol contamination of infrared satellite SST data. Infrared-absorbing atmospheric aerosols are a major source of error in satellite-derived sea surface temperature retrievals. Atmospheric aerosol, such as Saharan dust outbreaks, volcanic eruptions or from coastal mega cities causes errors in the atmospheric correction of top of the atmosphere radiances when retrieving SST from infrared and visible band data sets.  A systematic bias in the tropical North Atlantic Ocean and Arabian Sea due to desert dust outflows in those regions is apparent. The GDS requires the following:
 
-- An aerosol indicator (e.g., derived from satellite measurements or models) value is assigned to the L2P variable ‘**aerosol_dynamic_indicator**’ for each corresponding infrared retrieved SST measurement pixel using data chosen by the data provider to indicate aerosol contamination. The aerosol indicator data nearest in space and time to the input pixel SST value should be used.
-- In the case of microwave SST measurements there is no requirement to include the **aerosol_dynamic_indicator** L2P variable as MW SST retrievals are not affected by atmospheric aerosols. However, MW SST data providers may include **aerosol_dynamic_indicator** in an L2P product.
-- If a single source of data is used in the L2P variable **aerosol_dynamic_indicator**, the L2P variable source_of_adi is not required and instead the **aerosol_dynamic_indicator**:source attribute value is sufficient. It shall be a single source text string defined by the data provider using the text string naming best practice given in [GHRSST Unique String Texts and Numeric Codes](#Section7.9). If all the times have the same value, then using an attribute **aerosol_dynamic_indicator:time_offset** is sufficient and the variable **adi_dtime_from_sst** is not required.
-- If multiple sources of ADI information are used then, the **aerosol_dynamic_indicator**:source attribute shall have the value "**source_of_adi**". In addition, the units of all sources used in the file shall be identical.
-- The difference in time expressed in hours between the time of SST measurement and the time of aerosol indicator data should be entered into the L2P variable **adi_dtime_from_sst** as described in [Variable adi_dtime_from_sst] (#Section9.15). In the case of an analysis field, this should be the central (mean) time of an integrated value.
-- If the variable ‘**aerosol_dynamic_indicator**’ is provided in an L2P product, it shall be included with the format requirements shown in the table [CDL example description of aerosol_dynamic_indicator variable](#table9-16).
+> An aerosol indicator (e.g., derived from satellite measurements or models) value is assigned to the L2P variable ‘**aerosol_dynamic_indicator**’ for each corresponding infrared retrieved SST measurement pixel using data chosen by the data provider to indicate aerosol contamination. The aerosol indicator data nearest in space and time to the input pixel SST value should be used.
+> In the case of microwave SST measurements there is no requirement to include the **aerosol_dynamic_indicator** L2P variable as MW SST retrievals are not affected by atmospheric aerosols. However, MW SST data providers may include **aerosol_dynamic_indicator** in an L2P product.
+> If a single source of data is used in the L2P variable **aerosol_dynamic_indicator**, the L2P variable source_of_adi is not required and instead the **aerosol_dynamic_indicator**:source attribute value is sufficient. It shall be a single source text string defined by the data provider using the text string naming best practice given in [GHRSST Unique String Texts and Numeric Codes](#Section7.9). If all the times have the same value, then using an attribute **aerosol_dynamic_indicator:time_offset** is sufficient and the variable **adi_dtime_from_sst** is not required.
+> If multiple sources of ADI information are used then, the **aerosol_dynamic_indicator**:source attribute shall have the value "**source_of_adi**". In addition, the units of all sources used in the file shall be identical.
+> The difference in time expressed in hours between the time of SST measurement and the time of aerosol indicator data should be entered into the L2P variable **adi_dtime_from_sst** as described in [Variable adi_dtime_from_sst] (#Section9.15). In the case of an analysis field, this should be the central (mean) time of an integrated value.
+> If the variable ‘**aerosol_dynamic_indicator**’ is provided in an L2P product, it shall be included with the format requirements shown in the table [CDL example description of aerosol_dynamic_indicator variable](#table9-16).
 
 <a id="table9-16"></a>
 
@@ -395,9 +399,9 @@ The L2P variable **aerosol_dynamic_indicator** contains an indicator of potentia
 
 <a id="section9.15"></a>
 
-# Variable adi_dtime_from_sst
+## Variable adi_dtime_from_sst
 
-The variable adi_dtime_from_sst reports the time difference between aerosol indicator data from input L2 SST measurement in hours. The variable ‘**adi_dtime_from_sst**’ shall be included in L2P products with the format requirements shown in the table [CDL example description of adi_dtime_from_sst variable](#section9-17). In the case of an analysis field, this should be the central (mean) time of an integrated value. If all of the values are the same, this variable is not required. Instead, use the variable level attribute named **time_offset** with the variable **aerosol_dynamic_indicator**.
+The variable adi_dtime_from_sst reports the time difference between aerosol indicator data from input L2 SST measurement in hours. The variable ‘**adi_dtime_from_sst**’ shall be included in L2P products with the format requirements shown in the table [CDL example description of adi_dtime_from_sst variable](#section9.17). In the case of an analysis field, this should be the central (mean) time of an integrated value. If all of the values are the same, this variable is not required. Instead, use the variable level attribute named **time_offset** with the variable **aerosol_dynamic_indicator**.
 
 <a id="table9-17"></a>
 
@@ -414,7 +418,7 @@ The variable adi_dtime_from_sst reports the time difference between aerosol indi
 
 <a id="section9.15"></a>
 
-# Variable adi_dtime_from_sst
+## Variable adi_dtime_from_sst
 
 The variable adi_dtime_from_sst reports the time difference between aerosol indicator data from input L2 SST measurement in hours. The variable ‘**adi_dtime_from_sst**’ shall be included in L2P products with the format requirements shown in the table [CDL example description of adi_dtime_from_sst variable](#section9-17). In the case of an analysis field, this should be the central (mean) time of an integrated value. If all of the values are the same, this variable is not required. Instead, use the variable level attribute named **time_offset** with the variable **aerosol_dynamic_indicator**.
 
@@ -432,13 +436,13 @@ The variable adi_dtime_from_sst reports the time difference between aerosol indi
 
 <a id="section9.16"></a>
 
-# Variable source_of_adi
+## Variable source_of_adi
 
 The source of data used to set the L2P ancillary data variable **aerosol_dynamic_indicator** shall be indicated in the L2P variable **source_of_adi** when more than one source of SSI data is used in the L2P product. When only one source is used, this variable is not needed and the appropriate text string indicating the source is placed in the sources attribute of the **aerosol_dynamic_indicator** variable. For multiple sources, the GDS-2.1 requires the following:
 
-- The variable in question should contain an attribute called **flag_meanings** and another one called **flag_values**. The **flag_values** attribute shall contain a comma-separated list of the numeric codes for the sources of data used whose order matches the comma-separated text strings in the **flag_meanings** attribute.
-- These text strings and numeric codes do not need to be unique across different data sets or even ancillary variables, but must be consistent within a given variable and clearly specified within each netCDF variable and its attributes. A best practice for naming the text strings in provided in [GHRSST Unique String Texts and Numeric Codes](#Section7.9).
-- The variable ‘**source_of_adi**’ shall conform to the with the format requirements shown in the table [CDL example description of source_of_adi variable](#table9-18).
+> The variable in question should contain an attribute called **flag_meanings** and another one called **flag_values**. The **flag_values** attribute shall contain a comma-separated list of the numeric codes for the sources of data used whose order matches the comma-separated text strings in the **flag_meanings** attribute.
+> These text strings and numeric codes do not need to be unique across different data sets or even ancillary variables, but must be consistent within a given variable and clearly specified within each netCDF variable and its attributes. A best practice for naming the text strings in provided in [GHRSST Unique String Texts and Numeric Codes](#Section7.9).
+> The variable ‘**source_of_adi**’ shall conform to the with the format requirements shown in the table [CDL example description of source_of_adi variable](#table9-18).
 
 <a id="table9-18"></a>
 
@@ -455,7 +459,7 @@ The source of data used to set the L2P ancillary data variable **aerosol_dynamic
 
 <a id="section9.17"></a>
 
-# Variable l2p_flags
+## Variable l2p_flags
 
 The GDS-2.1 L2P variable l2p_flags is used to 
 
@@ -463,9 +467,9 @@ The GDS-2.1 L2P variable l2p_flags is used to
 - Pass through native flags from the input L2 SST data set and
 - Record any additional information considered important for the user of an L2P data set.
 
-The variable l2p_flags is split into two sections:
+The variable **l2p_flags** is split into two sections:
 
-- The first 6 bits of the L2P variable l2p_flags are generic flags that are common to all L2P data files as defined in the table [Bit field definitions for the L2P variable l2p_flags](#table9-19)
+- The first 6 bits of the L2P variable **l2p_flags** are generic flags that are common to all L2P data files as defined in the table [Bit field definitions for the L2P variable l2p_flags](#table9-19)
 - Bits 6-15 are defined by the L2P data provider and are specific to each L2 input data stream
 
 <a id="table9-19></a> 
@@ -488,37 +492,32 @@ The L2P variable **l2p_flags** holds Boolean (single bit) codes detailed in its 
 
 The **flag_meanings**, **flag_masks**, and (optionally) **flag_values** attributes are used in the following manner:
 
-- The **flag_meanings** attribute shall contain a space-separated list of (string) descriptions for each distinct flag value. For descriptions containing multiple words, the words shall be linked by underscores.
-- The **flag_masks** attribute shall contain a comma-separated list of (numeric) mask values that isolate the bit or bits that encode each flag value, whose order matches that of the **flag_meanings** values. It is recommended not to use the **_FillValue** attribute when **flag_masks** attribute is used as it is prone to misinterpretation of the bit mask.
-- The **flag_values** in combination with **flag_masks** attribute shall contain a comma-separated list of masked numeric flag values, whose order matches that of the **flag_meanings** values. Not recommended (only **flag_masks** and **flag_meanings** are preferred).
+> The **flag_meanings** attribute shall contain a space-separated list of (string) descriptions for each distinct flag value. For descriptions containing multiple words, the words shall be linked by underscores.
+> The **flag_masks** attribute shall contain a comma-separated list of (numeric) mask values that isolate the bit or bits that encode each flag value, whose order matches that of the **flag_meanings** values. It is recommended not to use the **_FillValue** attribute when **flag_masks** attribute is used as it is prone to misinterpretation of the bit mask.
+> The **flag_values** in combination with **flag_masks** attribute shall contain a comma-separated list of masked numeric flag values, whose order matches that of the **flag_meanings** values. Not recommended (only **flag_masks** and **flag_meanings** are preferred).
 
 Bit 0 of the L2P **l2p_flags** is used to record if an input pixel SST is derived from an infrared satellite sensor or a passive microwave sensor. The GDS-2.1 specifies the following:
-
-- If an input pixel is derived from a passive microwave sensor, bit 0 of the L2P **l2p_flags** variable should be set to 1. By not setting this flag the pixel is assumed to be from an infrared sensor.
+> If an input pixel is derived from a passive microwave sensor, bit 0 of the L2P **l2p_flags** variable should be set to 1. By not setting this flag the pixel is assumed to be from an infrared sensor.
 
 Bit 1 of the L2P l2p_flags variable is used to record if an input pixel is over land or ocean surfaces. The GDS specifies the following:
-
-- If an input pixel is classified as land covered bit 1 of the L2P l2p_flags variable should be set to equal 1. By not setting this flag the pixel is assumed to be classified as over ocean.
+> If an input pixel is classified as land covered bit 1 of the L2P l2p_flags variable should be set to equal 1. By not setting this flag the pixel is assumed to be classified as over ocean.
 
 Bit 2 of the L2P l2p_flags variable is used to record if an input pixel records ice contamination. The GDS specifies the following rules:
-
-- If an input pixel is classified as ice contaminated bit 2 of the L2P l2p_flags variable should be set to 1.
+> If an input pixel is classified as ice contaminated bit 2 of the L2P l2p_flags variable should be set to 1.
 
 Bit 3 of the L2P l2p_flags variable is used to record if an input pixel contains any part of a lake, as defined by the GHRSST definition of lakes (mask). The GDS specifies the following:
-
-- If an input pixel contains any part of a lake, as defined by the GHRSST definition of lakes (mask), bit 3 of the L2P l2p_flags variable should be set to 1.
+> If an input pixel contains any part of a lake, as defined by the GHRSST definition of lakes (mask), bit 3 of the L2P l2p_flags variable should be set to 1.
 
 Bit 4 of the L2P l2p_flags variable is optionally used to record if an input pixel contains any part of a river, as defined by the GHRSST definition of rivers (mask). The GDS specifies the following:
-
-- If an input pixel contains any part of a river, as defined by the GHRSST definition of rivers (mask), bit 4 of the L2P l2p_flags variable should be set to 1.
+> If an input pixel contains any part of a river, as defined by the GHRSST definition of rivers (mask), bit 4 of the L2P l2p_flags variable should be set to 1.
 
 Flags or other information provided with the input L2 SST data should be defined and assigned to the l2p_flags variable using bits 6-15 of the L2P variable l2p_flags. It is recommended to use single bits for any information, no combination of multiple bits. If that is not possible, then an additional experimental byte field should be used instead. Definitions for bits 6-15, if used, should be given using the variable comment attribute.
 
 The L2P variable ‘l2p_flags ’ shall be included in GDS-2.1 L2P data files with the format requirements shown in the table [CDL example description of l2p_flags variable](#table9-20). 
 
-<a id="table9-18"></a>
+<a id="table9-20"></a>
 
-#### CDL example description of source_of_adi variable
+#### CDL example description of l2p_flags variable
 
 | Storage type definition                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Variable name definition | Description                  | Unit |
 |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------|------------------------------|------|
@@ -528,84 +527,9 @@ The L2P variable ‘l2p_flags ’ shall be included in GDS-2.1 L2P data files wi
 | Comments                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |                          |                              |      |
 |The meaning of each bit of the L2P variable l2p_flags shall be detailed in its flag_meanings and flag_masks attributes <br> b0:1 = passive microwave source data; <br> b1:1 = land surface; <br> b2:1 = ice contamination; <br> b3:1 = input data over lake surface; <br> b4:1 = input data over river; <br> b5:   spare (not presently used); <br> b6:b15 set by the data provider. In this example bit b6 flags sun glint and bits b7:b10 are used to enumerate an SST algorithm type. <br> For this variable there is no _FillValue attribute.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |                          |                              |      |
 
-
-<a id="section9.17"></a>
-
-# Variable l2p_flags
-
-The GDS-2.1 L2P variable **l2p_flags** is used to
-- Specify the type of input SST data (either infrared or passive microwave instrument derived),
-- Pass through native flags from the input L2 SST data set and
-- Record any additional information considered important for the user of an L2P data set.
-
-The variable **l2p_flags** is split into two sections:
-- The first 6 bits of the L2P variable **l2p_flags** are generic flags that are common to all L2P data files as defined in the table [Bit field definitions for the L2P variable l2p_flags](#table9-19),
-- Bits 6-15 are defined by the L2P data provider and are specific to each L2 input data stream.
-
-<a id="table9-19"></a>
-
-#### Bit field definitions for the L2P variable l2p_flags
-
-| Bit       | Common flags         | 
-|-----------|---------------------------------------------------------------------|
-|   0       | Set if passive microwave data (not set is assumed to be infrared) |
-|   1       | Set if over land (not set is assumed to be ocean) |
-|   2       | Set if pixel is over ice |
-|   3       | Set if pixel is over a lake (if known) |
-|   4       | Set if pixel is over a river (if known) |
-|   5       | Reserved for future data |
-|   6-15    | Defined by L2 data provider |
-
-The least significant bit (bit 0) starts on the right. The GDS-2.1 requires the following:
-
-The L2P variable **l2p_flags** holds Boolean (single bit) codes detailed in its **flag_meanings** and **flag_masks** attributes. It is also possible to extend these codes in an enumerated list by adding attribute **flag_values** but this increases complexity and is discouraged.
-
-The flag_meanings, flag_masks, and (optionally) flag_values attributes are used in the following manner: 
-
-- The flag_meanings attribute shall contain a space-separated list of (string) descriptions for each distinct flag value. For descriptions containing multiple words, the words shall be linked by underscores.
-- The flag_masks attribute shall contain a comma-separated list of (numeric) mask values that isolate the bit or bits that encode each flag value, whose order matches that of the flag_meanings values. It is recommended not to use the _FillValue attribute when flag_masks attribute is used as it is prone to misinterpretation of the bit mask.
-- The flag_values in combination with flag_masks attribute shall contain a comma-separated list of masked numeric flag values, whose order matches that of the flag_meanings values. Not recommended (only flag_masks and flag_meanings are preferred).
-
-Bit 0 of the L2P l2p_flags is used to record if an input pixel SST is derived from an infrared satellite sensor or a passive microwave sensor. The GDS-2.1 specifies the following:
-
-- If an input pixel is derived from a passive microwave sensor, bit 0 of the L2P l2p_flags variable should be set to 1. By not setting this flag the pixel is assumed to be from an infrared sensor.
-
-Bit 1 of the L2P l2p_flags variable is used to record if an input pixel is over land or ocean surfaces. The GDS specifies the following:
-
-- If an input pixel is classified as land covered bit 1 of the L2P l2p_flags variable should be set to equal 1. By not setting this flag the pixel is assumed to be classified as over ocean.
-
-Bit 2 of the L2P l2p_flags variable is used to record if an input pixel records ice contamination. The GDS specifies the following rules:
-
-- If an input pixel is classified as ice contaminated bit 2 of the L2P l2p_flags variable should be set to 1..
-
-Bit 3 of the L2P **l2p_flags** variable is used to record if an input pixel contains any part of a lake, as defined by the GHRSST definition of lakes (mask). The GDS specifies the following:
-
-- If an input pixel contains any part of a lake, as defined by the GHRSST definition of lakes (mask), bit 3 of the L2P **l2p_flags** variable should be set to 1.
-
-Bit 4 of the L2P **l2p_flags** variable is optionally used to record if an input pixel contains any part of a river, as defined by the GHRSST definition of rivers (mask). The GDS specifies the following:
-
-- If an input pixel contains any part of a river, as defined by the GHRSST definition of rivers (mask), bit 4 of the L2P **l2p_flags** variable should be set to 1.
-
-Flags or other information provided with the input L2 SST data should be defined and assigned to the l2p_flags variable using bits 6-15 of the L2P variable **l2p_flags**. It is recommended to use single bits for any information, no combination of multiple bits. If that is not possible, then an additional experimental byte field should be used instead. Definitions for bits 6-15, if used, should be given using the variable comment attribute.
-
-The L2P variable ‘**l2p_flags**’ shall be included in GDS-2.1 L2P data files with the format requirements shown in the table [CDL example description of l2p_flags variable](#table9-20).
-
-#### CDL example description of l2p_flags variable
-
-| Storage type definition                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Variable name definition | Description                  | Unit |
-|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------|------------------------------|------|
-| short                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | **l2p_flags**     | The variable **l2p_flags** is used to <br> (a) specify the type of input SST data (either infrared or passive microwave instrument derived), <br> (b) pass through native flags from the input L2 SST data set and <br> (c) record any additional information considered important for the user of an L2P data set | Bit field |
-| Example CDL Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |                          |                              |      |
-|  **short l2p_flags(time, nj, ni) ; l2p_flags:long_name = "L2P flags" ; l2p_flags:coordinates = "lon lat" ; l2p_flags:grid_mapping = "polar_stereographic" ; l2p_flags:flag_meanings = "microwave land ice lake river reserved_for_future_use sun_glint SST_algorithm_A SST_algorithm_B SST_algorithm_C SST_algorithm_D";               l2p_flags:flag_masks = 1s, 2s, 4s, 8s, 16s, 32s, 64s, 128s, 256s, 512s, 1024s ; l2p_flags:coverage_content_type = "auxiliaryInformation " ; l2p_flags:comment = “These flags are important to properly use the data”** |                          |                              |      |
-| Comments                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |                          |                              |      |
-|The meaning of each bit of the L2P variable **l2p_flags** shall be detailed in its **flag_meanings** and **flag_masks** attributes <br> b0:1 = passive microwave source data; <br> b1:1 = land surface; <br> b2:1 = ice contamination; <br> b3:1 = input data over lake surface; <br> b4:1 = input data over river; <br> b5:   spare (not presently used); <br> <br> b6:b15 set by the data provider. In this example bit b6 flags sun glint and bits b7:b10 are used to enumerate an SST algorithm type <br> For this variable there is no **_FillValue** attribute.
-
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |                          |                              |      |
-
 <a id="section9.18"></a>
 
-# Variable quality_level
+## Variable quality_level
 
 The L2P variable **quality_level** provides an indicator of the overall quality of an SST measurement in an L2P file. The GDS requires the following:
 
@@ -630,7 +554,7 @@ The L2P variable **quality_level** provides an indicator of the overall quality 
 
 <a id="section9.19"></a>
 
-# Optional Variable satellite_zenith_angle
+## Optional Variable satellite_zenith_angle
 
 Sea surface temperature retrievals from satellite instruments degrade as the sensor zenith angle increases. Measurements made with high viewing angles relative to nadir appear to be considerably colder than they are in reality. The L2P variable satellite_zenith_angle contains the calculated satellite zenith angle (measured at the Earth's surface between the satellite and the zenith) for the input L2 SST based on the satellite geometry at the time of SST data acquisition. 
 
@@ -638,7 +562,7 @@ The GDS L2P variable satellite_zenith_angle is an optional field that may be pro
 
 > The satellite zenith angle for each input pixel measurement should be recorded in the L2P variable satellite_zenith_angle having a range of 0° to +90°.
 
-If the L2P variable satellite_zenith_angle is included in a L2P data product it shall conform to the format requirements shown in Table 9 22.
+If the L2P variable satellite_zenith_angle is included in a L2P data product it shall conform to the format requirements shown in [CDL example description of satellite_zenith_angle variable](#Table9-22).
 
 <a id="table9-22"></a>
 
@@ -657,7 +581,7 @@ If the L2P variable satellite_zenith_angle is included in a L2P data product it 
 
 <a id="section9.20"></a>
 
-# Optional Variable solar_zenith_angle
+## Optional Variable solar_zenith_angle
 
 The L2P variable **solar_zenith_angle** contains the calculated solar zenith angle (the angle between the local zenith and the line of sight to the sun, measured at the Earth's surface) for the input L2 SST based on the satellite geometry at the time of SST data acquisition. Solar zenith angle is a function of time, day number and latitude.
 
@@ -682,7 +606,7 @@ The GDS L2P variable **solar_zenith_angle** is an optional field that may be pro
 
 <a id="section9.21"></a>
 
-# Optional Variable surface_solar_irradiance
+## Optional Variable surface_solar_irradiance
 
 Surface Solar Irradiance (SSI) data were originally required within the GDS 1.6 to assess the magnitude and variability of significant diurnal SST variations, for use in diurnal variability correction schemes, for use in L4 SST analysis procedures and to interpret the relationship between satellite and in situ SST data. In the GDS-2.1, it is an optional variable. Ideally a near contemporaneous SSI measurement from satellite sensors should be used but this is impossible for all areas due to the limited number of geostationary satellite sensors available. As a surrogate for a measured SSI value, analysis estimates may be used.
 
@@ -711,7 +635,7 @@ Surface solar Irradiance (SSI) data may be assigned to each L2P SST measurement 
 
 <a id="section9.22"></a>
 
-# Optional Variable ssi_dtime_from_sst
+## Optional Variable ssi_dtime_from_sst
 
 The variable **ssi_dtime_from_sst** reports the time difference between SSI data from SST measurement in hours. The variable ‘**ssi_dtime_from_sst**’ shall be included with the format requirements shown in the table, [CDL example description of ssi_dtime_from_sst variable](#table9-25). In the case of an analysis field, the central (mean) time of an integrated value should be used.
 
@@ -732,7 +656,7 @@ The variable **ssi_dtime_from_sst** reports the time difference between SSI data
 
 <a id="section9.23"></a>
 
-# Optional Variable source_of_ssi
+## Optional Variable source_of_ssi
 
 The source of data used to set the L2P ancillary data variable **surface_solar_irradiance** shall be indicated in the L2P variable source_of_ssi when more than one source of SSI data is used in the L2P product. When only one source is used, this variable is not needed and the appropriate text string indicating the source is placed in the sources attribute of the **surface_solar_irradiance** variable. For multiple sources, the GDS-2.1 requires the following:
 
@@ -772,7 +696,7 @@ The variable ‘**source_of_ssi**’ shall conform to the format requirements sh
 
 <a id="section9.24"></a>
 
-# Optional experimental L2P variables included by data provider
+## Optional experimental L2P variables included by data provider
 
 Flexibility of L2P product content is provided through the netCDF API, which allows fully self-describing fields and additional L2P variables may be included by L2P data providers if they are considered relevant for L2P users. The GDS-2.1 also permits the inclusion of R&D variables (e.g. channel radiance data sets, estimates of Chlorophyll A, fields that facilitate flagging of diurnal variability, etc.) and 32 bytes per pixel are available in total for optional/experimental variables in any combination (i.e., variables can be defined as 32 x byte, 16 x short, 3 x int + 4 x byte, etc). The use of optional/experimental variables provides a limited amount of flexibility within the GDS-2.1 for regional user requirements while maintaining an overall upper limit on GDS-2.1 L2P products for data management groups and archive scaling. In exceptional cases a waiver on the 32 byte ceiling can be requested to extend up to 64 bytes per pixel.
 
@@ -785,7 +709,7 @@ The GDS-2.1 issues the following guidance on the inclusion of optional or experi
 > The source of data should be indicated: in the single source case as a variable attribute; as a dedicated variable when mixed data sources are present.
 > Use of experimental variables requires clear documentation by the RDAC. Data providers shall provide adequate documentation that describes each variable following the CDL examples provided in this document.
 > The variable attribute comment shall be used to provide a URL link to a full description of each data producer defined variable included in the L2P product.
-> Experimental L2P variables if present in an L2P product will be included with the minimum format requirements shown in Table 9 28.
+> Experimental L2P variables if present in an L2P product will be included with the minimum format requirements shown in the table, [CDL template for data provider defined L2P variables](#Table9-28).
 > Additional global variables may be declared within the L2P product.
 
 
@@ -807,7 +731,7 @@ The GDS-2.1 issues the following guidance on the inclusion of optional or experi
 
 <a id="section9.25"></a>
 
-# CDL example L2P data set
+## CDL example L2P data set
 
 The following CDL has been generated for a L2P dataset derived from the VIIRS sensor on NOAA-20 platform (https://doi.org/10.5067/GHV20-2PO28) . It includes a number of optional and experiemental variables.
 
