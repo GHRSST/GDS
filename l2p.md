@@ -528,3 +528,498 @@ The L2P variable ‘l2p_flags ’ shall be included in GDS-2.1 L2P data files wi
 |The meaning of each bit of the L2P variable l2p_flags shall be detailed in its flag_meanings and flag_masks attributes <br> b0:1 = passive microwave source data; <br> b1:1 = land surface; <br> b2:1 = ice contamination; <br> b3:1 = input data over lake surface; <br> b4:1 = input data over river; <br> b5:   spare (not presently used); <br> b6:b15 set by the data provider. In this example bit b6 flags sun glint and bits b7:b10 are used to enumerate an SST algorithm type. <br> For this variable there is no _FillValue attribute.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |                          |                              |      |
 
 
+<a id="section9.17"></a>
+
+# Variable l2p_flags
+
+The GDS-2.1 L2P variable **l2p_flags** is used to
+- Specify the type of input SST data (either infrared or passive microwave instrument derived),
+- Pass through native flags from the input L2 SST data set and
+- Record any additional information considered important for the user of an L2P data set.
+
+The variable **l2p_flags** is split into two sections:
+- The first 6 bits of the L2P variable **l2p_flags** are generic flags that are common to all L2P data files as defined in the table [Bit field definitions for the L2P variable l2p_flags](#table9-19),
+- Bits 6-15 are defined by the L2P data provider and are specific to each L2 input data stream.
+
+<a id="table9-19"></a>
+
+#### Bit field definitions for the L2P variable l2p_flags
+
+| Bit       | Common flags         | 
+|-----------|---------------------------------------------------------------------|
+|   0       | Set if passive microwave data (not set is assumed to be infrared) |
+|   1       | Set if over land (not set is assumed to be ocean) |
+|   2       | Set if pixel is over ice |
+|   3       | Set if pixel is over a lake (if known) |
+|   4       | Set if pixel is over a river (if known) |
+|   5       | Reserved for future data |
+|   6-15    | Defined by L2 data provider |
+
+The least significant bit (bit 0) starts on the right. The GDS-2.1 requires the following:
+
+The L2P variable **l2p_flags** holds Boolean (single bit) codes detailed in its **flag_meanings** and **flag_masks** attributes. It is also possible to extend these codes in an enumerated list by adding attribute **flag_values** but this increases complexity and is discouraged.
+
+The flag_meanings, flag_masks, and (optionally) flag_values attributes are used in the following manner: 
+
+- The flag_meanings attribute shall contain a space-separated list of (string) descriptions for each distinct flag value. For descriptions containing multiple words, the words shall be linked by underscores.
+- The flag_masks attribute shall contain a comma-separated list of (numeric) mask values that isolate the bit or bits that encode each flag value, whose order matches that of the flag_meanings values. It is recommended not to use the _FillValue attribute when flag_masks attribute is used as it is prone to misinterpretation of the bit mask.
+- The flag_values in combination with flag_masks attribute shall contain a comma-separated list of masked numeric flag values, whose order matches that of the flag_meanings values. Not recommended (only flag_masks and flag_meanings are preferred).
+
+Bit 0 of the L2P l2p_flags is used to record if an input pixel SST is derived from an infrared satellite sensor or a passive microwave sensor. The GDS-2.1 specifies the following:
+
+- If an input pixel is derived from a passive microwave sensor, bit 0 of the L2P l2p_flags variable should be set to 1. By not setting this flag the pixel is assumed to be from an infrared sensor.
+
+Bit 1 of the L2P l2p_flags variable is used to record if an input pixel is over land or ocean surfaces. The GDS specifies the following:
+
+- If an input pixel is classified as land covered bit 1 of the L2P l2p_flags variable should be set to equal 1. By not setting this flag the pixel is assumed to be classified as over ocean.
+
+Bit 2 of the L2P l2p_flags variable is used to record if an input pixel records ice contamination. The GDS specifies the following rules:
+
+- If an input pixel is classified as ice contaminated bit 2 of the L2P l2p_flags variable should be set to 1..
+
+Bit 3 of the L2P l2p_flags variable is used to record if an input pixel contains any part of a lake, as defined by the GHRSST definition of lakes (mask). The GDS specifies the following:
+
+- If an input pixel contains any part of a lake, as defined by the GHRSST definition of lakes (mask), bit 3 of the L2P l2p_flags variable should be set to 1.
+
+Bit 4 of the L2P l2p_flags variable is optionally used to record if an input pixel contains any part of a river, as defined by the GHRSST definition of rivers (mask). The GDS specifies the following:
+
+- If an input pixel contains any part of a river, as defined by the GHRSST definition of rivers (mask), bit 4 of the L2P l2p_flags variable should be set to 1.
+
+Flags or other information provided with the input L2 SST data should be defined and assigned to the l2p_flags variable using bits 6-15 of the L2P variable l2p_flags. It is recommended to use single bits for any information, no combination of multiple bits. If that is not possible, then an additional experimental byte field should be used instead. Definitions for bits 6-15, if used, should be given using the variable comment attribute.
+
+The L2P variable ‘l2p_flags ’ shall be included in GDS-2.1 L2P data files with the format requirements shown in the table [CDL example description of l2p_flags variable](#table9-20).
+
+#### CDL example description of l2p_flags variable
+
+| Storage type definition                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Variable name definition | Description                  | Unit |
+|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------|------------------------------|------|
+| short                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | **l2p_flags**     | The variable **l2p_flags** is used to <br> (a) specify the type of input SST data (either infrared or passive microwave instrument derived), <br> (b) pass through native flags from the input L2 SST data set and <br> (c) record any additional information considered important for the user of an L2P data set | Bit field |
+| Example CDL Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |                          |                              |      |
+|  **short l2p_flags(time, nj, ni) ; l2p_flags:long_name = "L2P flags" ; l2p_flags:coordinates = "lon lat" ; l2p_flags:grid_mapping = "polar_stereographic" ; l2p_flags:flag_meanings = "microwave land ice lake river reserved_for_future_use sun_glint SST_algorithm_A SST_algorithm_B SST_algorithm_C SST_algorithm_D";               l2p_flags:flag_masks = 1s, 2s, 4s, 8s, 16s, 32s, 64s, 128s, 256s, 512s, 1024s ; l2p_flags:coverage_content_type = "auxiliaryInformation " ; l2p_flags:comment = “These flags are important to properly use the data”** |                          |                              |      |
+| Comments                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |                          |                              |      |
+|The meaning of each bit of the L2P variable l2p_flags shall be detailed in its flag_meanings and flag_masks attributes <br> b0:1 = passive microwave source data; <br> b1:1 = land surface; <br> b2:1 = ice contamination; <br> b3:1 = input data over lake surface; <br> b4:1 = input data over river; <br> b5:   spare (not presently used); <br> <br> b6:b15 set by the data provider. In this example bit b6 flags sun glint and bits b7:b10 are used to enumerate an SST algorithm type <br> For this variable there is no _FillValue attribute.
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |                          |                              |      |
+
+<a id="section9.18"></a>
+
+# Variable quality_level
+
+The L2P variable ‘quality_level provides an indicator of the overall quality of an SST measurement in an L2P file. The GDS requires the following:
+
+> The L2P variable 'quality_level' shall use an incremental scale from 0 to 5 to provide the user with an indication of the quality of the L2P SST data. The value 0 shall be used to indicate missing data and the value 1 shall be used to indicate invalid data (e.g. cloud, rain, too close to land - under no conditions use this data). The remaining values from 2-5 are set at the discretion of the L2P provider with the proviso that the value 2 shall be used to indicate the worst quality of usable data and the value 5 shall be used to indicate the best quality usable data. The L2P provider is required to provide a description of the quality levels provided as part of the product documentation.
+> The L2P variable quality_level reflects the quality of SST data from a single sensor and does not provide an indication of the relative quality between sensors.
+> The L2P variable quality_level shall be included with the format requirements shown in the table [CDL example description of quality_level variable](#table9-21).
+
+<a id="table9-21"></a>
+
+#### CDL example description of quality_level variable
+
+| Storage type definition                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Variable name definition | Description                  | Unit |
+|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------|------------------------------|------|
+| byte                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | **quality_level**     | Overall indicator of SST measurement quality | none |
+| Example CDL Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |                          |                              |      |
+|  **byte quality_level (time, nj, ni) ; quality_level:long_name = "quality level of SST pixel" ; quality_level:coordinates = "lon lat" ; quality_level:grid_mapping = "polar_stereographic" ; quality_level:_FillValue = -128b; quality_level:flag_meanings = "no_data bad_data worst_quality low_quality acceptable_quality best_quality" ;  quality_level:flag_values = 0b, 1b, 2b, 3b, 4b, 5b ;  quality_level:coverage_content_type = "qualityInformation" ;  quality_level:comment = “These are the overall quality indicators and are used for all GHRSST SSTs”** |                          |                              |      |
+| Comments                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |                          |                              |      |
+|
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |                          |                              |      |
+
+
+<a id="section9.19"></a>
+
+# Optional Variable satellite_zenith_angle
+
+Sea surface temperature retrievals from satellite instruments degrade as the sensor zenith angle increases. Measurements made with high viewing angles relative to nadir appear to be considerably colder than they are in reality. The L2P variable satellite_zenith_angle contains the calculated satellite zenith angle (measured at the Earth's surface between the satellite and the zenith) for the input L2 SST based on the satellite geometry at the time of SST data acquisition. 
+
+The GDS L2P variable satellite_zenith_angle is an optional field that may be provided by a data provider. The following criteria shall apply:
+
+> The satellite zenith angle for each input pixel measurement should be recorded in the L2P variable satellite_zenith_angle having a range of 0° to +90°.
+
+If the L2P variable satellite_zenith_angle is included in a L2P data product it shall conform to the format requirements shown in Table 9 22.
+
+<a id="table9-22"></a>
+
+#### CDL example description of satellite_zenith_angle variable
+
+| Storage type definition                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Variable name definition | Description                  | Unit |
+|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------|------------------------------|------|
+| byte or short                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | **satellite_zenith_angle**     | Calculated satellite zenith angle (measured at the Earth's surface between the satellite and the local zenith) for the input L2 SST based on the satellite geometry at the time of SST data acquisition. <br> Ranges from 0 to 90 degrees.| degree |
+| Example CDL Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |                          |                              |      |
+|  **byte satellite_zenith_angle(time, nj, ni) ; satellite_zenith_angle:long_name = "satellite zenith angle" ;  satellite_zenith_angle:standard_name = "platform_zenith_angle" ;  satellite_zenith_angle:units = "angular_degree" ;  satellite_zenith_angle:_FillValue = -128b ;  satellite_zenith_angle:add_offset = 0.0f ;  satellite_zenith_angle:scale_factor = 1.0f ;  satellite_zenith_angle:valid_range = 0b, 90b ;  source_of_adi:coverage_content_type = "auxiliaryInformation" ;  satellite_zenith_angle:coordinates = "lon lat" ;  satellite_zenith_angle:grid_mapping = "polar_stereographic" ;  satellite_zenith_angle:comment = “the satellite zenith angle at the time of the SST observations”** |                          |                              |      |
+| Comments                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |                          |                              |      |
+|
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |                          |                              |      |
+
+
+<a id="section9.20"></a>
+
+# Optional Variable solar_zenith_angle
+
+The L2P variable solar_zenith_angle contains the calculated solar zenith angle (the angle between the local zenith and the line of sight to the sun, measured at the Earth's surface) for the input L2 SST based on the satellite geometry at the time of SST data acquisition. Solar zenith angle is a function of time, day number and latitude.
+
+The GDS L2P variable solar_zenith_angle is an optional field that may be provided by a data provider. The following criteria shall apply:
+
+> The solar zenith angle for each input pixel measurement should be recorded in the L2P variable solar_zenith_angle having a range of 0° to 180°.
+> If the L2P variable solar_zenith_angle is included in a L2P data product it shall conform to the format requirements shown in Table 9 23.
+
+<a id="table9-23"></a>
+
+#### CDL example description of solar_zenith_angle variable
+
+| Storage type definition                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Variable name definition | Description                  | Unit |
+|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------|------------------------------|------|
+| short                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | **solar_zenith_angle**     | Calculated solar zenith angle (measured at the Earth's surface between the sun and the local zenith) for the input SST based on the solar geometry at the time of SST data acquisition. <br> Ranges from 0 to 180 degrees. | degree |
+| Example CDL Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |                          |                              |      |
+|  **byte solar_zenith_angle(time, nj, ni) ; solar_zenith_angle:long_name = "solar zenith angle" ;  solar_zenith_angle:standard_name = "solar_zenith_angle" ;  solar_zenith_angle:units = "angular_degree" ;  solar_zenith_angle:_FillValue = -128b ;  solar_zenith_angle:add_offset = 0.0f ;  solar_zenith_angle:scale_factor = 1.0f ;  solar_zenith_angle:valid_range = 0b, 180b ;  solar_zenith_angle:coverage_content_type = "auxiliaryInformation" ;  solar_zenith_angle:coordinates = "lon lat" ;  solar_zenith_angle:grid_mapping = "polar_stereographic" ;  solr_zenith_angle:comment “the solar zenith angle at the time of the SST observations”** |                          |                              |      |
+| Comments                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |                          |                              |      |
+|
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |                          |                              |      |
+
+<a id="section9.21"></a>
+
+# Optional Variable surface_solar_irradiance
+
+Surface Solar Irradiance (SSI) data were originally required within the GDS 1.6 to assess the magnitude and variability of significant diurnal SST variations, for use in diurnal variability correction schemes, for use in L4 SST analysis procedures and to interpret the relationship between satellite and in situ SST data. In the GDS-2.1, it is an optional variable. Ideally a near contemporaneous SSI measurement from satellite sensors should be used but this is impossible for all areas due to the limited number of geostationary satellite sensors available. As a surrogate for a measured SSI value, analysis estimates may be used.
+
+Surface solar Irradiance (SSI) data may be assigned to each L2P SST measurement pixel using the variable ‘surface_solar_irradiance’. The following criteria shall apply:
+
+> An integrated down-welling SSI measurement (e.g., derived from satellite measurements) should be assigned to each SST pixel value using the surface_solar_irradiance L2P variable. The SSI measurement nearest in space and time before the input pixel SST value should be used.
+> If no SSI measurement is available, an integrated SSI value derived from an analysis system nearest in space and time to the SST measurement should be used to set the value of surface_solar_irradiance.
+> The difference in time expressed in hours between the time of SST measurement and the time of surface solar irradiance data should be entered into the L2P confidence data variable ssi_dtime_from_sst. In the case of an analysis field, this should be the central (mean) time of an integrated value. If all of the values have the same time, the attribute time_offset is used instead of the variable ssi_dtime_fraction_dtime_from_sst. The attribute time_offset should store the difference in hours between the surface_solar_irradiance and the reference time, stored in the variable time.
+> If a single source of data is used in the L2P variable surface_solar_irradiance, the L2P variable source_of_ssi is not required and instead the surface_solar_irradiance:source attribute value is sufficient. It shall be a single source text string defined by the data provider using the text string naming best practice given in Section 7.9.
+> If multiple sources of data are used, source information should be indicated in the L2P variable source_of_ssi as defined by the data provider and as described in detail in Section 9.23. Then, the surface_solar_irradiance:source attribute shall have the value "source_of_ssi".
+> The L2P variable ‘surface_solar_irradiance’ may be included by a data provider with the format requirements shown in Table 9 24.
+
+<a id="table9-24"></a>
+
+#### CDL example description of surface_solar_irradiance variable
+
+| Storage type definition                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Variable name definition | Description                  | Unit |
+|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------|------------------------------|------|
+| byte                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | **surface_solar_irradiance**     | Near contemporaneous integrated Surface Solar Irradiance (SSI) data. | $Wm^{-2}$ |
+| Example CDL Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |                          |                              |      |
+|  **byte surface_solar_irradiance(time, nj, ni) ; surface_solar_irradiance:long_name = "surface solar irradiance" ;  surface_solar_irradiance:stardard_name = "solar irradiance" ;  surface_solar_irradiance:units = "W m-2" ;  surface_solar_irradiance:_FillValue = -128b ;  surface_solar_irradiance:add_offset = 127.0f ;  surface_solar_irradiance:scale_factor = -1.36f ;  surface_solar_irradiance:valid_range = -127b, 127b ;  surface_solar_irradiance:coverage_content_type = "auxiliaryInformation" ;  surface_solar_irradiance:source = "SSI-MSG_SEVIRI-V1" ;  surface_solar_irradiance:coordinates = "lon lat" ;  surface_solar_irradiance:grid_mapping = "polar_stereographic" ;  surface_solor_irradiance:comment = “The surface solar irradiance as close to the SST observation times as possible”** |                          |                              |      |
+| Comments                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |                          |                              |      |
+|A single source of SSI data is shown in this example which is reported as surface_solar_irradiance:source = "SSI-MSG_SEVIRI-V1" The text string has been defined by the data provider using the text string naming best practice given in Section 7.9. Since all of the SSI values have the same time, the attribute time_offset is used instead of the variable ssi_dtime_from_sst.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |                          |                              |      |
+
+
+<a id="section9.22"></a>
+
+# Optional Variable ssi_dtime_from_sst
+
+The variable ssi_dtime_from_sst reports the time difference between SSI data from SST measurement in hours. The variable ‘ssi_dtime_from_sst’ shall be included with the format requirements shown in Table 9 25. In the case of an analysis field, the central (mean) time of an integrated value should be used.
+
+<a id="table9-25"></a>
+
+#### CDL example description of ssi_dtime_from_sst variable
+
+| Storage type definition                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Variable name definition | Description                  | Unit |
+|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------|------------------------------|------|
+| byte                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | **ssi_dtime_from_sst**     | This variable reports the time difference between SSI data from SST measurement in hours | hour |
+| Example CDL Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |                          |                              |      |
+|  **byte ssi_dtime_from_sst (time, nj, ni) ;  ssi_dtime_from_sst:long_name = "time difference of surface solar irradiance measurement from sst measurement" ;  ssi_dtime_from_sst:units = "hour" ;  ssi_dtime_from_sst:_FillValue = -128b ;  ssi_dtime_from_sst:add_offset = 0.0f ;  ssi_dtime_from_sst:scale_factor = 0.1f ;  ssi_dtime_from_sst:valid_range = -127b, 127b ;  ssi_dtime_from_sst:coverage_content_type = "auxiliaryInformation" ;  ssi_dtime_from_sst:coordinates = "lon lat" ;  ssi_dtime_from_sst:grid_mapping = "polar_stereographic" ;  ssi_dtime_from_sst:comment = “The hours between the SSI and SST data”** |                          |                              |      |
+| Comments                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |                          |                              |      |
+|
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |                          |                              |      |
+
+
+<a id="section9.23"></a>
+
+# Optional Variable source_of_ssi
+
+The source of data used to set the L2P ancillary data variable surface_solar_irradiance shall be indicated in the L2P variable source_of_ssi when more than one source of SSI data is used in the L2P product. When only one source is used, this variable is not needed and the appropriate text string indicating the source is placed in the sources attribute of the surface_solar_irradiance variable. For multiple sources, the GDS-2.1 requires the following:
+
+> The variable in question should contain an attribute called flag_meanings and another one called flag_values. The flag_values attribute shall contain a comma-separated list of the numeric codes for the sources of data used whose order matches the comma-separated text strings in the flag_meanings attribute.
+> These text strings and numeric codes do not need to be unique across different data sets or even ancillary variables, but must be consistent within a given variable and clearly specified within each netCDF variable and its attributes. A best practice for naming the text strings in provided in Section 7.9.
+
+The variable ‘source_of_ssi’ shall conform to the format requirements shown in Table 9 26.
+
+<a id="table9-26"></a>
+
+#### CDL example description of source_of_ssi variable
+
+| Storage type definition                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Variable name definition | Description                  | Unit |
+|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------|------------------------------|------|
+| byte                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | **source_of_ssi**     | Sources of surface solar irradiance values | code |
+| Example CDL Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |                          |                              |      |
+|  **byte source_of_ssi(time, nj, ni) ;  source_of_ssi:long_name = "source_of_surface_solar_irradiance" ;  source_of_ssi:coordinates = "lon lat" ;  source_of_ssi:grid_mapping = "polar_stereographic" ;  source_of_ssi:flag_meanings = "no_data SSI-MSG_SEVIRI-V1 SSI-NOAA-GOES_E-V1 SSI-NOAA-GOES_W-V1 SSI-ECMWF-V1 SSI-NCEP-V1 SSI-NAAPS-V1 spare" ;  source_of_ssi:flag_values = 0b, 1b, 2b, 3b, 4b, 5b, 6b, 7b ;  source_of_ssi:coverage_content_type = "auxiliaryInformation" ;  source_of_ssi:comment = “This variable provides a pixel by pixel description of where surface solar irradiance were derived from”** |                          |                              |      |
+| Comments                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |                          |                              |      |
+|In this example, flag_meanings and flag_values contain code data provided by the data provider according to the best practices specified in Section 7.9. An example of these codes is given in Table 9 27.
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |                          |                              |      |
+
+
+<a id="section9.24"></a>
+
+# Optional experimental L2P variables included by data provider
+
+Flexibility of L2P product content is provided through the netCDF API, which allows fully self-describing fields and additional L2P variables may be included by L2P data providers if they are considered relevant for L2P users. The GDS-2.1 also permits the inclusion of R&D variables (e.g. channel radiance data sets, estimates of Chlorophyll A, fields that facilitate flagging of diurnal variability, etc.) and 32 bytes per pixel are available in total for optional/experimental variables in any combination (i.e., variables can be defined as 32 x byte, 16 x short, 3 x int + 4 x byte, etc). The use of optional/experimental variables provides a limited amount of flexibility within the GDS-2.1 for regional user requirements while maintaining an overall upper limit on GDS-2.1 L2P products for data management groups and archive scaling. In exceptional cases a waiver on the 32 byte ceiling can be requested to extend up to 64 bytes per pixel.
+
+The GDS-2.1 issues the following guidance on the inclusion of optional or experimental variables within L2P data products:
+
+> The sum total of all experimental variables shall not increase L2P record size by more than 32 bytes per SST pixel. A waiver can be requested for higher amounts up to 64 bytes.
+> CF-1.7 or later compliance should be maintained for all optional/experimental variables. Where available, a standard_name attribute should be used.
+> It is permitted to use a provider defined coordinate variable associated with experimental fields but this shall be documented in data provider documentation.
+> Time difference data (dtime values) should be provided for variables when appropriate.
+> The source of data should be indicated: in the single source case as a variable attribute; as a dedicated variable when mixed data sources are present.
+> Use of experimental variables requires clear documentation by the RDAC. Data providers shall provide adequate documentation that describes each variable following the CDL examples provided in this document.
+> The variable attribute comment shall be used to provide a URL link to a full description of each data producer defined variable included in the L2P product.
+> Experimental L2P variables if present in an L2P product will be included with the minimum format requirements shown in Table 9 28.
+> Additional global variables may be declared within the L2P product.
+
+
+<a id="table9-28"></a>
+
+#### CDL template for data provider defined L2P variables
+
+| Storage type definition                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Variable name definition | Description                  | Unit |
+|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------|------------------------------|------|
+| byte                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Provide a variable name in lower case using underscore separators e.g. **my_variable** | Provide a description of my_variable stating content purpose and units | Units of my_variable |
+| Example CDL Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |                          |                              |      |
+|  **byte my_variable (time, nj, ni);  my_variable:long_name = "estimated diurnal variability" ;  my_variable:standard_name = "use_a_CF_standard_name_if_available" ;  my_variable:units = "kelvin" ;  my_variable:source = "MY-SOURCES-V1" ;  my_variable:_FillValue = -128b ;  my_variable:add_offset = 0.0f ;  my_variable:scale_factor = 1.0f ;  my_variable:valid_range = -127b, 127b ;  my_variable:coordinates = "lon lat" ;  my_variable:grid_mapping = "polar_stereographic" ;  my_variable:coverage_content_type = "auxiliaryInformation" ;  my_variable:comment = "This field is fully documented at http://www.mysite.com/my_variable-description.html"** |                          |                              |      |
+| Comments                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |                          |                              |      |
+|A URL should be used to provide a live link to the documentation describing my_variable. CF-1.7 or later compliance should be maintained when using optional/experimental fields (particularly for the variable attribute standard_name.
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |                          |                              |      |
+
+
+
+<a id="section9.25"></a>
+
+# CDL example L2P data set
+
+The following CDL has been generated for a L2P dataset derived from the VIIRS sensor on NOAA-20 platform (https://doi.org/10.5067/GHV20-2PO28) . It includes a number of optional and experiemental variables.
+
+netcdf l2p {
+dimensions:
+	ni = 3200 ;
+	nj = 5376 ;
+	time = 1 ;
+variables:
+	int time(time) ;
+		time:comment = "seconds since 1981-01-01 00:00:00" ;
+		time:long_name = "reference time of sst file" ;
+		time:standard_name = "time" ;
+		time:units = "seconds since 1981-01-01 00:00:00" ;
+		time:calendar = "Gregorian" ;
+		time:axis = "T" ;
+		time:coverage_content_type = "coordinate" ;
+	short sst_dtime(time, nj, ni) ;
+		sst_dtime:add_offset = 0.f ;
+		sst_dtime:comment = "time plus sst_dtime gives seconds since 1981-01-01 00:00:00 UTC" ;
+		sst_dtime:coordinates = "lon lat" ;
+		sst_dtime:long_name = "time difference from reference time" ;
+		sst_dtime:scale_factor = 0.25f ;
+		sst_dtime:units = "seconds" ;
+		sst_dtime:valid_max = 32767s ;
+		sst_dtime:valid_min = -32767s ;
+		sst_dtime:_FillValue = -32768s ;
+		sst_dtime:coverage_content_type = "referenceInformation" ;
+	byte dt_analysis(time, nj, ni) ;
+		dt_analysis:add_offset = 0.f ;
+		dt_analysis:comment = "Deviation from reference SST, i.e., dt_analysis = SST - reference SST" ;
+		dt_analysis:coordinates = "lon lat" ;
+		dt_analysis:long_name = "deviation from SST reference" ;
+		dt_analysis:source = "CMC0.1deg-CMC-L4-GLOB-v2.0" ;
+		dt_analysis:scale_factor = 0.1f ;
+		dt_analysis:units = "kelvin" ;
+		dt_analysis:valid_max = 127b ;
+		dt_analysis:valid_min = -127b ;
+		dt_analysis:_FillValue = -128b ;
+		dt_analysis:coverage_content_type = "qualityInformation" ;
+	float lat(nj, ni) ;
+		lat:comment = "Latitude of retrievals" ;
+		lat:long_name = "latitude" ;
+		lat:standard_name = "latitude" ;
+		lat:units = "degrees_north" ;
+		lat:valid_max = 90.f ;
+		lat:valid_min = -90.f ;
+		lat:coverage_content_type = "coordinate" ;
+	float lon(nj, ni) ;
+		lon:comment = "Longitude of retrievals" ;
+		lon:long_name = "longitude" ;
+		lon:standard_name = "longitude" ;
+		lon:units = "degrees_east" ;
+		lon:valid_max = 180.f ;
+		lon:valid_min = -180.f ;
+		lon:coverage_content_type = "coordinate" ;
+	short satellite_zenith_angle(time, nj, ni) ;
+		satellite_zenith_angle:add_offset = 0.f ;
+		satellite_zenith_angle:comment = "satellite zenith angle" ;
+		satellite_zenith_angle:coordinates = "lon lat" ;
+		satellite_zenith_angle:long_name = "satellite zenith angle" ;
+		satellite_zenith_angle:scale_factor = 0.01f ;
+		satellite_zenith_angle:units = "degrees" ;
+		satellite_zenith_angle:valid_max = 32767s ;
+		satellite_zenith_angle:valid_min = -32767s ;
+		satellite_zenith_angle:_FillValue = -32768s ;
+		satellite_zenith_angle:coverage_content_type = "referenceInformation" ;
+	short sea_surface_temperature(time, nj, ni) ;
+		sea_surface_temperature:add_offset = 273.15f ;
+		sea_surface_temperature:comment = "SST obtained by regression with buoy measurements, sensitive to skin SST. Further information at (Petrenko et al., JGR, 2014; doi:10.1002/2013JD020637)" ;
+		sea_surface_temperature:coordinates = "lon lat" ;
+		sea_surface_temperature:long_name = "sea_surface_subskin_temperature" ;
+		sea_surface_temperature:scale_factor = 0.01f ;
+		sea_surface_temperature:source = "NOAA" ;
+		sea_surface_temperature:units = "kelvin" ;
+		sea_surface_temperature:valid_max = 32767s ;
+		sea_surface_temperature:valid_min = -200s ;
+		sea_surface_temperature:_FillValue = -32768s ;
+		sea_surface_temperature:standard_name = "sea_surface_subskin_temperature" ;
+		sea_surface_temperature:coverage_content_type = "physicalMeasurement" ;
+	byte sses_bias(time, nj, ni) ;
+		sses_bias:add_offset = 0.f ;
+		sses_bias:comment = "Bias is derived against Piecewise Regression SST produced by local regressions with buoys. Subtracting sses_bias from sea_surface_temperature producess more accurate SST at the depth of buoys Further information at (Petrenko et al., JTECH, 2016; doi:10.1175/JTECH-D-15-0166.1)" ;
+		sses_bias:coordinates = "lon lat" ;
+		sses_bias:long_name = "SSES bias estimate" ;
+		sses_bias:scale_factor = 0.016f ;
+		sses_bias:units = "kelvin" ;
+		sses_bias:valid_max = 127b ;
+		sses_bias:valid_min = -127b ;
+		sses_bias:_FillValue = -128b ;
+		sses_bias:coverage_content_type = "qualityInformation" ;
+	byte sses_standard_deviation(time, nj, ni) ;
+		sses_standard_deviation:add_offset = 1.f ;
+		sses_standard_deviation:comment = "Standard deviation of sea_surface_temperature from SST measured by drifting buoys. Further information at (Petrenko et al., JTECH, 2016; doi:10.1175/JTECH-D-15-0166.1)" ;
+		sses_standard_deviation:coordinates = "lon lat" ;
+		sses_standard_deviation:long_name = "SSES standard deviation" ;
+		sses_standard_deviation:scale_factor = 0.01f ;
+		sses_standard_deviation:units = "kelvin" ;
+		sses_standard_deviation:valid_max = 127b ;
+		sses_standard_deviation:valid_min = -127b ;
+		sses_standard_deviation:_FillValue = -128b ;
+		sses_standard_deviation:coverage_content_type = "qualityInformation" ;
+	byte sea_ice_fraction(time, nj, ni) ;
+		sea_ice_fraction:add_offset = 0.f ;
+		sea_ice_fraction:comment = "Fractional sea ice cover from reference SST" ;
+		sea_ice_fraction:coordinates = "lon lat" ;
+		sea_ice_fraction:long_name = "sea ice fraction" ;
+		sea_ice_fraction:scale_factor = 0.01f ;
+		sea_ice_fraction:source = "CMC0.1deg-CMC-L4-GLOB-v2.0" ;
+		sea_ice_fraction:standard_name = "sea_ice_area_fraction" ;
+		sea_ice_fraction:units = "1" ;
+		sea_ice_fraction:valid_max = 100b ;
+		sea_ice_fraction:valid_min = 0b ;
+		sea_ice_fraction:_FillValue = -128b ;
+		sea_ice_fraction:coverage_content_type = "auxiliaryInformation" ;
+	short l2p_flags(time, nj, ni) ;
+		l2p_flags:comment = "L2P common flags in bits 1-6 and data provider flags (from ACSPO mask) in bits 9-16: bit01 (0=IR: 1=microwave); bit02 (0=ocean; 1=land); bit03 (0=no ice; 1=ice); bits04-08 (reserved,set to 0); bit09 (0=radiance valid; 1=invalid); bit10 (0=night; 1=day); bit11 (0=ocean; 1=land); bit12 (0=good quality data; 1=degraded quality data due to \"twilight\" region); bit13 (0=no glint; 1=glint); bit14 (0=no snow/ice; 1=snow/ice); bits15-16 (00=clear; 01=probably clear; 10=cloudy; 11=clear-sky mask undefined)" ;
+		l2p_flags:coordinates = "lon lat" ;
+		l2p_flags:flag_masks = 1s, 2s, 4s, 256s, 512s, 1024s, 2048s, 4096s, 8192s, -16384s ;
+		l2p_flags:flag_meanings = "microwave land ice invalid day land twilight glint ice probably_clear_or_cloudy_or_undefined" ;
+		l2p_flags:long_name = "L2P flags" ;
+		l2p_flags:valid_max = 32767s ;
+		l2p_flags:valid_min = -32768s ;
+		l2p_flags:coverage_content_type = "thematicClassification" ;
+	byte quality_level(time, nj, ni) ;
+		quality_level:comment = "SST quality levels: 5 corresponds to clear-sky pixels and is recommended for operational applications and validation;" ;
+		quality_level:coordinates = "lon lat" ;
+		quality_level:flag_meanings = "missing invalid not_used not_used not_used clear" ;
+		quality_level:flag_values = 0b, 1b, 2b, 3b, 4b, 5b ;
+		quality_level:long_name = "quality level of SST pixel" ;
+		quality_level:valid_max = 5b ;
+		quality_level:valid_min = 0b ;
+		quality_level:_FillValue = -128b ;
+		quality_level:coverage_content_type = "qualityInformation" ;
+	byte wind_speed(time, nj, ni) ;
+		wind_speed:add_offset = 25.4f ;
+		wind_speed:comment = "Typically represents surface winds (10 meters above the sea surface)" ;
+		wind_speed:coordinates = "lon lat" ;
+		wind_speed:height = "10 m" ;
+		wind_speed:long_name = "wind speed" ;
+		wind_speed:scale_factor = 0.2f ;
+		wind_speed:standard_name = "wind_speed" ;
+		wind_speed:units = "m s-1" ;
+		wind_speed:valid_max = 127b ;
+		wind_speed:valid_min = -127b ;
+		wind_speed:_FillValue = -128b ;
+		wind_speed:source = "Wind speed from MERRA-2 data" ;
+		wind_speed:coverage_content_type = "auxiliaryInformation" ;
+	short sst_gradient_magnitude(time, nj, ni) ;
+		sst_gradient_magnitude:_FillValue = -32768s ;
+		sst_gradient_magnitude:valid_min = -32767s ;
+		sst_gradient_magnitude:valid_max = 32767s ;
+		sst_gradient_magnitude:long_name = "SST gradient magnitude value" ;
+		sst_gradient_magnitude:comment = "Gradient magnitude calculated from SST field in all grids with valid SST" ;
+		sst_gradient_magnitude:coordinates = "lon lat" ;
+		sst_gradient_magnitude:scale_factor = 0.001f ;
+		sst_gradient_magnitude:add_offset = 0.f ;
+		sst_gradient_magnitude:units = "kelvin/km" ;
+		sst_gradient_magnitude:coverage_content_type = "physicalMeasurement" ;
+	byte sst_front_position(time, nj, ni) ;
+		sst_front_position:_FillValue = -128b ;
+		sst_front_position:comment = "Binary indicator of SST front position in the valid SST clear-sky domain: 1 - SST front present, 0 - no front present" ;
+		sst_front_position:coordinates = "lon lat" ;
+		sst_front_position:long_name = "Binary SST front position indicator" ;
+		sst_front_position:valid_min = 0b ;
+		sst_front_position:valid_max = 1b ;
+		sst_front_position:coverage_content_type = "image" ;
+
+// global attributes:
+		:geospatial_bounds = "POLYGON(( 64.981 51.577,  68.015 17.025,  40.270 12.847,  24.261 45.479,  64.981 51.577))" ;
+		:geospatial_first_scanline_first_fov_lat = 17.02484f ;
+		:geospatial_first_scanline_first_fov_lon = 68.01483f ;
+		:geospatial_first_scanline_last_fov_lat = 12.8468f ;
+		:geospatial_first_scanline_last_fov_lon = 40.2699f ;
+		:geospatial_last_scanline_first_fov_lat = 51.57727f ;
+		:geospatial_last_scanline_first_fov_lon = 64.98145f ;
+		:geospatial_last_scanline_last_fov_lat = 45.47906f ;
+		:geospatial_last_scanline_last_fov_lon = 24.26056f ;
+		:acknowledgement = "Please acknowledge the use of these data with the following statement: These data were provided by Group for High Resolution Sea Surface Temperature (GHRSST) and the National Oceanic and Atmospheric Administration (NOAA)." ;
+		:cdm_data_type = "swath" ;
+		:comment = "none" ;
+		:creator_email = "Alex.Ignatov@noaa.gov" ;
+		:creator_name = "Alex Ignatov" ;
+		:creator_url = "http://www.star.nesdis.noaa.gov" ;
+		:date_created = "20220722T042120Z" ;
+		:destripe = "yes (M5:1.0:f M7:1.0:f M10:1.0:f M12:1.0:b M13:1.0:b M14:1.0:b M15:1.0:b M16:1.0:b)" ;
+		:easternmost_longitude = 68.01483f ;
+		:file_quality_level = 3s ;
+		:gds_version_id = "02.0" ;
+		:geospatial_lat_resolution = 0.0067f ;
+		:geospatial_lat_units = "degrees_north" ;
+		:geospatial_lon_resolution = 0.0067f ;
+		:geospatial_lon_units = "degrees_east" ;
+		:history = "Created by Advanced Clear-Sky Processor for Oceans (ACSPO)-VIIRS at NOAA/NESDIS/STAR." ;
+		:id = "VIIRS_N20-STAR-L2P-v2.8" ;
+		:institution = "NOAA/NESDIS/STAR" ;
+		:keywords = "Oceans > Ocean Temperature > Sea Surface Temperature" ;
+		:keywords_vocabulary = "NASA Global Change Master Directory (GCMD) Science Keywords" ;
+		:license = "GHRSST protocol describes data use as free and open" ;
+		:metadata_link = "http://podaac.jpl.nasa.gov/ws/metadata/dataset/?format=iso&shortName=VIIRS_N20-STAR-L2P-v2.8" ;
+		:naming_authority = "org.ghrsst" ;
+		:northernmost_latitude = 51.65356f ;
+		:platform = "N20" ;
+		:processing_level = "L2P" ;
+		:product_version = "2.80" ;
+		:project = "Group for High Resolution Sea Surface Temperature" ;
+		:publisher_email = "ghrsst-po@nceo.ac.uk" ;
+		:publisher_name = "The GHRSST Project Office" ;
+		:publisher_url = "http://www.ghrsst.org" ;
+		:references = "Data convention: GHRSST Data Specification (GDS) v2.0. Algorithms: ACSPO-VIIRS ATBD (NOAA/NESDIS/STAR)" ;
+		:sensor = "VIIRS" ;
+		:aggregator_version = "V1.00" ;
+		:preprocessor_version = "1.15.0" ;
+		:sst_luts = "LUT_VIIRS_N20_L2P_DEPTH_DAY_V01.05_20201216.txt," ;
+		:source = "VIIRS-MOD-GEO-TC,VIIRS-M5-SDR,VIIRS-M7-SDR,VIIRS-M10-SDR,VIIRS-M12-SDR,VIIRS-M15-SDR,VIIRS-M16-SDR,CMC0.1deg-CMC-L4-GLOB-v2.0,NOAA-NCEP-GFS" ;
+		:southernmost_latitude = 12.8468f ;
+		:spatial_resolution = "742 m at nadir" ;
+		:standard_name_vocabulary = "CF Standard Name Table (v26, 08 November 2013)" ;
+		:stop_time = "20220609T095000Z" ;
+		:summary = "Sea surface temperature retrievals produced by NOAA/NESDIS/STAR office from VIIRS sensor" ;
+		:time_coverage_end = "20220609T095000Z" ;
+		:title = "VIIRS L2P SST" ;
+		:uuid = "bcc370d8-0975-11ed-82c2-b8ca3a636470" ;
+		:westernmost_longitude = 24.26056f ;
+		:netcdf_version_id = "4.7.4 of Nov 18 2021 15:43:53 $" ;
+		:start_time = "20220609T094000Z" ;
+		:time_coverage_start = "20220609T094000Z" ;
+		:Conventions = "Conventions = CF-1.7, ACDD-1.3" ;
+}
+}
