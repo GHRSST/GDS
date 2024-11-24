@@ -11,6 +11,7 @@ chapters:
 - file: sea_surface_temperature
 - file: naming
 - file: structure
+- file: coordinates
 - file: l2p
 - file: l3
 - file: l4
