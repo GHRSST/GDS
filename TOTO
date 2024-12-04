@@ -1,0 +1,10 @@
+ncdump -h ../odyssea-intercalibration/2023/326/20231122-IFR-L3C_GHRSST-SSTsubskin-ODYSSEA-GLOB_010_AVHRR_SST_METOP_B-OSISAF-L2P-v1.0_adjusted-v2.1-fv1.0.nc | grep $'[ , \t]sea_surface_temperature[(,:]'
+
+'ai créé le dossier : /home/wwwinter/www/htdocs/isi/jeff (à accéder depuis vsessionidm)
+
+--> https://isi-sbx.ifremer.fr/jeff/
+
+scp -r _build/html/* jfpiolle@vsessionidm:/home/wwwinter/www/htdocs/isi/jeff/gds
+
+token git
+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

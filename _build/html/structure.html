@@ -1,0 +1,1185 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>5. GDS Data Product File Structure &#8212; The Recommended GHRSST Data Specification (GDS)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'structure';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="6. Coordinate variables" href="coordinates.html" />
+    <link rel="prev" title="4. GDS Filenames and Supporting Conventions" href="naming.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/ghrsst-logo.png" class="logo__image only-light" alt="The Recommended GHRSST Data Specification (GDS) - Home"/>
+    <script>document.write(`<img src="_static/ghrsst-logo.png" class="logo__image only-dark" alt="The Recommended GHRSST Data Specification (GDS) - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    The Recommended GHRSST Data Specification (GDS) Version 2.1r0
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="conventions.html">1. Document Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">2. Overview of GHRSST and the GDS-2.1r0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sea_surface_temperature.html">3. Sea Surface Temperature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="naming.html">4. GDS Filenames and Supporting Conventions</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">5. GDS Data Product File Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coordinates.html">6. Coordinate variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l2p.html">7. Level 2 Pre-processed (L2P) Product Specification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l3.html">8. Level 3 (L3) Product Specification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l4.html">9. Level 4 (L4) Product Specification</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fstructure.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/structure.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>GDS Data Product File Structure</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-the-gds-2-1r0-netcdf-file-format">5.1. Overview of the GDS-2.1r0 netCDF File Format</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#global-attributes">5.2. Global Attributes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variable-attributes">5.3. Variable Attributes</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="gds-data-product-file-structure">
+<h1><span class="section-number">5. </span>GDS Data Product File Structure<a class="headerlink" href="#gds-data-product-file-structure" title="Link to this heading">#</a></h1>
+<section id="overview-of-the-gds-2-1r0-netcdf-file-format">
+<h2><span class="section-number">5.1. </span>Overview of the GDS-2.1r0 netCDF File Format<a class="headerlink" href="#overview-of-the-gds-2-1r0-netcdf-file-format" title="Link to this heading">#</a></h2>
+<p>GDS-2.1r0 data files preferentially use the netCDF-4 Classic format. A
+major advantage to the use of NetCDF-4 format products is that it offers
+internal compression so that reading a given variable or some attributes
+does not require to explicitly decompress the entire file.</p>
+<p>These GDS-2.1r0 formatted data sets must comply with the <strong>Climate
+and Forecast (CF) Conventions, v1.7 or later</strong> <a class="footnote-reference brackets" href="#footnote1" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> because these
+conventions provide a practical standard for storing oceanographic data in a robust,
+easily-preserved for the long-term, and interoperable manner. The CF-compliant
+netCDF data format is flexible, self-describing, and has been adopted as a de
+facto standard for many operational and scientific oceanography systems.
+Both netCDF and CF are actively maintained including significant discussions and
+inputs from the oceanographic community. The CF convention generalizes and
+extends the <strong>Cooperative Ocean/Atmosphere Research Data Service (COARDS)
+Convention</strong> <a class="footnote-reference brackets" href="#footnote2" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> but relaxes the COARDS constraints on dimension order
+and specifies methods for reducing the size of datasets. The purpose of the CF
+Conventions is to require conforming datasets to contain sufficient metadata so
+that they are self-describing, in the sense that each variable in the file has
+an associated description of what it represents, physical units if appropriate,
+and that each value can be located in space (relative to earth-based
+coordinates) and time. In addition to the CF Conventions, GDS-2.1r0
+formatted files follow some of the recommendations of the <strong>Unidata Attribute
+Convention for Dataset Discovery (ACDD)</strong> <a class="footnote-reference brackets" href="#footnote3" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>.</p>
+<p>In the context of netCDF, a <strong>variable</strong> refers to data stored in the file as a
+vector or as a multidimensional array. Each variable in a GHRSST netCDF file
+consists of a 2-dimensional <code class="docutils literal notranslate"><span class="pre">[i</span> <span class="pre">x</span> <span class="pre">j]</span></code>, 3-dimensional <code class="docutils literal notranslate"><span class="pre">[i</span> <span class="pre">x</span> <span class="pre">j</span> <span class="pre">x</span> <span class="pre">k]</span></code>, or
+4-dimensional <code class="docutils literal notranslate"><span class="pre">[i</span> <span class="pre">x</span> <span class="pre">j</span> <span class="pre">x</span> <span class="pre">k</span> <span class="pre">x</span> <span class="pre">l]</span></code> array of data. The dimensions of each
+variable must be explicitly declared in the dimension section.</p>
+<p>Within the netCDF file, <strong>global attributes</strong> are used to hold information that
+applies to the whole file, such as the data set title. Each individual variable
+must also have its own attributes, referred to as <strong>variable attributes</strong>.
+These variable attributes define, for example, an <strong>offset</strong>, <strong>scale factor</strong>,
+<strong>units</strong>, a <strong>descriptive version of the variable name</strong>, and a <strong>fill
+value</strong>, which is used to indicate array elements that do not contain valid
+data. Where applicable, SI units should be used and described by a character
+string, which is compatible with the Unidata UDUNITS-2 package <a class="footnote-reference brackets" href="#footnote4" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>.</p>
+<p>All GHRSST GDS-2.1r0 files conform to this structure and share a
+common set of netCDF global attributes. These global attributes include those
+required by the CF Convention plus additional ones required by the
+GDS-2.1r0. The required set of global attributes is described in
+<a class="reference internal" href="#global-attributes"><span class="std std-numref">Section 5.2</span></a> and entities within the GHRSST R/GTS framework are
+free to add their own, as long as they do not contradict the
+GDS-2.1r0 and CF requirements.</p>
+<p>Following the CF convention, each variable also has a set of variable
+attributes. The required variable attributes are described in
+<a class="reference internal" href="#variable-attributes"><span class="std std-numref">Section 5.3</span></a>. In a few cases, some of these variable attributes
+may not be relevant for certain variables or additional variable attributes may
+be required. In those cases, the variable descriptions in each of the
+<a class="reference internal" href="l2p.html"><span class="std std-doc">L2P</span></a>, <a class="reference internal" href="l3.html"><span class="std std-doc">L3</span></a>, <a class="reference internal" href="l4.html"><span class="std std-doc">L4</span></a> product specifications will
+identify the differences and specify requirements for each product. As with the
+global attributes, entities within the GHRSST R/GTS framework are free to add
+their own variable attributes, as long as they do not contradict the
+GDS-2.1r0 and CF requirements.</p>
+<p>While the exact volumes can vary, an average L2P file will use about 33 bytes
+per pixel, an L3 file 28 bytes per pixel, and an L4 file about 8 bytes per
+pixel. The data type encodings for each variable are fixed except for the
+experimental fields, which are flexible and can chosen by the GHRSST producer.</p>
+</section>
+<section id="global-attributes">
+<span id="id5"></span><h2><span class="section-number">5.2. </span>Global Attributes<a class="headerlink" href="#global-attributes" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="#id6"><span class="std std-numref">Table 5.1</span></a> below summarizes the global attributes that are
+mandatory for every GDS-2.1r0 netCDF data file. More details on the
+CF-mandated attributes (as indicated in the <em>Source</em> column) are available at:
+<a class="reference external" href="http://cfconventions.org/cf-conventions/cf-conventions.html#attribute-appendix">http://cfconventions.org/cf-conventions/cf-conventions.html#attribute-appendix</a>
+and information on the ACDD recommendations is available at
+<a class="reference external" href="https://wiki.esipfed.org/Attribute_Convention_for_Data_Discovery_1-3">https://wiki.esipfed.org/Attribute_Convention_for_Data_Discovery_1-3</a>.</p>
+<style>
+    .global-attributes-css { font-size: 12px; width: 100%; table-layout: fixed;} 
+    .global-attributes-css tbody tr:nth-child(2) { background: #42d1f5; }
+    .global-attributes-css thead tr th:nth-child(2), tbody tr td:nth-child(2) {
+        width: 6em;
+        min-width: 6em;
+        max-width: 6em;
+        word-break: break-all;
+    }
+    .global-attributes-css thead tr th:nth-child(5), tbody tr td:nth-child(5) {
+        width: 6em;
+        min-width: 6em;
+        max-width: 6em;
+        word-break: break-all;
+    }
+</style>
+<div class="pst-scrollable-table-container"><table class="global-attributes-css table" id="id6">
+<caption><span class="caption-number">Table 5.1 </span><span class="caption-text">Mandatory global attributes for GDS-2.1r0 netCDF data files (blue are mandatory, purple are optional)</span><a class="headerlink" href="#id6" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Global Attribute Name</p></th>
+<th class="head"><p>Format</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Example</p></th>
+<th class="head"><p>Source</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Conventions</span></code></p></td>
+<td><p>string</p></td>
+<td><p>A comma-separated list of the conventions that are followed by the dataset. For files that follow this versionof ACDD, include the string ‘ACDD-1.3’.(This attribute is defined in NUG 1.7.)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Conventions</span> <span class="pre">=</span> <span class="pre">&quot;CF</span> <span class="pre">1.7+,</span> <span class="pre">ACDD</span> <span class="pre">1.3&lt;br&gt;ISO</span> <span class="pre">8601&quot;;</span></code></p></td>
+<td><p>ACDD 1.3<br>CF 1.7++</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">title</span></code></p></td>
+<td><p>string</p></td>
+<td><p>A short phrase or sentence describing the dataset. In many discovery systems, the title will be displayed in the results list from a search, and therefore should be human readable and reasonable to display in a list of such names. This attribute is recommended by the NetCDF Users Guide (NUG) and the CF conventions.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">title</span> <span class="pre">=</span> <span class="pre">&quot;VIIRS</span> <span class="pre">L2P</span> <span class="pre">Sea</span> <span class="pre">Surface</span> <span class="pre">Skin</span> <span class="pre">Temperature&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3<br>CF 1.7+</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">summary</span></code></p></td>
+<td><p>string</p></td>
+<td><p>A paragraph describing the dataset, analogous to an abstract for a paper.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">summary</span> <span class="pre">=</span> <span class="pre">&quot;Sea</span> <span class="pre">surface</span> <span class="pre">temperature</span> <span class="pre">(SST)</span> <span class="pre">retrievals</span> <span class="pre">produced</span> <span class="pre">at</span> <span class="pre">the</span> <span class="pre">NASA</span> <span class="pre">OBPG</span> <span class="pre">for</span> <span class="pre">the</span> <span class="pre">Visible</span> <span class="pre">Infrared</span> <span class="pre">Imaging</span> <span class="pre">Radiometer</span> <span class="pre">Suite</span> <span class="pre">(VIIRS)</span> <span class="pre">sensor</span> <span class="pre">on</span> <span class="pre">the</span> <span class="pre">Suomi</span> <span class="pre">National</span> <span class="pre">Polar-Orbiting</span> <span class="pre">Parnership</span> <span class="pre">(Suomi</span> <span class="pre">NPP)</span> <span class="pre">platform.</span> <span class="pre">These</span> <span class="pre">have</span> <span class="pre">been</span> <span class="pre">reformatted</span> <span class="pre">to</span> <span class="pre">GHRSST</span> <span class="pre">GDS</span> <span class="pre">version</span> <span class="pre">2</span> <span class="pre">Level</span> <span class="pre">2P</span> <span class="pre">specifications</span> <span class="pre">by</span> <span class="pre">the</span> <span class="pre">JPL</span> <span class="pre">PO.DAAC.&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">references</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Published or web-based references that describe the data or methods used to produce it. Recommend URIs (such as a URL or DOI) for papers or other references. This attribute is defined in the CF conventions.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">references</span> <span class="pre">=</span> <span class="pre">&quot;GHRSST</span> <span class="pre">Data</span> <span class="pre">Processing</span> <span class="pre">Specification</span> <span class="pre">v2r5&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.3<br>CF 1.7+</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">institution</span></code></p></td>
+<td><p>string</p></td>
+<td><p>The name of the institution principally responsible for originating this data. This attribute is recommended by the CF convention.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">institution</span> <span class="pre">=</span> <span class="pre">&quot;NASA</span> <span class="pre">Jet</span> <span class="pre">Propulsion</span> <span class="pre">Laboratory</span> <span class="pre">(JPL)</span> <span class="pre">Physical</span> <span class="pre">Oceanography</span> <span class="pre">Distributed</span> <span class="pre">Active</span> <span class="pre">Archive</span> <span class="pre">Center</span> <span class="pre">(PO.DAAC)/NASA</span> <span class="pre">Goddard</span> <span class="pre">Space</span> <span class="pre">Flight</span> <span class="pre">Center</span> <span class="pre">(GSFC),</span> <span class="pre">Ocean</span> <span class="pre">Biology</span> <span class="pre">Processing</span> <span class="pre">Group</span> <span class="pre">(OBPG)/University</span> <span class="pre">of</span> <span class="pre">Miami</span> <span class="pre">Rosential</span> <span class="pre">School</span> <span class="pre">of</span> <span class="pre">Marine</span> <span class="pre">and</span> <span class="pre">Atmospheric</span> <span class="pre">Science</span> <span class="pre">(RSMAS)&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD  1.1, ACDD 1.3<br>CF 1.7+</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">history</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Provides an audit trail for modifications to the original data. This attribute is also in the NetCDF Users Guide: ‘This is a character array with a line for each invocation of a program that has modified the dataset. Well-behaved generic netCDF applications should append a line containing: date, time of day, user name, program name and command arguments.’ To include a more complete description you can append a reference to an ISO Lineage entity; see NOAA EDM ISO Lineage guidance.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">history</span> <span class="pre">=</span> <span class="pre">&quot;VIIRS</span> <span class="pre">L2P</span> <span class="pre">created</span> <span class="pre">at</span> <span class="pre">JPL</span> <span class="pre">PO.DAAC</span> <span class="pre">by</span> <span class="pre">combining</span> <span class="pre">OBPG</span> <span class="pre">SNPP_SST</span> <span class="pre">and</span> <span class="pre">SNPP_SST3,</span> <span class="pre">and</span> <span class="pre">outputing</span> <span class="pre">to</span> <span class="pre">the</span> <span class="pre">GHRSST</span> <span class="pre">GDS2</span> <span class="pre">netCDF</span> <span class="pre">file</span> <span class="pre">format&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3<br>CF 1.7+</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">comment</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Miscellaneous information about the data, not captured elsewhere. This attribute is defined in the CF Conventions.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">comment</span> <span class="pre">=</span> <span class="pre">&quot;L2P</span> <span class="pre">Core</span> <span class="pre">without</span> <span class="pre">DT</span> <span class="pre">analysis</span> <span class="pre">or</span> <span class="pre">other</span> <span class="pre">ancillary</span> <span class="pre">fields;</span> <span class="pre">Night,</span> <span class="pre">Start</span> <span class="pre">Node:Descending,</span> <span class="pre">End</span> <span class="pre">Node:Descending;</span> <span class="pre">WARNING</span> <span class="pre">Some</span> <span class="pre">applications</span> <span class="pre">are</span> <span class="pre">unable</span> <span class="pre">to</span> <span class="pre">properly</span> <span class="pre">handle</span> <span class="pre">signed</span> <span class="pre">byte</span> <span class="pre">values.</span> <span class="pre">If</span> <span class="pre">values</span> <span class="pre">are</span> <span class="pre">encountered</span> <span class="pre">&gt;</span> <span class="pre">127,</span> <span class="pre">please</span> <span class="pre">subtract</span> <span class="pre">256</span> <span class="pre">from</span> <span class="pre">this</span> <span class="pre">reported</span> <span class="pre">value;</span> <span class="pre">Quicklook&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">license</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Provide the URL to a standard or specific license, enter “Freely Distributed” or “None”, or describe any restrictions to data access and distribution in free text. GHRSST data sets should be freely and openly available to comply with the R/GTS framework, with no restrictions. However, if a user should submit a simple registration via a web form, for example, the URL could be given here.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">license</span> <span class="pre">=</span> <span class="pre">&quot;GHRSST</span> <span class="pre">protocol</span> <span class="pre">describes</span> <span class="pre">data</span> <span class="pre">use</span> <span class="pre">as</span> <span class="pre">free</span> <span class="pre">and</span> <span class="pre">open.”</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">id</span></code></p></td>
+<td><p>string</p></td>
+<td><p>An identifier for the data set, provided by and unique within its naming authority. The combination of the “”naming authority”” and the “”id”” should be globally unique, but the id can be globally unique by itself also. IDs can be URLs, URNs, DOIs, meaningful text strings, a local key, or any other unique string of characters. The id should not include white space characters.<br>  <br> <br>Here the unique GHRSST character string for this product. All GHRSST SST products have one, and they are listed in Erreur : source de la référence non trouvée.<br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">id</span> <span class="pre">=</span> <span class="pre">&quot;VIIRS_NPP-JPL-L2P-v2016.0&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">naming_authority</span></code></p></td>
+<td><p>string</p></td>
+<td><p>The organization that provides the initial id (see above) for the dataset. The naming authority should be uniquely specified by this attribute. We recommend using reverse-DNS naming for the naming authority; URIs are also acceptable. Fixed as “org.ghrsst” following ACDD convention.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">naming_authority</span> <span class="pre">=</span> <span class="pre">&quot;org.ghrsst&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">product_version</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Version identifier of the data file or product as assigned by the data creator. For example, a new algorithm or methodology could result in a new product_version. It may be different than the file version used in the file naming convention (Section 7).<br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">product_version</span> <span class="pre">=</span> <span class="pre">&quot;2016.0&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.3</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">uuid</span></code></p></td>
+<td><p>string</p></td>
+<td><p>A uuid (Universal Unique Identifier) is a 128-bit number used to uniquely identify some object or entity on the Internet. Depending on the specific mechanisms used, a uuid is either guaranteed to be different or is, at least, extremely likely to be different from any other uuid generated until 3400 A.D. See <a class="reference external" href="http://en.wikipedia.org/wiki/Universally_Unique_Identifier">http://en.wikipedia.org/wiki/Universally_Unique_Identifier</a> for more information and tools.<br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uuid</span> <span class="pre">=</span> <span class="pre">&quot;b6ac7651-7b02-44b0-942b-c5dc3c903eba&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>GDS</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gds_version_id</span></code></p></td>
+<td><p>string</p></td>
+<td><p>GDS version used to create this data file. For example, “2.1”.</p></td>
+<td><p></p></td>
+<td><p>GDS</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">netcdf_version_id</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Version of netCDF libraries used to create this file. For example, “4.1.1”</p></td>
+<td><p></p></td>
+<td><p>GDS</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">date_created</span></code></p></td>
+<td><p>string</p></td>
+<td><p>The date on which this version of the data was created. (Modification of values implies a new version, hence this would be assigned the date of the most recent values modification.) Metadata changes are not considered when assigning the date_created. The ISO 8601:2004 extended date format is recommended.<br>  <br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">date_created</span> <span class="pre">=</span> <span class="pre">&quot;2016-10-14T21:00:25&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">date_modified</span></code></p></td>
+<td><p>string</p></td>
+<td><p>The date on which the data was last modified. Note that this applies just to the data, not the metadata. The ISO 8601:2004 extended date format is recommended.<br>  <br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">date_modified</span> <span class="pre">=</span> <span class="pre">&quot;2016-10-14T21:00:25&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">date_issued</span></code></p></td>
+<td><p>string</p></td>
+<td><p>The date on which this data (including all modifications) was formally issued (i.e., made available to a wider audience). Note that these apply just to the data, not the metadata. The ISO 8601:2004 extended date format is recommended. <br>  <br> <br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">date_issued</span> <span class="pre">=</span> <span class="pre">&quot;2016-10-14T21:00:25&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">date_metadata_modified</span></code></p></td>
+<td><p>string</p></td>
+<td><p>The date on which the metadata was last modified. The ISO 8601:2004 extended date format is recommended.<br>  <br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">date_metadata_modified</span> <span class="pre">=</span> <span class="pre">&quot;2016-10-14T21:00:25&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.3</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">file_quality_level</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>A code value:<br> 0 = unknown quality<br> 1 = extremely suspect (frequent problems, e.g. with known satellite problems) <br> 2 = suspect (occasional problems, e.g. after launch)<br> 3 = excellent (no known problems)</p></td>
+<td><p></p></td>
+<td><p>GDS</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">spatial_resolution</span></code></p></td>
+<td><p>string</p></td>
+<td><p>A string describing the approximate resolution of the product. For example, “1.1km at nadir”</p></td>
+<td><p></p></td>
+<td><p>GDS</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">time_coverage_start</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Describes the time of the first data point in the data set. Use the ISO 8601:2004 date format, of “yyyy-mm-ddThh:mm:ssZ”. The exact meaning of this attribute depends the type of granule:<br>   L2P: first measurement in granule (identical to ‘time’ netCDF variable)<br> <br> L3U: start time of granule<br> <br> L3C and L3S: representative start time of first measurement in the collation<br> <br>  L4: representative start time of the analysis (start_time and stop_time together represent the valid period of the L4 granule)<br>  <br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">time_coverage_start</span> <span class="pre">=</span> <span class="pre">&quot;2016-09-01T08:12:01&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">time_coverage_end</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Describes the time of the last data point in the data set. Use ISO 8601:2004 date format, of “yyyy-mm-ddThh:mm:ssZ”. The exact meaning of this attribute depends the type of granule:<br>   L2P: last measurement in granule  <br> <br> L3U: stop time of granule<br> <br> L3C and L3S: representative stop time of last measurement in collation<br> <br>  L4: representative stop time of the analysis (start_time and stop_time together represent the valid period of the L4 granule)<br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">time_coverage_end</span> <span class="pre">=</span> <span class="pre">&quot;2016-09-01T08:17:59&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">instrument</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Name of the contributing instrument(s) or sensor(s) used to create this data set or product. Indicate controlled vocabulary used in instrument_vocabulary.<br> <br> We recommend for consistency to use the CEOS mission table (<a class="reference external" href="http://database.eohandbook.com/database/instrumenttable.aspx">http://database.eohandbook.com/database/instrumenttable.aspx</a>). Provide as a comma separated list if there is more than one.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sensor</span> <span class="pre">=</span> <span class="pre">&quot;VIIRS&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.3</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">instrument_vocabulary</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Controlled vocabulary for the names used in the “”instrument”” attribute.<br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">instrument_vocabulary</span> <span class="pre">=</span> <span class="pre">&quot;CEOS</span> <span class="pre">instrument</span> <span class="pre">table&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.3</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">metadata_link</span></code></p></td>
+<td><p>string</p></td>
+<td><p>A URL that gives the location of more complete metadata. A persistent URL is recommended for this attribute. It is recommended to link to the product description in the GHRSST central catalogue.<br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">metadata_link</span> <span class="pre">=</span> <span class="pre">&quot;http://podaac.jpl.nasa.gov/ws/metadata/dataset/?format=iso&amp;shortName=VIIRS-JPL-L2P-v2016.0&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.3</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">keywords</span></code></p></td>
+<td><p>string</p></td>
+<td><p>A comma-separated list of key words and/or phrases. Keywords may be common words or phrases, terms from a controlled vocabulary (GCMD is often used), or URIs for terms from a controlled vocabulary (see also “keywords_vocabulary” attribute).</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">keywords</span> <span class="pre">=</span> <span class="pre">&quot;Oceans,</span> <span class="pre">Ocean</span> <span class="pre">Temperature,</span> <span class="pre">Sea</span> <span class="pre">Surface</span> <span class="pre">Temperature</span> <span class="pre">,</span> <span class="pre">Sea</span> <span class="pre">Surface</span> <span class="pre">Skin</span> <span class="pre">Temperature&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">keywords_vocabulary</span></code></p></td>
+<td><p>string</p></td>
+<td><p>If you are using a controlled vocabulary for the words/phrases in your “keywords” attribute, this is the unique name or identifier of the vocabulary from which keywords are taken. If more than one keyword vocabulary is used, each may be presented with a prefix (e.g.,“NASA Global Change Master Directory (GCMD) Science Keywords” as defined in [AD-10]) and a following comma, so that keywords may optionally be prefixed with the controlled vocabulary key.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">keywords_vocabulary</span> <span class="pre">=</span> <span class="pre">&quot;NASA</span> <span class="pre">Global</span> <span class="pre">Change</span> <span class="pre">Master</span> <span class="pre">Directory</span> <span class="pre">(GCMD)</span> <span class="pre">Science</span> <span class="pre">Keywords&quot;</span> <span class="pre">;</span></code>[AD-10]</p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">standard_name_vocabulary</span></code></p></td>
+<td><p>string</p></td>
+<td><p>The name and version of the controlled vocabulary from which variable standard names are taken. (Values for any standard_name attribute must come from the CF Standard Names vocabulary for the data file or product to comply with CF.)  <br></p></td>
+<td><p>CF Standard Name Table v27’.</p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">geospatial_lat_min</span></code></p></td>
+<td><p>float</p></td>
+<td><p>Describes a simple lower latitude limit; may be part of a 2- or 3-dimensional bounding region. Geospatial_lat_min specifies the southernmost latitude covered by the dataset.<br>  <br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">geospatial_lat_min</span> <span class="pre">=</span> <span class="pre">-63.1404f</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">geospatial_lat_max</span></code></p></td>
+<td><p>float</p></td>
+<td><p>Describes a simple upper latitude limit; may be part of a 2- or 3-dimensional bounding region. Geospatial_lat_max specifies the northernmost latitude covered by the dataset.<br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">geospatial_lat_max</span> <span class="pre">=</span> <span class="pre">-36.7432f</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">geospatial_lat_units</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Units for the latitude axis described in “”geospatial_lat_min”” and “”geospatial_lat_max”” attributes. These are presumed to be “”degree_north””; other options from udunits may be specified instead.<br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">geospatial_lat_units</span> <span class="pre">=</span> <span class="pre">&quot;degrees_north&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">geospatial_lat_resolution</span></code></p></td>
+<td><p>float</p></td>
+<td><p>Information about the targeted spacing of points in latitude. Recommend describing resolution as a number value followed by the units. Examples: ‘100 meters’, ‘0.1 degree’. For level 1 and 2 swath data this is an approximation of the pixel resolution.<br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">geospatial_lat_resolution</span> <span class="pre">=</span> <span class="pre">0.0075f</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">geospatial_lon_min</span></code></p></td>
+<td><p>float</p></td>
+<td><p>Describes a simple longitude limit; may be part of a 2- or 3-dimensional bounding region. geospatial_lon_min specifies the westernmost longitude covered by the dataset. See also geospatial_lon_max.<br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">geospatial_lon_min</span> <span class="pre">=</span> <span class="pre">-143.09f</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">geospatial_lon_max</span></code></p></td>
+<td><p>float</p></td>
+<td><p>Describes a simple longitude limit; may be part of a 2- or 3-dimensional bounding region. geospatial_lon_max specifies the easternmost longitude covered by the dataset. Cases where geospatial_lon_min is greater than geospatial_lon_max indicate the bounding box extends from geospatial_lon_max, through the longitude range discontinuity meridian (either the antimeridian for -180:180 values, or Prime Meridian for 0:360 values), to geospatial_lon_min; for example, geospatial_lon_min=170 and geospatial_lon_max=-175 incorporates 15 degrees of longitude (ranges 170 to 180 and -180 to -175). <br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">geospatial_lon_max</span> <span class="pre">=</span> <span class="pre">-88.893f</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">geospatial_lon_units</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Units for the longitude axis described in “”geospatial_lon_min”” and “”geospatial_lon_max”” attributes. These are presumed to be “”degree_east””; other options from udunits may be specified instead.<br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">geospatial_lon_units</span> <span class="pre">=</span> <span class="pre">&quot;degrees_east&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">geospatial_lon_resolution</span></code></p></td>
+<td><p>float</p></td>
+<td><p>Information about the targeted spacing of points in longitude. Recommend describing resolution as a number value followed by units. Examples: ‘100 meters’, ‘0.1 degree’. For level 1 and 2 swath data this is an approximation of the pixel resolution.<br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">geospatial_lon_resolution</span> <span class="pre">=</span> <span class="pre">0.0075f</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">geospatial_vertical_min</span></code></p></td>
+<td><p>float</p></td>
+<td><p>Describes the numerically smaller vertical limit; may be part of a 2- or 3-dimensional bounding region. See geospatial_vertical_positive and geospatial_vertical_units.<br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">geospatial_vertical_min</span> <span class="pre">=</span> <span class="pre">0.00f</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">geospatial_vertical_max</span></code></p></td>
+<td><p>float</p></td>
+<td><p>Describes the numerically larger vertical limit; may be part of a 2- or 3-dimensional bounding region. See geospatial_vertical_positive and geospatial_vertical_units.<br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">geospatial_vertical_max</span> <span class="pre">=</span> <span class="pre">1000.00f</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">geospatial_vertical_resolution</span></code></p></td>
+<td><p>float</p></td>
+<td><p>Information about the targeted vertical spacing of points. Example: ‘25 meters’<br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">geospatial_vertical_resolution</span> <span class="pre">=</span> <span class="pre">25.0f</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">geospatial_vertical_units</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Units for the vertical axis described in “geospatial_vertical_min” and “geospatial_vertical_max” attributes. The default is EPSG:4979 (height above the ellipsoid, in meters); other vertical coordinate reference systems may be specified. Note that the common oceanographic practice of using pressure for a vertical coordinate, while not strictly a depth, can be specified using the unit bar. Examples: ‘EPSG:5829’ (instantaneous height above sea level), ‘EPSG:5831’ (instantaneous depth below sea level).</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">geospatial_vertical_units</span> <span class="pre">=</span> <span class="pre">'meters'</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">geospatial_vertical_positive</span></code></p></td>
+<td><p>string</p></td>
+<td><p>One of ‘up’ or ‘down’. If up, vertical values are interpreted as ‘altitude’, with negative values corresponding to below the reference datum (e.g., under water). If down, vertical values are interpreted as ‘depth’, positive values correspond to below the reference datum. Note that if geospatial_vertical_positive is down (‘depth’ orientation), the geospatial_vertical_min attribute specifies the data’s vertical location furthest from the earth’s center, and the geospatial_vertical_max attribute specifies the location closest to the earth’s center.<br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">geospatial_vertical_positive</span> <span class="pre">=</span> <span class="pre">'down'</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">geospatial_bounds</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Describes the data’s 2D or 3D geospatial extent in OGC’s Well-Known Text (WKT) Geometry format (reference the OGC Simple Feature Access (SFA) specification). The meaning and order of values for each point’s coordinates depends on the coordinate reference system (CRS). The ACDD default is 2D geometry in the EPSG:4326 coordinate reference system. The default may be overridden with geospatial_bounds_crs and geospatial_bounds_vertical_crs (see those attributes). EPSG:4326 coordinate values are latitude (decimal degrees_north) and longitude (decimal degrees_east), in that order. Longitude values in the default case are limited to the (-180, 180) range. Example: “POLYGON ((40.26 -111.29, 41.26 -111.29, 41.26 -110.29, 40.26 -110.29, 40.26 -111.29))”.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">geospatial_bounds</span> <span class="pre">=</span> <span class="pre">&quot;(-143.09,</span> <span class="pre">-63.1404,</span> <span class="pre">-88.893,</span> <span class="pre">-36.7432)&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1 ACDD 1.3</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">geospatial_bounds_crs</span></code></p></td>
+<td><p>string</p></td>
+<td><p>The coordinate reference system (CRS) of the point coordinates in the geospatial_bounds attribute. This CRS may be 2-dimensional or 3-dimensional, but together with geospatial_bounds_vertical_crs, if that attribute is supplied, must match the dimensionality, order, and meaning of point coordinate values in the geospatial_bounds attribute. If geospatial_bounds_vertical_crs is also present then this attribute must only specify a 2D CRS. EPSG CRSs are strongly recommended. If this attribute is not specified, the CRS is assumed to be EPSG:4326. Examples: “EPSG:4979” (the 3D WGS84 CRS), “EPSG:4047”.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">geospatial_bounds_crs</span> <span class="pre">=</span> <span class="pre">&quot;WGS84&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.3</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">geospatial_bounds_vertical_crs</span></code></p></td>
+<td><p>string</p></td>
+<td><p>The vertical coordinate reference system (CRS) for the Z axis of the point coordinates in the geospatial_bounds attribute. This attribute cannot be used if the CRS in geospatial_bounds_crs is 3-dimensional; to use this attribute, geospatial_bounds_crs must exist and specify a 2D CRS. EPSG CRSs are strongly recommended. There is no default for this attribute when not specified. Examples: “”EPSG:5829”” (instantaneous height above sea level), “”EPSG:5831”” (instantaneous depth below sea level), or “”EPSG:5703”” (NAVD88 height).<br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">geospatial_bounds_vertical_crs</span> <span class="pre">=</span> <span class="pre">&quot;EPSG:5831&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.3</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">acknowledgment</span></code></p></td>
+<td><p>string</p></td>
+<td><p>A place to acknowledge various types of support for the project that produced this data.<br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">acknowledgment</span> <span class="pre">=</span> <span class="pre">&quot;The</span> <span class="pre">VIIRS</span> <span class="pre">L2P</span> <span class="pre">sea</span> <span class="pre">surface</span> <span class="pre">temperature</span> <span class="pre">data</span> <span class="pre">are</span> <span class="pre">sponsored</span> <span class="pre">by</span> <span class="pre">NASA.</span> <span class="pre">Data</span> <span class="pre">may</span> <span class="pre">be</span> <span class="pre">freely</span> <span class="pre">distributed&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">creator_name</span></code></p></td>
+<td><p>string</p></td>
+<td><p>The name of the person (or other creator type, such as a RDAC, specified by the creator_type attribute) principally responsible for creating this data.<br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">creator_name</span> <span class="pre">=</span> <span class="pre">&quot;JPL</span> <span class="pre">PO.DAAC&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">creator_url</span></code></p></td>
+<td><p>string</p></td>
+<td><p>The URL of the of the person (or other creator type specified by the creator_type attribute) principally responsible for creating this data.<br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">creator_url</span> <span class="pre">=</span> <span class="pre">&quot;http://podaac.jpl.nasa.gov&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">creator_email</span></code></p></td>
+<td><p>string</p></td>
+<td><p>The email address of the person (or other creator type specified by the creator_type attribute) principally responsible for creating this data.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">creator_email</span> <span class="pre">=</span> <span class="pre">&quot;ghrsst&#64;jpl.nasa.gov&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">creator_type</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Specifies type of creator with one of the following: ‘person’, ‘group’, ‘institution’, or ‘position’. If this attribute is not specified, the creator is assumed to be a person. For a RDAC, use here ‘institution’.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">creator_type</span> <span class="pre">=</span> <span class="pre">&quot;institution&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.3</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">creator_institution</span></code></p></td>
+<td><p>string</p></td>
+<td><p>The institution of the creator; should uniquely identify the creator’s institution. This attribute’s value should be specified even if it matches the value of publisher_institution, or if creator_type is institution. <br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">creator_institution</span> <span class="pre">=</span> <span class="pre">&quot;JPL</span> <span class="pre">PO.DAAC/GHRSST&quot;;</span></code></p></td>
+<td><p>ACDD 1.3</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">project</span></code></p></td>
+<td><p>string</p></td>
+<td><p>The name of the project(s) principally responsible for originating this data. Multiple projects can be separated by commas, as described under Attribute Content Guidelines. Examples: ‘PATMOS-X’, ‘Extended Continental Shelf Project’.<br>  <br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;Group</span> <span class="pre">for</span> <span class="pre">High</span> <span class="pre">Resolution</span> <span class="pre">Sea</span> <span class="pre">Surface</span> <span class="pre">Temperature”</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">program</span></code></p></td>
+<td><p>string</p></td>
+<td><p>The overarching program(s) of which the dataset is a part. A program consists of a set (or portfolio) of related and possibly interdependent projects that meet an overarching objective. Examples:  <br>  ‘GHRSST’, ‘NOAA CDR’, ‘NASA EOS’, ‘JPSS’, ‘GOES-R’.<br>  <br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">program=</span> <span class="pre">&quot;</span> <span class="pre">NASA</span> <span class="pre">Earth</span> <span class="pre">Science</span> <span class="pre">Data</span> <span class="pre">Information</span> <span class="pre">and</span> <span class="pre">System</span> <span class="pre">(ESDIS)&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.3</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">contributor_name</span></code></p></td>
+<td><p>string</p></td>
+<td><p>The name of any individuals, projects, or institutions that contributed to the creation of this data. May be presented as free text, or in a structured format compatible with conversion to ncML (e.g., insensitive to changes in whitespace, including end-of-line characters).<br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">contributor_name</span> <span class="pre">=</span> <span class="pre">&quot;PO.DAAC/OBPS/REMAS&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.3</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">contributor_role</span></code></p></td>
+<td><p>string</p></td>
+<td><p>The role of any individuals, projects, or institutions that contributed to the creation of this data. May be presented as free text, or in a structured format compatible with conversion to ncML (e.g., insensitive to changes in whitespace, including end-of-line characters). Multiple roles should be presented in the same order and number as the names in contributor_names.<br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">contributor_role</span> <span class="pre">=</span> <span class="pre">&quot;PO.DAAC</span> <span class="pre">convert</span> <span class="pre">the</span> <span class="pre">VIIRSS_NPP</span> <span class="pre">SST</span> <span class="pre">to</span> <span class="pre">GDS2</span> <span class="pre">format,</span> <span class="pre">OBPS</span> <span class="pre">processed</span> <span class="pre">the</span> <span class="pre">L2P</span> <span class="pre">SST,</span> <span class="pre">and</span> <span class="pre">RSMAS</span> <span class="pre">provided</span> <span class="pre">the</span> <span class="pre">algorithm</span> <span class="pre">model</span> <span class="pre">&quot;;</span></code></p></td>
+<td><p>ACDD 1.3</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">publisher_name</span></code></p></td>
+<td><p>string</p></td>
+<td><p>The name of the person (or other entity specified by the publisher_type attribute) responsible for publishing the data file or product to users, with its current metadata and format.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">publisher_name</span> <span class="pre">=</span> <span class="pre">&quot;The</span> <span class="pre">GHRSST</span> <span class="pre">Project</span> <span class="pre">Office&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">publisher_url</span></code></p></td>
+<td><p>string</p></td>
+<td><p>The URL of the person (or other entity specified by the publisher_type attribute) responsible for publishing the data file or product to users, with its current metadata and format.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">publisher_url</span> <span class="pre">=</span> <span class="pre">&quot;http://www.ghrsst.org&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">publisher_email</span></code></p></td>
+<td><p>string</p></td>
+<td><p>The email address of the person (or other entity specified by the publisher_type attribute) responsible for publishing the data file or product to users, with its current metadata and format. <br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">publisher_email</span> <span class="pre">=</span> <span class="pre">&quot;ghrsst-po&#64;nceo.ac.uk&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">publisher_type</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Specifies type of publisher with one of the following: ‘person’, ‘group’, ‘institution’, or ‘position’. If this attribute is not specified, the publisher is assumed to be a person.<br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">publisher_type</span> <span class="pre">=</span> <span class="pre">&quot;institution&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.3</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">publisher_institution</span></code></p></td>
+<td><p>string</p></td>
+<td><p>The institution that presented the data file or equivalent product to users; should uniquely identify the institution. If publisher_type is institution, this should have the same value as publisher_name. <br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">publisher_institution</span> <span class="pre">=</span> <span class="pre">&quot;PO.DAAC&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.3</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">processing_level</span></code></p></td>
+<td><p>string</p></td>
+<td><p>A textual description of the processing (or quality control) level of the data.<br>  <br> <br> GHRSST definitions are the options: L2P, L3U, L3C, L3S, L4 and GMPE<br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">processing_level</span> <span class="pre">=</span> <span class="pre">&quot;L2P&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cdm_data_type</span></code></p></td>
+<td><p>string</p></td>
+<td><p>The data type, as derived from Unidata’s Common Data Model Scientific Data types and understood by THREDDS. (This is a THREDDS “”dataType””, and is different from the CF NetCDF attribute ‘featureType’, which indicates a Discrete Sampling Geometry file in CF.). “swath” or “grid”.<br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cdm_data_type</span> <span class="pre">=</span> <span class="pre">&quot;swath&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="variable-attributes">
+<span id="id7"></span><h2><span class="section-number">5.3. </span>Variable Attributes<a class="headerlink" href="#variable-attributes" title="Link to this heading">#</a></h2>
+<style>
+    .var-attributes-css { font-size: 12px; width: 100%; table-layout: fixed;} 
+    .var-attributes-css tbody tr:nth-child(n+1):nth-child(-n+4) { background:#dfadf7; }
+    .var-attributes-css tbody tr:nth-child(5) { background: #42d1f5; }
+    .var-attributes-css tbody tr:nth-child(n+6):nth-child(-n+21) { background:#dfadf7; }
+    .var-attributes-css thead tr th:nth-child(1), tbody tr td:nth-child(2) {
+        width: 13em;
+        min-width: 13em;
+        max-width: 13em;
+        word-break: break-all;
+    }
+    .var-attributes-css thead tr th:nth-child(2), tbody tr td:nth-child(2) {
+        width: 7em;
+        min-width: 7em;
+        max-width: 7em;
+        word-break: break-all;
+    }
+    .var-attributes-css thead tr th:nth-child(5), tbody tr td:nth-child(5) {
+        width: 6em;
+        min-width: 6em;
+        max-width: 6em;
+        word-break: break-all;
+    }
+</style>
+<div class="pst-scrollable-table-container"><table class="var-attributes-css table" id="var-attributes">
+<caption><span class="caption-number">Table 5.2 </span><span class="caption-text">Variable attributes for GDS-2.1 netCDF data files (blue are mandatory, purple are optional, orange are deprecated attributes from previous GDS versions)</span><a class="headerlink" href="#var-attributes" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Variable Attribute Name</p></th>
+<th class="head"><p>Format</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p></p></th>
+<th class="head"><p>Source</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">_FillValue</span></code></p></td>
+<td><p>Must be the same as the variable type</p></td>
+<td><p>Assigned value in the data file designating a null or missing observation<br>  <br> <br>  This value must be of the same type as the storage (packed) type; should be set as the minimum value for this type. Note that some netCDF readers are unable to cope with signed bytes and may, in these cases, report fill as 128. Some cases will be reported as unsigned bytes 0 to 255. Required for the majority of variables except mask and l2p_flags.<br>  <br> <br>  Best practices specifies that for satellite datasets there should not be a _FillVlalue for geolocation or time variables.<br>  <br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">_FillValue</span> <span class="pre">=</span> <span class="pre">-32767s</span> <span class="pre">;</span></code></p></td>
+<td><p>CF 1.7+</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">units</span></code></p></td>
+<td><p>String</p></td>
+<td><p>The units of the variable’s data values. This attribute value should be a valid udunits string. The “units” attribute is recommended by the NetCDF Users Guide, the COARDS convention, and the CF convention (<a class="reference external" href="http://www.unidata.ucar.edu/software/udunits/udunits-1/udunits.txt">http://www.unidata.ucar.edu/software/udunits/udunits-1/udunits.txt</a>). [AD-5] For a given variable (e.g. wind speed), these must be the same for each dataset. Required for the majority of variables except mask, quality_level, and l2p_flags.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">units</span> <span class="pre">=</span> <span class="pre">&quot;kelvin&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3<br>CF 1.7+</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">scale_factor</span></code></p></td>
+<td><p>Must be expressed in the unpacked data type</p></td>
+<td><p>Slope of scaling relationship applied to transform measuement data to appropriate geophysical quantity representations. Should not be used if the scale_factor is ‘1’ and add_offset is ‘0’<br>To be multiplied by the variable to recover the original value. Defined by the producing RDAC. Valid values within value_range, value_min and valid_max should be transformed by scale_factor and add_offset, otherwise skipped to avoid floating point errors.<br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">scale_factor</span> <span class="pre">=</span> <span class="pre">0.005f</span> <span class="pre">;</span></code></p></td>
+<td><p>CF 1.7+</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">add_offset</span></code></p></td>
+<td><p>Must be expressed in the unpacked data type</p></td>
+<td><p>Intercept of scaling relationship applied to transform measurement data to appropriate geophysical quantity representations. Should not be used if the scale_factor is ‘1’ and add_offset is ‘0’<br>  <br> <br>  To be added to the variable after multiplying by the scale factor to recover the original value. If only one of scale_factor or add_offset is needed, then both should be included anyway to avoid ambiguity, with scale_factor defaulting to 1.0 and add_offset defaulting to 0.0. Defined by the producing RDAC. Valid values within value_range, value_min and valid_max should be transformed by scale_factor and add_offset, otherwise skipped to avoid floating point errors.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">add_offset</span> <span class="pre">=</span> <span class="pre">273.15f</span> <span class="pre">;</span></code></p></td>
+<td><p>CF 1.7+</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">long_name</span></code></p></td>
+<td><p>String</p></td>
+<td><p>A long descriptive name for the variable (not necessarily from a controlled vocabulary). This attribute is recommended by the NetCDF Users Guide, the COARDS convention, and the CF convention.</p></td>
+<td><p></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3<br>CF 1.7+</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">valid_range</span></code></p></td>
+<td><p>Expressed in same data type as variable</p></td>
+<td><p>Comma separated minimum and maximum values of the physical quantity defining the valid measurement range. The fill value should be outside this valid range. Note that some netCDF readers are unable to cope with signed bytes and may, in these cases, report valid min as 129. Some cases as unsigned bytes 0 to 255. Values outside of the valid_range will be treated as missing values. Required for all variables except variable time.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">valid_range</span> <span class="pre">=</span> <span class="pre">0.0f,</span> <span class="pre">500.0f</span> <span class="pre">;</span></code></p></td>
+<td><p>CF 1.7+</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">standard_name</span></code></p></td>
+<td><p>String</p></td>
+<td><p>A long descriptive name for the variable taken from a controlled vocabulary of variable names. We recommend using the CF convention and the variable names from the CF standard name table (<a class="reference external" href="http://cfconventions.org/Data/cf-standard-names/36/build/cf-standard-name-table.html">http://cfconventions.org/Data/cf-standard-names/36/build/cf-standard-name-table.html</a>). For the complete list of standard name strings, see [AD-8]. This attribute is recommended by the CF convention. Do not include this attribute if no standard_name exists.[AD-8]</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">standard_name</span> <span class="pre">=</span> <span class="pre">&quot;sea_surface_skin_temperature&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3<br>CF 1.7+</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">comment</span></code></p></td>
+<td><p>String</p></td>
+<td><p>Optional attribute field allowing provision of further free-form information about the variable or the methods used to produce it.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">comment</span> <span class="pre">=</span> <span class="pre">&quot;sea</span> <span class="pre">surface</span> <span class="pre">temperature</span> <span class="pre">from</span> <span class="pre">11</span> <span class="pre">and</span> <span class="pre">12</span> <span class="pre">um</span> <span class="pre">(thermal</span> <span class="pre">IR)</span> <span class="pre">channels&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>CF 1.7+</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">source</span></code></p></td>
+<td><p>string</p></td>
+<td><p>For L2P and L3 files: For a data variable with a single source, use the GHRSST unique string listed in Erreur : source de la référence non trouvée if the source is a GHRSST SST product. For other sources, following the best practice described in Section 7.9 to create the character string.<br>  <br> <br>  If the data variable contains multiple sources, set this string to be the relevant “sources of” variable name. For example, if multiple wind speed sources are used, set source = source_of_wind_speed.<br>  <br> <br>  For L4 and GMPE files: follow the source convention used for the global attribute of the same name, but provide in the comma-separated list only the sources relevant to this variable.</p></td>
+<td><p></p></td>
+<td><p>CF 1.7+</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">references</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Published or web-based references that describe the data or methods used to produce it. Note that while at least one reference is required in the global attributes (See Table 8 -1), references to this specific data variable may also be given.</p></td>
+<td><p></p></td>
+<td><p>CF 1.7+</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">axis</span></code></p></td>
+<td><p>String</p></td>
+<td><p>Corresponding variable axis for plotting (eg. X, Y, Z).<br>For use with coordinate variables only. The attribute ‘axis’ may be attached to a coordinate variable and given one of the values “X”, “Y”, “Z”, or “T”, which stand for a longitude, latitude, vertical, or time axis respectively. See: <a class="reference external" href="http://cfconventions.org">http://cfconventions.org</a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">axis</span> <span class="pre">=</span> <span class="pre">&quot;Y&quot;;</span></code></p></td>
+<td><p>CF 1.7+</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">positive</span></code></p></td>
+<td><p>String</p></td>
+<td><p>For use with a vertical coordinate variables only. May have the value “up” or “down”. For example, if an oceanographic netCDF file encodes the depth of the surface as 0 and the depth of 1000 meters as 1000 then the axis would set positive to “down”. If a depth of 1000 meters was encoded as -1000, then positive would be set to “up”. See the section on vertical-coordinate in [AD-3]</p></td>
+<td><p></p></td>
+<td><p>CF 1.7+</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">coordinates</span></code></p></td>
+<td><p>String</p></td>
+<td><p>This attribute contains a space separated list of all the coordinates corresponding to the variable. The list should contain all the auxiliary coordinate variables and optionally the coordinate variables.<br>  <br> <br>  See the section on coordinate-system in [AD-3]. This attribute must be provided if the data are on a non-regular lat/lon grid (map projection or swath data).</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">coordinates</span> <span class="pre">=</span> <span class="pre">&quot;time</span> <span class="pre">lat</span> <span class="pre">lon&quot;;</span></code></p></td>
+<td><p>CF 1.7+</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">grid_mapping</span></code></p></td>
+<td><p>String</p></td>
+<td><p>Describes the horizontal coordinate system used by the data. The grid_mapping attribute should point to a variable which would contain the parameters corresponding to the coordinate system. That named variable is called a grid mapping variable and is of arbitrary type since it contains no data. Its purpose is to act as a container for the attributes that define the mapping. There are typically several parameters associated with each coordinate system. CF defines a separate attributes for each of the parameters. Some examples are “”semi_major_axis””, “”inverse_flattening””, “”false_easting””. See the section on mappings-and-projections in [AD-3].</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">grid_mapping</span> <span class="pre">=</span> <span class="pre">&quot;geostationary&quot;;</span></code></p></td>
+<td><p>CF 1.7+</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">flag_meanings</span></code></p></td>
+<td><p>String</p></td>
+<td><p>Define the physical meaning of each flag_masks bit field with a single text string. CF allows a single variable to contain both flag_values and flag_masks. The interpretation of the flags in such cases is slightly tricky. In such cases flag_masks is used to “group” a set of flag_values into a nested conditional. Words within a phrase should be connected with underscores. Please see the example 3.5 in the CF document on how to interpret flag_meanings in such cases. NCEI recommends that boolean and enumerated flags be kept in separate variables.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">flag_meanings</span> <span class="pre">=</span> <span class="pre">&quot;microwave</span> <span class="pre">land</span> <span class="pre">ice</span> <span class="pre">lake</span> <span class="pre">river&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>CF 1.7+</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">flag_values</span></code></p></td>
+<td><p>Must be the same as the variable type</p></td>
+<td><p>Its values identify the flagged conditions by performing a bitwise AND of the variable value and each flag masks value. For example, if the variable value is of type unsigned byte and equal to 5 and the flag_masks are 1b, 2b, 4b, 8b, 16b, 32b. The binary encoding of 5 is 00000101 and the binary encoding of the flags are 00000001, 00000010, 00000100, 00001000, 00010000, 00100000. Now bitwide AND of the value with the masks returns 00000001, 00000000, 00000100, 00000000, 00000000, 00000000 respectively or 1b,0,4b,0,0,0,0,0 in decimal. So the masks corresponding to 1b and 4b are “”true””, rest are “”false””. Used primarily for quality_level and “source_of_xxx” variables.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">flag_values</span> <span class="pre">=</span> <span class="pre">1b,</span> <span class="pre">5b</span> <span class="pre">;</span></code></p></td>
+<td><p>CF 1.7+</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">flag_masks</span></code></p></td>
+<td><p>Must be the same as the variable type</p></td>
+<td><p>A number of independent Boolean conditions using bit field notation by setting unique bits in each flag_masks value. The flag_masks attribute is the same type as the variable to which it is attached, and contains a list of values matching unique bit fields. (CF document 3.5 Flags;<a class="reference external" href="http://cfconventions.org/Data/cf-conventions/cf-conventions-1.6/build/cf-conventions.pdf">http://cfconventions.org/Data/cf-conventions/cf-conventions-1.6/build/cf-conventions.pdf</a>). Used primarily for l2p_flags variable.<br>  <br> <br>  Note: CF allows the use of both flag_masks and flag_values attributes in a single variable to create sets of masks that each have their own list of flag_values (see <a class="reference external" href="http://cf-pcmdi.llnl.gov/documents/cf-conventions/1.5/ch03s05.html#id2710752">http://cf-pcmdi.llnl.gov/documents/cf-conventions/1.5/ch03s05.html#id2710752</a> for examples), but this practice is discouraged.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">flag_masks</span> <span class="pre">=</span> <span class="pre">1b,</span> <span class="pre">2b,</span> <span class="pre">4b,</span> <span class="pre">8b,</span> <span class="pre">16b;</span></code></p></td>
+<td><p>CF 1.7+</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">depth</span></code></p></td>
+<td><p>String</p></td>
+<td><p>Use this to indicate the depth for which the SST data are valid.</p></td>
+<td><p></p></td>
+<td><p>GDS</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">height</span></code></p></td>
+<td><p>String</p></td>
+<td><p>Use this to indicate the height for which the wind data are specified.</p></td>
+<td><p></p></td>
+<td><p>GDS</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">time_offset</span></code></p></td>
+<td><p>Must be expressed in the unpacked data type</p></td>
+<td><p>Difference in hours between an ancillary field such as wind_speed and the SST observation time</p></td>
+<td><p></p></td>
+<td><p>GDS</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">coverage_content_type</span></code></p></td>
+<td><p>String</p></td>
+<td><p>An ISO 19115-3 code to indicate the source of the data <code class="docutils literal notranslate"><span class="pre">MD_CoverageContentTypeCode</span></code> <a class="footnote-reference brackets" href="#footnote5" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a>. For example, <code class="docutils literal notranslate"><span class="pre">image</span></code>, <code class="docutils literal notranslate"><span class="pre">thematicClassification</span></code>, <code class="docutils literal notranslate"><span class="pre">physicalMeasurement</span></code>, <code class="docutils literal notranslate"><span class="pre">auxiliaryInformation</span></code>, <code class="docutils literal notranslate"><span class="pre">qualityInformation</span></code>, <code class="docutils literal notranslate"><span class="pre">referenceInformation</span></code>, <code class="docutils literal notranslate"><span class="pre">modelResult</span></code>, or <code class="docutils literal notranslate"><span class="pre">coordinate</span></code>.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">coverage_content_type</span> <span class="pre">=</span> <span class="pre">&quot;physicalMeasurement&quot;</span> <span class="pre">;</span></code></p></td>
+<td><p>ACDD 1.1<br>ACDD 1.3</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr class="footnotes docutils" />
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="footnote1" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>netCDF Climate and Forecast (CF) Metadata Conventions version 1.7
+or later available from <a class="reference external" href="http://cfconventions.org">http://cfconventions.org</a></p>
+</aside>
+<aside class="footnote brackets" id="footnote2" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p>COARDS Conventions available from
+<a class="reference external" href="https://ferret.pmel.noaa.gov/Ferret/documentation/coards-netcdf-conventions">https://ferret.pmel.noaa.gov/Ferret/documentation/coards-netcdf-conventions</a></p>
+</aside>
+<aside class="footnote brackets" id="footnote3" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">3</a><span class="fn-bracket">]</span></span>
+<p>Unidata Attribute Conventions for Dataset Discovery (ACDD),
+available from
+<a class="reference external" href="https://wiki.esipfed.org/Attribute_Convention_for_Data_Discovery_1-3">https://wiki.esipfed.org/Attribute_Convention_for_Data_Discovery_1-3</a></p>
+</aside>
+<aside class="footnote brackets" id="footnote4" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">4</a><span class="fn-bracket">]</span></span>
+<p>UDUNITS-2 package available from
+<a class="reference external" href="https://www.unidata.ucar.edu/software/udunits/">https://www.unidata.ucar.edu/software/udunits/</a></p>
+</aside>
+<aside class="footnote brackets" id="footnote5" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id8">5</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://geonetwork-opensource.org/manuals/3.10.x/en/annexes/standards/iso19115-3.2018.html#standard-codelists-coverage-content-mrc-md-coveragecontenttypecode">https://geonetwork-opensource.org/manuals/3.10.x/en/annexes/standards/iso19115-3.2018.html#standard-codelists-coverage-content-mrc-md-coveragecontenttypecode</a></p>
+</aside>
+</aside>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="naming.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">4. </span>GDS Filenames and Supporting Conventions</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="coordinates.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">6. </span>Coordinate variables</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-the-gds-2-1r0-netcdf-file-format">5.1. Overview of the GDS-2.1r0 netCDF File Format</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#global-attributes">5.2. Global Attributes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variable-attributes">5.3. Variable Attributes</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By GHRSST Science Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
