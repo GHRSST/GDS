@@ -491,8 +491,10 @@ For multiple sources, the GDS-{{gds_version}} requires the following:
   variable and clearly specified within each netCDF variable and its attributes.
   A best practice for naming the text strings in provided in  
   {numref}`product_codes`.
-- The variable `source_of_wind_speed` shall conform to the format
-  requirements shown in the {numref}`l2p_source_of_wind_speed`.
+
+The variable `source_of_wind_speed` shall conform to the format requirements
+shown in the {numref}`l2p_source_of_wind_speed`.
+
 
 ```{table} CDL example description of **<span style="font-family:courier;">source_of_wind_speed</span>** variable
 :name: l2p_source_of_wind_speed
@@ -919,7 +921,7 @@ data files with the format requirements shown in {numref}`l2p_l2p_flags`.
 :tags: [remove-input]
 :name: l2p_source_of_adi
 
-!ncdump -h samples/20240101000103-OSISAF-L2P_GHRSST-SSTsubskin-AVHRR_SST_METOP_C-sstmgr_metop03_20240101_000103-v02.0-fv01.0.nc | grep $'[ , \t]sea_ice_fraction_dtime_from_sst[(,:]'| sed 's/[[:space:]]//'
+!ncdump -h samples/20240101000103-OSISAF-L2P_GHRSST-SSTsubskin-AVHRR_SST_METOP_C-sstmgr_metop03_20240101_000103-v02.0-fv01.0.nc | grep $'[, \t]l2p_flags[(,:]'| sed 's/[[:space:]]//'
 ```
 
 (__l2p_quality_level)=
@@ -927,24 +929,20 @@ data files with the format requirements shown in {numref}`l2p_l2p_flags`.
 
 **Mandatory.**
 
-The L2P variable **quality_level** is used to provide an overall indication of L2P data quality.
-The L2P variable **quality_level** will reflect CEOS QA4EO (Quality Indicator) guidelines.
-An incremental scale from 0 no data,1 (bad e.g. cloud, rain, to close to land – under no conditions use this data) 
-2 (worst quality usable data), to 5 (best quality usable data) shall be used. 
-
 The L2P variable `quality_level` provides an indicator of the overall quality
 of an SST measurement in an L2P file. The GDS requires the following:
 
-The L2P variable `quality_level` shall use an incremental scale from 0 to 5 to
-provide the user with an indication of the quality of the L2P SST data, 
-reflecting the CEOS QA4EO (Quality Indicator) guidelines. The value 0 shall be 
-used to indicate missing data and the value 1 shall be used to indicate invalid
-data (e.g. cloud, rain, too close to land - under no conditions use this data).
-The remaining values from 2-5 are set at the discretion of the L2P provider 
-with the proviso that the value 2 shall be used to indicate the worst 
-quality of usable data and the value 5 shall be used to indicate the best 
-quality usable data. The L2P provider is required to provide a description of 
-the quality levels provided as part of the product documentation.
+The L2P variable `quality_level` shall use an incremental scale from **0 to 
+5** to provide the user with an indication of the quality of the L2P SST data, 
+reflecting the CEOS QA4EO (Quality Indicator) guidelines. The value **0** 
+shall be used to indicate missing data and the value **1** shall be used to 
+indicate invalid data (e.g. cloud, rain, too close to land - under no conditions
+use this data). The remaining values from **2-5** are set at the discretion of 
+the L2P provider with the proviso that the value **2** shall be used to 
+indicate the worst quality of usable data and the value **5** shall be used to 
+indicate the best quality usable data. The L2P provider is required to provide 
+a description of the quality levels provided as part of the product 
+documentation.
 
 The L2P variable `quality_level` reflects the quality of SST data from a 
 single sensor and does not provide an indication of the relative quality 
@@ -952,6 +950,9 @@ between sensors.
 
 The L2P variable `quality_level` shall be included with the format 
 requirements shown in the {numref}`l2p_quality_level`.
+
+We recommend not to use the `_FillValue` attribute but rather to use the 
+value **0** to fill in missing data pixels.
 
 ```{table} CDL example description of **<span style="font-family:courier;">quality_level</span>** variable
 :name: l2p_quality_level
@@ -971,7 +972,7 @@ requirements shown in the {numref}`l2p_quality_level`.
 (__l2p_satellite_zenith_angle)=
 ### `satellite_zenith_angle`
 
-Optional.
+**Optional.**
 
 Sea surface temperature retrievals from satellite instruments degrade as the
 sensor zenith angle increases. Measurements made with high viewing angles
@@ -982,10 +983,9 @@ the input L2 SST based on the satellite geometry at the time of SST data
 acquisition.
 
 The GDS L2P variable `satellite_zenith_angle` is an optional field that may be
-provided by a data provider. The following criteria shall apply:
-
-> The satellite zenith angle for each input pixel measurement should be recorded
-> in the L2P variable `satellite_zenith_angle` having a range of 0° to +90°.
+provided by a data provider. The satellite zenith angle for each input pixel 
+measurement should be recorded in the L2P variable `satellite_zenith_angle` 
+having a range of 0° to +90°.
 
 If the L2P variable `satellite_zenith_angle` is included in a L2P data product 
 it shall conform to the format requirements shown in 
@@ -996,7 +996,7 @@ it shall conform to the format requirements shown in
 
 | **Storage type** | **Name**     | **Description**                  | **Unit** |
 |-------------------|--------------|----------------------------------|----------|
-| byte or short | satellite_zenith_angle | Calculated satellite zenith angle (measured at the Earth's surface between the satellite and the local zenith) for the input L2 SST based on the satellite geometry at the time of SST data acquisition. <br> Ranges from 0 to 90 degrees.| angular_degree  |
+| byte or short | `satellite_zenith_angle` | Calculated satellite zenith angle (measured at the Earth's surface between the satellite and the local zenith) for the input L2 SST based on the satellite geometry at the time of SST data acquisition. <br> Ranges from 0 to 90 degrees.| angular_degree  |
 ```
 
 ```{code-cell}
@@ -1009,6 +1009,8 @@ it shall conform to the format requirements shown in
 (__l2p_solar_zenith_angle)=
 ### `solar_zenith_angle`
 
+**Optional.**
+
 The L2P variable `solar_zenith_angle` contains the calculated solar zenith
 angle (the angle between the local zenith and the line of sight to the sun,
 measured at the Earth's surface) for the input L2 SST based on the satellite
@@ -1016,13 +1018,11 @@ geometry at the time of SST data acquisition. Solar zenith angle is a function
 of time, day number and latitude.
 
 The GDS L2P variable `solar_zenith_angle` is an optional field that may be
-provided by a data provider. The following criteria shall apply:
-
-> The solar zenith angle for each input pixel measurement should be recorded in
-> the L2P variable `solar_zenith_angle` having a range of 0° to 180°.
-> If the L2P variable `solar_zenith_angle` is included in a L2P data product
-> it shall conform to the format requirements shown in the
-> table, [CDL example description of solar_zenith_angle variable](#Table9-23).
+provided by a data provider. The solar zenith angle for each input pixel 
+measurement should be recorded in the L2P variable `solar_zenith_angle` having 
+a range of 0° to 180°. If the L2P variable `solar_zenith_angle` is included in 
+a L2P data product it shall conform to the format requirements shown in 
+{numref}`l2p_solar_zenith_angle`.
 
 
 ```{table} CDL example description of **<span style="font-family:courier;">solar_zenith_angle</span>** variable
@@ -1030,7 +1030,7 @@ provided by a data provider. The following criteria shall apply:
 
 | **Storage type** | **Name**     | **Description**                  | **Unit** |
 |-------------------|--------------|----------------------------------|----------|
-| byte or short | solar_zenith_angle | Calculated solar zenith angle (measured at the Earth's surface between the sun and the local zenith) for the input SST based on the solar geometry at the time of SST data acquisition. <br> Ranges from 0 to 180 degrees.| angular_degree  |
+| byte or short | `solar_zenith_angle` | Calculated solar zenith angle (measured at the Earth's surface between the sun and the local zenith) for the input SST based on the solar geometry at the time of SST data acquisition. <br> Ranges from 0 to 180 degrees.| angular_degree  |
 ```
 
 ```{code-cell}
@@ -1043,49 +1043,52 @@ provided by a data provider. The following criteria shall apply:
 (__l2p_surface_solar_irradiance)=
 ### `surface_solar_irradiance`
 
+**Optional.**
+
 Surface Solar Irradiance (SSI) data were originally required within the GDS 1.6
 to assess the magnitude and variability of significant diurnal SST variations,
 for use in diurnal variability correction schemes, for use in L4 SST analysis
 procedures and to interpret the relationship between satellite and in situ SST
-data. In the GDS-{{gds_version}}, it is an optional variable. Ideally a near contemporaneous
-SSI measurement from satellite sensors should be used but this is impossible for
-all areas due to the limited number of geostationary satellite sensors
-available. As a surrogate for a measured SSI value, analysis estimates may be
-used.
+data. In the GDS-{{gds_version}}, it is an optional variable. Ideally a near 
+contemporaneous SSI measurement from satellite sensors should be used but this 
+is impossible for all areas due to the limited number of geostationary satellite
+sensors available. As a surrogate for a measured SSI value, analysis estimates 
+may be used.
 
 Surface solar Irradiance (SSI) data may be assigned to each L2P SST measurement
-pixel using the variable `surface_solar_irradiance`. The following criteria
-shall apply:
+pixel using the variable `surface_solar_irradiance`. 
 
-> An integrated down-welling SSI measurement (e.g., derived from satellite
-> measurements) should be assigned to each SST pixel value using the 
+An integrated down-welling SSI measurement (e.g., derived from satellite
+measurements) should be assigned to each SST pixel value using the 
 `surface_solar_irradiance` L2P variable. The SSI measurement nearest in space
-> and time before the input pixel SST value should be used.
-> If no SSI measurement is available, an integrated SSI value derived from an
-> analysis system nearest in space and time to the SST measurement should be used
-> to set the value of `surface_solar_irradiance`.
-> The difference in time expressed in hours between the time of SST measurement
-> and the time of surface solar irradiance data should be entered into the L2P
-> confidence data variable `ssi_dtime_from_sst`. In the case of an analysis
-> field, this should be the central (mean) time of an integrated value. If all of
-> the values have the same time, the attribute `time_offset` is used instead of
-> the variable `ssi_dtime_fraction_dtime_from_sst`. The attribute time_offset
-> should store the difference in hours between the `surface_solar_irradiance`
-> and the reference time, stored in the variable time.
-> If a single source of data is used in the L2P variable 
-> `surface_solar_irradiance`, the L2P variable `source_of_ssi` is not required
-> and instead the `surface_solar_irradiance:source` attribute value is
-> sufficient. It shall be a single source text string defined by the data provider
-> using the text string naming best practice given
-> in [GHRSST Unique Text Strings and Numeric Codes](#Section7.9).
-> If multiple sources of data are used, source information should be indicated
-> in the L2P variable source_of_ssi as defined by the data provider and as
-> described in detail in [Optional Variable source_of_ssi](#Section9.23). Then,
-> the `surface_solar_irradiance:source` attribute shall have the value 
-> `source_of_ssi`.
-> The L2P variable `surface_solar_irradiance` may be included by a data
-> provider with the format requirements shown 
-> in {numref}`l2p_surface_solar_irradiance`.
+and time before the input pixel SST value should be used. If no SSI measurement
+is available, an integrated SSI value derived from an analysis system nearest in
+space and time to the SST measurement should be used to set the value of 
+`surface_solar_irradiance`.
+
+The difference in time expressed in hours between the time of SST measurement
+and the time of surface solar irradiance data should be entered into the L2P
+confidence data variable `ssi_dtime_from_sst`. In the case of an analysis
+field, this should be the central (mean) time of an integrated value. If all of
+the values have the same time, the attribute `time_offset` is used instead of
+the variable `ssi_dtime_fraction_dtime_from_sst`. The attribute `time_offset`
+should store the difference in hours between the `surface_solar_irradiance`
+and the reference time, stored in the variable `time`.
+
+If a single source of data is used in the L2P variable 
+`surface_solar_irradiance`, the L2P variable `source_of_ssi` is not required
+and instead the `surface_solar_irradiance:source` attribute value is sufficient.
+It shall be a single source text string defined by the data provider using the 
+text string naming best practice given in {numref}`product_codes`.
+
+If multiple sources of data are used, source information should be indicated in 
+the L2P variable `source_of_ssi` as defined by the data provider and as 
+described in detail in {numref}`l2p_surface_solar_irradiance`. Then,
+the `surface_solar_irradiance:source` attribute shall have the value 
+`source_of_ssi`.
+
+The L2P variable `surface_solar_irradiance` may be included by a data provider 
+with the format requirements shown in {numref}`l2p_surface_solar_irradiance`.
 
 
 ```{table} CDL example description of **<span style="font-family:courier;">surface_solar_irradiance</span>** variable
@@ -1093,7 +1096,7 @@ shall apply:
 
 | **Storage type** | **Name**     | **Description**                  | **Unit** |
 |-------------------|--------------|----------------------------------|----------|
-| byte | surface_solar_irradiance | Near contemporaneous integrated Surface Solar Irradiance (SSI) data. | $Wm^{-2}$ |
+| byte | `surface_solar_irradiance` | Near contemporaneous integrated Surface Solar Irradiance (SSI) data. | $W m^{-2}$ |
 ```
 
 ```{code-cell}
@@ -1106,18 +1109,18 @@ shall apply:
 A single source of SSI data is shown in this example which is reported as
 `surface_solar_irradiance:source = "SSI-MSG_SEVIRI-V1"` The text string has been
 defined by the data provider using the text string naming best practice given
-in [GHRSST Unique Text Strings and Numeric Codes](#Section7.9). Since all of the
-SSI values have the same time, the attribute time_offset is used instead of the
-variable `ssi_dtime_from_sst`.
+in {numref}`product_codes`. Since all of the SSI values have the same time, the
+attribute `time_offset` is used instead of the variable `ssi_dtime_from_sst`.
+
 
 (__l2p_ssi_dtime_from_sst)=
 ### `ssi_dtime_from_sst`
 
 The variable `ssi_dtime_from_sst` reports the time difference between SSI data
 from SST measurement in hours. The variable `ssi_dtime_from_sst` shall be
-included with the format requirements shown in the
-table, [CDL example description of ssi_dtime_from_sst variable](#table9-25). In
-the case of an analysis field, the central (mean) time of an integrated value
+included with the format requirements shown in {numref}`l2p_ssi_dtime_from_sst`.
+
+In the case of an analysis field, the central (mean) time of an integrated value
 should be used.
 
 
@@ -1126,7 +1129,7 @@ should be used.
 
 | **Storage type** | **Name**     | **Description**                  | **Unit** |
 |-------------------|--------------|----------------------------------|----------|
-| byte | ssi_dtime_from_sst | This variable reports the time difference between SSI data from SST measurement in hours | hour |
+| byte | `ssi_dtime_from_sst` | This variable reports the time difference between SSI data from SST measurement in hours | hour |
 ```
 
 ```{code-cell}
@@ -1139,24 +1142,27 @@ should be used.
 (__l2p_source_of_ssi)=
 ### `source_of_ssi`
 
+**Optional (Mandatory only if multiple sources for `surface_solar_irradiance` 
+are provided).**
+
 The source of data used to set the L2P ancillary data variable
-`surface_solar_irradiance` shall be indicated in the L2P variable source_of_ssi
+`surface_solar_irradiance` shall be indicated in the L2P variable `source_of_ssi`
 when more than one source of SSI data is used in the L2P product. When only one
 source is used, this variable is not needed and the appropriate text string
-indicating the source is placed in the sources attribute of the 
-`surface_solar_irradiance` variable. For multiple sources, the GDS-{{gds_version}} requires
-the following:
+indicating the source is placed in the `source` attribute of the 
+`surface_solar_irradiance` variable. 
 
-> The variable in question should contain an attribute called `flag_meanings`
-> and another one called `flag_values`. The `flag_values` attribute shall
-> contain a comma-separated list of the numeric codes for the sources of data used
-> whose order matches the comma-separated text strings in the `flag_meanings`
-> attribute.
-> These text strings and numeric codes do not need to be unique across different
-> data sets or even ancillary variables, but must be consistent within a given
-> variable and clearly specified within each netCDF variable and its attributes. A
-> best practice for naming the text strings in provided
-> in [GHRSST Unique Text Strings and Numeric Codes](#section7.9).
+For multiple sources, the variable `source_of_ssi` should contain an attribute 
+called `flag_meanings` and another one called `flag_values`. The `flag_values` 
+attribute shall contain a comma-separated list of the numeric codes for the 
+sources of data used whose order matches the space-separated text strings in 
+the `flag_meanings` attribute. 
+
+These text strings and numeric codes do not need to be unique across different
+data sets or even ancillary variables, but must be consistent within a given
+variable and clearly specified within each netCDF variable and its attributes. A
+best practice for naming the text strings in provided in 
+{numref}`product_codes`.
 
 The variable `source_of_ssi` shall conform to the format requirements shown
 in the {numref}`l2p_source_of_ssi`.
@@ -1166,7 +1172,7 @@ in the {numref}`l2p_source_of_ssi`.
 
 | **Storage type** | **Name**     | **Description**                  | **Unit** |
 |-------------------|--------------|----------------------------------|----------|
-| byte             | source_of_ssi | Sources of surface solar irradiance values | code  |
+| byte             | `source_of_ssi` | Sources of surface solar irradiance values | code  |
 ```
 
 ```{code-cell}
@@ -1178,8 +1184,8 @@ in the {numref}`l2p_source_of_ssi`.
 
 In this example, `flag_meanings` and `flag_values` contain code data provided 
 by the data provider according to the best practices specified
-in [GHRSST Unique Text Strings and Numeric Codes](#Section7.9). An example of
-these codes is given in the {numref}`l2p_source_of_ssi_codes`.
+in {numref}`product_codes`. An example of these codes is given in the 
+{numref}`l2p_source_of_ssi_codes`.
 
 ```{table} Example text string and numeric codes used to identify the sources of data in surface_solar_irradiance:sources and source_of_ssi
 :name: l2p_source_of_ssi_codes
@@ -1216,37 +1222,44 @@ to 64 bytes per pixel.
 The GDS-{{gds_version}} issues the following guidance on the inclusion of optional or
 experimental variables within L2P data products:
 
-> The sum total of all experimental variables shall not increase L2P record size
-> by more than 32 bytes per SST pixel. A waiver can be requested for higher
-> amounts up to 64 bytes.
-> CF-1.7 or later compliance should be maintained for all optional/experimental
-> variables. Where available, a standard_name attribute should be used.
-> It is permitted to use a provider defined coordinate variable associated with
-> experimental fields but this shall be documented in data provider documentation.
-> Time difference data (dtime values) should be provided for variables when
-> appropriate.
-> The source of data should be indicated: in the single source case as a
-> variable attribute; as a dedicated variable when mixed data sources are present.
-> Use of experimental variables requires clear documentation by the RDAC. Data
-> providers shall provide adequate documentation that describes each variable
-> following the CDL examples provided in this document.
-> The variable attribute comment shall be used to provide a URL link to a full
-> description of each data producer defined variable included in the L2P product.
-> Experimental L2P variables if present in an L2P product will be included with
-> the minimum format requirements shown in the
-> table, [CDL template for data provider defined L2P variables](#Table9-28).
-> Additional global variables may be declared within the L2P product.
+- The sum total of all experimental variables shall not increase L2P record 
+  size by more than **32 bytes** per SST pixel. A **waiver** can be requested 
+  for   higher amounts up to 64 bytes.
+- CF-1.7 or later compliance should be maintained for all 
+  optional/experimental variables. Where available, a standard_name 
+  attribute should be used.
+- It is permitted to use a provider defined coordinate variable associated 
+  with experimental fields but this shall be documented in data provider  
+  documentation.
+- Time difference data (dtime values) should be provided for variables when 
+  appropriate.
+- The source of data should be indicated: in the single source case as a 
+  variable attribute; as a dedicated variable when mixed data sources are 
+  present.
+- Use of experimental variables requires clear documentation by the GHRSST 
+  producer. They shall provide adequate documentation that describes each 
+  variable following the CDL examples provided in this document.
+- The variable attribute `comment` shall be used to provide a URL link to a 
+  full description of each data producer defined variable included in the 
+  L2P product.
+- Experimental L2P variables if present in an L2P product will be included 
+  with the minimum format requirements shown in {numref}`l2p_experimental`
+- Additional global variables may be declared within the L2P product.
 
-#### CDL template for data provider defined L2P variables
 
+```{table} CDL template for data provider defined L2P variables
+:name: l2p_experimental
 | Storage type definition                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Variable name definition | Description                  | Unit |
 |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------|------------------------------|------|
-| byte                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Provide a variable name in lower case using underscore separators e.g. **my_variable** | Provide a description of **my_variable** stating content purpose and units | Units of **my_variable** |
+| byte    | Provide a variable name in lower case using underscore separators e.g. `my_variable` | Provide a description of `my_variable` stating content purpose and units | Units of `my_variable` |
+```
+
+```
 | Example CDL Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |                          |                              |      |
 |  **byte my_variable (time, nj, ni);  my_variable:long_name = "estimated diurnal variability" ;  my_variable:standard_name = "use_a_CF_standard_name_if_available" ;  my_variable:units = "kelvin" ;  my_variable:source = "MY-SOURCES-V1" ;  my_variable:_FillValue = -128b ;  my_variable:add_offset = 0.0f ;  my_variable:scale_factor = 1.0f ;  my_variable:valid_range = -127b, 127b ;  my_variable:coordinates = "lon lat" ;  my_variable:grid_mapping = "polar_stereographic" ;  my_variable:coverage_content_type = "auxiliaryInformation" ;  my_variable:comment = "This field is fully documented at http://www.mysite.com/my_variable-description.html"** |                          |                              |      |
 | Comments                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |                          |                              |      |
 |A URL should be used to provide a live link to the documentation describing **my_variable**. CF-1.7 or later compliance should be maintained when using optional/experimental fields (particularly for the variable attribute **standard_name**.
-
+```
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |                          |                              |      |
 
 ## CDL example L2P dataset
