@@ -682,7 +682,7 @@ requirements shown in {numref}`l2p_source_of_sea_ice_fraction`.
 :tags: [remove-input]
 :name: l2p_source_of_sea_ice_fraction
 
-!ncdump -h samples/l2p_full_example.nc | grep $'[ , \t]sea_ice_fraction_dtime_from_sst[(,:]'| sed 's/[[:space:]]//'
+!ncdump -h samples/l2p_full_example.nc | grep $'[ , \t]source_of_sea_ice_fraction[(,:]'| sed 's/[[:space:]]//'
 ```
 
 In this example, `flag_meanings` and `flag_values` contain strings and
@@ -832,7 +832,7 @@ shown in the {numref}`l2p_source_of_adi`.
 :tags: [remove-input]
 :name: l2p_source_of_adi
 
-!ncdump -h samples/l2p_full_example.nc | grep $'[ , \t]sea_ice_fraction_dtime_from_sst[(,:]'| sed 's/[[:space:]]//'
+!ncdump -h samples/l2p_full_example.nc | grep $'[ , \t]source_of_adi[(,:]'| sed 's/[[:space:]]//'
 ```
 
 In this example, `flag_meanings` and `flag_values` contain strings and numeric 
@@ -1126,12 +1126,19 @@ attribute `time_offset` is used instead of the variable `ssi_dtime_from_sst`.
 (__l2p_ssi_dtime_from_sst)=
 ### `ssi_dtime_from_sst`
 
+**Optional (Mandatory only if multiple observation time for 
+`surface_solar_irradiance` are provided).**
+
 The variable `ssi_dtime_from_sst` reports the time difference between SSI data
 from SST measurement in hours. The variable `ssi_dtime_from_sst` shall be
 included with the format requirements shown in {numref}`l2p_ssi_dtime_from_sst`.
 
 In the case of an analysis field, the central (mean) time of an integrated value
 should be used.
+
+If all of the values are the same, this variable is not required. Instead, use
+the variable level attribute named `time_offset` with the variable 
+`surface_solar_irradiance`.
 
 
 ```{table} CDL example description of **<span style="font-family:courier;">ssi_dtime_from_sst</span>** variable
@@ -1193,7 +1200,7 @@ in the {numref}`l2p_source_of_ssi`.
 :tags: [remove-input]
 :name: l2p_source_of_ssi
 
-!ncdump -h samples/l2p_full_example.nc | grep $'[ , \t]source_of_ssi variable[(,:]'| sed 's/[[:space:]]//'
+!ncdump -h samples/l2p_full_example.nc | grep $'[ , \t]source_of_ssi[(,:]'| sed 's/[[:space:]]//'
 ```
 
 In this example, `flag_meanings` and `flag_values` contain code data provided 
@@ -1212,7 +1219,7 @@ in {numref}`product_codes`. An example of these codes is given in the
 |   3    | SSI-NOAA-GOES_W-V1 |GOES_W SSI data from NOAA|
 |   4    | SSI-ECMWF-V1 |SSI data from European Centre for Medium Range Weather Forecasting|
 |   5    | SSI-NCEP-V1 |SSI data from NOAA’s National Center for Environmental Prediction|
-|   6    |SSI-NAVY-NAAPS-V1|SSI data from the US Navy Atmospheric aerosol Prediction system|
+|   6    | SSI-NAVY-NAAPS-V1|SSI data from the US Navy Atmospheric aerosol Prediction system|
 |   7    |  |Spare to be defined as required|
 ```
 
@@ -1268,13 +1275,12 @@ experimental variables within L2P data products:
 | byte    | Provide a variable name in lower case using underscore separators e.g. `my_variable` | Provide a description of `my_variable` stating content purpose and units | Units of `my_variable` |
 ```
 
+```{code-cell}
+:tags: [remove-input]
+:name: l2p_experimental
+
+!ncdump -h samples/l2p_full_example.nc | grep $'[ , \t]my_variable[(,:]'| sed 's/[[:space:]]//'
 ```
-| Example CDL Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |                          |                              |      |
-|  **byte my_variable (time, nj, ni);  my_variable:long_name = "estimated diurnal variability" ;  my_variable:standard_name = "use_a_CF_standard_name_if_available" ;  my_variable:units = "kelvin" ;  my_variable:source = "MY-SOURCES-V1" ;  my_variable:_FillValue = -128b ;  my_variable:add_offset = 0.0f ;  my_variable:scale_factor = 1.0f ;  my_variable:valid_range = -127b, 127b ;  my_variable:coordinates = "lon lat" ;  my_variable:grid_mapping = "polar_stereographic" ;  my_variable:coverage_content_type = "auxiliaryInformation" ;  my_variable:comment = "This field is fully documented at http://www.mysite.com/my_variable-description.html"** |                          |                              |      |
-| Comments                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |                          |                              |      |
-|A URL should be used to provide a live link to the documentation describing **my_variable**. CF-1.7 or later compliance should be maintained when using optional/experimental fields (particularly for the variable attribute **standard_name**.
-```
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |                          |                              |      |
 
 ## CDL example L2P dataset
 
