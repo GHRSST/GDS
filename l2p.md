@@ -124,10 +124,10 @@ variable within the L2P data file is described in detail.
 | [source_of_sea_ice_fraction](__l2p_source_of_sea_ice_fraction) | Source(s) of `sea_ice_fraction` data | code | byte |
 | [aerosol_dynamic_indicator](__l2p_aerosol_dynamic_indicator) | Atmospheric aerosol indicator | | byte |
 | [adi_dtime_from_sst](__l2p_adi_dtime_from_sst) | Time difference between the `aerosol_dynamic_indicator` value and SST measurement | h (hour) | byte |
-| [source_of_adi](__l2p_source_of_adi) | Source(s) of atmospheric aerosol indicator data  | code | byte |
+| [source_of_adi](__l2p_source_of_adi) | Source(s) of `aerosol_dynamic_indicator` data  | code | byte |
 | [l2p_flags](__l2p_l2p_flags) | Data flag values | mask of bits | short |
 | [quality_level](__l2p_quality_level) | Overall indication of L2P data quality | enum | byte |
-| [satellite_zenith_angle](__l2p_satellite_zenith_angle) | Calculated satellite zenith angle (measured at the Earth's surface between the satellite and the zenith)| degree | byte |
+| [satellite_zenith_angle](__l2p_satellite_zenith_angle) | Calculated satellite zenith angle (measured at the Earth's surface between the satellite and the zenith)| angular_degree | byte or short|
 | [solar_zenith_angle](__l2p_solar_zenith_angle) | Calculated solar zenith angle (the angle between the local zenith and the line of sight to the sun, measured at the Earth's surface)| degree | byte |
 | [surface_solar_irradiance](__l2p_surface_solar_irradiance) | Near contemporaneous surface solar irradiance| W m-2| byte |
 | [ssi_dtime_from_sst](__l2p_ssi_dtime_from_sst) | Time difference between the `surface_solar_irradiance` value and SST measurement in hours | h (hours)| byte |
@@ -159,7 +159,7 @@ with the format requirements shown in table
 :tags: [remove-input]
 :name: l2p_sea_surface_temperature
 
-!ncdump -h samples/20240101000103-OSISAF-L2P_GHRSST-SSTsubskin-AVHRR_SST_METOP_C-sstmgr_metop03_20240101_000103-v02.0-fv01.0.nc | grep $'[ , \t]sea_surface_temperature[(,:]'| sed 's/[[:space:]]//'
+!ncdump -h samples/l2p_full_example.nc | grep $'[ , \t]sea_surface_temperature[(,:]'| sed 's/[[:space:]]//'
 ```
 
 The standard_name attribute should be CF-1.7 or later compliant[^footnote1] as 
@@ -208,7 +208,7 @@ requirements shown in table {numref}`l2p_sst_dtime`.
 :tags: [remove-input]
 :name: l2p_sst_dtime
 
-!ncdump -h samples/20240101000103-OSISAF-L2P_GHRSST-SSTsubskin-AVHRR_SST_METOP_C-sstmgr_metop03_20240101_000103-v02.0-fv01.0.nc | grep $'[ , \t]sst_dtime[(,:]'| sed 's/[[:space:]]//'
+!ncdump -h samples/l2p_full_example.nc | grep $'[ , \t]sst_dtime[(,:]'| sed 's/[[:space:]]//'
 ```
 
 (__l2p_sses_bias)=
@@ -258,7 +258,7 @@ possible without “oversaturating” the values.
 :tags: [remove-input]
 :name: l2p_sses_bias
 
-!ncdump -h samples/20240101000103-OSISAF-L2P_GHRSST-SSTsubskin-AVHRR_SST_METOP_C-sstmgr_metop03_20240101_000103-v02.0-fv01.0.nc | grep $'[ , \t]sses_bias[(,:]' | sed 's/[[:space:]]//'
+!ncdump -h samples/l2p_full_example.nc | grep $'[ , \t]sses_bias[(,:]' | sed 's/[[:space:]]//'
 ```
 
 
@@ -290,7 +290,7 @@ Data producers are reminded to choose appropriate `scale_factors` and
 :tags: [remove-input]
 :name: l2p_sses_standard_deviation
 
-!ncdump -h samples/20240101000103-OSISAF-L2P_GHRSST-SSTsubskin-AVHRR_SST_METOP_C-sstmgr_metop03_20240101_000103-v02.0-fv01.0.nc | grep $'[ , \t]sses_standard_deviation[(,:]'| sed 's/[[:space:]]//'
+!ncdump -h samples/l2p_full_example.nc | grep $'[ , \t]sses_standard_deviation[(,:]'| sed 's/[[:space:]]//'
 ```
 
 (__l2p_dt_analysis)=
@@ -351,7 +351,7 @@ the L2P product for the pixel in question as described
 :tags: [remove-input]
 :name: l2p_dt_analysis
 
-!ncdump -h samples/20240101000103-OSISAF-L2P_GHRSST-SSTsubskin-AVHRR_SST_METOP_C-sstmgr_metop03_20240101_000103-v02.0-fv01.0.nc | grep $'[ , \t]dt_analysis[(,:]'| sed 's/[[:space:]]//'
+!ncdump -h samples/l2p_full_example.nc | grep $'[ , \t]dt_analysis[(,:]'| sed 's/[[:space:]]//'
 ```
 
 ```{note}
@@ -429,7 +429,7 @@ with the format requirements shown in the {numref}`l2p_wind_speed`.
 :tags: [remove-input]
 :name: l2p_wind_speed
 
-!ncdump -h samples/20240101000103-OSISAF-L2P_GHRSST-SSTsubskin-AVHRR_SST_METOP_C-sstmgr_metop03_20240101_000103-v02.0-fv01.0.nc | grep $'[ , \t]wind_speed[(,:]'| sed 's/[[:space:]]//'
+!ncdump -h samples/l2p_full_example.nc | grep $'[ , \t]wind_speed[(,:]'| sed 's/[[:space:]]//'
 ```
 
 A single source of wind data is shown in this example which is reported as 
@@ -455,14 +455,14 @@ variable `wind_speed`.
 
 | **Storage type** | **Name**     | **Description**                  | **Unit** |
 |-------------------|--------------|----------------------------------|----------|
-| byte | wind_speed_dtime_from_sst | This variable reports the time difference of wind speed measurement from SST measurement in hours. | hour |
+| byte | `wind_speed_dtime_from_sst` | This variable reports the time difference of wind speed measurement from SST measurement in hours. | h (hour) |
 ```
 
 ```{code-cell}
 :tags: [remove-input]
 :name: l2p_wind_speed_dtime_from_sst
 
-!ncdump -h samples/20240101000103-OSISAF-L2P_GHRSST-SSTsubskin-AVHRR_SST_METOP_C-sstmgr_metop03_20240101_000103-v02.0-fv01.0.nc | grep $'[ , \t]wind_speed_dtime_from_sst[(,:]'| sed 's/[[:space:]]//'
+!ncdump -h samples/l2p_full_example.nc | grep $'[ , \t]wind_speed_dtime_from_sst[(,:]'| sed 's/[[:space:]]//'
 ```
 
 (__l2p_source_of_wind_speed)=
@@ -491,6 +491,9 @@ For multiple sources, the GDS-{{gds_version}} requires the following:
   variable and clearly specified within each netCDF variable and its attributes.
   A best practice for naming the text strings in provided in  
   {numref}`product_codes`.
+- instead of using a `_FillValue` attribute and value for missing data, it is 
+  recommended to set missing pixel values to **0** and add the corresponding 
+  **no_data** meaning in `flag_meanings` attribute.
 
 The variable `source_of_wind_speed` shall conform to the format requirements
 shown in the {numref}`l2p_source_of_wind_speed`.
@@ -501,14 +504,14 @@ shown in the {numref}`l2p_source_of_wind_speed`.
 
 | **Storage type** | **Name**     | **Description**                  | **Unit** |
 |-------------------|--------------|----------------------------------|----------|
-| byte | source_of_wind_speed | Sources of **wind_speed** values. | code |
+| byte | `source_of_wind_speed` | Sources of `wind_speed` values. | code |
 ```
 
 ```{code-cell}
 :tags: [remove-input]
 :name: l2p_source_of_wind_speed
 
-!ncdump -h samples/20240101000103-OSISAF-L2P_GHRSST-SSTsubskin-AVHRR_SST_METOP_C-sstmgr_metop03_20240101_000103-v02.0-fv01.0.nc | grep $'[ , \t]source_of_wind_speed[(,:]'| sed 's/[[:space:]]//'
+!ncdump -h samples/l2p_full_example.nc | grep $'[ , \t]source_of_wind_speed[(,:]'| sed 's/[[:space:]]//'
 ```
 
 In this example, `flag_meanings` and `flag_values` contain strings and
@@ -587,7 +590,7 @@ shown in {numref}`l2p_sea_ice_fraction`.
 :tags: [remove-input]
 :name: l2p_sea_ice_fraction
 
-!ncdump -h samples/20240101000103-OSISAF-L2P_GHRSST-SSTsubskin-AVHRR_SST_METOP_C-sstmgr_metop03_20240101_000103-v02.0-fv01.0.nc | grep $'[ , \t]sea_ice_fraction[(,:]'| sed 's/[[:space:]]//'
+!ncdump -h samples/l2p_full_example.nc | grep $'[ , \t]sea_ice_fraction[(,:]'| sed 's/[[:space:]]//'
 ```
 
 A single source of sea ice fraction data is shown in this example which is
@@ -628,7 +631,7 @@ time, stored in the variable `time`.
 :tags: [remove-input]
 :name: l2p_sea_ice_fraction_dtime_from_sst
 
-!ncdump -h samples/20240101000103-OSISAF-L2P_GHRSST-SSTsubskin-AVHRR_SST_METOP_C-sstmgr_metop03_20240101_000103-v02.0-fv01.0.nc | grep $'[ , \t]sea_ice_fraction_dtime_from_sst[(,:]'| sed 's/[[:space:]]//'
+!ncdump -h samples/l2p_full_example.nc | grep $'[ , \t]sea_ice_fraction_dtime_from_sst[(,:]'| sed 's/[[:space:]]//'
 ```
 
 This variable is mandatory when multiple sources for `sea_ice_fraction` are 
@@ -659,7 +662,10 @@ For multiple sources, the GDS-{{gds_version}} requires the following:
   within a given variable and clearly specified within each netCDF variable 
   and its attributes. A best practice for naming the text strings in 
   provided in {numref}`product_codes`.
-
+- instead of using a `_FillValue` attribute and value for missing data, it is 
+  recommended to set missing pixel values to **0** and add the corresponding 
+  **no_data** meaning in `flag_meanings` attribute.
+- 
 The variable `source_of_sea_ice_fraction` shall conform to the format  
 requirements shown in {numref}`l2p_source_of_sea_ice_fraction`.
 
@@ -676,7 +682,7 @@ requirements shown in {numref}`l2p_source_of_sea_ice_fraction`.
 :tags: [remove-input]
 :name: l2p_source_of_sea_ice_fraction
 
-!ncdump -h samples/20240101000103-OSISAF-L2P_GHRSST-SSTsubskin-AVHRR_SST_METOP_C-sstmgr_metop03_20240101_000103-v02.0-fv01.0.nc | grep $'[ , \t]sea_ice_fraction_dtime_from_sst[(,:]'| sed 's/[[:space:]]//'
+!ncdump -h samples/l2p_full_example.nc | grep $'[ , \t]sea_ice_fraction_dtime_from_sst[(,:]'| sed 's/[[:space:]]//'
 ```
 
 In this example, `flag_meanings` and `flag_values` contain strings and
@@ -746,7 +752,7 @@ it shall be included with the format requirements shown in the
 :tags: [remove-input]
 :name: l2p_aerosol_dynamic_indicator
 
-!ncdump -h samples/20240101000103-OSISAF-L2P_GHRSST-SSTsubskin-AVHRR_SST_METOP_C-sstmgr_metop03_20240101_000103-v02.0-fv01.0.nc | grep $'[ , \t]aerosol_dynamic_indicator[(,:]'| sed 's/[[:space:]]//'
+!ncdump -h samples/l2p_full_example.nc | grep $'[ , \t]aerosol_dynamic_indicator[(,:]'| sed 's/[[:space:]]//'
 ```
 
 A single source of `aerosol_dynamic_indicator` has been used in this example
@@ -782,7 +788,7 @@ the variable `aerosol_dynamic_indicator`.
 :tags: [remove-input]
 :name: l2p_adi_dtime_from_sst
 
-!ncdump -h samples/20240101000103-OSISAF-L2P_GHRSST-SSTsubskin-AVHRR_SST_METOP_C-sstmgr_metop03_20240101_000103-v02.0-fv01.0.nc | grep $'[ , \t]sea_ice_fraction_dtime_from_sst[(,:]'| sed 's/[[:space:]]//'
+!ncdump -h samples/l2p_full_example.nc | grep $'[ , \t]sea_ice_fraction_dtime_from_sst[(,:]'| sed 's/[[:space:]]//'
 ```
 
 (__l2p_source_of_adi)=
@@ -807,6 +813,10 @@ variables, but must be consistent within a given variable and clearly
 specified within each netCDF variable and its attributes. A best practice 
 for naming the text strings in provided in {numref}`product_codes`.
 
+instead of using a `_FillValue` attribute and value for missing data, it is 
+recommended to set missing pixel values to **0** and add the corresponding 
+**no_data** meaning in `flag_meanings` attribute.
+
 The variable `source_of_adi` shall conform to the with the format requirements
 shown in the {numref}`l2p_source_of_adi`.
 
@@ -822,7 +832,7 @@ shown in the {numref}`l2p_source_of_adi`.
 :tags: [remove-input]
 :name: l2p_source_of_adi
 
-!ncdump -h samples/20240101000103-OSISAF-L2P_GHRSST-SSTsubskin-AVHRR_SST_METOP_C-sstmgr_metop03_20240101_000103-v02.0-fv01.0.nc | grep $'[ , \t]sea_ice_fraction_dtime_from_sst[(,:]'| sed 's/[[:space:]]//'
+!ncdump -h samples/l2p_full_example.nc | grep $'[ , \t]sea_ice_fraction_dtime_from_sst[(,:]'| sed 's/[[:space:]]//'
 ```
 
 In this example, `flag_meanings` and `flag_values` contain strings and numeric 
@@ -921,7 +931,7 @@ data files with the format requirements shown in {numref}`l2p_l2p_flags`.
 :tags: [remove-input]
 :name: l2p_source_of_adi
 
-!ncdump -h samples/20240101000103-OSISAF-L2P_GHRSST-SSTsubskin-AVHRR_SST_METOP_C-sstmgr_metop03_20240101_000103-v02.0-fv01.0.nc | grep $'[, \t]l2p_flags[(,:]'| sed 's/[[:space:]]//'
+!ncdump -h samples/l2p_full_example.nc | grep $'[, \t]l2p_flags[(,:]'| sed 's/[[:space:]]//'
 ```
 
 (__l2p_quality_level)=
@@ -966,7 +976,7 @@ value **0** to fill in missing data pixels.
 :tags: [remove-input]
 :name: l2p_quality_level
 
-!ncdump -h samples/20240101000103-OSISAF-L2P_GHRSST-SSTsubskin-AVHRR_SST_METOP_C-sstmgr_metop03_20240101_000103-v02.0-fv01.0.nc | grep $'[ , \t]quality_level[(,:]'| sed 's/[[:space:]]//'
+!ncdump -h samples/l2p_full_example.nc | grep $'[ , \t]quality_level[(,:]'| sed 's/[[:space:]]//'
 ```
 
 (__l2p_satellite_zenith_angle)=
@@ -1003,7 +1013,7 @@ it shall conform to the format requirements shown in
 :tags: [remove-input]
 :name: l2p_satellite_zenith_angle
 
-!ncdump -h samples/20240101000103-OSISAF-L2P_GHRSST-SSTsubskin-AVHRR_SST_METOP_C-sstmgr_metop03_20240101_000103-v02.0-fv01.0.nc | grep $'[ , \t]satellite_zenith_angle[(,:]'| sed 's/[[:space:]]//'
+!ncdump -h samples/l2p_full_example.nc | grep $'[ , \t]satellite_zenith_angle[(,:]'| sed 's/[[:space:]]//'
 ```
 
 (__l2p_solar_zenith_angle)=
@@ -1037,7 +1047,7 @@ a L2P data product it shall conform to the format requirements shown in
 :tags: [remove-input]
 :name: l2p_solar_zenith_angle
 
-!ncdump -h samples/20240101000103-OSISAF-L2P_GHRSST-SSTsubskin-AVHRR_SST_METOP_C-sstmgr_metop03_20240101_000103-v02.0-fv01.0.nc | grep $'[ , \t]solar_zenith_angle[(,:]'| sed 's/[[:space:]]//'
+!ncdump -h samples/l2p_full_example.nc | grep $'[ , \t]solar_zenith_angle[(,:]'| sed 's/[[:space:]]//'
 ```
 
 (__l2p_surface_solar_irradiance)=
@@ -1103,7 +1113,7 @@ with the format requirements shown in {numref}`l2p_surface_solar_irradiance`.
 :tags: [remove-input]
 :name: l2p_surface_solar_irradiance
 
-!ncdump -h samples/20240101000103-OSISAF-L2P_GHRSST-SSTsubskin-AVHRR_SST_METOP_C-sstmgr_metop03_20240101_000103-v02.0-fv01.0.nc | grep $'[ , \t]surface_solar_irradiance[(,:]'| sed 's/[[:space:]]//'
+!ncdump -h samples/l2p_full_example.nc | grep $'[ , \t]surface_solar_irradiance[(,:]'| sed 's/[[:space:]]//'
 ```
 
 A single source of SSI data is shown in this example which is reported as
@@ -1136,7 +1146,7 @@ should be used.
 :tags: [remove-input]
 :name: l2p_ssi_dtime_from_sst
 
-!ncdump -h samples/20240101000103-OSISAF-L2P_GHRSST-SSTsubskin-AVHRR_SST_METOP_C-sstmgr_metop03_20240101_000103-v02.0-fv01.0.nc | grep $'[ , \t]ssi_dtime_from_sst[(,:]'| sed 's/[[:space:]]//'
+!ncdump -h samples/l2p_full_example.nc | grep $'[ , \t]ssi_dtime_from_sst[(,:]'| sed 's/[[:space:]]//'
 ```
 
 (__l2p_source_of_ssi)=
@@ -1164,6 +1174,10 @@ variable and clearly specified within each netCDF variable and its attributes. A
 best practice for naming the text strings in provided in 
 {numref}`product_codes`.
 
+instead of using a `_FillValue` attribute and value for missing data, it is 
+recommended to set missing pixel values to **0** and add the corresponding 
+**no_data** meaning in `flag_meanings` attribute.
+
 The variable `source_of_ssi` shall conform to the format requirements shown
 in the {numref}`l2p_source_of_ssi`.
 
@@ -1179,7 +1193,7 @@ in the {numref}`l2p_source_of_ssi`.
 :tags: [remove-input]
 :name: l2p_source_of_ssi
 
-!ncdump -h samples/20240101000103-OSISAF-L2P_GHRSST-SSTsubskin-AVHRR_SST_METOP_C-sstmgr_metop03_20240101_000103-v02.0-fv01.0.nc | grep $'[ , \t]source_of_ssi variable[(,:]'| sed 's/[[:space:]]//'
+!ncdump -h samples/l2p_full_example.nc | grep $'[ , \t]source_of_ssi variable[(,:]'| sed 's/[[:space:]]//'
 ```
 
 In this example, `flag_meanings` and `flag_values` contain code data provided 

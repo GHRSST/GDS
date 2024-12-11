@@ -108,9 +108,16 @@ SSTblend|None|Unknown|Blend of satellite and in situ observations
 
 (product_string)=
 ## `<Product String>`
-The product strings are used within the GHRSST filename convention and within the GHRSST unique data set codes described in {numref}`product_codes`.  The satellite platform and satellite sensor entries are also used in the netCDF global attributes, **<span style="font-family:courier;">platform</span>** and **<span style="font-family:courier;">sensor</span>**, for all GHRSST product files.  See Section 8.2 for more information on the required **global attributes**.
+The product strings are used within the GHRSST filename convention and within
+the GHRSST unique data set codes described in {numref}`product_codes`. The 
+satellite platform and satellite sensor entries are also used in the netCDF 
+global attributes, `platform` and `instrument` GHRSST product files.  See 
+{numref}`global_attributes` for more information on the required 
+**global attributes**.
 
-In order to improve the consistency of these product strings across producers, and avoid maintaining specific GHRSST tables, we recommend to use the CEOS tables as vocabulary for satellite platform and satellite name:
+In order to improve the consistency of these product strings across 
+producers, and avoid maintaining specific GHRSST tables, we recommend to use 
+the CEOS tables as vocabulary for satellite platform and satellite name:
 
 - CEOS platform table: http://database.eohandbook.com/database/missiontable.aspx
 - CEOS sensor table: http://database.eohandbook.com/database/instrumenttable.aspx 
