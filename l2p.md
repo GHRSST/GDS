@@ -117,10 +117,10 @@ variable within the L2P data file is described in detail.
 | [sses_standard_deviation](__l2p_sses_standard_deviation) | Sensor Specific Error Statistic (SSES) standard deviation uncertainty | K (kelvin)| byte |
 | [dt_analysis](__l2p_dt_analysis) | The difference between input SST and a GHRSST L4 SST analysis from the previous 24 hour period | K (kelvin)| byte or short|
 | [wind_speed](__l2p_wind_speed) | Closest (in time) 10 m surface wind speed from satellite or analysis  | m s-1 | byte |
-| [wind_speed_dtime_from_sst](__l2p_wind_speed_dtime_from_sst) | Time difference of `wind_speed` data from input L2 SST measurement specified in hours.| h (hours) | byte |
+| [wind_speed_dtime_from_sst](__l2p_wind_speed_dtime_from_sst) | Time difference of `wind_speed` data from input L2 SST measurement specified in hours.| h (hour) | byte |
 | [source_of_wind_speed](__l2p_source_of_wind_speed) | Source(s) of `wind_speed` data. Mandatory when multiple sources used. | Code| byte |
 | [sea_ice_fraction](__l2p_sea_ice_fraction) | Closest (in time) sea ice fraction from satellite or analysis | 1 | byte |
-| [sea_ice_fraction_dtime_from_sst](__l2p_sea_ice_fraction_dtime_from_sst) | Time difference of `sea_ice_fraction` data from input L2 SST measurement specified in hours| h (hours)| byte |
+| [sea_ice_fraction_dtime_from_sst](__l2p_sea_ice_fraction_dtime_from_sst) | Time difference of `sea_ice_fraction` data from input L2 SST measurement specified in hours| h (hour)| byte |
 | [source_of_sea_ice_fraction](__l2p_source_of_sea_ice_fraction) | Source(s) of `sea_ice_fraction` data | code | byte |
 | [aerosol_dynamic_indicator](__l2p_aerosol_dynamic_indicator) | Atmospheric aerosol indicator | | byte |
 | [adi_dtime_from_sst](__l2p_adi_dtime_from_sst) | Time difference between the `aerosol_dynamic_indicator` value and SST measurement | h (hour) | byte |
@@ -130,7 +130,7 @@ variable within the L2P data file is described in detail.
 | [satellite_zenith_angle](__l2p_satellite_zenith_angle) | Calculated satellite zenith angle (measured at the Earth's surface between the satellite and the zenith)| angular_degree | byte or short|
 | [solar_zenith_angle](__l2p_solar_zenith_angle) | Calculated solar zenith angle (the angle between the local zenith and the line of sight to the sun, measured at the Earth's surface)| degree | byte |
 | [surface_solar_irradiance](__l2p_surface_solar_irradiance) | Near contemporaneous surface solar irradiance| W m-2| byte |
-| [ssi_dtime_from_sst](__l2p_ssi_dtime_from_sst) | Time difference between the `surface_solar_irradiance` value and SST measurement in hours | h (hours)| byte |
+| [ssi_dtime_from_sst](__l2p_ssi_dtime_from_sst) | Time difference between the `surface_solar_irradiance` value and SST measurement in hours | h (hour)| byte |
 | [source_of_ssi](__l2p_source_of_ssi) | Source(s) of `surface_solar_irradiance` data | code | byte |
 | [other fields](__l2p_optional_fields) | Optional/experimental fields defined by data provider | | |
 ```

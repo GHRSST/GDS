@@ -38,7 +38,7 @@ ds['sea_ice_fraction_error'] = xr.DataArray(
     attrs=dict(
         long_name="Sea ice area fraction error estimate",
         units='1',
-        source="EUMETSAT SAF O&SI sea ice version 1.0",
+        source="EUMETSAT O&SI SAF sea ice version 1.0",
         scale_factor=0.01,
         add_offset=0.0,
         coverage_content_type="auxiliaryInformation",
@@ -61,6 +61,6 @@ ds['sst_anomaly'] = xr.DataArray(
 ))
 ds['sst_anomaly'].encoding['_FillValue'] = np.int16(-32768)
 
-
+ds['mask'].attrs['coverage_content_type'] = 'auxiliaryMeasurement'
 
 ds.to_netcdf('./samples/l4_full_example.nc')

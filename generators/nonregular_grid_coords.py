@@ -60,16 +60,17 @@ ds['lat'].encoding['_FillValue'] = None
 ds['lon'].encoding['_FillValue'] = None
 
 ds['sea_surface_temperature'].encoding['_FillValue'] = np.int16(-32768)
-ds['sea_surface_temperature'].encoding['add_offset'] = 273.15
-ds['sea_surface_temperature'].encoding['scale_factor'] = 0.01
+ds['sea_surface_temperature'].attrs['add_offset'] = 273.15
+ds['sea_surface_temperature'].attrs['scale_factor'] = 0.01
 ds['sea_surface_temperature'].encoding['dtype'] = np.int16
-ds['sea_surface_temperature'].attrs['valid_range'] = [np.int16(-200), np.int16(5000)]
+#ds['sea_surface_temperature'].attrs['valid_range'] = [np.int16(-200),
+# np.int16(5000)]
 
 ds['sst_dtime'].encoding['_FillValue'] = np.int16(-32768)
-ds['sst_dtime'].encoding['add_offset'] = 0.
-ds['sst_dtime'].encoding['scale_factor'] = 1.
+ds['sst_dtime'].attrs['add_offset'] = 0.
+ds['sst_dtime'].attrs['scale_factor'] = 1.
 ds['sst_dtime'].encoding['dtype'] = np.int16
-ds['sst_dtime'].attrs['valid_range'] = [np.int16(-32767), np.int16(32767)]
+#ds['sst_dtime'].attrs['valid_range'] = [np.int16(-32767), np.int16(32767)]
 
 ds.to_netcdf('./samples/nonregular_grid.nc')
 
