@@ -1,0 +1,2324 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>7. Level 2 Pre-processed (L2P) Product Specification &#8212; The Recommended GHRSST Data Specification (GDS)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'l2p';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="8. Level 3 (L3) Product Specification" href="l3.html" />
+    <link rel="prev" title="6. Coordinate variables" href="coordinates.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/ghrsst-logo.png" class="logo__image only-light" alt="The Recommended GHRSST Data Specification (GDS) - Home"/>
+    <script>document.write(`<img src="_static/ghrsst-logo.png" class="logo__image only-dark" alt="The Recommended GHRSST Data Specification (GDS) - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    The Recommended GHRSST Data Specification (GDS) Version 2.1r0
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="conventions.html">1. Document Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">2. Overview of GHRSST and the GDS-2.1r0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sea_surface_temperature.html">3. Sea Surface Temperature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="naming.html">4. GDS Filenames and Supporting Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="structure.html">5. GDS Data Product File Structure and attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coordinates.html">6. Coordinate variables</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">7. Level 2 Pre-processed (L2P) Product Specification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l3.html">8. Level 3 (L3) Product Specification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l4.html">9. Level 4 (L4) Product Specification</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fl2p.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/l2p.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Level 2 Pre-processed (L2P) Product Specification</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-description-of-the-ghrsst-l2p-data-product">7.1. Overview description of the GHRSST L2P data product</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#l2p-data-record-format-specification">7.2. L2P data record format specification</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sea-surface-temperature">7.2.1. <code class="docutils literal notranslate"><span class="pre">sea_surface_temperature</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sst-dtime">7.2.2. <code class="docutils literal notranslate"><span class="pre">sst_dtime</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sses-bias">7.2.3. <code class="docutils literal notranslate"><span class="pre">sses_bias</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sses-standard-deviation">7.2.4. <code class="docutils literal notranslate"><span class="pre">sses_standard_deviation</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dt-analysis">7.2.5. <code class="docutils literal notranslate"><span class="pre">dt_analysis</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wind-speed">7.2.6. <code class="docutils literal notranslate"><span class="pre">wind_speed</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wind-speed-dtime-from-sst">7.2.7. <code class="docutils literal notranslate"><span class="pre">wind_speed_dtime_from_sst</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#source-of-wind-speed">7.2.8. <code class="docutils literal notranslate"><span class="pre">source_of_wind_speed</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sea-ice-fraction">7.2.9. <code class="docutils literal notranslate"><span class="pre">sea_ice_fraction</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sea-ice-fraction-dtime-from-sst">7.2.10. <code class="docutils literal notranslate"><span class="pre">sea_ice_fraction_dtime_from_sst</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#source-of-sea-ice-fraction">7.2.11. <code class="docutils literal notranslate"><span class="pre">source_of_sea_ice_fraction</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aerosol-dynamic-indicator">7.2.12. <code class="docutils literal notranslate"><span class="pre">aerosol_dynamic_indicator</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adi-dtime-from-sst">7.2.13. <code class="docutils literal notranslate"><span class="pre">adi_dtime_from_sst</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#source-of-adi">7.2.14. <code class="docutils literal notranslate"><span class="pre">source_of_adi</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#l2p-flags">7.2.15. <code class="docutils literal notranslate"><span class="pre">l2p_flags</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quality-level">7.2.16. <code class="docutils literal notranslate"><span class="pre">quality_level</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#satellite-zenith-angle">7.2.17. <code class="docutils literal notranslate"><span class="pre">satellite_zenith_angle</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solar-zenith-angle">7.2.18. <code class="docutils literal notranslate"><span class="pre">solar_zenith_angle</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#surface-solar-irradiance">7.2.19. <code class="docutils literal notranslate"><span class="pre">surface_solar_irradiance</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ssi-dtime-from-sst">7.2.20. <code class="docutils literal notranslate"><span class="pre">ssi_dtime_from_sst</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#source-of-ssi">7.2.21. <code class="docutils literal notranslate"><span class="pre">source_of_ssi</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-experimental-l2p-variables-included-by-data-provider">7.2.22. Optional experimental L2P variables included by data provider</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cdl-example-l2p-dataset">7.3. CDL example L2P dataset</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="level-2-pre-processed-l2p-product-specification">
+<span id="l2p"></span><h1><span class="section-number">7. </span>Level 2 Pre-processed (L2P) Product Specification<a class="headerlink" href="#level-2-pre-processed-l2p-product-specification" title="Link to this heading">#</a></h1>
+<section id="overview-description-of-the-ghrsst-l2p-data-product">
+<h2><span class="section-number">7.1. </span>Overview description of the GHRSST L2P data product<a class="headerlink" href="#overview-description-of-the-ghrsst-l2p-data-product" title="Link to this heading">#</a></h2>
+<p>The GHRSST Level-2 Pre-processed (L2P) products are the basic building blocks
+from which all other GHRSST SST data products can be derived. L2P data products
+should ideally be made available within the GHRSST R/GTS framework to the user
+community in real time within 3 hours after the reception of data at the
+satellite.</p>
+<p>L2P products include SST data as delivered by a data provider in their native
+format (swath for polar orbiting satellite), together with a number of
+ancillary fields that simplify interpretation and application of the SST data.
+The main difference between input L2 SST data file and the output GHRSST L2P
+data file is that additional confidence data and sensor specific error estimates
+for each pixel value are included and the original SST data files are
+reformatted into the L2P specification. No adjustments to the input L2 SST
+measurements are allowed but instead, sensor specific error statistics are used
+to provide bias error and standard deviation estimates. A user wishing to
+correct L2P SST data can apply these estimates to the SST values directly.
+Full orbit input data files may be split into ascending and descending files or
+smaller granules and a unique L2P output may be generated for each file.
+The common format of L2P products allows data users to code with the security
+so that as new satellite derived SST data sets are brought on-line, very minimal
+code changes are required to make full use of new L2P data. Time previously
+spent on coding different i/o routines for each satellite data set can now be
+spent applying the data to various applications and societal benefits instead.</p>
+<p>The GHRSST Science Team agreed at <em>the 6th GHRSST Science Team Meeting, Met
+Office, Exeter, United Kingdom, May 14th – 20th 2005</em>, 6 mandatory fields form
+the core data content of a GHRSST L2P data file. These fields will be known as
+<strong>L2P ‘core’ (L2Pcore)</strong> fields. In addition to global attributes and
+geo-location and time information, GHRSST producers must provide the following
+L2Pcore fields within an L2P file:</p>
+<ul class="simple">
+<li><p>Sea Surface Temperature data (<code class="docutils literal notranslate"><span class="pre">sea_surface_temperature</span></code>)</p></li>
+<li><p>Time differences of SST measurements from a reference time (<code class="docutils literal notranslate"><span class="pre">sst_dtime</span></code>)</p></li>
+<li><p>SST Sensor Specific Error Statistic (SSES) measurement bias estimate
+(<code class="docutils literal notranslate"><span class="pre">sses_bias</span></code>)</p></li>
+<li><p>SSES measurement standard deviation estimate (<code class="docutils literal notranslate"><span class="pre">sses_standard_deviation</span></code>)</p></li>
+<li><p>Flags specific to each L2P data set that help users interpret data
+(<code class="docutils literal notranslate"><span class="pre">l2p_flags</span></code>)</p></li>
+<li><p>A quality level for each measurement (<code class="docutils literal notranslate"><span class="pre">quality_level</span></code>)</p></li>
+</ul>
+<p>In addition there are a number of auxiliary fields (<strong>L2Paux</strong>) that must be
+provided before the L2P data product is admitted into the GHRSST R/GTS:</p>
+<ul class="simple">
+<li><p>the difference between satellite SST measurements and a
+defined reference climatology of SST (<code class="docutils literal notranslate"><span class="pre">dt_analysis</span></code>)</p></li>
+<li><p>An estimate of surface wind speed (<code class="docutils literal notranslate"><span class="pre">wind_speed</span></code>)</p></li>
+<li><p>An estimate of sea ice fraction (<code class="docutils literal notranslate"><span class="pre">sea_ice_fraction</span></code>)</p></li>
+<li><p>An estimate of atmospheric aerosol (as an aerosol dynamic indicator,
+<code class="docutils literal notranslate"><span class="pre">aerosol_dyanamic_indicator</span></code>)</p></li>
+</ul>
+<p>When an L2P file contains all L2Pcore and L2Paux fields together, it will be
+called a <strong>full-L2P</strong> file. Only full L2P data files should be registered
+into the GHRSST R/G TS central catalogue. These distinctions will assist in the
+data management of the GHRSST GDS-2.1r0.</p>
+<p>Missing L2Paux fields not provided by a producer may be added by a GHRSST
+distributor (DAC), if different from the producer, with prior arrangement. In
+this case data required the L2Paux files will be procured, checked for quality
+and interpolated or processed according to the GDS-2.1r0 specification
+by the DAC.</p>
+<p>Optional experimental fields may be used by producers to provide additional
+information at their discretion. It may be necessary to use an additional
+netCDF coordinate variable when including experimental fields.</p>
+<p>GDS-2.1r0 L2P data products are configured as shown in the table
+<a class="reference internal" href="#l2p-content-summary"><span class="std std-numref">Table 7.1</span></a>, which can be used to locate appropriate
+information in this document.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="l2p-content-summary">
+<caption><span class="caption-number">Table 7.1 </span><span class="caption-text">Summary description of the contents of a GHRSST L2P data product</span><a class="headerlink" href="#l2p-content-summary" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>netCDF File Contents</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Coordinate variables</strong></p></td>
+<td><p>Information to permit locating data on non-orthogonal grids, as defined in <a class="reference internal" href="coordinates.html#coordinate-variables"><span class="std std-numref">Section 6</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Data record variables</strong></p></td>
+<td><p>Core and auxiliary variables as defined in <a class="reference internal" href="#l2p-records"><span class="std std-numref">Section 7.2</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Global Attributes</strong></p></td>
+<td><p>A collection of required global attributes describing general characteristics of the file, as defined in section <a class="reference internal" href="structure.html#global-attributes"><span class="std std-numref">Section 5.2</span></a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="l2p-data-record-format-specification">
+<span id="l2p-records"></span><h2><span class="section-number">7.2. </span>L2P data record format specification<a class="headerlink" href="#l2p-data-record-format-specification" title="Link to this heading">#</a></h2>
+<p>The <a class="reference internal" href="#l2p-variables"><span class="std std-numref">Table 7.2</span></a> provides an overview of the GHRSST L2P
+product pixel data record that should be created for each input L2 SST
+measurement contained within a L2P file. In the following sections, each
+variable within the L2P data file is described in detail.</p>
+<style>
+.l2p-variables-css tbody tr:nth-child(n+1):nth-child(-n+6) { background:#42d1f5; }
+.l2p-variables-css tbody tr:nth-child(n+7):nth-child(-n+8) { background:#dfadf7; }
+.l2p-variables-css tbody tr:nth-child(9) { background:#42d1f5; }
+.l2p-variables-css tbody tr:nth-child(n+10):nth-child(-n+14) { background:#dfadf7; }
+.l2p-variables-css tbody tr:nth-child(n+15):nth-child(-n+16) { background:#42d1f5; }
+.l2p-variables-css tbody tr:nth-child(n+17):nth-child(-n+22) { background:#f2f564; }
+</style>
+<div class="pst-scrollable-table-container"><table class="l2p-variables-css table" id="l2p-variables">
+<caption><span class="caption-number">Table 7.2 </span><span class="caption-text">Summary description of GHRSST L2P data records</span><a class="headerlink" href="#l2p-variables" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Variable Name</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Units</p></th>
+<th class="head"><p>Storage type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="#l2p-sea-surface-temperature"><span class="std std-ref">sea_surface_temperature</span></a></p></td>
+<td><p>SST measurement values from input L2 satellite data set.</p></td>
+<td><p>K (kelvin)</p></td>
+<td><p>short</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#l2p-sst-dtime"><span class="std std-ref">sst_dtime</span></a></p></td>
+<td><p>The deviation in time of SST measurement from reference time</p></td>
+<td><p>s (second)</p></td>
+<td><p>short</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#l2p-sses-bias"><span class="std std-ref">sses_bias</span></a></p></td>
+<td><p>Sensor Specific Error Statistic (SSES) bias error</p></td>
+<td><p>K (kelvin)</p></td>
+<td><p>byte</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#l2p-sses-standard-deviation"><span class="std std-ref">sses_standard_deviation</span></a></p></td>
+<td><p>Sensor Specific Error Statistic (SSES) standard deviation uncertainty</p></td>
+<td><p>K (kelvin)</p></td>
+<td><p>byte</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#l2p-dt-analysis"><span class="std std-ref">dt_analysis</span></a></p></td>
+<td><p>The difference between input SST and a GHRSST L4 SST analysis from the previous 24 hour period</p></td>
+<td><p>K (kelvin)</p></td>
+<td><p>byte or short</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#l2p-wind-speed"><span class="std std-ref">wind_speed</span></a></p></td>
+<td><p>Closest (in time) 10 m surface wind speed from satellite or analysis</p></td>
+<td><p>m s-1</p></td>
+<td><p>byte</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#l2p-wind-speed-dtime-from-sst"><span class="std std-ref">wind_speed_dtime_from_sst</span></a></p></td>
+<td><p>Time difference of <code class="docutils literal notranslate"><span class="pre">wind_speed</span></code> data from input L2 SST measurement specified in hours.</p></td>
+<td><p>h (hour)</p></td>
+<td><p>byte</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#l2p-source-of-wind-speed"><span class="std std-ref">source_of_wind_speed</span></a></p></td>
+<td><p>Source(s) of <code class="docutils literal notranslate"><span class="pre">wind_speed</span></code> data. Mandatory when multiple sources used.</p></td>
+<td><p>Code</p></td>
+<td><p>byte</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#l2p-sea-ice-fraction"><span class="std std-ref">sea_ice_fraction</span></a></p></td>
+<td><p>Closest (in time) sea ice fraction from satellite or analysis</p></td>
+<td><p>1</p></td>
+<td><p>byte</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#l2p-sea-ice-fraction-dtime-from-sst"><span class="std std-ref">sea_ice_fraction_dtime_from_sst</span></a></p></td>
+<td><p>Time difference of <code class="docutils literal notranslate"><span class="pre">sea_ice_fraction</span></code> data from input L2 SST measurement specified in hours</p></td>
+<td><p>h (hour)</p></td>
+<td><p>byte</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#l2p-source-of-sea-ice-fraction"><span class="std std-ref">source_of_sea_ice_fraction</span></a></p></td>
+<td><p>Source(s) of <code class="docutils literal notranslate"><span class="pre">sea_ice_fraction</span></code> data</p></td>
+<td><p>code</p></td>
+<td><p>byte</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#l2p-aerosol-dynamic-indicator"><span class="std std-ref">aerosol_dynamic_indicator</span></a></p></td>
+<td><p>Atmospheric aerosol indicator</p></td>
+<td><p></p></td>
+<td><p>byte</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#l2p-adi-dtime-from-sst"><span class="std std-ref">adi_dtime_from_sst</span></a></p></td>
+<td><p>Time difference between the <code class="docutils literal notranslate"><span class="pre">aerosol_dynamic_indicator</span></code> value and SST measurement</p></td>
+<td><p>h (hour)</p></td>
+<td><p>byte</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#l2p-source-of-adi"><span class="std std-ref">source_of_adi</span></a></p></td>
+<td><p>Source(s) of <code class="docutils literal notranslate"><span class="pre">aerosol_dynamic_indicator</span></code> data</p></td>
+<td><p>code</p></td>
+<td><p>byte</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#l2p-l2p-flags"><span class="std std-ref">l2p_flags</span></a></p></td>
+<td><p>Data flag values</p></td>
+<td><p>mask of bits</p></td>
+<td><p>short</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#l2p-quality-level"><span class="std std-ref">quality_level</span></a></p></td>
+<td><p>Overall indication of L2P data quality</p></td>
+<td><p>enum</p></td>
+<td><p>byte</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#l2p-satellite-zenith-angle"><span class="std std-ref">satellite_zenith_angle</span></a></p></td>
+<td><p>Calculated satellite zenith angle (measured at the Earth’s surface between the satellite and the zenith)</p></td>
+<td><p>angular_degree</p></td>
+<td><p>byte or short</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#l2p-solar-zenith-angle"><span class="std std-ref">solar_zenith_angle</span></a></p></td>
+<td><p>Calculated solar zenith angle (the angle between the local zenith and the line of sight to the sun, measured at the Earth’s surface)</p></td>
+<td><p>degree</p></td>
+<td><p>byte</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#l2p-surface-solar-irradiance"><span class="std std-ref">surface_solar_irradiance</span></a></p></td>
+<td><p>Near contemporaneous surface solar irradiance</p></td>
+<td><p>W m-2</p></td>
+<td><p>byte</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#l2p-ssi-dtime-from-sst"><span class="std std-ref">ssi_dtime_from_sst</span></a></p></td>
+<td><p>Time difference between the <code class="docutils literal notranslate"><span class="pre">surface_solar_irradiance</span></code> value and SST measurement in hours</p></td>
+<td><p>h (hour)</p></td>
+<td><p>byte</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#l2p-source-of-ssi"><span class="std std-ref">source_of_ssi</span></a></p></td>
+<td><p>Source(s) of <code class="docutils literal notranslate"><span class="pre">surface_solar_irradiance</span></code> data</p></td>
+<td><p>code</p></td>
+<td><p>byte</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#l2p-optional-fields"><span class="std std-ref">other fields</span></a></p></td>
+<td><p>Optional/experimental fields defined by data provider</p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="sea-surface-temperature">
+<span id="l2p-sea-surface-temperature"></span><h3><span class="section-number">7.2.1. </span><code class="docutils literal notranslate"><span class="pre">sea_surface_temperature</span></code><a class="headerlink" href="#sea-surface-temperature" title="Link to this heading">#</a></h3>
+<p>The variable <code class="docutils literal notranslate"><span class="pre">sea_surface_temperature</span></code> contains the native unmodified L2 SST
+of the input data file. L2 SST data are not adjusted in any manner and are
+identical to the input data set.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">sea_surface_temperature</span></code> variable shall be included in a L2P product
+with the format requirements shown in table
+<a class="reference internal" href="#id1"><span class="std std-numref">Table 7.3</span></a>.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id1">
+<caption><span class="caption-number">Table 7.3 </span><span class="caption-text">CDL example description of <strong><span style="font-family:courier;">sea_surface_temperature</span></strong> variable</span><a class="headerlink" href="#id1" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Storage type</strong></p></th>
+<th class="head"><p><strong>Name</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Unit</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>short</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sea_surface_temperature</span></code></p></td>
+<td><p>Pixel sea surface temperature value</p></td>
+<td><p>K (kelvin)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>short sea_surface_temperature(time, nj, ni) ;
+	sea_surface_temperature:_FillValue = -32768s ;
+	sea_surface_temperature:long_name = &quot;sea surface subskin temperature&quot; ;
+	sea_surface_temperature:standard_name = &quot;sea_surface_subskin_temperature&quot; ;
+	sea_surface_temperature:units = &quot;K&quot; ;
+	sea_surface_temperature:depth = &quot;1 millimeter&quot; ;
+	sea_surface_temperature:source = &quot;AVHRR_METOP_C&quot; ;
+	sea_surface_temperature:comment = &quot;Temperature of the subskin of the ocean&quot; ;
+	sea_surface_temperature:coverage_content_type = &quot;physicalMeasurement&quot; ;
+	sea_surface_temperature:coordinates = &quot;lat lon&quot; ;
+	sea_surface_temperature:add_offset = 273.15 ;
+	sea_surface_temperature:scale_factor = 0.01 ;
+</pre></div>
+</div>
+</div>
+</div>
+<p>The standard_name attribute should be CF-1.7 or later compliant<a class="footnote-reference brackets" href="#footnote1" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> as
+described in table <a class="reference internal" href="#sst-standard-names"><span class="std std-numref">Table 7.4</span></a>:</p>
+<div class="pst-scrollable-table-container"><table class="table" id="sst-standard-names">
+<caption><span class="caption-number">Table 7.4 </span><span class="caption-text">GHRSST short SST names and CF-1.7 standard names for sea_surface_temperature</span><a class="headerlink" href="#sst-standard-names" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>GHRSST name</p></th>
+<th class="head"><p>CF-1.7 standard name definitions</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>SSTint</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sea_surface_temperature</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>SSTskin</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sea_surface_skin_temperature</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>SSTsubskin</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sea_surface_subskin_temperature</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>SSTfnd</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sea_surface_foundation_temperature</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>SSTdepth</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sea_water_temperature</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>for <code class="docutils literal notranslate"><span class="pre">SSTdepth</span></code>, the attribute <code class="docutils literal notranslate"><span class="pre">depth</span></code> should be used to indicate the depth for
+which the SST data are valid e.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sea_surface_temperature</span><span class="p">:</span><span class="n">standard_name</span><span class="o">=</span><span class="s2">&quot;sea_water_temperature&quot;</span><span class="p">;</span>   
+<span class="n">sea_surface_temperature</span><span class="p">:</span><span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;K&quot;</span> <span class="p">;</span>   
+<span class="n">sea_surface_temperature</span><span class="p">:</span><span class="n">depth</span> <span class="o">=</span> <span class="s2">&quot;1 metre&quot;</span> <span class="p">;</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="sst-dtime">
+<span id="l2p-sst-dtime"></span><h3><span class="section-number">7.2.2. </span><code class="docutils literal notranslate"><span class="pre">sst_dtime</span></code><a class="headerlink" href="#sst-dtime" title="Link to this heading">#</a></h3>
+<p>The deviation in time of SST measurement from reference time stored in the
+netCDF coordinate variable <code class="docutils literal notranslate"><span class="pre">time</span></code> (defined as the start time of granule for L2P).
+Minimum resolution should be one second.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">sst_dtime</span></code> variable shall be included in a L2P product with the format
+requirements shown in table <a class="reference internal" href="#id3"><span class="std std-numref">Table 7.5</span></a>.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id3">
+<caption><span class="caption-number">Table 7.5 </span><span class="caption-text">CDL example description of <strong><span style="font-family:courier;">sst_dtime</span></strong> variable</span><a class="headerlink" href="#id3" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Storage type</strong></p></th>
+<th class="head"><p><strong>Name</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Unit</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>short</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sst_dtime</span></code></p></td>
+<td><p>Deviation from reference time stored in the coordinate variable, <code class="docutils literal notranslate"><span class="pre">time</span></code></p></td>
+<td><p>s (seconds)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>short sst_dtime(time, nj, ni) ;
+	sst_dtime:_FillValue = -32768s ;
+	sst_dtime:long_name = &quot;time difference from reference time&quot; ;
+	sst_dtime:units = &quot;s&quot; ;
+	sst_dtime:scale_factor = 1. ;
+	sst_dtime:add_offset = 0. ;
+	sst_dtime:coverage_content_type = &quot;coordinate&quot; ;
+	sst_dtime:comment = &quot;time plus sst_dtime gives seconds after 00:00:00 UTC January 1, 1981&quot; ;
+	sst_dtime:coordinates = &quot;lat lon&quot; ;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="sses-bias">
+<span id="l2p-sses-bias"></span><h3><span class="section-number">7.2.3. </span><code class="docutils literal notranslate"><span class="pre">sses_bias</span></code><a class="headerlink" href="#sses-bias" title="Link to this heading">#</a></h3>
+<p>Providing uncertainty estimates for each SST measurement is one of the key user
+requirements for GHRSST L2P SST data products. Uncertainty estimates allow users
+to select the accuracy level suitable for their application and to make optimum
+use of the SST observations (e.g. in data assimilation).</p>
+<p>The uncertainties associated with each observation in a data stream are provided
+as <strong>Sensor Specific Error Statistic (SSES)</strong>. The SSES are based on
+understanding the errors associated with the in-flight performance of an
+individual satellite instrument for the retrieval of SST from the measured
+radiances. The SSES are provided as a <strong>mean bias error</strong> and its associated
+<strong>standard deviation</strong> (in variable <code class="docutils literal notranslate"><span class="pre">sses_standard_deviation</span></code>, see
+<a class="reference internal" href="#l2p-sses-standard-deviation"><span class="std std-numref">Section 7.2.4</span></a>).</p>
+<p>There are a variety of methods for determining SSES as they depend on the
+specific characteristics of each satellite instrument. Consequently, the L2P
+provider can define their own scheme for producing SSES that is tailored to
+their specific dataset. However, the SSES scheme must conform to a set of agreed
+SSES common principles.</p>
+<p>The SSES common principles are maintained on the
+<a class="reference external" href="https://www.ghrsst.org/resources/single-sensor-error-statistic-sses/">GHRSST website</a>, and
+have been approved by the GHRSST Science Team. The L2P provider must provide
+documentation that summarizes the theoretical basis of their SSES scheme, its
+implementation, any recommendations for users, and its conformance to the agreed
+SSES common principles.</p>
+<p>The variable <code class="docutils literal notranslate"><span class="pre">sses_bias</span></code> is used to store SSES bias estimates and shall be
+included with the L2P format requirements shown in <a class="reference internal" href="#id4"><span class="std std-numref">Table 7.6</span></a>. Data
+producers are reminded to choose appropriate <code class="docutils literal notranslate"><span class="pre">scale_factor</span></code> and <code class="docutils literal notranslate"><span class="pre">add_offset</span></code>
+attributes for their data, and to strive for <code class="docutils literal notranslate"><span class="pre">scale_factor</span></code> as close to 0.01 as
+possible without “oversaturating” the values.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id4">
+<caption><span class="caption-number">Table 7.6 </span><span class="caption-text">CDL example description of <strong><span style="font-family:courier;">sses_bias</span></strong> variable</span><a class="headerlink" href="#id4" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Storage type</strong></p></th>
+<th class="head"><p><strong>Name</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Unit</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>byte</p></td>
+<td><p>sses_bias</p></td>
+<td><p>SSES bias estimate</p></td>
+<td><p>K (kelvin)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>byte sses_bias(time, nj, ni) ;
+	sses_bias:_FillValue = -128b ;
+	sses_bias:long_name = &quot;SSES bias estimate&quot; ;
+	sses_bias:units = &quot;K&quot; ;
+	sses_bias:comment = &quot;Bias estimate derived using the techniques described at http://www.ghrsst.org/SSES-Description-of-schemes.html&quot; ;
+	sses_bias:coverage_content_type = &quot;qualityInformation&quot; ;
+	sses_bias:coordinates = &quot;lat lon&quot; ;
+	sses_bias:add_offset = 0. ;
+	sses_bias:scale_factor = 0.01 ;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="sses-standard-deviation">
+<span id="l2p-sses-standard-deviation"></span><h3><span class="section-number">7.2.4. </span><code class="docutils literal notranslate"><span class="pre">sses_standard_deviation</span></code><a class="headerlink" href="#sses-standard-deviation" title="Link to this heading">#</a></h3>
+<p><strong>Sensor Specific Error Statistic (SSES) standard deviation</strong> estimates are
+generated by the L2P data provider and are specific to a particular satellite
+instrument, and must conform to the SSES common principles. See
+<a class="reference internal" href="#l2p-sses-bias"><span class="std std-numref">Section 7.2.3</span></a> for the general description of SSES concept and
+associated variables.</p>
+<p>The variable <code class="docutils literal notranslate"><span class="pre">sses_standard_deviation</span></code> shall be included with the format
+requirements shown in <a class="reference internal" href="#id5"><span class="std std-numref">Table 7.7</span></a>.</p>
+<p>Data producers are reminded to choose appropriate <code class="docutils literal notranslate"><span class="pre">scale_factors</span></code> and
+<code class="docutils literal notranslate"><span class="pre">add_offsets</span></code> for their data, and to strive for <code class="docutils literal notranslate"><span class="pre">scale_factors</span></code> as close to
+0.01 as possible without “oversaturating” the values.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id5">
+<caption><span class="caption-number">Table 7.7 </span><span class="caption-text">CDL example description of <strong><span style="font-family:courier;">sses_standard_deviation</span></strong> variable</span><a class="headerlink" href="#id5" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Storage type</strong></p></th>
+<th class="head"><p><strong>Name</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Unit</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>byte</p></td>
+<td><p>sses_standard_deviation</p></td>
+<td><p>SSES standard deviation.</p></td>
+<td><p>K (kelvin)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>byte sses_standard_deviation(time, nj, ni) ;
+	sses_standard_deviation:_FillValue = -128b ;
+	sses_standard_deviation:long_name = &quot;SSES standard deviation&quot; ;
+	sses_standard_deviation:units = &quot;K&quot; ;
+	sses_standard_deviation:comment = &quot;Standard deviation estimate derived using the techniques described at http://www.ghrsst.org/SSES-Description-of-schemes.html&quot; ;
+	sses_standard_deviation:coverage_content_type = &quot;qualityInformation&quot; ;
+	sses_standard_deviation:coordinates = &quot;lat lon&quot; ;
+	sses_standard_deviation:add_offset = 1. ;
+	sses_standard_deviation:scale_factor = 0.01 ;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="dt-analysis">
+<span id="l2p-dt-analysis"></span><h3><span class="section-number">7.2.5. </span><code class="docutils literal notranslate"><span class="pre">dt_analysis</span></code><a class="headerlink" href="#dt-analysis" title="Link to this heading">#</a></h3>
+<p>The difference between input SST and a GHRSST L4 SST analysis from the
+previous 24 hour period.  If storage as byte
+does not allow the provider to offer the full precision required for this
+field,  storage as a short is optionally permitted though byte is preferred.</p>
+<p>The L2P variable <code class="docutils literal notranslate"><span class="pre">dt_analysis</span></code> is the temperature difference between an input
+L2 SST measurement and a reference SST L4 analysis data set. <code class="docutils literal notranslate"><span class="pre">dt_analysis</span></code> may
+be used to indicate potential areas of diurnal variability or gross outliers in
+the L2 input SST measurement data set by looking for large deviations from the
+previous analysis SST data. Note that <code class="docutils literal notranslate"><span class="pre">dt_analysis</span></code> is an indicator field and
+the temperature anomalies may be difficult to interpret in regions of high SST
+gradients. Furthermore, interpretation requires a good understanding of the
+strengths and weaknesses (e.g. space and time de-correlations) of the chosen
+reference L4 analysis system.</p>
+<p><code class="docutils literal notranslate"><span class="pre">dt_analysis</span></code> shall be derived using:</p>
+<div class="math notranslate nohighlight" id="equation-eq-dt-analysis">
+<span class="eqno">(7.1)<a class="headerlink" href="#equation-eq-dt-analysis" title="Link to this equation">#</a></span>\[dt\_analysis = SST_{input} – L4_{SST}\]</div>
+<p>Where SST<sub>input</sub> is the input satellite L2 measurement and L4<sub>
+SST</sub> is a previous day analysis from a GHRSST L4 System selected by the
+data provider. The GHRSST L4 analysis chosen for a given L2P data set variable
+should be consistent for all L2P products as far as practically possible. If a
+previous analysis SSTfnd data file is not available for use in
+<a class="reference internal" href="#equation-eq-dt-analysis">(7.1)</a>, then a mean reference SST or climatology should be
+used in its place as defined in <a class="reference internal" href="#l2p-dt-analysis-code"><span class="std std-numref">Table 7.8</span></a>.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="l2p-dt-analysis-code">
+<caption><span class="caption-number">Table 7.8 </span><span class="caption-text">Reference SST data sets for use in dt_analysis computation</span><a class="headerlink" href="#l2p-dt-analysis-code" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Reference</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Use code from L4 analysis</p></td>
+<td><p>The mean SSTfnd computed for a n-1 day period. This product is computed from data provider SSTfnd data products in real time each day</p></td>
+<td><p><a class="reference external" href="https://www.ghrsst.org/ghrsst-data-services/ghrsst-catalogue/">https://www.ghrsst.org/ghrsst-data-services/ghrsst-catalogue/</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>GMPE_GLOBAL</p></td>
+<td><p>Daily, 25 km median average SST and sea ice product created using 10 operational SST analysis products from operational centres around the world</p></td>
+<td><p><a class="reference external" href="https://ghrsst-pp.metoffice.gov.uk/ostia-website/gmpe-monitoring.html">https://ghrsst-pp.metoffice.gov.uk/ostia-website/gmpe-monitoring.html</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">dt_analysis</span></code> value shall be inserted into the <code class="docutils literal notranslate"><span class="pre">dt_analysis</span></code> field of
+the L2P product for the pixel in question as described
+<a class="reference internal" href="#id6"><span class="std std-numref">Table 7.9</span></a>.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id6">
+<caption><span class="caption-number">Table 7.9 </span><span class="caption-text">CDL example description of <strong><span style="font-family:courier;">dt_analysis</span></strong> variable</span><a class="headerlink" href="#id6" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Storage type</strong></p></th>
+<th class="head"><p><strong>Name</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Unit</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>byte or short</p></td>
+<td><p>dt_analysis</p></td>
+<td><p>Deviation from previous day (T-1) L4 SSTfnd analysis as defined in the <a class="reference internal" href="#l2p-dt-analysis-code"><span class="std std-numref">Table 7.8</span></a>. If no analysis is available, the reference mean SST climatology should be used</p></td>
+<td><p>K (kelvin)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>byte dt_analysis(time, nj, ni) ;
+	dt_analysis:_FillValue = -128b ;
+	dt_analysis:long_name = &quot;deviation from SST analysis or reference climatology&quot; ;
+	dt_analysis:units = &quot;K&quot; ;
+	dt_analysis:reference = &quot;OSTIA&quot; ;
+	dt_analysis:comment = &quot;The difference between this SST and the previous day\&#39;s SST analysis&quot; ;
+	dt_analysis:coverage_content_type = &quot;auxiliaryInformation&quot; ;
+	dt_analysis:coordinates = &quot;lat lon&quot; ;
+	dt_analysis:add_offset = 0. ;
+	dt_analysis:scale_factor = 0.1 ;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">reference</span></code> variable attribute should be used to specify the analysis or
+climatology used to compute <code class="docutils literal notranslate"><span class="pre">dt_analysis</span></code> as shown in the example above
+following the guidelines in <a class="reference internal" href="#l2p-dt-analysis-code"><span class="std std-numref">Table 7.8</span></a>.</p>
+</div>
+</section>
+<section id="wind-speed">
+<span id="l2p-wind-speed"></span><h3><span class="section-number">7.2.6. </span><code class="docutils literal notranslate"><span class="pre">wind_speed</span></code><a class="headerlink" href="#wind-speed" title="Link to this heading">#</a></h3>
+<p>The L2P variable <code class="docutils literal notranslate"><span class="pre">wind_speed</span></code> contains a best estimate of the <strong>10m surface
+wind speed, ideally at the time of SST data acquisition</strong> (although this is
+rarely possible). Wind speed measurements are required within the GDS as an
+indicator of the turbulent state of the air sea interface to interpret the
+relationship between satellite and subsurface SST data and assess the severity
+of any skin SST temperature deviation, thermal stratification and for use in
+diurnal variability adjustment schemes. At low wind speeds, especially in clear
+sky conditions, stronger diurnal variability is expected leading to higher
+surface layer temperature gradients and the potential for significant
+de-coupling of the skin/sub-skin SST from the SST at depth.</p>
+<p>Ideally a near contemporaneous wind speed measurement from satellite sensors
+should be used but this is impossible for all sensors due to the limited number
+of satellite wind speed sensors available. As a surrogate for a measured wind
+speed value, analysis product estimates (e.g., from numerical weather prediction
+models) may be used as an indication of the surface wind speed. The GDS
+specifies the following rules:</p>
+<blockquote>
+<div><p>Simultaneous microwave 10m wind speed measurements obtained from the same
+instrument providing the SST measurement shall be used when available to set the
+L2P confidence data variable <code class="docutils literal notranslate"><span class="pre">wind_speed</span></code>.
+In the absence of a simultaneous surface wind speed measurement, an analysis
+product estimated 10m surface wind speed shall be used to set the L2P variable
+<code class="docutils literal notranslate"><span class="pre">wind_speed</span></code>.</p>
+</div></blockquote>
+<p>The difference in time expressed in hours between the time of SST measurement
+and the time of wind speed data should be entered into the L2P confidence data
+variable <code class="docutils literal notranslate"><span class="pre">wind_speed_dtime_from_sst</span></code> as described in
+<a class="reference internal" href="#l2p-wind-speed-dtime-from-sst"><span class="std std-numref">Section 7.2.7</span></a>. In the case of an analysis field,
+this should be the central (mean) time of an integrated value.
+If all of the wind speeds have a single time value, as in the case of an
+analysis or model that gives the wind speeds at an instant in time, then the
+<code class="docutils literal notranslate"><span class="pre">wind_speed_dtime_from_sst</span></code> variable is not needed and instead a variable level
+attribute named <code class="docutils literal notranslate"><span class="pre">time_offset</span></code> is used. The attribute <code class="docutils literal notranslate"><span class="pre">time_offset</span></code> should
+store the difference in hours between the <code class="docutils literal notranslate"><span class="pre">wind_speed</span></code> and the reference time,
+stored in the variable <code class="docutils literal notranslate"><span class="pre">time</span></code>.</p>
+<p>If a single source of data is used in the L2P variable <code class="docutils literal notranslate"><span class="pre">wind_speed</span></code>
+(recommended), the L2P variable <code class="docutils literal notranslate"><span class="pre">source_of_wind_speed</span></code> is not required and a
+<code class="docutils literal notranslate"><span class="pre">source</span></code> variable attribute of <code class="docutils literal notranslate"><span class="pre">wind_speed</span></code> is sufficient. In that case, it
+shall be a single source text string defined by the data provider using the text
+string naming best practice given in <a class="reference internal" href="naming.html#product-codes"><span class="std std-numref">Section 4.9</span></a>.</p>
+<p>If multiple sources of data are used, source information should be indicated in
+the L2P variable <code class="docutils literal notranslate"><span class="pre">source_of_wind_speed</span></code> as defined by the data provider and as
+described in detail in <a class="reference internal" href="#l2p-source-of-wind-speed"><span class="std std-numref">Section 7.2.8</span></a>, and the
+<code class="docutils literal notranslate"><span class="pre">source</span></code> variable attribute of <code class="docutils literal notranslate"><span class="pre">wind_speed</span></code> shall have the value
+<code class="docutils literal notranslate"><span class="pre">source_of_wind_speed</span></code>. In addition, the units of all sources used in the file
+shall be identical.</p>
+<p>The GDS L2P variable <code class="docutils literal notranslate"><span class="pre">wind_speed</span></code> shall be included in L2P products
+with the format requirements shown in the <a class="reference internal" href="#id7"><span class="std std-numref">Table 7.10</span></a>.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id7">
+<caption><span class="caption-number">Table 7.10 </span><span class="caption-text">CDL example description of <strong><span style="font-family:courier;">wind_speed</span></strong> variable</span><a class="headerlink" href="#id7" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Storage type</strong></p></th>
+<th class="head"><p><strong>Name</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Unit</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>byte</p></td>
+<td><p>wind_speed</p></td>
+<td><p>Surface wind speed at 10m height. Resolution should be no less than 1 m s-1</p></td>
+<td><p>m s-1</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>byte wind_speed(time, nj, ni) ;
+	wind_speed:_FillValue = -128b ;
+	wind_speed:long_name = &quot;10m wind speed&quot; ;
+	wind_speed:standard_name = &quot;wind_speed&quot; ;
+	wind_speed:units = &quot;m s-1&quot; ;
+	wind_speed:height = &quot;10 m&quot; ;
+	wind_speed:time_offset = 0. ;
+	wind_speed:source = &quot;WSP-ECMWF-Forecast&quot; ;
+	wind_speed:comment = &quot;These wind speeds were created by the ECMWF and represent winds at 10 metres above the sea surface. &quot; ;
+	wind_speed:coordinates = &quot;lat lon&quot; ;
+	wind_speed:add_offset = 0. ;
+	wind_speed:scale_factor = 1. ;
+</pre></div>
+</div>
+</div>
+</div>
+<p>A single source of wind data is shown in this example which is reported as
+<code class="docutils literal notranslate"><span class="pre">wind_speed:source</span> <span class="pre">=</span> <span class="pre">&quot;ECMWF_Anaylsis_V2&quot;</span></code> the code has been defined by the data
+provider using the ancillary data naming rules given in <a class="reference internal" href="naming.html#product-codes"><span class="std std-numref">Section 4.9</span></a>.
+Since all of the wind speeds have the same time, the attribute <code class="docutils literal notranslate"><span class="pre">time_offset</span></code> is
+used instead of the variable <code class="docutils literal notranslate"><span class="pre">wind_speed_dtime_from_sst</span></code>.</p>
+</section>
+<section id="wind-speed-dtime-from-sst">
+<span id="l2p-wind-speed-dtime-from-sst"></span><h3><span class="section-number">7.2.7. </span><code class="docutils literal notranslate"><span class="pre">wind_speed_dtime_from_sst</span></code><a class="headerlink" href="#wind-speed-dtime-from-sst" title="Link to this heading">#</a></h3>
+<p>The variable <code class="docutils literal notranslate"><span class="pre">wind_speed_dtime_from_sst</span></code> reports the time difference between
+wind speed data and SST measurement in hours. The variable
+<code class="docutils literal notranslate"><span class="pre">wind_speed_dtime_from_sst</span></code> shall be included with the format requirements
+shown in <a class="reference internal" href="#id8"><span class="std std-numref">Table 7.11</span></a>. In the
+case of an analysis field, the central (mean) time of an integrated value should
+be used. If all values are the same, this variable is not required.
+Instead, use the variable level attribute named <code class="docutils literal notranslate"><span class="pre">time_offset</span></code> with the
+variable <code class="docutils literal notranslate"><span class="pre">wind_speed</span></code>.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id8">
+<caption><span class="caption-number">Table 7.11 </span><span class="caption-text">CDL example description of <strong><span style="font-family:courier;">wind_speed_dtime_from_sst</span></strong> variable</span><a class="headerlink" href="#id8" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Storage type</strong></p></th>
+<th class="head"><p><strong>Name</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Unit</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>byte</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wind_speed_dtime_from_sst</span></code></p></td>
+<td><p>This variable reports the time difference of wind speed measurement from SST measurement in hours.</p></td>
+<td><p>h (hour)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>byte wind_speed_dtime_from_sst(time, nj, ni) ;
+	wind_speed_dtime_from_sst:_FillValue = -128b ;
+	wind_speed_dtime_from_sst:long_name = &quot;time difference, in hours\&#39;, of wind speed measurement from sst measurement&quot; ;
+	wind_speed_dtime_from_sst:units = &quot;h&quot; ;
+	wind_speed_dtime_from_sst:scale_factor = 0.1 ;
+	wind_speed_dtime_from_sst:add_offset = 0. ;
+	wind_speed_dtime_from_sst:coverage_content_type = &quot;auxiliaryInformation&quot; ;
+	wind_speed_dtime_from_sst:comment = &quot;the hours between the wind speed measurement and the SST observation&quot; ;
+	wind_speed_dtime_from_sst:coordinates = &quot;lat lon&quot; ;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="source-of-wind-speed">
+<span id="l2p-source-of-wind-speed"></span><h3><span class="section-number">7.2.8. </span><code class="docutils literal notranslate"><span class="pre">source_of_wind_speed</span></code><a class="headerlink" href="#source-of-wind-speed" title="Link to this heading">#</a></h3>
+<p>The source of data used to set the L2P ancillary data variable <code class="docutils literal notranslate"><span class="pre">wind_speed</span></code>
+shall be indicated in the L2P variable <code class="docutils literal notranslate"><span class="pre">source_of_wind_speed</span></code> when more than
+one source of wind speed data is used in the L2P product.</p>
+<p>When only one source is used, this variable is not needed and the appropriate
+text string indicating the source is placed in the <code class="docutils literal notranslate"><span class="pre">source</span></code> attribute of the
+<code class="docutils literal notranslate"><span class="pre">wind_speed</span></code> variable. If the values in  that single source all have the same
+time, then a variable attribute <code class="docutils literal notranslate"><span class="pre">time_offset</span></code> set as the difference time in
+hours is considered sufficient and the variable <code class="docutils literal notranslate"><span class="pre">wind_speed_dtime_from_sst</span></code>
+is not required.</p>
+<p>For multiple sources, the GDS-2.1r0 requires the following:</p>
+<ul class="simple">
+<li><p>The variable in question should contain an attribute called <code class="docutils literal notranslate"><span class="pre">flag_meanings</span></code>
+and another one called <code class="docutils literal notranslate"><span class="pre">flag_values</span></code>. The <code class="docutils literal notranslate"><span class="pre">flag_values</span></code> attribute shall
+contain a comma-separated list of the numeric codes for the sources of data
+used whose order matches the comma-separated text strings in the
+<code class="docutils literal notranslate"><span class="pre">flag_meanings</span></code> attribute.</p></li>
+<li><p>These text strings and numeric codes do not need to be unique across different
+data sets or even ancillary variables, but must be consistent within a given
+variable and clearly specified within each netCDF variable and its attributes.
+A best practice for naming the text strings in provided in<br />
+<a class="reference internal" href="naming.html#product-codes"><span class="std std-numref">Section 4.9</span></a>.</p></li>
+<li><p>instead of using a <code class="docutils literal notranslate"><span class="pre">_FillValue</span></code> attribute and value for missing data, it is
+recommended to set missing pixel values to <strong>0</strong> and add the corresponding
+<strong>no_data</strong> meaning in <code class="docutils literal notranslate"><span class="pre">flag_meanings</span></code> attribute.</p></li>
+</ul>
+<p>The variable <code class="docutils literal notranslate"><span class="pre">source_of_wind_speed</span></code> shall conform to the format requirements
+shown in the <a class="reference internal" href="#id9"><span class="std std-numref">Table 7.12</span></a>.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id9">
+<caption><span class="caption-number">Table 7.12 </span><span class="caption-text">CDL example description of <strong><span style="font-family:courier;">source_of_wind_speed</span></strong> variable</span><a class="headerlink" href="#id9" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Storage type</strong></p></th>
+<th class="head"><p><strong>Name</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Unit</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>byte</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">source_of_wind_speed</span></code></p></td>
+<td><p>Sources of <code class="docutils literal notranslate"><span class="pre">wind_speed</span></code> values.</p></td>
+<td><p>code</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>byte source_of_wind_speed(time, nj, ni) ;
+	source_of_wind_speed:long_name = &quot;sources of wind speed&quot; ;
+	source_of_wind_speed:flag_meanings = &quot;no_data WSP-ESA-ASCAT-V2 WSP-NCEP-Analysis-V3 WSP-ECMWF-Forecast-V6&quot; ;
+	source_of_wind_speed:flag_values = 0b, 1b, 2b, 3b ;
+	source_of_wind_speed:coverage_content_type = &quot;auxiliaryInformation&quot; ;
+	source_of_wind_speed:comment = &quot;This variable provides a pixel by pixel description of where the wind speeds were derived from.&quot; ;
+	source_of_wind_speed:coordinates = &quot;lat lon&quot; ;
+</pre></div>
+</div>
+</div>
+</div>
+<p>In this example, <code class="docutils literal notranslate"><span class="pre">flag_meanings</span></code> and <code class="docutils literal notranslate"><span class="pre">flag_values</span></code> contain strings and
+numeric codes provided by the data provider according to the best practices
+specified in <a class="reference internal" href="#id9"><span class="std std-numref">Table 7.12</span></a>.</p>
+</section>
+<section id="sea-ice-fraction">
+<span id="l2p-sea-ice-fraction"></span><h3><span class="section-number">7.2.9. </span><code class="docutils literal notranslate"><span class="pre">sea_ice_fraction</span></code><a class="headerlink" href="#sea-ice-fraction" title="Link to this heading">#</a></h3>
+<p>Some SST data are contaminated in part or wholly by sea ice and the L2P variable
+<code class="docutils literal notranslate"><span class="pre">sea_ice_fraction</span></code> is used to quantify the fraction of an area contaminated
+with sea ice, ranging from 0 to 1. Some input SST data streams provide a
+flag to indicate that the SST measurement is contaminated by sea ice
+(e.g., passive microwave radiometers such as AMSR-E).</p>
+<p>If an input data set pixel fractional sea ice estimate exists, this should be
+used to in the L2P variable <code class="docutils literal notranslate"><span class="pre">sea_ice_fraction</span></code> as described in the
+table <a class="reference internal" href="#id10"><span class="std std-numref">Table 7.13</span></a>.</p>
+<p>Best practice suggests that one should approach the issue in the following
+way. If an input data set pixel sea ice flag does not exist, and the pixel is
+located in or close to a region that may be ice contaminated, a reference sea
+ice data set should be used to determine the value of the L2P variable
+<code class="docutils literal notranslate"><span class="pre">sea_ice_fraction</span></code>.</p>
+<p>If an input data set pixel sea ice flag exists (i.e. indicating sea ice but
+not the fractional amount of coverage), this should be used to set the L2P
+variable <code class="docutils literal notranslate"><span class="pre">sea_ice_fraction</span></code> to 1.</p>
+<p>If the SST input data set includes a sea ice flag in the data stream, bit 3 of
+the L2P confidence data variable <code class="docutils literal notranslate"><span class="pre">l2p_flags</span></code> should be set for this pixel as
+described in <a class="reference internal" href="#l2p-l2p-flags"><span class="std std-numref">Section 7.2.15</span></a>.</p>
+<p>The difference in time expressed in hours between the time of SST measurement
+and the time of sea ice fraction measurement should be entered into the L2P
+variable <code class="docutils literal notranslate"><span class="pre">sea_ice_fraction_dtime_from_sst</span></code> as described in
+in <a class="reference internal" href="#l2p-sea-ice-fraction-dtime-from-sst"><span class="std std-numref">Section 7.2.10</span></a>. In the case of an
+analysis field, this should be the central (mean) time of an integrated value.
+If all ice observations have a single time value, as in the case of an
+analysis or model that gives the sea ice values at an instant in time, then the
+<code class="docutils literal notranslate"><span class="pre">sea_ice_fraction_dtime_from_sst</span></code> variable is not needed and instead a
+variable attribute named <code class="docutils literal notranslate"><span class="pre">time_offset</span></code> is used. The attribute <code class="docutils literal notranslate"><span class="pre">time_offset</span></code>
+should store the difference in hours between the <code class="docutils literal notranslate"><span class="pre">sea_ice_fraction</span></code>
+and the reference time, stored in the variable <code class="docutils literal notranslate"><span class="pre">time</span></code>.</p>
+<p>If a single source of data is used in the L2P variable <code class="docutils literal notranslate"><span class="pre">sea_ice_fraction</span></code>, the
+L2P variable <code class="docutils literal notranslate"><span class="pre">source_of_sea_ice_fraction</span></code> is not required and instead the
+<code class="docutils literal notranslate"><span class="pre">source</span></code> variable attribute value of <code class="docutils literal notranslate"><span class="pre">sea_ice_fraction</span></code> is sufficient. It shall
+be a single source text string defined by the data provider using the text
+string naming best practice given in <a class="reference internal" href="naming.html#product-codes"><span class="std std-numref">Section 4.9</span></a>.</p>
+<p>If multiple sources of data are used, source information should be indicated in
+the L2P variable <code class="docutils literal notranslate"><span class="pre">source_of_sea_ice_fraction</span></code> as defined by the data provider
+and as described in detail in <a class="reference internal" href="#l2p-source-of-sea-ice-fraction"><span class="std std-numref">Section 7.2.11</span></a>, and
+the <code class="docutils literal notranslate"><span class="pre">source</span></code> variable attribute of <code class="docutils literal notranslate"><span class="pre">sea_ice_fraction</span></code> shall have the value
+<code class="docutils literal notranslate"><span class="pre">source_of_sea_ice_fraction</span></code>. In addition, the units of all sources used in the
+file shall be identical.</p>
+<p>The variable attribute <code class="docutils literal notranslate"><span class="pre">sea_ice_treatment</span></code> shall specify how
+the sea ice information has been treated by the data provider. Valid options
+are: <em>“Use unmodified (one source)”</em>, <em>“use unmodified (multiple ice sources)”</em>,
+or <em>“modified using onboard sensors”</em>.</p>
+<p>The variable <code class="docutils literal notranslate"><span class="pre">sea_ice_fraction</span></code> will be included with the format requirements
+shown in <a class="reference internal" href="#id10"><span class="std std-numref">Table 7.13</span></a>.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id10">
+<caption><span class="caption-number">Table 7.13 </span><span class="caption-text">CDL example description of <strong><span style="font-family:courier;">sea_ice_fraction</span></strong> variable</span><a class="headerlink" href="#id10" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Storage type</strong></p></th>
+<th class="head"><p><strong>Name</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Unit</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>byte</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sea_ice_fraction</span></code></p></td>
+<td><p>fractional of sea ice contamination in a given pixel. Ranges from 0 to 1.</p></td>
+<td><p>1 (unitless)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>byte sea_ice_fraction(time, nj, ni) ;
+	sea_ice_fraction:_FillValue = -128b ;
+	sea_ice_fraction:long_name = &quot;sea ice fraction&quot; ;
+	sea_ice_fraction:standard_name = &quot;sea_ice_area_fraction&quot; ;
+	sea_ice_fraction:units = &quot;1&quot; ;
+	sea_ice_fraction:time_offset = 3. ;
+	sea_ice_fraction:source = &quot;ICE-OSISAF&quot; ;
+	sea_ice_fraction:comment = &quot;Fractional sea ice cover from OSISAF ice product&quot; ;
+	sea_ice_fraction:coverage_content_type = &quot;auxiliaryInformation&quot; ;
+	sea_ice_fraction:coordinates = &quot;lat lon&quot; ;
+	sea_ice_fraction:add_offset = 0. ;
+	sea_ice_fraction:scale_factor = 0.01 ;
+</pre></div>
+</div>
+</div>
+</div>
+<p>A single source of sea ice fraction data is shown in this example which is
+reported as <code class="docutils literal notranslate"><span class="pre">sea_ice_fraction:source</span> <span class="pre">=</span> <span class="pre">&quot;REMSS_AMSRE_V5&quot;</span></code> following the
+ancillary data naming conventions specified in <a class="reference internal" href="naming.html#product-codes"><span class="std std-numref">Section 4.9</span></a>. Since
+all of ice values have the same time, the attribute <code class="docutils literal notranslate"><span class="pre">time_offset</span></code> is used
+instead of the variable <code class="docutils literal notranslate"><span class="pre">sea_ice_fraction_dtime_from_sst</span></code>.</p>
+</section>
+<section id="sea-ice-fraction-dtime-from-sst">
+<span id="l2p-sea-ice-fraction-dtime-from-sst"></span><h3><span class="section-number">7.2.10. </span><code class="docutils literal notranslate"><span class="pre">sea_ice_fraction_dtime_from_sst</span></code><a class="headerlink" href="#sea-ice-fraction-dtime-from-sst" title="Link to this heading">#</a></h3>
+<p>The variable <code class="docutils literal notranslate"><span class="pre">sea_ice_fraction_dtime_from_sst</span></code> reports the time difference
+between sea ice fraction data from SST measurement in hours. This variable is
+mandatory when multiple sources of <code class="docutils literal notranslate"><span class="pre">sea_ice_fraction</span></code> are used.</p>
+<p>If only one source is used, simply set a variable attribute <code class="docutils literal notranslate"><span class="pre">time_offset</span></code> in
+<code class="docutils literal notranslate"><span class="pre">sea_ice_fraction</span></code> variable, as the difference time in hours.</p>
+<p>The variable <code class="docutils literal notranslate"><span class="pre">sea_ice_fraction_dtime_from_sst</span></code> shall be included with the format
+requirements shown <a class="reference internal" href="#id11"><span class="std std-numref">Table 7.14</span></a>.</p>
+<p>In the case of an analysis field, this should be the central (mean) time of an
+integrated value. If all of the values are the same, this variable is not
+required. Instead, use the variable level attribute named <code class="docutils literal notranslate"><span class="pre">time_offset</span></code> with
+the variable <code class="docutils literal notranslate"><span class="pre">sea_ice_fraction</span></code>. The attribute <code class="docutils literal notranslate"><span class="pre">time_offset</span></code> should store
+the difference in hours between the sea ice analysis time and the reference
+time, stored in the variable <code class="docutils literal notranslate"><span class="pre">time</span></code>.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id11">
+<caption><span class="caption-number">Table 7.14 </span><span class="caption-text">CDL example description of <strong><span style="font-family:courier;">sea_ice_fraction_dtime_from_sst</span></strong> variable</span><a class="headerlink" href="#id11" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Storage type</strong></p></th>
+<th class="head"><p><strong>Name</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Unit</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>byte</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wind_speed_dtime_from_sst</span></code></p></td>
+<td><p>This variable reports the time difference between sea ice fraction data from SST measurement in hours.</p></td>
+<td><p>hour</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>byte sea_ice_fraction_dtime_from_sst(time, nj, ni) ;
+	sea_ice_fraction_dtime_from_sst:_FillValue = -128b ;
+	sea_ice_fraction_dtime_from_sst:long_name = &quot;time difference, in hours, of sea ice fraction measurement from sst measurement&quot; ;
+	sea_ice_fraction_dtime_from_sst:units = &quot;h&quot; ;
+	sea_ice_fraction_dtime_from_sst:scale_factor = 0.1 ;
+	sea_ice_fraction_dtime_from_sst:add_offset = 0. ;
+	sea_ice_fraction_dtime_from_sst:coverage_content_type = &quot;auxiliaryInformation&quot; ;
+	sea_ice_fraction_dtime_from_sst:comment = &quot;the hours between the sea ice fraction measurement and the SST observation&quot; ;
+	sea_ice_fraction_dtime_from_sst:coordinates = &quot;lat lon&quot; ;
+</pre></div>
+</div>
+</div>
+</div>
+<p>This variable is mandatory when multiple sources for <code class="docutils literal notranslate"><span class="pre">sea_ice_fraction</span></code> are
+used. If only one source is used, instead simply set a variable attribute
+<code class="docutils literal notranslate"><span class="pre">sea_ice_fraction:sea_ice_fraction_dtime_from_sst</span> <span class="pre">=</span> <span class="pre">\&lt;difference</span> <span class="pre">time</span> <span class="pre">in</span> <span class="pre">hours\&gt;</span></code>.</p>
+</section>
+<section id="source-of-sea-ice-fraction">
+<span id="l2p-source-of-sea-ice-fraction"></span><h3><span class="section-number">7.2.11. </span><code class="docutils literal notranslate"><span class="pre">source_of_sea_ice_fraction</span></code><a class="headerlink" href="#source-of-sea-ice-fraction" title="Link to this heading">#</a></h3>
+<p>The source of data used to set the L2P ancillary data variable
+<code class="docutils literal notranslate"><span class="pre">sea_ice_fraction</span></code> shall be indicated in the L2P variable
+<code class="docutils literal notranslate"><span class="pre">source_of_sea_ice_fraction</span></code> when more than one source of sea ice fraction data
+is used in the L2P product.</p>
+<p>When only one source is used, this variable is not needed and the appropriate
+text string indicating the source is placed in the source attribute of the
+<code class="docutils literal notranslate"><span class="pre">sea_ice_fraction</span></code> variable.</p>
+<p>For multiple sources, the GDS-2.1r0 requires the following:</p>
+<ul class="simple">
+<li><p>The variable in question should contain an attribute called
+<code class="docutils literal notranslate"><span class="pre">flag_meanings</span></code> and another one called <code class="docutils literal notranslate"><span class="pre">flag_values</span></code>. The <code class="docutils literal notranslate"><span class="pre">flag_values</span></code><br />
+attribute shall contain a comma-separated list of the numeric codes for
+the sources of data used whose order matches the comma-separated text<br />
+strings in the <code class="docutils literal notranslate"><span class="pre">flag_meanings</span></code> attribute.</p></li>
+<li><p>These text strings and numeric codes do not need to be unique across
+different data sets or even ancillary variables, but must be consistent
+within a given variable and clearly specified within each netCDF variable
+and its attributes. A best practice for naming the text strings in
+provided in <a class="reference internal" href="naming.html#product-codes"><span class="std std-numref">Section 4.9</span></a>.</p></li>
+<li><p>instead of using a <code class="docutils literal notranslate"><span class="pre">_FillValue</span></code> attribute and value for missing data, it is
+recommended to set missing pixel values to <strong>0</strong> and add the corresponding
+<strong>no_data</strong> meaning in <code class="docutils literal notranslate"><span class="pre">flag_meanings</span></code> attribute.</p></li>
+<li></li>
+</ul>
+<p>The variable <code class="docutils literal notranslate"><span class="pre">source_of_sea_ice_fraction</span></code> shall conform to the format<br />
+requirements shown in <a class="reference internal" href="#id12"><span class="std std-numref">Table 7.15</span></a>.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id12">
+<caption><span class="caption-number">Table 7.15 </span><span class="caption-text">CDL example description of <strong><span style="font-family:courier;">source_of_sea_ice_fraction</span></strong> variable</span><a class="headerlink" href="#id12" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Storage type</strong></p></th>
+<th class="head"><p><strong>Name</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Unit</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>byte</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">source_of_sea_ice_fraction</span></code></p></td>
+<td><p>Source(s) of sea ice values</p></td>
+<td><p>None</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>byte source_of_sea_ice_fraction(time, nj, ni) ;
+	source_of_sea_ice_fraction:long_name = &quot;sources of sea ice fraction&quot; ;
+	source_of_sea_ice_fraction:flag_meanings = &quot;no_data CE-NSIDC-AMSRE-V3 ICE-ECMWF-Forecast-V3&quot; ;
+	source_of_sea_ice_fraction:flag_values = 0b, 1b, 2b ;
+	source_of_sea_ice_fraction:coverage_content_type = &quot;auxiliaryInformation&quot; ;
+	source_of_sea_ice_fraction:comment = &quot;This variable provides a pixel by pixel description of where the sea ice fraction were derived from.&quot; ;
+	source_of_sea_ice_fraction:coordinates = &quot;lat lon&quot; ;
+</pre></div>
+</div>
+</div>
+</div>
+<p>In this example, <code class="docutils literal notranslate"><span class="pre">flag_meanings</span></code> and <code class="docutils literal notranslate"><span class="pre">flag_values</span></code> contain strings and
+numeric codes provided by the data provider according to the best practices
+specified in <a class="reference internal" href="naming.html#product-codes"><span class="std std-numref">Section 4.9</span></a>.</p>
+</section>
+<section id="aerosol-dynamic-indicator">
+<span id="l2p-aerosol-dynamic-indicator"></span><h3><span class="section-number">7.2.12. </span><code class="docutils literal notranslate"><span class="pre">aerosol_dynamic_indicator</span></code><a class="headerlink" href="#aerosol-dynamic-indicator" title="Link to this heading">#</a></h3>
+<p><strong>Mandatory (only for infrared instruments).</strong></p>
+<p>The L2P variable <code class="docutils literal notranslate"><span class="pre">aerosol_dynamic_indicator</span></code> contains an indicator of potential
+atmospheric aerosol contamination of infrared satellite SST data.
+Infrared-absorbing atmospheric aerosols are a major source of error in
+satellite-derived sea surface temperature retrievals. Atmospheric aerosol, such
+as Saharan dust outbreaks, volcanic eruptions or from coastal mega cities causes
+errors in the atmospheric correction of top of the atmosphere radiances when
+retrieving SST from infrared and visible band data sets. A systematic bias in
+the tropical North Atlantic Ocean and Arabian Sea due to desert dust outflows in
+those regions is apparent.</p>
+<p>An aerosol indicator (e.g., derived from satellite measurements or models)
+value is assigned to the L2P variable <code class="docutils literal notranslate"><span class="pre">aerosol_dynamic_indicator</span></code> for each
+corresponding infrared retrieved SST measurement pixel using data chosen
+by the data provider to indicate aerosol contamination. The aerosol
+indicator data nearest in space and time to the input pixel SST value
+should  be used. In the case of microwave SST measurements there is no
+requirement to include the <code class="docutils literal notranslate"><span class="pre">aerosol_dynamic_indicator</span></code> L2P variable as
+microwave SST retrievals are not affected by atmospheric aerosols. However,
+microwave SST data providers may include <code class="docutils literal notranslate"><span class="pre">aerosol_dynamic_indicator</span></code> in an
+L2P product.</p>
+<p>If a single source of data is used in the L2P variable
+<code class="docutils literal notranslate"><span class="pre">aerosol_dynamic_indicator</span></code>, the L2P variable <code class="docutils literal notranslate"><span class="pre">source_of_adi</span></code> is not
+required and instead the <code class="docutils literal notranslate"><span class="pre">source</span></code> variable attribute value in
+<code class="docutils literal notranslate"><span class="pre">aerosol_dynamic_indicator</span></code> is sufficient. It shall be a single source
+text string defined by the data provider using the text string naming best
+practice given in <a class="reference internal" href="naming.html#product-codes"><span class="std std-numref">Section 4.9</span></a>. If all the times have the same
+value, then using a variable attribute <code class="docutils literal notranslate"><span class="pre">time_offset</span></code> with variable
+<code class="docutils literal notranslate"><span class="pre">aerosol_dynamic_indicator</span></code> is sufficient and the variable
+<code class="docutils literal notranslate"><span class="pre">adi_dtime_from_sst</span></code> is not required.</p>
+<p>If multiple sources of ADI information are used then, the <code class="docutils literal notranslate"><span class="pre">source</span></code>
+variable attribute of <code class="docutils literal notranslate"><span class="pre">aerosol_dynamic_indicator</span></code> variable shall have the
+value <code class="docutils literal notranslate"><span class="pre">source_of_adi</span></code>. In addition, the units of all sources used in the
+file shall be identical.</p>
+<p>The difference in time expressed in hours between the time of SST measurement
+and the time of aerosol indicator data should be entered into the L2P variable
+<code class="docutils literal notranslate"><span class="pre">adi_dtime_from_sst</span></code> as described in <a class="reference internal" href="#l2p-adi-dtime-from-sst"><span class="std std-numref">Section 7.2.13</span></a>. In
+the case of an analysis field, this should be the central (mean) time of an
+integrated value.</p>
+<p>If the variable <code class="docutils literal notranslate"><span class="pre">aerosol_dynamic_indicator</span></code> is provided in an L2P product,
+it shall be included with the format requirements shown in the
+<a class="reference internal" href="#id13"><span class="std std-numref">Table 7.16</span></a>.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id13">
+<caption><span class="caption-number">Table 7.16 </span><span class="caption-text">CDL example description of <strong><span style="font-family:courier;">aerosol_dynamic_indicator</span></strong> variable</span><a class="headerlink" href="#id13" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Storage type</strong></p></th>
+<th class="head"><p><strong>Name</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Unit</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>byte</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">aerosol_dynamic_indicator</span></code></p></td>
+<td><p>Indicator of potential aerosol contamination of infrared satellite data</p></td>
+<td><p>Provider defined</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>byte aerosol_dynamic_indicator(time, nj, ni) ;
+	aerosol_dynamic_indicator:_FillValue = -128b ;
+	aerosol_dynamic_indicator:long_name = &quot;aerosol dynamic indicator&quot; ;
+	aerosol_dynamic_indicator:units = &quot;1&quot; ;
+	aerosol_dynamic_indicator:source = &quot;ADI-NAVO-SDI-V2&quot; ;
+	aerosol_dynamic_indicator:comment = &quot;Estimate of the potential for aerosol contamination based on the NAVO SDI_V2 product, in counts&quot; ;
+	aerosol_dynamic_indicator:coverage_content_type = &quot;auxiliaryInformation&quot; ;
+	aerosol_dynamic_indicator:time_offset = 3. ;
+	aerosol_dynamic_indicator:coordinates = &quot;lat lon&quot; ;
+	aerosol_dynamic_indicator:add_offset = 0. ;
+	aerosol_dynamic_indicator:scale_factor = 0.1 ;
+</pre></div>
+</div>
+</div>
+</div>
+<p>A single source of <code class="docutils literal notranslate"><span class="pre">aerosol_dynamic_indicator</span></code> has been used in this example
+indicated using the <code class="docutils literal notranslate"><span class="pre">aerosol_dynamic_indicator:source</span></code> and are defined by the
+data provider using the ancillary data naming best practice given in<br />
+<a class="reference internal" href="naming.html#product-codes"><span class="std std-numref">Section 4.9</span></a>. Since all of the values have the same time, the
+attribute <code class="docutils literal notranslate"><span class="pre">time_offset</span></code> is used instead of the variable
+<code class="docutils literal notranslate"><span class="pre">aerosol_sst_dtime_from_sst</span></code> to indicate the offset in hours from the
+reference variable <code class="docutils literal notranslate"><span class="pre">sst_dtime</span></code>.</p>
+</section>
+<section id="adi-dtime-from-sst">
+<span id="l2p-adi-dtime-from-sst"></span><h3><span class="section-number">7.2.13. </span><code class="docutils literal notranslate"><span class="pre">adi_dtime_from_sst</span></code><a class="headerlink" href="#adi-dtime-from-sst" title="Link to this heading">#</a></h3>
+<p>The variable adi_dtime_from_sst reports the time difference between aerosol
+indicator data from input L2 SST measurement in hours. The variable
+<code class="docutils literal notranslate"><span class="pre">adi_dtime_from_sst</span></code> shall be included in L2P products with the format
+requirements shown in the <a class="reference internal" href="#id14"><span class="std std-numref">Table 7.17</span></a>. In
+the case of an analysis field, this should be the central (mean) time of an
+integrated value. If all of the values are the same, this variable is not
+required. Instead, use the variable level attribute named <code class="docutils literal notranslate"><span class="pre">time_offset</span></code> with
+the variable <code class="docutils literal notranslate"><span class="pre">aerosol_dynamic_indicator</span></code>.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id14">
+<caption><span class="caption-number">Table 7.17 </span><span class="caption-text">CDL example description of <strong><span style="font-family:courier;">adi_dtime_from_sst</span></strong> variable</span><a class="headerlink" href="#id14" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Storage type</strong></p></th>
+<th class="head"><p><strong>Name</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Unit</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>byte</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">adi_dtime_from_sst</span></code></p></td>
+<td><p>Time difference of aerosol dynamic indicator data from SST measurement in hours</p></td>
+<td><p>hour</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>byte sea_ice_fraction_dtime_from_sst(time, nj, ni) ;
+	sea_ice_fraction_dtime_from_sst:_FillValue = -128b ;
+	sea_ice_fraction_dtime_from_sst:long_name = &quot;time difference, in hours, of sea ice fraction measurement from sst measurement&quot; ;
+	sea_ice_fraction_dtime_from_sst:units = &quot;h&quot; ;
+	sea_ice_fraction_dtime_from_sst:scale_factor = 0.1 ;
+	sea_ice_fraction_dtime_from_sst:add_offset = 0. ;
+	sea_ice_fraction_dtime_from_sst:coverage_content_type = &quot;auxiliaryInformation&quot; ;
+	sea_ice_fraction_dtime_from_sst:comment = &quot;the hours between the sea ice fraction measurement and the SST observation&quot; ;
+	sea_ice_fraction_dtime_from_sst:coordinates = &quot;lat lon&quot; ;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="source-of-adi">
+<span id="l2p-source-of-adi"></span><h3><span class="section-number">7.2.14. </span><code class="docutils literal notranslate"><span class="pre">source_of_adi</span></code><a class="headerlink" href="#source-of-adi" title="Link to this heading">#</a></h3>
+<p>The source of data used to set the L2P ancillary data variable
+<code class="docutils literal notranslate"><span class="pre">aerosol_dynamic_indicator</span></code> shall be indicated in the L2P variable
+<code class="docutils literal notranslate"><span class="pre">source_of_adi</span></code> when more than one source of SSI data is used in the L2P
+product.</p>
+<p>When only one source is used, this variable is not needed and the
+appropriate text string indicating the source is placed in the sources attribute
+of the <code class="docutils literal notranslate"><span class="pre">aerosol_dynamic_indicator</span></code> variable.</p>
+<p>For multiple sources, The variable in question should contain an attribute
+called <code class="docutils literal notranslate"><span class="pre">flag_meanings</span></code> and another one called <code class="docutils literal notranslate"><span class="pre">flag_values</span></code>. The
+<code class="docutils literal notranslate"><span class="pre">flag_values</span></code> attribute shall contain a comma-separated list of the numeric
+codes for the sources of data used whose order matches the space-separated text
+strings in the <code class="docutils literal notranslate"><span class="pre">flag_meanings</span></code> attribute. These text strings and numeric
+codes do not need to be unique across different data sets or even ancillary
+variables, but must be consistent within a given variable and clearly
+specified within each netCDF variable and its attributes. A best practice
+for naming the text strings in provided in <a class="reference internal" href="naming.html#product-codes"><span class="std std-numref">Section 4.9</span></a>.</p>
+<p>instead of using a <code class="docutils literal notranslate"><span class="pre">_FillValue</span></code> attribute and value for missing data, it is
+recommended to set missing pixel values to <strong>0</strong> and add the corresponding
+<strong>no_data</strong> meaning in <code class="docutils literal notranslate"><span class="pre">flag_meanings</span></code> attribute.</p>
+<p>The variable <code class="docutils literal notranslate"><span class="pre">source_of_adi</span></code> shall conform to the with the format requirements
+shown in the <a class="reference internal" href="#id15"><span class="std std-numref">Table 7.18</span></a>.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id15">
+<caption><span class="caption-number">Table 7.18 </span><span class="caption-text">CDL example description of <strong><span style="font-family:courier;">source_of_adi</span></strong> variable</span><a class="headerlink" href="#id15" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Storage type</strong></p></th>
+<th class="head"><p><strong>Name</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Unit</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>byte</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">source_of_adi</span></code></p></td>
+<td><p>Sources of aerosol dynamic indicator values</p></td>
+<td><p>None</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>byte source_of_adi(time, nj, ni) ;
+	source_of_adi:_FillValue = -128b ;
+	source_of_adi:long_name = &quot;sources of aerosol dynamic indicator&quot; ;
+	source_of_adi:flag_meanings = &quot;no_data AOD-NAAPS-ADI SDI-OSISAF-ADI&quot; ;
+	source_of_adi:flag_values = 0b, 1b, 2b ;
+	source_of_adi:comment = &quot;This variable provides a pixel by pixel description of where aerosol optical depth were derived from&quot; ;
+	source_of_adi:coverage_content_type = &quot;auxiliaryInformation&quot; ;
+	source_of_adi:coordinates = &quot;lat lon&quot; ;
+</pre></div>
+</div>
+</div>
+</div>
+<p>In this example, <code class="docutils literal notranslate"><span class="pre">flag_meanings</span></code> and <code class="docutils literal notranslate"><span class="pre">flag_values</span></code> contain strings and numeric
+codes provided by the data provider according to the best practices specified
+in <a class="reference internal" href="naming.html#product-codes"><span class="std std-numref">Section 4.9</span></a>.</p>
+</section>
+<section id="l2p-flags">
+<span id="l2p-l2p-flags"></span><h3><span class="section-number">7.2.15. </span><code class="docutils literal notranslate"><span class="pre">l2p_flags</span></code><a class="headerlink" href="#l2p-flags" title="Link to this heading">#</a></h3>
+<p><strong>Mandatory.</strong></p>
+<p>The GDS-2.1r0 L2P variable <code class="docutils literal notranslate"><span class="pre">l2p_flags</span></code> is used to</p>
+<ul class="simple">
+<li><p>Specify the type of input SST data (either infrared or passive microwave
+instrument derived),</p></li>
+<li><p>Pass through native flags from the input L2 SST data set and</p></li>
+<li><p>Record any additional information considered important for the user of an L2P
+data set.</p></li>
+</ul>
+<p>The L2P variable <code class="docutils literal notranslate"><span class="pre">l2p_flags</span></code> holds Boolean (single bit) codes detailed in its
+<code class="docutils literal notranslate"><span class="pre">flag_meanings</span></code> and <code class="docutils literal notranslate"><span class="pre">flag_masks</span></code> attributes, and split into two sections:</p>
+<ul class="simple">
+<li><p>The first 6 bits of the L2P variable <code class="docutils literal notranslate"><span class="pre">l2p_flags</span></code> are generic flags that are
+common to all L2P data files as defined in the <a class="reference internal" href="#l2p-flags-bits"><span class="std std-numref">Table 7.19</span></a></p></li>
+<li><p>Bits 6-15 are defined by the L2P data provider and are specific to each L2
+input data stream</p></li>
+</ul>
+<div class="pst-scrollable-table-container"><table class="table" id="l2p-flags-bits">
+<caption><span class="caption-number">Table 7.19 </span><span class="caption-text">List of bits composing the <strong><span style="font-family:courier;">l2P_flags</span></strong> variable</span><a class="headerlink" href="#l2p-flags-bits" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Bit</p></th>
+<th class="head"><p>Common flags</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>Set if passive microwave data (not set is assumed to be infrared)</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>Set if over land (not set is assumed to be ocean)</p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>Set if pixel is over ice</p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>Set if pixel is over a lake (if known)</p></td>
+</tr>
+<tr class="row-even"><td><p>4</p></td>
+<td><p>Set if pixel is over a river (if known)</p></td>
+</tr>
+<tr class="row-odd"><td><p>5</p></td>
+<td><p>Reserved for future data</p></td>
+</tr>
+<tr class="row-even"><td><p>6-15</p></td>
+<td><p>Defined by L2 data provider</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">flag_meanings</span></code> attribute shall contain a space-separated list of
+(string with no space) descriptions for each distinct flag value. For
+descriptions containing multiple words, the words shall be linked
+by underscores.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">flag_masks</span></code> attribute shall contain a comma-separated list of (numeric)
+mask values that isolate the bit or bits that encode each flag value, whose
+order matches that of the <code class="docutils literal notranslate"><span class="pre">flag_meanings</span></code> values.</p>
+<p>It is recommended not to use <code class="docutils literal notranslate"><span class="pre">_FillValue</span></code> attribute as it is prone to
+misinterpretation of the bit mask.</p>
+<ul class="simple">
+<li><p><strong>Bit 0</strong> of the L2P <code class="docutils literal notranslate"><span class="pre">l2p_flags</span></code> is used to record if an input pixel SST is
+derived from an infrared satellite sensor or a passive microwave sensor. If
+an input pixel is derived from a passive microwave sensor, bit 0 of the L2P
+<code class="docutils literal notranslate"><span class="pre">l2p_flags</span></code> variable should be set to 1. By not setting this flag the pixel is
+assumed to be from an infrared sensor.</p></li>
+<li><p><strong>Bit 1</strong> of the L2P <code class="docutils literal notranslate"><span class="pre">l2p_flags</span></code> variable is used to record if an input
+pixel is over land or ocean surfaces. If an input pixel is classified as
+land covered bit 1 of the L2P <code class="docutils literal notranslate"><span class="pre">l2p_flags</span></code> variable should be set to equal 1.
+By not setting this flag the pixel is assumed to be classified as over ocean.</p></li>
+<li><p><strong>Bit 2</strong> of the L2P <code class="docutils literal notranslate"><span class="pre">l2p_flags</span></code> variable is used to record if an input pixel
+records ice contamination. If an input pixel is classified as ice
+contaminated bit 2 of the L2P <code class="docutils literal notranslate"><span class="pre">l2p_flags</span></code> variable should be set to 1.</p></li>
+<li><p><strong>Bit 3</strong> of the L2P <code class="docutils literal notranslate"><span class="pre">l2p_flags</span></code> variable is used to record if an input pixel
+contains any part of a lake, as defined by the GHRSST definition of lakes
+(mask). If an input pixel contains any part of a lake, as defined by the
+GHRSST definition of lakes (mask), bit 3 of the L2P <code class="docutils literal notranslate"><span class="pre">l2p_flags</span></code> variable
+should be set to 1.</p></li>
+<li><p><strong>Bit 4</strong> of the L2P <code class="docutils literal notranslate"><span class="pre">l2p_flags</span></code> variable is optionally used to record if an
+input pixel contains any part of a river, as defined by the GHRSST
+definition of rivers (mask). If an input pixel contains any part of a
+river, as defined by the GHRSST definition of rivers (mask), bit 4 of the
+L2P <code class="docutils literal notranslate"><span class="pre">l2p_flags</span></code> variable should be set to 1.</p></li>
+</ul>
+<p>Flags or other information provided with the input L2 SST data should be defined
+and assigned to the <code class="docutils literal notranslate"><span class="pre">l2p_flags</span></code> variable using bits 6-15 of the L2P variable
+l2p_flags. It is recommended to use single bits for any information, no
+combination of multiple bits. If that is not possible, then an additional
+experimental byte field should be used instead. Definitions for bits 6-15, if
+used, should be given using the variable comment attribute.</p>
+<p>The L2P variable <code class="docutils literal notranslate"><span class="pre">l2p_flags</span></code> shall be included in GDS-2.1r0 L2P
+data files with the format requirements shown in <a class="reference internal" href="#id16"><span class="std std-numref">Table 7.20</span></a>.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id16">
+<caption><span class="caption-number">Table 7.20 </span><span class="caption-text">CDL example description of <strong><span style="font-family:courier;">source_of_adi</span></strong> variable</span><a class="headerlink" href="#id16" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Storage type</strong></p></th>
+<th class="head"><p><strong>Name</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Unit</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>short</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">l2p_flags</span></code></p></td>
+<td><p>The variable l2p_flags is used to <br> (a) specify the type of input SST data (either infrared or passive microwave instrument derived), <br> (b) pass through native flags from the input L2 SST data set and <br> (c) record any additional information considered important for the user of an L2P data set</p></td>
+<td><p>None</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>short l2p_flags(time, nj, ni) ;
+	l2p_flags:long_name = &quot;L2P flags&quot; ;
+	l2p_flags:flag_meanings = &quot;microwave land ice lake&quot; ;
+	l2p_flags:flag_masks = 1s, 2s, 4s, 8s ;
+	l2p_flags:comment = &quot;These flags are important to properly use the data.&quot; ;
+	l2p_flags:coverage_content_type = &quot;qualityInformation&quot; ;
+	l2p_flags:coordinates = &quot;lat lon&quot; ;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="quality-level">
+<span id="l2p-quality-level"></span><h3><span class="section-number">7.2.16. </span><code class="docutils literal notranslate"><span class="pre">quality_level</span></code><a class="headerlink" href="#quality-level" title="Link to this heading">#</a></h3>
+<p><strong>Mandatory.</strong></p>
+<p>The L2P variable <code class="docutils literal notranslate"><span class="pre">quality_level</span></code> provides an indicator of the overall quality
+of an SST measurement in an L2P file. The GDS requires the following:</p>
+<p>The L2P variable <code class="docutils literal notranslate"><span class="pre">quality_level</span></code> shall use an incremental scale from <strong>0 to
+5</strong> to provide the user with an indication of the quality of the L2P SST data,
+reflecting the CEOS QA4EO (Quality Indicator) guidelines. The value <strong>0</strong>
+shall be used to indicate missing data and the value <strong>1</strong> shall be used to
+indicate invalid data (e.g. cloud, rain, too close to land - under no conditions
+use this data). The remaining values from <strong>2-5</strong> are set at the discretion of
+the L2P provider with the proviso that the value <strong>2</strong> shall be used to
+indicate the worst quality of usable data and the value <strong>5</strong> shall be used to
+indicate the best quality usable data. The L2P provider is required to provide
+a description of the quality levels provided as part of the product
+documentation.</p>
+<p>The L2P variable <code class="docutils literal notranslate"><span class="pre">quality_level</span></code> reflects the quality of SST data from a
+single sensor and does not provide an indication of the relative quality
+between sensors.</p>
+<p>The L2P variable <code class="docutils literal notranslate"><span class="pre">quality_level</span></code> shall be included with the format
+requirements shown in the <a class="reference internal" href="#id17"><span class="std std-numref">Table 7.21</span></a>.</p>
+<p>We recommend not to use the <code class="docutils literal notranslate"><span class="pre">_FillValue</span></code> attribute but rather to use the
+value <strong>0</strong> to fill in missing data pixels.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id17">
+<caption><span class="caption-number">Table 7.21 </span><span class="caption-text">CDL example description of <strong><span style="font-family:courier;">quality_level</span></strong> variable</span><a class="headerlink" href="#id17" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Storage type</strong></p></th>
+<th class="head"><p><strong>Name</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Unit</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>byte</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">quality_level</span></code></p></td>
+<td><p>Overall indicator of SST measurement quality</p></td>
+<td><p>n/a</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>byte quality_level(time, nj, ni) ;
+	quality_level:_FillValue = -128b ;
+	quality_level:long_name = &quot;quality level of SST pixel&quot; ;
+	quality_level:flag_meanings = &quot;no_data bad_data worst_quality low_quality acceptable_quality best_quality&quot; ;
+	quality_level:flag_values = 0b, 1b, 2b, 3b, 4b, 5b ;
+	quality_level:comment = &quot;These are the overall quality indicators and are used for all GHRSST SSTs&quot; ;
+	quality_level:coverage_content_type = &quot;qualityInformation&quot; ;
+	quality_level:coordinates = &quot;lat lon&quot; ;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="satellite-zenith-angle">
+<span id="l2p-satellite-zenith-angle"></span><h3><span class="section-number">7.2.17. </span><code class="docutils literal notranslate"><span class="pre">satellite_zenith_angle</span></code><a class="headerlink" href="#satellite-zenith-angle" title="Link to this heading">#</a></h3>
+<p><strong>Optional.</strong></p>
+<p>Sea surface temperature retrievals from satellite instruments degrade as the
+sensor zenith angle increases. Measurements made with high viewing angles
+relative to nadir appear to be considerably colder than they are in reality. The
+L2P variable <code class="docutils literal notranslate"><span class="pre">satellite_zenith_angle</span></code> contains the calculated satellite zenith
+angle (measured at the Earth’s surface between the satellite and the zenith) for
+the input L2 SST based on the satellite geometry at the time of SST data
+acquisition.</p>
+<p>The GDS L2P variable <code class="docutils literal notranslate"><span class="pre">satellite_zenith_angle</span></code> is an optional field that may be
+provided by a data provider. The satellite zenith angle for each input pixel
+measurement should be recorded in the L2P variable <code class="docutils literal notranslate"><span class="pre">satellite_zenith_angle</span></code>
+having a range of 0° to +90°.</p>
+<p>If the L2P variable <code class="docutils literal notranslate"><span class="pre">satellite_zenith_angle</span></code> is included in a L2P data product
+it shall conform to the format requirements shown in
+<a class="reference internal" href="#id18"><span class="std std-numref">Table 7.22</span></a>.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id18">
+<caption><span class="caption-number">Table 7.22 </span><span class="caption-text">CDL example description of <strong><span style="font-family:courier;">satellite_zenith_angle</span></strong> variable</span><a class="headerlink" href="#id18" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Storage type</strong></p></th>
+<th class="head"><p><strong>Name</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Unit</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>byte or short</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">satellite_zenith_angle</span></code></p></td>
+<td><p>Calculated satellite zenith angle (measured at the Earth’s surface between the satellite and the local zenith) for the input L2 SST based on the satellite geometry at the time of SST data acquisition. <br> Ranges from 0 to 90 degrees.</p></td>
+<td><p>angular_degree</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>byte satellite_zenith_angle(time, nj, ni) ;
+	satellite_zenith_angle:_FillValue = -128b ;
+	satellite_zenith_angle:long_name = &quot;satellite zenith angle&quot; ;
+	satellite_zenith_angle:units = &quot;angular_degree&quot; ;
+	satellite_zenith_angle:comment = &quot;The satellite zenith angle at the time of the SST observations.&quot; ;
+	satellite_zenith_angle:coverage_content_type = &quot;auxiliaryInformation&quot; ;
+	satellite_zenith_angle:standard_name = &quot;sensor_zenith_angle&quot; ;
+	satellite_zenith_angle:coordinates = &quot;lat lon&quot; ;
+	satellite_zenith_angle:add_offset = 0. ;
+	satellite_zenith_angle:scale_factor = 1. ;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="solar-zenith-angle">
+<span id="l2p-solar-zenith-angle"></span><h3><span class="section-number">7.2.18. </span><code class="docutils literal notranslate"><span class="pre">solar_zenith_angle</span></code><a class="headerlink" href="#solar-zenith-angle" title="Link to this heading">#</a></h3>
+<p><strong>Optional.</strong></p>
+<p>The L2P variable <code class="docutils literal notranslate"><span class="pre">solar_zenith_angle</span></code> contains the calculated solar zenith
+angle (the angle between the local zenith and the line of sight to the sun,
+measured at the Earth’s surface) for the input L2 SST based on the satellite
+geometry at the time of SST data acquisition. Solar zenith angle is a function
+of time, day number and latitude.</p>
+<p>The GDS L2P variable <code class="docutils literal notranslate"><span class="pre">solar_zenith_angle</span></code> is an optional field that may be
+provided by a data provider. The solar zenith angle for each input pixel
+measurement should be recorded in the L2P variable <code class="docutils literal notranslate"><span class="pre">solar_zenith_angle</span></code> having
+a range of 0° to 180°. If the L2P variable <code class="docutils literal notranslate"><span class="pre">solar_zenith_angle</span></code> is included in
+a L2P data product it shall conform to the format requirements shown in
+<a class="reference internal" href="#id19"><span class="std std-numref">Table 7.23</span></a>.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id19">
+<caption><span class="caption-number">Table 7.23 </span><span class="caption-text">CDL example description of <strong><span style="font-family:courier;">solar_zenith_angle</span></strong> variable</span><a class="headerlink" href="#id19" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Storage type</strong></p></th>
+<th class="head"><p><strong>Name</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Unit</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>byte or short</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">solar_zenith_angle</span></code></p></td>
+<td><p>Calculated solar zenith angle (measured at the Earth’s surface between the sun and the local zenith) for the input SST based on the solar geometry at the time of SST data acquisition. <br> Ranges from 0 to 180 degrees.</p></td>
+<td><p>angular_degree</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>byte solar_zenith_angle(time, nj, ni) ;
+	solar_zenith_angle:_FillValue = -128b ;
+	solar_zenith_angle:long_name = &quot;solar zenith angle&quot; ;
+	solar_zenith_angle:units = &quot;angular_degree&quot; ;
+	solar_zenith_angle:comment = &quot;The solar zenith angle at the time of the SST observations.&quot; ;
+	solar_zenith_angle:coverage_content_type = &quot;auxiliaryInformation&quot; ;
+	solar_zenith_angle:standard_name = &quot;solar_zenith_angle&quot; ;
+	solar_zenith_angle:coordinates = &quot;lat lon&quot; ;
+	solar_zenith_angle:add_offset = 90. ;
+	solar_zenith_angle:scale_factor = 1. ;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="surface-solar-irradiance">
+<span id="l2p-surface-solar-irradiance"></span><h3><span class="section-number">7.2.19. </span><code class="docutils literal notranslate"><span class="pre">surface_solar_irradiance</span></code><a class="headerlink" href="#surface-solar-irradiance" title="Link to this heading">#</a></h3>
+<p><strong>Optional.</strong></p>
+<p>Surface Solar Irradiance (SSI) data were originally required within the GDS 1.6
+to assess the magnitude and variability of significant diurnal SST variations,
+for use in diurnal variability correction schemes, for use in L4 SST analysis
+procedures and to interpret the relationship between satellite and in situ SST
+data. In the GDS-2.1r0, it is an optional variable. Ideally a near
+contemporaneous SSI measurement from satellite sensors should be used but this
+is impossible for all areas due to the limited number of geostationary satellite
+sensors available. As a surrogate for a measured SSI value, analysis estimates
+may be used.</p>
+<p>Surface solar Irradiance (SSI) data may be assigned to each L2P SST measurement
+pixel using the variable <code class="docutils literal notranslate"><span class="pre">surface_solar_irradiance</span></code>.</p>
+<p>An integrated down-welling SSI measurement (e.g., derived from satellite
+measurements) should be assigned to each SST pixel value using the
+<code class="docutils literal notranslate"><span class="pre">surface_solar_irradiance</span></code> L2P variable. The SSI measurement nearest in space
+and time before the input pixel SST value should be used. If no SSI measurement
+is available, an integrated SSI value derived from an analysis system nearest in
+space and time to the SST measurement should be used to set the value of
+<code class="docutils literal notranslate"><span class="pre">surface_solar_irradiance</span></code>.</p>
+<p>The difference in time expressed in hours between the time of SST measurement
+and the time of surface solar irradiance data should be entered into the L2P
+confidence data variable <code class="docutils literal notranslate"><span class="pre">ssi_dtime_from_sst</span></code>. In the case of an analysis
+field, this should be the central (mean) time of an integrated value. If all of
+the values have the same time, the attribute <code class="docutils literal notranslate"><span class="pre">time_offset</span></code> is used instead of
+the variable <code class="docutils literal notranslate"><span class="pre">ssi_dtime_fraction_dtime_from_sst</span></code>. The attribute <code class="docutils literal notranslate"><span class="pre">time_offset</span></code>
+should store the difference in hours between the <code class="docutils literal notranslate"><span class="pre">surface_solar_irradiance</span></code>
+and the reference time, stored in the variable <code class="docutils literal notranslate"><span class="pre">time</span></code>.</p>
+<p>If a single source of data is used in the L2P variable
+<code class="docutils literal notranslate"><span class="pre">surface_solar_irradiance</span></code>, the L2P variable <code class="docutils literal notranslate"><span class="pre">source_of_ssi</span></code> is not required
+and instead the <code class="docutils literal notranslate"><span class="pre">surface_solar_irradiance:source</span></code> attribute value is sufficient.
+It shall be a single source text string defined by the data provider using the
+text string naming best practice given in <a class="reference internal" href="naming.html#product-codes"><span class="std std-numref">Section 4.9</span></a>.</p>
+<p>If multiple sources of data are used, source information should be indicated in
+the L2P variable <code class="docutils literal notranslate"><span class="pre">source_of_ssi</span></code> as defined by the data provider and as
+described in detail in <a class="reference internal" href="#id20"><span class="std std-numref">Table 7.24</span></a>. Then,
+the <code class="docutils literal notranslate"><span class="pre">surface_solar_irradiance:source</span></code> attribute shall have the value
+<code class="docutils literal notranslate"><span class="pre">source_of_ssi</span></code>.</p>
+<p>The L2P variable <code class="docutils literal notranslate"><span class="pre">surface_solar_irradiance</span></code> may be included by a data provider
+with the format requirements shown in <a class="reference internal" href="#id20"><span class="std std-numref">Table 7.24</span></a>.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id20">
+<caption><span class="caption-number">Table 7.24 </span><span class="caption-text">CDL example description of <strong><span style="font-family:courier;">surface_solar_irradiance</span></strong> variable</span><a class="headerlink" href="#id20" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Storage type</strong></p></th>
+<th class="head"><p><strong>Name</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Unit</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>byte</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">surface_solar_irradiance</span></code></p></td>
+<td><p>Near contemporaneous integrated Surface Solar Irradiance (SSI) data.</p></td>
+<td><p><span class="math notranslate nohighlight">\(W m^{-2}\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>byte surface_solar_irradiance(time, nj, ni) ;
+	surface_solar_irradiance:long_name = &quot;surface solar irradiance&quot; ;
+	surface_solar_irradiance:standard_name = &quot;surface_downwelling_spherical_irradiance_in_sea_water&quot; ;
+	surface_solar_irradiance:units = &quot;W m-2&quot; ;
+	surface_solar_irradiance:coverage_content_type = &quot;auxiliaryInformation&quot; ;
+	surface_solar_irradiance:comment = &quot;The surface solar irradiance as close to the SST observation times as possible&quot; ;
+	surface_solar_irradiance:scale_factor = 1.36 ;
+	surface_solar_irradiance:add_offset = 127. ;
+	surface_solar_irradiance:source = &quot;SSI-MSG_SEVIRI-V1&quot; ;
+	surface_solar_irradiance:time_offset = 2. ;
+	surface_solar_irradiance:coordinates = &quot;lat lon&quot; ;
+</pre></div>
+</div>
+</div>
+</div>
+<p>A single source of SSI data is shown in this example which is reported as
+<code class="docutils literal notranslate"><span class="pre">surface_solar_irradiance:source</span> <span class="pre">=</span> <span class="pre">&quot;SSI-MSG_SEVIRI-V1&quot;</span></code> The text string has been
+defined by the data provider using the text string naming best practice given
+in <a class="reference internal" href="naming.html#product-codes"><span class="std std-numref">Section 4.9</span></a>. Since all of the SSI values have the same time, the
+attribute <code class="docutils literal notranslate"><span class="pre">time_offset</span></code> is used instead of the variable <code class="docutils literal notranslate"><span class="pre">ssi_dtime_from_sst</span></code>.</p>
+</section>
+<section id="ssi-dtime-from-sst">
+<span id="l2p-ssi-dtime-from-sst"></span><h3><span class="section-number">7.2.20. </span><code class="docutils literal notranslate"><span class="pre">ssi_dtime_from_sst</span></code><a class="headerlink" href="#ssi-dtime-from-sst" title="Link to this heading">#</a></h3>
+<p><strong>Optional (Mandatory only if multiple observation time for
+<code class="docutils literal notranslate"><span class="pre">surface_solar_irradiance</span></code> are provided).</strong></p>
+<p>The variable <code class="docutils literal notranslate"><span class="pre">ssi_dtime_from_sst</span></code> reports the time difference between SSI data
+from SST measurement in hours. The variable <code class="docutils literal notranslate"><span class="pre">ssi_dtime_from_sst</span></code> shall be
+included with the format requirements shown in <a class="reference internal" href="#id21"><span class="std std-numref">Table 7.25</span></a>.</p>
+<p>In the case of an analysis field, the central (mean) time of an integrated value
+should be used.</p>
+<p>If all of the values are the same, this variable is not required. Instead, use
+the variable level attribute named <code class="docutils literal notranslate"><span class="pre">time_offset</span></code> with the variable
+<code class="docutils literal notranslate"><span class="pre">surface_solar_irradiance</span></code>.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id21">
+<caption><span class="caption-number">Table 7.25 </span><span class="caption-text">CDL example description of <strong><span style="font-family:courier;">ssi_dtime_from_sst</span></strong> variable</span><a class="headerlink" href="#id21" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Storage type</strong></p></th>
+<th class="head"><p><strong>Name</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Unit</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>byte</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ssi_dtime_from_sst</span></code></p></td>
+<td><p>This variable reports the time difference between SSI data from SST measurement in hours</p></td>
+<td><p>hour</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>byte ssi_dtime_from_sst(time, nj, ni) ;
+	ssi_dtime_from_sst:_FillValue = -128b ;
+	ssi_dtime_from_sst:long_name = &quot;time difference, in hours, of surface solar irradiance measurement from sst measurement&quot; ;
+	ssi_dtime_from_sst:units = &quot;h&quot; ;
+	ssi_dtime_from_sst:scale_factor = 0.1 ;
+	ssi_dtime_from_sst:add_offset = 0. ;
+	ssi_dtime_from_sst:coverage_content_type = &quot;auxiliaryInformation&quot; ;
+	ssi_dtime_from_sst:comment = &quot;the hours between the surface solar irradiance measurement and the SST observation&quot; ;
+	ssi_dtime_from_sst:coordinates = &quot;lat lon&quot; ;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="source-of-ssi">
+<span id="l2p-source-of-ssi"></span><h3><span class="section-number">7.2.21. </span><code class="docutils literal notranslate"><span class="pre">source_of_ssi</span></code><a class="headerlink" href="#source-of-ssi" title="Link to this heading">#</a></h3>
+<p><strong>Optional (Mandatory only if multiple sources for <code class="docutils literal notranslate"><span class="pre">surface_solar_irradiance</span></code>
+are provided).</strong></p>
+<p>The source of data used to set the L2P ancillary data variable
+<code class="docutils literal notranslate"><span class="pre">surface_solar_irradiance</span></code> shall be indicated in the L2P variable <code class="docutils literal notranslate"><span class="pre">source_of_ssi</span></code>
+when more than one source of SSI data is used in the L2P product. When only one
+source is used, this variable is not needed and the appropriate text string
+indicating the source is placed in the <code class="docutils literal notranslate"><span class="pre">source</span></code> attribute of the
+<code class="docutils literal notranslate"><span class="pre">surface_solar_irradiance</span></code> variable.</p>
+<p>For multiple sources, the variable <code class="docutils literal notranslate"><span class="pre">source_of_ssi</span></code> should contain an attribute
+called <code class="docutils literal notranslate"><span class="pre">flag_meanings</span></code> and another one called <code class="docutils literal notranslate"><span class="pre">flag_values</span></code>. The <code class="docutils literal notranslate"><span class="pre">flag_values</span></code>
+attribute shall contain a comma-separated list of the numeric codes for the
+sources of data used whose order matches the space-separated text strings in
+the <code class="docutils literal notranslate"><span class="pre">flag_meanings</span></code> attribute.</p>
+<p>These text strings and numeric codes do not need to be unique across different
+data sets or even ancillary variables, but must be consistent within a given
+variable and clearly specified within each netCDF variable and its attributes. A
+best practice for naming the text strings in provided in
+<a class="reference internal" href="naming.html#product-codes"><span class="std std-numref">Section 4.9</span></a>.</p>
+<p>instead of using a <code class="docutils literal notranslate"><span class="pre">_FillValue</span></code> attribute and value for missing data, it is
+recommended to set missing pixel values to <strong>0</strong> and add the corresponding
+<strong>no_data</strong> meaning in <code class="docutils literal notranslate"><span class="pre">flag_meanings</span></code> attribute.</p>
+<p>The variable <code class="docutils literal notranslate"><span class="pre">source_of_ssi</span></code> shall conform to the format requirements shown
+in the <a class="reference internal" href="#id22"><span class="std std-numref">Table 7.26</span></a>.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id22">
+<caption><span class="caption-number">Table 7.26 </span><span class="caption-text">CDL example description of <strong><span style="font-family:courier;">source_of_ssi</span></strong> variable</span><a class="headerlink" href="#id22" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Storage type</strong></p></th>
+<th class="head"><p><strong>Name</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Unit</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>byte</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">source_of_ssi</span></code></p></td>
+<td><p>Sources of surface solar irradiance values</p></td>
+<td><p>code</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>byte source_of_ssi(time, nj, ni) ;
+	source_of_ssi:long_name = &quot;sources of surface solar irradiance&quot; ;
+	source_of_ssi:flag_meanings = &quot;no_data SSI-MSG_SEVIRI-V1 SSI-NOAA-GOES_E-V1 SSI-NOAA-GOES_W-V1 SSI-ECMWF-V1 SSI-NCEP-V1 SSI-NAAPS-V1 spare&quot; ;
+	source_of_ssi:flag_values = 0b, 1b, 2b, 3b, 4b, 5b, 6b, 7b ;
+	source_of_ssi:coverage_content_type = &quot;auxiliaryInformation&quot; ;
+	source_of_ssi:comment = &quot;This variable provides a pixel by pixel description of where the surface solar irradiances were derived from.&quot; ;
+	source_of_ssi:coordinates = &quot;lat lon&quot; ;
+</pre></div>
+</div>
+</div>
+</div>
+<p>In this example, <code class="docutils literal notranslate"><span class="pre">flag_meanings</span></code> and <code class="docutils literal notranslate"><span class="pre">flag_values</span></code> contain code data provided
+by the data provider according to the best practices specified
+in <a class="reference internal" href="naming.html#product-codes"><span class="std std-numref">Section 4.9</span></a>. An example of these codes is given in the
+<a class="reference internal" href="#l2p-source-of-ssi-codes"><span class="std std-numref">Table 7.27</span></a>.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="l2p-source-of-ssi-codes">
+<caption><span class="caption-number">Table 7.27 </span><span class="caption-text">Example text string and numeric codes used to identify the sources of data in surface_solar_irradiance:sources and source_of_ssi</span><a class="headerlink" href="#l2p-source-of-ssi-codes" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Numeric Code</p></th>
+<th class="head"><p>Text String</p></th>
+<th class="head"><p>Sources of surface solar irradiance Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>no_data</p></td>
+<td><p>No surface solar irradiance set</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>SSI-MSG_SEVIRI-V1</p></td>
+<td><p>SSI from Meteosat Second Generation SEVIRI instrument (EUMETSAT OSI-SAF</p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>SSI-NOAA-GOES_E-V1</p></td>
+<td><p>GOES_E SSI data from NOAA</p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>SSI-NOAA-GOES_W-V1</p></td>
+<td><p>GOES_W SSI data from NOAA</p></td>
+</tr>
+<tr class="row-even"><td><p>4</p></td>
+<td><p>SSI-ECMWF-V1</p></td>
+<td><p>SSI data from European Centre for Medium Range Weather Forecasting</p></td>
+</tr>
+<tr class="row-odd"><td><p>5</p></td>
+<td><p>SSI-NCEP-V1</p></td>
+<td><p>SSI data from NOAA’s National Center for Environmental Prediction</p></td>
+</tr>
+<tr class="row-even"><td><p>6</p></td>
+<td><p>SSI-NAVY-NAAPS-V1</p></td>
+<td><p>SSI data from the US Navy Atmospheric aerosol Prediction system</p></td>
+</tr>
+<tr class="row-odd"><td><p>7</p></td>
+<td><p></p></td>
+<td><p>Spare to be defined as required</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="optional-experimental-l2p-variables-included-by-data-provider">
+<span id="l2p-optional-fields"></span><h3><span class="section-number">7.2.22. </span>Optional experimental L2P variables included by data provider<a class="headerlink" href="#optional-experimental-l2p-variables-included-by-data-provider" title="Link to this heading">#</a></h3>
+<p>Flexibility of L2P product content is provided through the netCDF API, which
+allows fully self-describing fields and additional L2P variables may be included
+by L2P data providers if they are considered relevant for L2P users. The GDS-2.1r0
+also permits the inclusion of R&amp;D variables (e.g. channel radiance data sets,
+estimates of Chlorophyll A, fields that facilitate flagging of diurnal
+variability, etc.) and 32 bytes per pixel are available in total for
+optional/experimental variables in any combination (i.e., variables can be
+defined as 32 x byte, 16 x short, 3 x int + 4 x byte, etc). The use of
+optional/experimental variables provides a limited amount of flexibility within
+the GDS-2.1r0 for regional user requirements while maintaining an overall upper
+limit on GDS-2.1r0 L2P products for data management groups and archive scaling. In
+exceptional cases a waiver on the 32 byte ceiling can be requested to extend up
+to 64 bytes per pixel.</p>
+<p>The GDS-2.1r0 issues the following guidance on the inclusion of optional or
+experimental variables within L2P data products:</p>
+<ul class="simple">
+<li><p>The sum total of all experimental variables shall not increase L2P record
+size by more than <strong>32 bytes</strong> per SST pixel. A <strong>waiver</strong> can be requested
+for   higher amounts up to 64 bytes.</p></li>
+<li><p>CF-1.7 or later compliance should be maintained for all
+optional/experimental variables. Where available, a standard_name
+attribute should be used.</p></li>
+<li><p>It is permitted to use a provider defined coordinate variable associated
+with experimental fields but this shall be documented in data provider<br />
+documentation.</p></li>
+<li><p>Time difference data (dtime values) should be provided for variables when
+appropriate.</p></li>
+<li><p>The source of data should be indicated: in the single source case as a
+variable attribute; as a dedicated variable when mixed data sources are
+present.</p></li>
+<li><p>Use of experimental variables requires clear documentation by the GHRSST
+producer. They shall provide adequate documentation that describes each
+variable following the CDL examples provided in this document.</p></li>
+<li><p>The variable attribute <code class="docutils literal notranslate"><span class="pre">comment</span></code> shall be used to provide a URL link to a
+full description of each data producer defined variable included in the
+L2P product.</p></li>
+<li><p>Experimental L2P variables if present in an L2P product will be included
+with the minimum format requirements shown in <a class="reference internal" href="#l2p-experimental"><span class="std std-numref">Table 7.28</span></a></p></li>
+<li><p>Additional global variables may be declared within the L2P product.</p></li>
+</ul>
+<div class="pst-scrollable-table-container"><table class="table" id="l2p-experimental">
+<caption><span class="caption-number">Table 7.28 </span><span class="caption-text">CDL template for data provider defined L2P variables</span><a class="headerlink" href="#l2p-experimental" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Storage type definition</p></th>
+<th class="head"><p>Variable name definition</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Unit</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>byte</p></td>
+<td><p>Provide a variable name in lower case using underscore separators e.g. <code class="docutils literal notranslate"><span class="pre">my_variable</span></code></p></td>
+<td><p>Provide a description of <code class="docutils literal notranslate"><span class="pre">my_variable</span></code> stating content purpose and units</p></td>
+<td><p>Units of <code class="docutils literal notranslate"><span class="pre">my_variable</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>byte my_variable(time, nj, ni) ;
+	my_variable:_FillValue = -128b ;
+	my_variable:long_name = &quot;estimated diurnal variability&quot; ;
+	my_variable:standard_name = &quot;&lt;use_a_CF_standard_name_if_available&gt;&quot; ;
+	my_variable:units = &quot;K&quot; ;
+	my_variable:source = &quot;MY-SOURCES-V1&quot; ;
+	my_variable:scale_factor = 1. ;
+	my_variable:add_offset = 0. ;
+	my_variable:coverage_content_type = &quot;auxiliaryInformation&quot; ;
+	my_variable:comment = &quot;This field is fully documented at http://www.mysite.com/my_variable-description.html&quot; ;
+	my_variable:coordinates = &quot;lat lon&quot; ;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="cdl-example-l2p-dataset">
+<h2><span class="section-number">7.3. </span>CDL example L2P dataset<a class="headerlink" href="#cdl-example-l2p-dataset" title="Link to this heading">#</a></h2>
+<p>The following CDL has been generated for a L2P dataset derived from the VIIRS
+sensor on NOAA-20 platform (<a class="reference external" href="https://doi.org/10.5067/GHV20-2PO28">https://doi.org/10.5067/GHV20-2PO28</a>) . It includes a
+number of optional and experimental variables.</p>
+<p><strong>ADD CDL EXAMPLE</strong></p>
+<hr class="footnotes docutils" />
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="footnote1" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">1</a><span class="fn-bracket">]</span></span>
+<p>netCDF Climate and Forecast (CF) Metadata Conventions version 1.7
+or later available from <a class="reference external" href="http://cfconventions.org">http://cfconventions.org</a></p>
+</aside>
+</aside>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="coordinates.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">6. </span>Coordinate variables</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="l3.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">8. </span>Level 3 (L3) Product Specification</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-description-of-the-ghrsst-l2p-data-product">7.1. Overview description of the GHRSST L2P data product</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#l2p-data-record-format-specification">7.2. L2P data record format specification</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sea-surface-temperature">7.2.1. <code class="docutils literal notranslate"><span class="pre">sea_surface_temperature</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sst-dtime">7.2.2. <code class="docutils literal notranslate"><span class="pre">sst_dtime</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sses-bias">7.2.3. <code class="docutils literal notranslate"><span class="pre">sses_bias</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sses-standard-deviation">7.2.4. <code class="docutils literal notranslate"><span class="pre">sses_standard_deviation</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dt-analysis">7.2.5. <code class="docutils literal notranslate"><span class="pre">dt_analysis</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wind-speed">7.2.6. <code class="docutils literal notranslate"><span class="pre">wind_speed</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wind-speed-dtime-from-sst">7.2.7. <code class="docutils literal notranslate"><span class="pre">wind_speed_dtime_from_sst</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#source-of-wind-speed">7.2.8. <code class="docutils literal notranslate"><span class="pre">source_of_wind_speed</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sea-ice-fraction">7.2.9. <code class="docutils literal notranslate"><span class="pre">sea_ice_fraction</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sea-ice-fraction-dtime-from-sst">7.2.10. <code class="docutils literal notranslate"><span class="pre">sea_ice_fraction_dtime_from_sst</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#source-of-sea-ice-fraction">7.2.11. <code class="docutils literal notranslate"><span class="pre">source_of_sea_ice_fraction</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aerosol-dynamic-indicator">7.2.12. <code class="docutils literal notranslate"><span class="pre">aerosol_dynamic_indicator</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adi-dtime-from-sst">7.2.13. <code class="docutils literal notranslate"><span class="pre">adi_dtime_from_sst</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#source-of-adi">7.2.14. <code class="docutils literal notranslate"><span class="pre">source_of_adi</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#l2p-flags">7.2.15. <code class="docutils literal notranslate"><span class="pre">l2p_flags</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quality-level">7.2.16. <code class="docutils literal notranslate"><span class="pre">quality_level</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#satellite-zenith-angle">7.2.17. <code class="docutils literal notranslate"><span class="pre">satellite_zenith_angle</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solar-zenith-angle">7.2.18. <code class="docutils literal notranslate"><span class="pre">solar_zenith_angle</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#surface-solar-irradiance">7.2.19. <code class="docutils literal notranslate"><span class="pre">surface_solar_irradiance</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ssi-dtime-from-sst">7.2.20. <code class="docutils literal notranslate"><span class="pre">ssi_dtime_from_sst</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#source-of-ssi">7.2.21. <code class="docutils literal notranslate"><span class="pre">source_of_ssi</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-experimental-l2p-variables-included-by-data-provider">7.2.22. Optional experimental L2P variables included by data provider</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cdl-example-l2p-dataset">7.3. CDL example L2P dataset</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By GHRSST Science Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1011 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>6. Coordinate variables &#8212; The Recommended GHRSST Data Specification (GDS)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'coordinates';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="7. Level 2 Pre-processed (L2P) Product Specification" href="l2p.html" />
+    <link rel="prev" title="5. GDS Data Product File Structure and attributes" href="structure.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/ghrsst-logo.png" class="logo__image only-light" alt="The Recommended GHRSST Data Specification (GDS) - Home"/>
+    <script>document.write(`<img src="_static/ghrsst-logo.png" class="logo__image only-dark" alt="The Recommended GHRSST Data Specification (GDS) - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    The Recommended GHRSST Data Specification (GDS) Version 2.1r0
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="conventions.html">1. Document Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">2. Overview of GHRSST and the GDS-2.1r0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sea_surface_temperature.html">3. Sea Surface Temperature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="naming.html">4. GDS Filenames and Supporting Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="structure.html">5. GDS Data Product File Structure and attributes</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">6. Coordinate variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l2p.html">7. Level 2 Pre-processed (L2P) Product Specification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l3.html">8. Level 3 (L3) Product Specification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l4.html">9. Level 4 (L4) Product Specification</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fcoordinates.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/coordinates.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Coordinate variables</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#temporal-coordinates">6.1. Temporal coordinates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-coordinates">6.2. Spatial coordinates</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regular-latitude-longitude-grids">6.2.1. Regular latitude/longitude grids</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#non-regular-latitude-longitude-grids-projection">6.2.2. Non-regular latitude/longitude grids (projection)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#non-regular-latitude-longitude-grids-projection-alternative-without-explicit-latitude-longitude">6.2.3. Non-regular latitude/longitude grids (projection) – alternative without explicit latitude/longitude</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#non-regular-latitude-longitude-grids-swath">6.2.4. Non-regular latitude/longitude grids (swath)</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="coordinate-variables">
+<span id="id1"></span><h1><span class="section-number">6. </span>Coordinate variables<a class="headerlink" href="#coordinate-variables" title="Link to this heading">#</a></h1>
+<p>NetCDF coordinate variables provide scales for the space and time axes for the
+multidimensional data arrays, and must be included for all dimensions that can
+be identified as spatio-temporal axes.</p>
+<p>Coordinate arrays are used to geolocate
+data arrays on non-orthogonal grids, such as images in the original pixel/scan
+line space, or complicated map projections. Required attributes are <code class="docutils literal notranslate"><span class="pre">units</span></code> and
+<code class="docutils literal notranslate"><span class="pre">_FillValue</span></code>. Elements of the coordinate array need not be monotonically
+ordered. The data type can be any and scaling may be implemented if required.
+<code class="docutils literal notranslate"><span class="pre">add_offset</span></code> and <code class="docutils literal notranslate"><span class="pre">scale_factor</span></code> have to be adjusted according to the sensor
+resolution and the product spatial coverage. If the packed values can not stand
+on a short, float can be used instead (multiplying the size of these variables
+by two).</p>
+<section id="temporal-coordinates">
+<h2><span class="section-number">6.1. </span>Temporal coordinates<a class="headerlink" href="#temporal-coordinates" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">time</span></code> is the reference time of the SST data array. The GDS-2.1r0
+specifies that this reference time should be extracted or computed to the
+nearest second and then coded as continuous UTC time coordinates in
+<strong>seconds from 00:00:00 UTC January 1, 1981</strong> (which is the definition of the
+GHRSST origin time, chosen to approximate the start of useful AVHRR SST data
+record). Note that the use of UDUNITS in GHRSST implies that that calendar to
+be used is the default mixed Gregorian/Julian calendar.</p>
+<p>The reference time used is dependent on the <Processing Level> of the data and
+is defined as follows:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Processing level</p></th>
+<th class="head"><p>Reference time</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>L2P</p></td>
+<td><p>start time of granule</p></td>
+</tr>
+<tr class="row-odd"><td><p>L3U</p></td>
+<td><p>start time of granule</p></td>
+</tr>
+<tr class="row-even"><td><p>L3C</p></td>
+<td><p>centre time of the collation window</p></td>
+</tr>
+<tr class="row-odd"><td><p>L3S</p></td>
+<td><p>centre time of the collation window</p></td>
+</tr>
+<tr class="row-even"><td><p>L4</p></td>
+<td><p>nominal time of the analysis</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The coordinate variable <code class="docutils literal notranslate"><span class="pre">time</span></code> is intended to minimize the size of the
+<code class="docutils literal notranslate"><span class="pre">sst_dtime</span></code> variable (e.g., see <a class="reference internal" href="l2p.html#l2p-sst-dtime"><span class="std std-numref">Section 7.2.2</span></a>), which stores
+offsets from the reference time in seconds for each SST pixel. <code class="docutils literal notranslate"><span class="pre">time</span></code> also
+facilitates aggregation of all files of a given dataset along the time axis with
+such tools as THREDDS or when building data cubes.</p>
+</section>
+<section id="spatial-coordinates">
+<h2><span class="section-number">6.2. </span>Spatial coordinates<a class="headerlink" href="#spatial-coordinates" title="Link to this heading">#</a></h2>
+<p><strong>x</strong> (columns) and <strong>y</strong> (lines) grid dimensions are referred either as <code class="docutils literal notranslate"><span class="pre">lat</span></code>
+and <code class="docutils literal notranslate"><span class="pre">lon</span></code> or as <code class="docutils literal notranslate"><span class="pre">ni</span></code> and <code class="docutils literal notranslate"><span class="pre">nj</span></code>. <code class="docutils literal notranslate"><span class="pre">lon</span></code> and <code class="docutils literal notranslate"><span class="pre">lat</span></code> must be used if data are mapped
+on a regular grid (some geostationary products). <code class="docutils literal notranslate"><span class="pre">ni</span></code> and <code class="docutils literal notranslate"><span class="pre">nj</span></code> are used if data
+are mapped on a non-regular grid (curvilinear coordinates) or following the
+sensor scanning pattern (scan line, swath). It is preferred that <code class="docutils literal notranslate"><span class="pre">ni</span></code> should be
+used for the across-track dimension and <code class="docutils literal notranslate"><span class="pre">nj</span></code> for the along-track dimension.</p>
+<p>Coordinate vectors are used for data arrays located on orthogonal (but not
+necessarily regularly spaced) grids, such as a geographic (lat-lon) map
+projections. The only required attribute is <code class="docutils literal notranslate"><span class="pre">units</span></code>. The elements of a
+coordinate vector array should be in monotonically increasing or decreasing
+order. The data type can be any and scaling may be implemented if required.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">coordinates</span></code> variable attribute (<code class="docutils literal notranslate"><span class="pre">coordinates</span> <span class="pre">=</span> <span class="pre">&quot;lon</span> <span class="pre">lat&quot;</span> <span class="pre">;</span></code>) must be
+provided if the data are on a non-regular lat/lon grid (map projection or
+swath data).</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">grid_mapping</span></code> variable attribute (<code class="docutils literal notranslate"><span class="pre">grid_mapping</span> <span class="pre">=</span> <span class="pre">&quot;&lt;projection</span> <span class="pre">name&gt;&quot;</span> <span class="pre">;</span></code>)
+must be provided if the data are mapped following a projection. Refer to the
+CF convention<a class="footnote-reference brackets" href="#footnote2" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> for standard projection names.</p>
+<div class="admonition-note-on-lat-lon-arrays admonition">
+<p class="admonition-title">Note on lat/lon arrays</p>
+<p><code class="docutils literal notranslate"><span class="pre">lat</span></code> and <code class="docutils literal notranslate"><span class="pre">lon</span></code> arrays are the only arrays stored as float in GHRSST product
+files and therefore can represent a major fraction of the overall data
+volume. As an optimization factor, producers are encouraged to make use of the
+<code class="docutils literal notranslate"><span class="pre">least_significant_digit</span></code> argument when creating these NetCDF variables (refer
+for instance to <a class="reference external" href="https://unidata.github.io/netcdf4-python/">https://unidata.github.io/netcdf4-python/</a>): in most current
+GHRSST products, there is no need for a precision larger than 3 digits and
+it can be a big volume saver.</p>
+</div>
+<section id="regular-latitude-longitude-grids">
+<h3><span class="section-number">6.2.1. </span>Regular latitude/longitude grids<a class="headerlink" href="#regular-latitude-longitude-grids" title="Link to this heading">#</a></h3>
+<p>This is the simplest case. Many Level 3 and Level 4 products as well as some
+geostationary L2P products are provided on a regular lat/lon grid. On such a
+projection, only two coordinate variables are requested and they can be stored
+as vector arrays. Longitudes should range from -180 to +180, corresponding to
+180 degrees West to 180 degrees East. Latitudes should range from -90 to +90,
+corresponding to 90 degrees South to 90 degrees North. There should be no
+<code class="docutils literal notranslate"><span class="pre">_FillValue</span></code> for latitude and longitude and all SST pixels should have a valid
+latitude and longitude value.</p>
+<p>It is recommended that for Level 3 and Level 4 data products the <code class="docutils literal notranslate"><span class="pre">time</span></code>
+dimension be specified as <strong>unlimited</strong>. Note that the <code class="docutils literal notranslate"><span class="pre">time</span></code> dimension for L2P
+data files is strictly defined as <code class="docutils literal notranslate"><span class="pre">time=1</span></code> (unlimited dimension not allowed).
+This strict definition is because L2P data are swath based and the geospatial
+information may change across consecutive time slabs. Although in GHRSST L3 and
+L4 granules there is only one <code class="docutils literal notranslate"><span class="pre">time</span></code> dimension and variable <code class="docutils literal notranslate"><span class="pre">time</span></code> has only one
+value (seconds since 1981), setting an unlimited dimension for <code class="docutils literal notranslate"><span class="pre">time</span></code> dimension
+will allow netCDF tools and utilities to easily concatenate (and average for
+example) a series of time consecutive GHRSST granules. The following CDL is
+provided as an example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">netcdf</span> <span class="n">example</span> <span class="p">{</span>
+    <span class="n">dimensions</span><span class="p">:</span>
+        <span class="n">lat</span> <span class="o">=</span> <span class="mi">1801</span> <span class="p">;</span>
+        <span class="n">lon</span> <span class="o">=</span> <span class="mi">3600</span> <span class="p">;</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="n">UNLIMITED</span> <span class="p">;</span> <span class="o">//</span> <span class="p">(</span><span class="n">strictly</span> <span class="nb">set</span> <span class="n">to</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">L2P</span><span class="p">)</span>
+    <span class="n">variables</span><span class="p">:</span>
+<span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For these cases, dimension and coordinate variables shall be used for a regular
+lat/lon grid as shown in <a class="reference internal" href="#regular-grid-coords"><span class="std std-numref">Table 6.1</span></a>. No specific variable
+attributes are required for other variables (like <code class="docutils literal notranslate"><span class="pre">sea_surface_temperature</span></code> as
+shown in the example given in <a class="reference internal" href="#regular-grid-coords"><span class="std std-numref">Table 6.1</span></a>).</p>
+<div class="pst-scrollable-table-container"><table class="table" id="regular-grid-coords">
+<caption><span class="caption-number">Table 6.1 </span><span class="caption-text">Example CDL for geographic regular latitude/longitude grids</span><a class="headerlink" href="#regular-grid-coords" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>geographic regular latitude/longitude grids</p></th>
+</tr>
+</thead>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>netcdf regular_grid {
+dimensions:
+	time = UNLIMITED ; // (1 currently)
+	lat = 1800 ;
+	lon = 3600 ;
+variables:
+	int64 time(time) ;
+		time:axis = &quot;T&quot; ;
+		time:long_name = &quot;reference time of sst file&quot; ;
+		time:standard_name = &quot;time&quot; ;
+		time:coverage_content_type = &quot;coordinate&quot; ;
+		time:units = &quot;seconds since 1981-01-01&quot; ;
+		time:calendar = &quot;proleptic_gregorian&quot; ;
+	float lat(lat) ;
+		lat:axis = &quot;Y&quot; ;
+		lat:long_name = &quot;latitude&quot; ;
+		lat:standard_name = &quot;latitude&quot; ;
+		lat:coverage_content_type = &quot;coordinate&quot; ;
+		lat:units = &quot;degrees_north&quot; ;
+		lat:comment = &quot;geographical coordinates, WGS84 projection&quot; ;
+		lat:valid_range = -90., 90. ;
+	float lon(lon) ;
+		lon:axis = &quot;X&quot; ;
+		lon:long_name = &quot;longitude&quot; ;
+		lon:standard_name = &quot;longitude&quot; ;
+		lon:coverage_content_type = &quot;coordinate&quot; ;
+		lon:units = &quot;degrees_east&quot; ;
+		lon:comment = &quot;geographical coordinates, WGS84 projection&quot; ;
+		lon:valid_range = -180., 180. ;
+	short sst_dtime(time, lat, lon) ;
+		sst_dtime:_FillValue = -32768s ;
+		sst_dtime:long_name = &quot;time difference from reference time&quot; ;
+		sst_dtime:coverage_content_type = &quot;coordinate&quot; ;
+		sst_dtime:units = &quot;s&quot; ;
+		sst_dtime:comment = &quot;time plus sst_dtime gives seconds after 00:00:00 UTC January 1, 1981&quot; ;
+		sst_dtime:valid_range = -32767s, 32767s ;
+		sst_dtime:add_offset = 0. ;
+		sst_dtime:scale_factor = 1. ;
+	short sea_surface_temperature(time, lat, lon) ;
+		sea_surface_temperature:_FillValue = -32768s ;
+		sea_surface_temperature:long_name = &quot;Skin temperature of the sea surface&quot; ;
+		sea_surface_temperature:standard_name = &quot;sea_surface_skin_temperature&quot; ;
+		sea_surface_temperature:coverage_content_type = &quot;physicalMeasurement&quot; ;
+		sea_surface_temperature:units = &quot;K&quot; ;
+		sea_surface_temperature:comment = &quot;These SST values are representative of the top 10 micrometers of the sea surface and were generated on a regular grid&quot; ;
+		sea_surface_temperature:valid_range = -200s, 5000s ;
+		sea_surface_temperature:add_offset = 273.15 ;
+		sea_surface_temperature:scale_factor = 0.01 ;
+}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="non-regular-latitude-longitude-grids-projection">
+<h3><span class="section-number">6.2.2. </span>Non-regular latitude/longitude grids (projection)<a class="headerlink" href="#non-regular-latitude-longitude-grids-projection" title="Link to this heading">#</a></h3>
+<p>For gridded data using a specific projection (such as stereographic projection),
+lat/lon have to be stored in 2-D arrays. When data are gridded following the
+sensor pattern, no projection can be associated and lat/lon data have to be
+stored in 2-D arrays. Dimensions cannot be referred to as lat/lon anymore since
+the <strong>x</strong> and <strong>y</strong> axes of the grid are not related to the latitude or
+longitude axis. Each variable must explicitly provide a reference to its
+coordinate variables (<code class="docutils literal notranslate"><span class="pre">coordinates</span></code> variable attribute) and to the related
+projection (<code class="docutils literal notranslate"><span class="pre">grid_mapping</span></code> variable attribute) described in a specific variable
+(for example, <code class="docutils literal notranslate"><span class="pre">Lambert_Azimuthal_Grid&quot;,</span></code> in the example given in
+<a class="reference internal" href="#non-regular-grid-coords-projection"><span class="std std-numref">Table 6.2</span></a>, refer to CF convention
+<a class="footnote-reference brackets" href="#footnote2" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> for standard projection names).</p>
+<p>In these cases, dimension and coordinate variables shall be used for a
+non-regular lat/lon grid (projection) as shown in
+<a class="reference internal" href="#non-regular-grid-coords-projection"><span class="std std-numref">Table 6.2</span></a>. A specific projection coordinate
+variable shall be added (for example, <code class="docutils literal notranslate"><span class="pre">Lambert_Azimuthal_Grid</span></code>), following the
+CF-1.7 or later convention. The specific variable attributes
+<code class="docutils literal notranslate"><span class="pre">coordinates</span> <span class="pre">=</span> <span class="pre">&quot;lon</span> <span class="pre">lat&quot;</span></code> and<code class="docutils literal notranslate"><span class="pre">grid_mapping</span> <span class="pre">=</span> <span class="pre">&quot;Lambert_Azimuthal_Grid&quot;</span></code> are
+required for each other variables (like <code class="docutils literal notranslate"><span class="pre">sea_surface_temperature</span></code> in the example
+given in <a class="reference internal" href="#non-regular-grid-coords-projection"><span class="std std-numref">Table 6.2</span></a>).</p>
+<p>Note that variable attributes such as <code class="docutils literal notranslate"><span class="pre">grid_mapping</span></code> may be set differently
+(when using a different kind of projection) or completely removed (for swath
+products or regular grids if required).</p>
+<div class="pst-scrollable-table-container"><table class="table" id="non-regular-grid-coords-projection">
+<caption><span class="caption-number">Table 6.2 </span><span class="caption-text">Example CDL for non-regular latitude/longitude grids (projection)</span><a class="headerlink" href="#non-regular-grid-coords-projection" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>non-regular latitude/longitude grids (projections)</p></th>
+</tr>
+</thead>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>netcdf nonregular_grid_projection {
+dimensions:
+	time = UNLIMITED ; // (1 currently)
+	nj = 40000 ;
+	ni = 1000 ;
+variables:
+	int64 time(time) ;
+		time:axis = &quot;T&quot; ;
+		time:long_name = &quot;reference time of sst file&quot; ;
+		time:standard_name = &quot;time&quot; ;
+		time:coverage_content_type = &quot;coordinate&quot; ;
+		time:units = &quot;seconds since 1981-01-01&quot; ;
+		time:calendar = &quot;proleptic_gregorian&quot; ;
+	short sst_dtime(time, nj, ni) ;
+		sst_dtime:_FillValue = -32768s ;
+		sst_dtime:long_name = &quot;time difference from reference time&quot; ;
+		sst_dtime:coverage_content_type = &quot;coordinate&quot; ;
+		sst_dtime:units = &quot;s&quot; ;
+		sst_dtime:grid_mapping = &quot;lambert_Azimuthal_Grid&quot; ;
+		sst_dtime:comment = &quot;time plus sst_dtime gives seconds after 00:00:00 UTC January 1, 1981&quot; ;
+		sst_dtime:add_offset = 0. ;
+		sst_dtime:scale_factor = 1. ;
+		sst_dtime:coordinates = &quot;Lambert_Azimuthal_Grid lat lon&quot; ;
+	short sea_surface_temperature(time, nj, ni) ;
+		sea_surface_temperature:_FillValue = -32768s ;
+		sea_surface_temperature:long_name = &quot;Skin temperature of the sea surface&quot; ;
+		sea_surface_temperature:standard_name = &quot;sea_surface_skin_temperature&quot; ;
+		sea_surface_temperature:coverage_content_type = &quot;physicalMeasurement&quot; ;
+		sea_surface_temperature:units = &quot;K&quot; ;
+		sea_surface_temperature:grid_mapping = &quot;Lambert_Azimuthal_Grid&quot; ;
+		sea_surface_temperature:add_offset = 273.15 ;
+		sea_surface_temperature:scale_factor = 0.01 ;
+		sea_surface_temperature:coordinates = &quot;Lambert_Azimuthal_Grid lat lon&quot; ;
+	float lat(nj, ni) ;
+		lat:long_name = &quot;latitude&quot; ;
+		lat:standard_name = &quot;latitude&quot; ;
+		lat:coverage_content_type = &quot;coordinate&quot; ;
+		lat:units = &quot;degrees_north&quot; ;
+		lat:valid_range = -90.f, 90.f ;
+	float lon(nj, ni) ;
+		lon:long_name = &quot;longitude&quot; ;
+		lon:standard_name = &quot;longitude&quot; ;
+		lon:coverage_content_type = &quot;coordinate&quot; ;
+		lon:units = &quot;degrees_east&quot; ;
+		lon:valid_range = -180.f, 180.f ;
+	int Lambert_Azimuthal_Grid ;
+		Lambert_Azimuthal_Grid:grid_mapping_name = &quot;lambert_azimuthal_equal_area&quot; ;
+		Lambert_Azimuthal_Grid:longitude_of_projection_origin = 0. ;
+		Lambert_Azimuthal_Grid:latitude_of_projection_origin = 90. ;
+		Lambert_Azimuthal_Grid:false_easting = 0. ;
+		Lambert_Azimuthal_Grid:false_northing = 0. ;
+		Lambert_Azimuthal_Grid:semi_major_axis = 6378137. ;
+		Lambert_Azimuthal_Grid:inverse_flattening = 298.257223563 ;
+		Lambert_Azimuthal_Grid:proj4_string = &quot;+proj=laea +lon_0=0 +datum=WGS84 +ellps=WGS84 +lat_0=90.0&quot; ;
+}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="non-regular-latitude-longitude-grids-projection-alternative-without-explicit-latitude-longitude">
+<h3><span class="section-number">6.2.3. </span>Non-regular latitude/longitude grids (projection) – alternative without explicit latitude/longitude<a class="headerlink" href="#non-regular-latitude-longitude-grids-projection-alternative-without-explicit-latitude-longitude" title="Link to this heading">#</a></h3>
+<p>For gridded data using a fixed specific projection (such as geostationary
+projection), the same lat/lon 2-D arrays are repeated from file to file. If a
+fixed projection can be associated to lat/lon data, it is also permitted by CF
+convention to provide a projection variable defining this projection, instead of
+providing explicit latitude/longitude 2-D arrays as in the previous section.
+This usually allows to save significant storage (which is interesting for
+products with a high temporal repetitiveness such as geostationary products in
+satellite projection) while being less user friendly since users will have to
+calculate their own latitude/longitude 2-D arrays from the projection parameters
+(this is done automatically in some CF compliant tools). The projection variable
+must be named with the projection name used in the product (like <code class="docutils literal notranslate"><span class="pre">geostationary</span></code>
+below). It is dimensionless and of type int. The naming and content of this
+projection variable is described in CF conventions<a class="footnote-reference brackets" href="#footnote2" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
+<p>The <strong>x</strong> (abscissa) and <strong>y</strong> (ordinate) rectangular coordinates must be
+provided in <code class="docutils literal notranslate"><span class="pre">ni</span></code> and <code class="docutils literal notranslate"><span class="pre">nj</span></code> variables, identified by the <code class="docutils literal notranslate"><span class="pre">standard_name</span></code>attribute
+values <code class="docutils literal notranslate"><span class="pre">projection_x_coordinate</span></code> and <code class="docutils literal notranslate"><span class="pre">projection_y_coordinate</span></code> respectively.
+In the case of this geostationary projection, the projection coordinates in this
+projection are directly related to the scanning angle of the satellite
+instrument, and their units are radians.</p>
+<p>Each variable must explicitly provide a reference to its coordinate variables
+(coordinates variable attribute) and to the related projection (<code class="docutils literal notranslate"><span class="pre">grid_mapping</span></code>
+variable attribute) described in a specific variable (e.g. geostationary in the
+example given in <a class="reference internal" href="#non-regular-grid-coords-projection-no-latlon"><span class="std std-numref">Table 6.3</span></a>; refer
+to CF convention<a class="footnote-reference brackets" href="#footnote2" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> for standard projection names).</p>
+<p>In these cases, dimension and coordinate variables shall be used for a
+non-regular lat/lon grid (projection) as shown in
+<a class="reference internal" href="#non-regular-grid-coords-projection-no-latlon"><span class="std std-numref">Table 6.3</span></a>. A specific projection
+coordinate variable shall be added (for example, <code class="docutils literal notranslate"><span class="pre">geostationary</span></code>), following the
+CF-1.7 or later convention. The specific variable attributes
+<code class="docutils literal notranslate"><span class="pre">coordinates</span> <span class="pre">=</span> <span class="pre">&quot;nj</span> <span class="pre">ni&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">grid_mapping</span> <span class="pre">=</span> <span class="pre">&quot;geostationary&quot;</span></code> are required for
+each other variables (like <code class="docutils literal notranslate"><span class="pre">sea_surface_temperature</span></code> in the example given in
+<a class="reference internal" href="#non-regular-grid-coords-projection-no-latlon"><span class="std std-numref">Table 6.3</span></a>).</p>
+<div class="pst-scrollable-table-container"><table class="table" id="non-regular-grid-coords-projection-no-latlon">
+<caption><span class="caption-number">Table 6.3 </span><span class="caption-text">Example CDL for Non-regular latitude/longitude grids (projections) alternative form with no explicit latitudes/longitudes</span><a class="headerlink" href="#non-regular-grid-coords-projection-no-latlon" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>non-regular latitude/longitude grids (projections) with no explicit latitude/longitude</p></th>
+</tr>
+</thead>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>netcdf nonregular_grid_projection_no_latlon {
+dimensions:
+	time = UNLIMITED ; // (1 currently)
+	nj = 40000 ;
+	ni = 1000 ;
+variables:
+	int64 time(time) ;
+		time:axis = &quot;T&quot; ;
+		time:long_name = &quot;reference time of sst file&quot; ;
+		time:standard_name = &quot;time&quot; ;
+		time:coverage_content_type = &quot;coordinate&quot; ;
+		time:units = &quot;seconds since 1981-01-01&quot; ;
+		time:calendar = &quot;proleptic_gregorian&quot; ;
+	float nj(nj) ;
+		nj:long_name = &quot;y coordinate of projection&quot; ;
+		nj:standard_name = &quot;projection_y_coordinate&quot; ;
+		nj:axis = &quot;Y&quot; ;
+		nj:coverage_content_type = &quot;coordinate&quot; ;
+		nj:units = &quot;radian&quot; ;
+		nj:valid_range = -0.151844f, 0.151844f ;
+	float ni(ni) ;
+		ni:long_name = &quot;x coordinate of projection&quot; ;
+		ni:standard_name = &quot;projection_x_coordinate&quot; ;
+		ni:axis = &quot;X&quot; ;
+		ni:coverage_content_type = &quot;coordinate&quot; ;
+		ni:units = &quot;radian&quot; ;
+		ni:valid_range = -0.151844f, 0.151844f ;
+	short sst_dtime(time, nj, ni) ;
+		sst_dtime:_FillValue = -32768s ;
+		sst_dtime:long_name = &quot;time difference from reference time&quot; ;
+		sst_dtime:coverage_content_type = &quot;coordinate&quot; ;
+		sst_dtime:units = &quot;s&quot; ;
+		sst_dtime:grid_mapping = &quot;geostationary&quot; ;
+		sst_dtime:comment = &quot;time plus sst_dtime gives seconds after 00:00:00 UTC January 1, 1981&quot; ;
+		sst_dtime:add_offset = 0. ;
+		sst_dtime:scale_factor = 1. ;
+		sst_dtime:coordinates = &quot;geostationary&quot; ;
+	short sea_surface_temperature(time, nj, ni) ;
+		sea_surface_temperature:_FillValue = -32768s ;
+		sea_surface_temperature:long_name = &quot;Skin temperature of the sea surface&quot; ;
+		sea_surface_temperature:standard_name = &quot;sea_surface_skin_temperature&quot; ;
+		sea_surface_temperature:coverage_content_type = &quot;physicalMeasurement&quot; ;
+		sea_surface_temperature:units = &quot;K&quot; ;
+		sea_surface_temperature:grid_mapping = &quot;geostationary&quot; ;
+		sea_surface_temperature:comment = &quot;These SST values are representative of the top 10 micrometers of the sea surface over the native geostationary satellite grid&quot; ;
+		sea_surface_temperature:add_offset = 273.15 ;
+		sea_surface_temperature:scale_factor = 0.01 ;
+		sea_surface_temperature:coordinates = &quot;geostationary&quot; ;
+	int geostationary ;
+		geostationary:grid_mapping_name = &quot;geostationary&quot; ;
+		geostationary:semi_major_axis = 6378137. ;
+		geostationary:semi_minor_axis = 6356752.314245 ;
+		geostationary:inverse_flattening = 298.257223563 ;
+		geostationary:perspective_point_height = 35786023. ;
+		geostationary:longitude_of_projection_origin = 0. ;
+		geostationary:latitude_of_projection_origin = -75. ;
+		geostationary:false_easting = 0. ;
+		geostationary:false_northing = 0. ;
+		geostationary:sweep_angle_axis = &quot;x&quot; ;
+		geostationary:horizontal_datum_name = &quot;WGS_1984&quot; ;
+		geostationary:reference_ellipsoid_name = &quot;WGS 84&quot; ;
+		geostationary:prime_meridian_name = &quot;Greenwich&quot; ;
+		geostationary:geographic_crs_name = &quot;GEOS&quot; ;
+}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="non-regular-latitude-longitude-grids-swath">
+<h3><span class="section-number">6.2.4. </span>Non-regular latitude/longitude grids (swath)<a class="headerlink" href="#non-regular-latitude-longitude-grids-swath" title="Link to this heading">#</a></h3>
+<p>In this case where data are gridded following the sensor pattern, no projection
+can be associated and lat/lon data have to be stored in 2-D arrays, as it is
+the case for along-swath data for low earth orbiting sensors or geostationary
+orbiting sensor data in their native projection. Therefore it only applies
+to <strong>L2P</strong> processing level products.</p>
+<p>Dimensions cannot be referred to as lat/lon anymore since x and y axes of the
+grid are no more related to the latitude or longitude axis. Instead, dimensions
+<code class="docutils literal notranslate"><span class="pre">ni</span></code> and <code class="docutils literal notranslate"><span class="pre">nj</span></code>should be used to describe the swath. As a best practice, the <code class="docutils literal notranslate"><span class="pre">ni</span></code>
+dimension should refer to the cross-track direction and the <code class="docutils literal notranslate"><span class="pre">nj</span></code> dimension
+should refer to the along-track direction of a polar orbiting (or similar)
+satellite sensor swath. For geostationary sensors <code class="docutils literal notranslate"><span class="pre">ni</span></code> also refers to the
+cross-disk direction and <code class="docutils literal notranslate"><span class="pre">nj</span></code> the along-disk direction. Each variable must
+explicitly provide a reference to its coordinate variables (using the
+coordinates variable attribute) and pixel times must be encoded using the
+combination of <code class="docutils literal notranslate"><span class="pre">time</span></code>and <code class="docutils literal notranslate"><span class="pre">sst_dtime</span></code> coordinate variables.</p>
+<p>Dimension and coordinate variables shall be used for a non-regular lat/lon grid
+(swath product file) as shown in <a class="reference internal" href="#non-regular-grid-coords"><span class="std std-numref">Table 6.4</span></a>. The specific
+variable attribute <code class="docutils literal notranslate"><span class="pre">coordinates</span> <span class="pre">=</span> <span class="pre">&quot;lon</span> <span class="pre">lat&quot;</span></code> is required for each of the
+variables (like <code class="docutils literal notranslate"><span class="pre">sea_surface_temperature</span></code> below).</p>
+<div class="pst-scrollable-table-container"><table class="table" id="non-regular-grid-coords">
+<caption><span class="caption-number">Table 6.4 </span><span class="caption-text">Example CDL for non-regular latitude/longitude grids (swath)</span><a class="headerlink" href="#non-regular-grid-coords" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>non-regular latitude/longitude coordinates</p></th>
+</tr>
+</thead>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>netcdf nonregular_grid {
+dimensions:
+	time = 1 ;
+	nj = 40000 ;
+	ni = 1000 ;
+variables:
+	int64 time(time) ;
+		time:axis = &quot;T&quot; ;
+		time:long_name = &quot;reference time of sst file&quot; ;
+		time:standard_name = &quot;time&quot; ;
+		time:coverage_content_type = &quot;coordinate&quot; ;
+		time:units = &quot;seconds since 1981-01-01&quot; ;
+		time:calendar = &quot;proleptic_gregorian&quot; ;
+	short sst_dtime(time, nj, ni) ;
+		sst_dtime:_FillValue = -32768s ;
+		sst_dtime:long_name = &quot;time difference from reference time&quot; ;
+		sst_dtime:coverage_content_type = &quot;coordinate&quot; ;
+		sst_dtime:units = &quot;s&quot; ;
+		sst_dtime:comment = &quot;time plus sst_dtime gives seconds after 00:00:00 UTC January 1, 1981&quot; ;
+		sst_dtime:add_offset = 0. ;
+		sst_dtime:scale_factor = 1. ;
+		sst_dtime:coordinates = &quot;lat lon&quot; ;
+	short sea_surface_temperature(time, nj, ni) ;
+		sea_surface_temperature:_FillValue = -32768s ;
+		sea_surface_temperature:long_name = &quot;Skin temperature of the sea surface&quot; ;
+		sea_surface_temperature:standard_name = &quot;sea_surface_skin_temperature&quot; ;
+		sea_surface_temperature:coverage_content_type = &quot;physicalMeasurement&quot; ;
+		sea_surface_temperature:units = &quot;K&quot; ;
+		sea_surface_temperature:add_offset = 273.15 ;
+		sea_surface_temperature:scale_factor = 0.01 ;
+		sea_surface_temperature:coordinates = &quot;lat lon&quot; ;
+	float lat(nj, ni) ;
+		lat:long_name = &quot;latitude&quot; ;
+		lat:standard_name = &quot;latitude&quot; ;
+		lat:coverage_content_type = &quot;coordinate&quot; ;
+		lat:units = &quot;degrees_north&quot; ;
+	float lon(nj, ni) ;
+		lon:long_name = &quot;longitude&quot; ;
+		lon:standard_name = &quot;longitude&quot; ;
+		lon:coverage_content_type = &quot;coordinate&quot; ;
+		lon:units = &quot;degrees_east&quot; ;
+}
+</pre></div>
+</div>
+</div>
+</div>
+<hr class="footnotes docutils" />
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="footnote2" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id2">1</a>,<a role="doc-backlink" href="#id3">2</a>,<a role="doc-backlink" href="#id4">3</a>,<a role="doc-backlink" href="#id5">4</a>)</span>
+<p><a class="reference external" href="http://cfconventions.org/cf-conventions/cf-conventions.html#appendix-grid-mappings">http://cfconventions.org/cf-conventions/cf-conventions.html#appendix-grid-mappings</a></p>
+</aside>
+</aside>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="structure.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">5. </span>GDS Data Product File Structure and attributes</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="l2p.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">7. </span>Level 2 Pre-processed (L2P) Product Specification</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#temporal-coordinates">6.1. Temporal coordinates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-coordinates">6.2. Spatial coordinates</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regular-latitude-longitude-grids">6.2.1. Regular latitude/longitude grids</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#non-regular-latitude-longitude-grids-projection">6.2.2. Non-regular latitude/longitude grids (projection)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#non-regular-latitude-longitude-grids-projection-alternative-without-explicit-latitude-longitude">6.2.3. Non-regular latitude/longitude grids (projection) – alternative without explicit latitude/longitude</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#non-regular-latitude-longitude-grids-swath">6.2.4. Non-regular latitude/longitude grids (swath)</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By GHRSST Science Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1729 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>8. Level 3 (L3) Product Specification &#8212; The Recommended GHRSST Data Specification (GDS)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'l3';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="9. Level 4 (L4) Product Specification" href="l4.html" />
+    <link rel="prev" title="7. Level 2 Pre-processed (L2P) Product Specification" href="l2p.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/ghrsst-logo.png" class="logo__image only-light" alt="The Recommended GHRSST Data Specification (GDS) - Home"/>
+    <script>document.write(`<img src="_static/ghrsst-logo.png" class="logo__image only-dark" alt="The Recommended GHRSST Data Specification (GDS) - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    The Recommended GHRSST Data Specification (GDS) Version 2.1r0
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="conventions.html">1. Document Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">2. Overview of GHRSST and the GDS-2.1r0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sea_surface_temperature.html">3. Sea Surface Temperature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="naming.html">4. GDS Filenames and Supporting Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="structure.html">5. GDS Data Product File Structure and attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coordinates.html">6. Coordinate variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l2p.html">7. Level 2 Pre-processed (L2P) Product Specification</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">8. Level 3 (L3) Product Specification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l4.html">9. Level 4 (L4) Product Specification</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fl3.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/l3.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Level 3 (L3) Product Specification</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-description-of-the-ghrsst-l3-data-product">8.1. Overview description of the GHRSST L3 data product</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#l3-data-record-format-specification">8.2. L3 data record format specification</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#or-latitude">8.2.1. <code class="docutils literal notranslate"><span class="pre">or_latitude</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#or-longitude">8.2.2. <code class="docutils literal notranslate"><span class="pre">or_longitude</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#or-number-of-pixels">8.2.3. <code class="docutils literal notranslate"><span class="pre">or_number_of_pixels</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sum-sst">8.2.4. <code class="docutils literal notranslate"><span class="pre">sum_sst</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sum-square-sst">8.2.5. <code class="docutils literal notranslate"><span class="pre">sum_square_sst</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adjusted-sea-surface-temperature">8.2.6. <code class="docutils literal notranslate"><span class="pre">adjusted_sea_surface_temperature</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adjusted-standard-deviation-error">8.2.7. <code class="docutils literal notranslate"><span class="pre">adjusted_standard_deviation_error</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bias-to-reference-sst">8.2.8. <code class="docutils literal notranslate"><span class="pre">bias_to_reference_sst</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-deviation-to-reference-sst">8.2.9. <code class="docutils literal notranslate"><span class="pre">standard_deviation_to_reference_sst</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#source-of-sst">8.2.10. <code class="docutils literal notranslate"><span class="pre">source_of_sst</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-ghrsst-l3-file-cdl-header">8.3. Sample GHRSST L3 file (CDL header)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices">8.4. Best Practices</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#remapping-level-2-data-to-a-fixed-grid">8.4.1. Remapping Level 2 Data to a Fixed Grid</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#collating-data-from-the-same-sensor-and-platform">8.4.2. Collating Data from the Same Sensor and Platform</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sst-adjustments">8.4.3. SST Adjustments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#super-collating-data-from-multiple-sensors-and-platforms">8.4.4. Super-Collating Data from Multiple Sensors and Platforms</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="level-3-l3-product-specification">
+<span id="l3"></span><h1><span class="section-number">8. </span>Level 3 (L3) Product Specification<a class="headerlink" href="#level-3-l3-product-specification" title="Link to this heading">#</a></h1>
+<section id="overview-description-of-the-ghrsst-l3-data-product">
+<h2><span class="section-number">8.1. </span>Overview description of the GHRSST L3 data product<a class="headerlink" href="#overview-description-of-the-ghrsst-l3-data-product" title="Link to this heading">#</a></h2>
+<p>GHRSST L3 data have been introduced to provide users with gridded, synthetic,
+and potentially adjusted SST products, bringing added value with respect to the
+original L2P but still allowing traceability to the original dataset. GHRSST L3
+products do not use analysis or interpolation procedure to fill gaps where no
+observations are available. The GHRSST L3 products include:</p>
+<ul class="simple">
+<li><p><strong>Un-collated</strong> data that represent a straightforward remapping of L2P GHRSST
+data granules to a space grid without combining any observations from
+overlapping orbits or times. Although in principle these data may or may not
+be adjusted to a reference sensor, in practice the un-collated L3 will
+normally be a remapped L2P dataset. For remapping best practices of L2P on
+a  grid, see <a class="reference internal" href="#l2-remapping-best-practice"><span class="std std-numref">Section 8.4.1</span></a>.</p></li>
+<li><p><strong>Collated</strong> data that grid observations from a single instrument and a single
+platform into space and/or time bins. These data may or may not be adjusted to
+a reference sensor. For collating best practices, see
+<a class="reference internal" href="#collating-best-practice"><span class="std std-numref">Section 8.4.2</span></a> and for adjustment best practices see
+<a class="reference internal" href="#adjustment-best-practice"><span class="std std-numref">Section 8.4.3</span></a>.</p></li>
+<li><p><strong>Super-collated</strong> data that combine observations from a multiple instruments
+into a space-time grid. In this case, the adjustment to a common reference is
+necessary to avoid heterogeneities in the resulting field. For best practices
+concerning the creation of super collated files see
+<a class="reference internal" href="#supercollating-best-practice"><span class="std std-numref">Section 8.4.4</span></a></p></li>
+</ul>
+<p>As a result, the format of a L3 file will be able to cope with the three kinds
+of L3 SST presented above. The L3 format will include the following parts:</p>
+<ol class="arabic simple">
+<li><p><strong>In case the L3 is un-adjusted</strong>, a mandatory section containing the
+original L2P information remapped onto the grid point: the original sea
+surface temperature, quality level and SSES information. An optional
+section including the remapping condition information may also be
+provided. These files are essentially gridded L2P files.</p></li>
+<li><p><strong>In case the L3 is adjusted to a reference</strong>, the adjusted SST value must
+be provided, together with the local bias to the reference, the error
+generated by the adjustment processing, and the overall error resulting
+from the combination of the SSES and the adjustment processing error.</p></li>
+<li><p><strong>In case the L3 is super-collated</strong>, the source of SST at each pixel is
+mandatory.</p></li>
+</ol>
+<p><strong>Un-adjusted files</strong>: In the case of <strong>un-collated or collated un-adjusted L3
+files</strong> the L3 file is derived from L2P data by a remapping process. The
+remapping and collating best practices are given in
+<a class="reference internal" href="#l2-remapping-best-practice"><span class="std std-numref">Section 8.4.1</span></a>. Their content is thus identical to that
+of the L2P, but complementary, optional information on the remapping conditions
+may be provided.</p>
+<p><strong>Adjusted files</strong>: Collated files may or may not be adjusted, but a
+super-collated file is necessarily adjusted. The super-collating and adjustment
+best practices are described in <a class="reference internal" href="#collating-best-practice"><span class="std std-numref">Section 8.4.2</span></a> and
+<a class="reference internal" href="#adjustment-best-practice"><span class="std std-numref">Section 8.4.3</span></a>. The principle governing this format is to
+allow traceability to the original L2P, while providing the best-adjusted SST
+value. A first section (in blue in <a class="reference internal" href="#l3-content"><span class="std std-numref">Table 8.1</span></a>) reproduces the original
+L2P SST and SSES information as in the un-adjusted version. The reference used
+to adjust the SST must be given in the “reference” attribute of the
+<code class="docutils literal notranslate"><span class="pre">adjusted_sea_surface_temperature</span></code> variable. The adjusted SST and some error
+information are also mandatory. This information, in yellow in
+<a class="reference internal" href="#l3-content"><span class="std std-numref">Table 8.1</span></a>, is:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">adjusted_standard_deviation_error</span></code>: the total error resulting from the
+combination of the SSES error and the adjustment procedure error,
+<code class="docutils literal notranslate"><span class="pre">standard_deviation_to_reference_sst</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bias_to_reference_sst</span></code>: the local value of the estimated difference between
+the original SST and the reference SST</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">standard_deviation_to_reference_sst</span></code>: an estimate of the error resulting
+from the adjustment procedure. If the procedure consists of analysing a field
+of differences of original SST and reference SST, the
+<code class="docutils literal notranslate"><span class="pre">standard_deviation_to_reference_sst</span></code> will be the error of this analysis.</p></li>
+</ul>
+<p>The GHRSST Science Team determined that 5 mandatory fields will form the core
+data content of a GHRSST L3 data file. In addition to global attributes and
+geo-location information, GHRSST producers must provide the following within
+a L3 file:</p>
+<ul class="simple">
+<li><p>Sea Surface temperature data (SST),</p></li>
+<li><p>Time of SST measurement,</p></li>
+<li><p>Bias and Standard Deviation error estimates for SST data,</p></li>
+<li><p>Data quality.</p></li>
+</ul>
+<p>There are a number of optional fields that may be used at the data provider’s
+discretion that will form the core data content of a GHRSST data
+file (<a class="reference internal" href="#l3-data-records"><span class="std std-numref">Table 8.2</span></a>).</p>
+<p>The GHRSST L3 file contents are summarized in <a class="reference internal" href="#l3-content"><span class="std std-numref">Table 8.1</span></a> below.</p>
+<div class="pst-scrollable-table-container"><table class="l3-content-css table" id="l3-content">
+<caption><span class="caption-number">Table 8.1 </span><span class="caption-text">Summary description of the contents within a GHRSST L3 data product</span><a class="headerlink" href="#l3-content" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>netCDF File Contents</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Coordinate variables</strong></p></td>
+<td><p>Information to permit locating data on grids, as defined in <a class="reference internal" href="coordinates.html#coordinate-variables"><span class="std std-numref">Section 6</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>L2P Data record variables</strong></p></td>
+<td><p>Core and auxiliary variables as defined in <a class="reference internal" href="l2p.html#l2p-records"><span class="std std-numref">Section 7.2</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>L3 Data record variables</strong></p></td>
+<td><p>Special Level 3 variables as defined in <a class="reference internal" href="#l3-data-records"><span class="std std-numref">Table 8.2</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Global Attributes</strong></p></td>
+<td><p>A collection of required global attributes describing general characteristics of the file, as defined in section <a class="reference internal" href="structure.html#global-attributes"><span class="std std-numref">Section 5.2</span></a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="l3-data-record-format-specification">
+<h2><span class="section-number">8.2. </span>L3 data record format specification<a class="headerlink" href="#l3-data-record-format-specification" title="Link to this heading">#</a></h2>
+<p>This table provides an overview of the GHRSST L3 product pixel data record that
+should be created for each input data. Within GHRSST L3 data files, there are
+many variables that are defined identically to their L2P counterparts. In
+addition, there are several variables that are unique to L3. Both types are
+listed below in <a class="reference internal" href="#l3-data-records"><span class="std std-numref">Table 8.2</span></a>. In the following sections, each
+variable within the L3 data file that is unique to L3 is described in detail.</p>
+<style>
+.l3-variables-css tbody tr:nth-child(n+1):nth-child(-n+6) { background:#42d1f5; }
+.l3-variables-css tbody tr:nth-child(n+7):nth-child(-n+8) { background:#dfadf7; }
+.l3-variables-css tbody tr:nth-child(9) { background:#42d1f5; }
+.l3-variables-css tbody tr:nth-child(n+10):nth-child(-n+14) { background:#dfadf7; }
+.l3-variables-css tbody tr:nth-child(n+15):nth-child(-n+16) { background:#42d1f5; }
+.l3-variables-css tbody tr:nth-child(n+17):nth-child(-n+26) { background:#f2f564; }
+.l3-variables-css tbody tr:nth-child(n+27):nth-child(-n+31) { background:#42d1f5; }
+.l3-variables-css tbody tr:nth-child(32) { background:#f2f564; }
+</style>
+<div class="pst-scrollable-table-container"><table class="l3-variables-css table" id="l3-data-records">
+<caption><span class="caption-number">Table 8.2 </span><span class="caption-text">Summary description of GHRSST L2P data records</span><a class="headerlink" href="#l3-data-records" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Variable Name</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Units</p></th>
+<th class="head"><p>Storage type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="l2p.html#l2p-sea-surface-temperature"><span class="std std-ref">sea_surface_temperature</span></a></p></td>
+<td><p>SST measurement values from input L2 satellite data set.</p></td>
+<td><p>K (kelvin)</p></td>
+<td><p>short</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="l2p.html#l2p-sst-dtime"><span class="std std-ref">sst_dtime</span></a></p></td>
+<td><p>The deviation in time of SST measurement from reference time</p></td>
+<td><p>s (second)</p></td>
+<td><p>short</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="l2p.html#l2p-sses-bias"><span class="std std-ref">sses_bias</span></a></p></td>
+<td><p>Sensor Specific Error Statistic (SSES) bias error</p></td>
+<td><p>K (kelvin)</p></td>
+<td><p>byte</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="l2p.html#l2p-sses-standard-deviation"><span class="std std-ref">sses_standard_deviation</span></a></p></td>
+<td><p>Sensor Specific Error Statistic (SSES) standard deviation uncertainty</p></td>
+<td><p>K (kelvin)</p></td>
+<td><p>byte</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="l2p.html#l2p-dt-analysis"><span class="std std-ref">dt_analysis</span></a></p></td>
+<td><p>The difference between input SST and a GHRSST L4 SST analysis from the previous 24 hour period</p></td>
+<td><p>K (kelvin)</p></td>
+<td><p>byte or short</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="l2p.html#l2p-wind-speed"><span class="std std-ref">wind_speed</span></a></p></td>
+<td><p>Closest (in time) 10 m surface wind speed from satellite or analysis</p></td>
+<td><p>m s-1</p></td>
+<td><p>byte</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="l2p.html#l2p-wind-speed-dtime-from-sst"><span class="std std-ref">wind_speed_dtime_from_sst</span></a></p></td>
+<td><p>Time difference of <code class="docutils literal notranslate"><span class="pre">wind_speed</span></code> data from input L2 SST measurement specified in hours.</p></td>
+<td><p>h (hour)</p></td>
+<td><p>byte</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="l2p.html#l2p-source-of-wind-speed"><span class="std std-ref">source_of_wind_speed</span></a></p></td>
+<td><p>Source(s) of <code class="docutils literal notranslate"><span class="pre">wind_speed</span></code> data. Mandatory when multiple sources used.</p></td>
+<td><p>Code</p></td>
+<td><p>byte</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="l2p.html#l2p-sea-ice-fraction"><span class="std std-ref">sea_ice_fraction</span></a></p></td>
+<td><p>Closest (in time) sea ice fraction from satellite or analysis</p></td>
+<td><p>1</p></td>
+<td><p>byte</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="l2p.html#l2p-sea-ice-fraction-dtime-from-sst"><span class="std std-ref">sea_ice_fraction_dtime_from_sst</span></a></p></td>
+<td><p>Time difference of <code class="docutils literal notranslate"><span class="pre">sea_ice_fraction</span></code> data from input L2 SST measurement specified in hours</p></td>
+<td><p>h (hour)</p></td>
+<td><p>byte</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="l2p.html#l2p-source-of-sea-ice-fraction"><span class="std std-ref">source_of_sea_ice_fraction</span></a></p></td>
+<td><p>Source(s) of <code class="docutils literal notranslate"><span class="pre">sea_ice_fraction</span></code> data</p></td>
+<td><p>code</p></td>
+<td><p>byte</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="l2p.html#l2p-aerosol-dynamic-indicator"><span class="std std-ref">aerosol_dynamic_indicator</span></a></p></td>
+<td><p>Atmospheric aerosol indicator</p></td>
+<td><p></p></td>
+<td><p>byte</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="l2p.html#l2p-adi-dtime-from-sst"><span class="std std-ref">adi_dtime_from_sst</span></a></p></td>
+<td><p>Time difference between the <code class="docutils literal notranslate"><span class="pre">aerosol_dynamic_indicator</span></code> value and SST measurement</p></td>
+<td><p>h (hour)</p></td>
+<td><p>byte</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="l2p.html#l2p-source-of-adi"><span class="std std-ref">source_of_adi</span></a></p></td>
+<td><p>Source(s) of atmospheric aerosol indicator data</p></td>
+<td><p>code</p></td>
+<td><p>byte</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="l2p.html#l2p-l2p-flags"><span class="std std-ref">l2p_flags</span></a></p></td>
+<td><p>Data flag values</p></td>
+<td><p>mask of bits</p></td>
+<td><p>short</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="l2p.html#l2p-quality-level"><span class="std std-ref">quality_level</span></a></p></td>
+<td><p>Overall indication of L2P data quality</p></td>
+<td><p>enum</p></td>
+<td><p>byte</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="l2p.html#l2p-satellite-zenith-angle"><span class="std std-ref">satellite_zenith_angle</span></a></p></td>
+<td><p>Calculated satellite zenith angle (measured at the Earth’s surface between the satellite and the zenith)</p></td>
+<td><p>degree</p></td>
+<td><p>byte</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="l2p.html#l2p-solar-zenith-angle"><span class="std std-ref">solar_zenith_angle</span></a></p></td>
+<td><p>Calculated solar zenith angle (the angle between the local zenith and the line of sight to the sun, measured at the Earth’s surface)</p></td>
+<td><p>degree</p></td>
+<td><p>byte</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="l2p.html#l2p-surface-solar-irradiance"><span class="std std-ref">surface_solar_irradiance</span></a></p></td>
+<td><p>Near contemporaneous surface solar irradiance</p></td>
+<td><p>W m-2</p></td>
+<td><p>byte</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="l2p.html#l2p-ssi-dtime-from-sst"><span class="std std-ref">ssi_dtime_from_sst</span></a></p></td>
+<td><p>Time difference between the <code class="docutils literal notranslate"><span class="pre">surface_solar_irradiance</span></code> value and SST measurement in hours</p></td>
+<td><p>h (hour)</p></td>
+<td><p>byte</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="l2p.html#l2p-source-of-ssi"><span class="std std-ref">source_of_ssi</span></a></p></td>
+<td><p>Source(s) of <code class="docutils literal notranslate"><span class="pre">surface_solar_irradiance</span></code> data</p></td>
+<td><p>code</p></td>
+<td><p>byte</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#l3-or-latitude"><span class="std std-ref">or_latitude</span></a></p></td>
+<td><p>Original latitude of the satellite measurement as provided in the L2P</p></td>
+<td><p>degree_north</p></td>
+<td><p>short or float</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#l3-or-longitude"><span class="std std-ref">or_longitude</span></a></p></td>
+<td><p>Original longitude of the satellite measurement as provided in the L2P</p></td>
+<td><p>degree_east</p></td>
+<td><p>short or float</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#l3-or-number-of-pixels"><span class="std std-ref">or_number_of_pixels</span></a></p></td>
+<td><p>Number of original pixels from the L2P contributing to the binned (space and/or time) average</p></td>
+<td><p>1 (unitless)</p></td>
+<td><p>short</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#l3-sum-sst"><span class="std std-ref">sum_sst</span></a></p></td>
+<td><p>Sum of the pixel values going into the space and/or time bin</p></td>
+<td><p>K (kelvin)</p></td>
+<td><p>float</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#l3-sum-square-sst"><span class="std std-ref">sum_square_sst</span></a></p></td>
+<td><p>Sum of the pixel value squares going into the space and/or time bin</p></td>
+<td><p>K2 (kelvin^2)</p></td>
+<td><p>float</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#l3-adjusted-sea-surface-temperature"><span class="std std-ref">adjusted_sea_surface_temperature</span></a></p></td>
+<td><p>SST adjusted to the reference. Mandatory for adjusted type file</p></td>
+<td><p>K (kelvin)</p></td>
+<td><p>short</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#l3-adjusted-standard-deviation-error"><span class="std std-ref">adjusted_standard_deviation_error</span></a></p></td>
+<td><p>Total error standard deviation estimate derived from SSES and adjustment method. Mandatory for adjusted type file</p></td>
+<td><p>K (kelvin)</p></td>
+<td><p>byte</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#l3-bias-to-reference-sst"><span class="std std-ref">bias_to_reference_sst</span></a></p></td>
+<td><p>Bias error derived from comparison with the reference. Mandatory for adjusted type file</p></td>
+<td><p>K (kelvin)</p></td>
+<td><p>short</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#l3-standard-deviation-to-reference-sst"><span class="std std-ref">standard_deviation_to_reference_sst</span></a></p></td>
+<td><p>Error standard deviation resulting from the bias estimation method. Mandatory for adjusted type file</p></td>
+<td><p>K (kelvin)</p></td>
+<td><p>byte</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#l3-source-of-sst"><span class="std std-ref">source_of_sst</span></a></p></td>
+<td><p>Source of SST data. Mandatory for super-collated type file</p></td>
+<td><p>code</p></td>
+<td><p>byte</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="l2p.html#l2p-optional-fields"><span class="std std-ref">other fields</span></a></p></td>
+<td><p>Optional/experimental fields defined by data provider</p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="or-latitude">
+<span id="l3-or-latitude"></span><h3><span class="section-number">8.2.1. </span><code class="docutils literal notranslate"><span class="pre">or_latitude</span></code><a class="headerlink" href="#or-latitude" title="Link to this heading">#</a></h3>
+<p><strong>Optional.</strong></p>
+<p>This variable is the original latitude of the contributing pixel in case of
+remapping to the nearest pixel, or the average latitude of the contributing
+pixels in case of averaging.</p>
+<p>The variable <code class="docutils literal notranslate"><span class="pre">or_latitude</span></code> will be included either as a floating point
+variable similarly to the grid latitude and longitude, or as a short variable,
+with the format requirements shown in <a class="reference internal" href="#id1"><span class="std std-numref">Table 8.3</span></a>, if the required
+precision is compatible.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id1">
+<caption><span class="caption-number">Table 8.3 </span><span class="caption-text">CDL example description of <strong><span style="font-family:courier;">or_latitude</span></strong> variable</span><a class="headerlink" href="#id1" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Storage type</strong></p></th>
+<th class="head"><p><strong>Name</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Unit</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>short or float</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">or_latitude</span></code></p></td>
+<td><p>Original latitude of the satellite  measurement</p></td>
+<td><p>degree_north</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>short or_latitude(time, lat, lon) ;
+	or_latitude:_FillValue = -32768s ;
+	or_latitude:long_name = &quot;original latitude of the SST value&quot; ;
+	or_latitude:standard_name = &quot;latitude&quot; ;
+	or_latitude:units = &quot;degree_north&quot; ;
+	or_latitude:coverage_content_type = &quot;coordinate&quot; ;
+	or_latitude:authority = &quot;CF-1.11, ACDD-1.3&quot; ;
+	or_latitude:add_offset = 0. ;
+	or_latitude:scale_factor = 0.01 ;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="or-longitude">
+<span id="l3-or-longitude"></span><h3><span class="section-number">8.2.2. </span><code class="docutils literal notranslate"><span class="pre">or_longitude</span></code><a class="headerlink" href="#or-longitude" title="Link to this heading">#</a></h3>
+<p><strong>Optional.</strong></p>
+<p>This variable is the original longitude of the contributing pixel in case of
+remapping to the nearest pixel, or the average longitude of the contributing
+pixels in case of averaging.</p>
+<p>The variable <code class="docutils literal notranslate"><span class="pre">or_longitude</span></code> shall be included either as a floating point
+variable similarly to the grid latitude and longitude, or as a short variable,
+with the format requirements shown in <a class="reference internal" href="#id2"><span class="std std-numref">Table 8.4</span></a>, if the
+required precision is compatible.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id2">
+<caption><span class="caption-number">Table 8.4 </span><span class="caption-text">CDL example description of <strong><span style="font-family:courier;">or_longitude</span></strong> variable</span><a class="headerlink" href="#id2" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Storage type</strong></p></th>
+<th class="head"><p><strong>Name</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Unit</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>short or float</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">or_longitude</span></code></p></td>
+<td><p>Original longitude of the satellite measurement</p></td>
+<td><p>degree_east</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>short or_longitude(time, lat, lon) ;
+	or_longitude:_FillValue = -32768s ;
+	or_longitude:long_name = &quot;original longitude of the SST value&quot; ;
+	or_longitude:standard_name = &quot;longitude&quot; ;
+	or_longitude:units = &quot;degree_east&quot; ;
+	or_longitude:coverage_content_type = &quot;coordinate&quot; ;
+	or_longitude:authority = &quot;CF-1.11, ACDD-1.3&quot; ;
+	or_longitude:add_offset = 0. ;
+	or_longitude:scale_factor = 0.01 ;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="or-number-of-pixels">
+<span id="l3-or-number-of-pixels"></span><h3><span class="section-number">8.2.3. </span><code class="docutils literal notranslate"><span class="pre">or_number_of_pixels</span></code><a class="headerlink" href="#or-number-of-pixels" title="Link to this heading">#</a></h3>
+<p><strong>Mandatory.</strong></p>
+<p>This variable is the number of original pixels from the L2P contributing to
+the binned (space and/or time) average.</p>
+<p>The variable <code class="docutils literal notranslate"><span class="pre">or_number_of_pixels</span></code> shall be included with the format
+requirements shown in <a class="reference internal" href="#id3"><span class="std std-numref">Table 8.5</span></a>.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id3">
+<caption><span class="caption-number">Table 8.5 </span><span class="caption-text">CDL example description of <strong><span style="font-family:courier;">or_number_of_pixels</span></strong> variable</span><a class="headerlink" href="#id3" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Storage type</strong></p></th>
+<th class="head"><p><strong>Name</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Unit</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>short</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">or_number_of_pixels</span></code></p></td>
+<td><p>Number of pixels from the L2P contributing to the SST value</p></td>
+<td><p>“1” (unitless)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>short or_number_of_pixels(time, lat, lon) ;
+	or_number_of_pixels:_FillValue = -32768s ;
+	or_number_of_pixels:long_name = &quot;original number of pixels from the L2Ps contributing to the SST value&quot; ;
+	or_number_of_pixels:units = &quot;1&quot; ;
+	or_number_of_pixels:standard_name = &quot;sea_surface_foundation_temperature number_of_observations&quot; ;
+	or_number_of_pixels:coverage_content_type = &quot;referenceInformation&quot; ;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="sum-sst">
+<span id="l3-sum-sst"></span><h3><span class="section-number">8.2.4. </span><code class="docutils literal notranslate"><span class="pre">sum_sst</span></code><a class="headerlink" href="#sum-sst" title="Link to this heading">#</a></h3>
+<p><strong>Optional.</strong></p>
+<p>This variable is the sum of the original SST pixel values contributing to the
+binned (space and/or time) average.</p>
+<p>The variable <code class="docutils literal notranslate"><span class="pre">sum_sst</span></code> shall be included with the format requirements shown in
+<a class="reference internal" href="#id4"><span class="std std-numref">Table 8.6</span></a>.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id4">
+<caption><span class="caption-number">Table 8.6 </span><span class="caption-text">CDL example description of <strong><span style="font-family:courier;">sum_sst</span></strong> variable</span><a class="headerlink" href="#id4" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Storage type</strong></p></th>
+<th class="head"><p><strong>Name</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Unit</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>short</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sum_sst</span></code></p></td>
+<td><p>Sum of the pixel values going into the space and/or time bin</p></td>
+<td><p>K (kelvin)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>float sum_sst(time, lat, lon) ;
+	sum_sst:_FillValue = 1.e+20f ;
+	sum_sst:long_name = &quot;Sum of original contributing pixel sst values&quot; ;
+	sum_sst:units = &quot;K&quot; ;
+	sum_sst:coverage_content_type = &quot;auxiliaryInformation&quot; ;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="sum-square-sst">
+<span id="l3-sum-square-sst"></span><h3><span class="section-number">8.2.5. </span><code class="docutils literal notranslate"><span class="pre">sum_square_sst</span></code><a class="headerlink" href="#sum-square-sst" title="Link to this heading">#</a></h3>
+<p><strong>Optional.</strong></p>
+<p>This variable is the sum of the squares of the original SST pixel values
+contributing to the binned (space and/or time) average.</p>
+<p>The variable <code class="docutils literal notranslate"><span class="pre">sum_square_sst</span></code> shall be included with the format requirements
+shown in <a class="reference internal" href="#id5"><span class="std std-numref">Table 8.7</span></a>.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id5">
+<caption><span class="caption-number">Table 8.7 </span><span class="caption-text">CDL example description of <strong><span style="font-family:courier;">sum_square_sst</span></strong> variable</span><a class="headerlink" href="#id5" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Storage type</strong></p></th>
+<th class="head"><p><strong>Name</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Unit</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>short</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sum_square_sst</span></code></p></td>
+<td><p>Sum of the pixel value squares going into the space and/or time bin</p></td>
+<td><p>K2</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>float sum_square_sst(time, lat, lon) ;
+	sum_square_sst:_FillValue = 1.e+20f ;
+	sum_square_sst:long_name = &quot;Sum of contributing pixel sst value squares&quot; ;
+	sum_square_sst:units = &quot;K2&quot; ;
+	sum_square_sst:coverage_content_type = &quot;auxiliaryInformation&quot; ;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="adjusted-sea-surface-temperature">
+<span id="l3-adjusted-sea-surface-temperature"></span><h3><span class="section-number">8.2.6. </span><code class="docutils literal notranslate"><span class="pre">adjusted_sea_surface_temperature</span></code><a class="headerlink" href="#adjusted-sea-surface-temperature" title="Link to this heading">#</a></h3>
+<p><strong>Mandatory for adjusted type files.</strong></p>
+<p>This variable is the SST adjusted to the reference. See the principles of
+the adjustment procedure in <a class="reference internal" href="#adjustment-best-practice"><span class="std std-numref">Section 8.4.3</span></a>.</p>
+<p>The variable <code class="docutils literal notranslate"><span class="pre">adjusted_sea_surface_temperature</span></code> shall be included with the
+format requirements shown in <a class="reference internal" href="#id6"><span class="std std-numref">Table 8.8</span></a>.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id6">
+<caption><span class="caption-number">Table 8.8 </span><span class="caption-text">CDL example description of <strong><span style="font-family:courier;">adjusted_sea_surface_temperature</span></strong> variable</span><a class="headerlink" href="#id6" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Storage type</strong></p></th>
+<th class="head"><p><strong>Name</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Unit</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>short</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">adjusted_sea_surface_temperature</span></code></p></td>
+<td><p>SST values after adjustment to the reference</p></td>
+<td><p>K (kelvin)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>short adjusted_sea_surface_temperature(time, lat, lon) ;
+	adjusted_sea_surface_temperature:_FillValue = -32768s ;
+	adjusted_sea_surface_temperature:long_name = &quot;adjusted foundation sea surface temperature&quot; ;
+	adjusted_sea_surface_temperature:units = &quot;K&quot; ;
+	adjusted_sea_surface_temperature:standard_name = &quot;sea_surface_foundation_temperature&quot; ;
+	adjusted_sea_surface_temperature:coverage_content_type = &quot;physicalMeasurement&quot; ;
+	adjusted_sea_surface_temperature:binning_method = &quot;mean&quot; ;
+	adjusted_sea_surface_temperature:cell_methods = &quot;lat: lon: mean (interval: 0.1 degree_N interval: 0.1 degree_E)&quot; ;
+	adjusted_sea_surface_temperature:valid_range = -300s, 4500s ;
+	adjusted_sea_surface_temperature:comment = &quot;The recommended SST variable to use in this product. The original observations were cross-calibrated using a multi-sensor reference field\&quot;&quot; ;
+	adjusted_sea_surface_temperature:add_offset = 273.15 ;
+	adjusted_sea_surface_temperature:scale_factor = 0.01 ;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="adjusted-standard-deviation-error">
+<span id="l3-adjusted-standard-deviation-error"></span><h3><span class="section-number">8.2.7. </span><code class="docutils literal notranslate"><span class="pre">adjusted_standard_deviation_error</span></code><a class="headerlink" href="#adjusted-standard-deviation-error" title="Link to this heading">#</a></h3>
+<p><strong>Mandatory for adjusted type files.</strong></p>
+<p>This variable represents the total error associated with the
+<code class="docutils literal notranslate"><span class="pre">adjusted_sea_surface_temperature</span></code> variable. It represents the accumulated
+error of the SST production (the <code class="docutils literal notranslate"><span class="pre">sses_standard_deviation</span></code>) and the SST
+adjustment (<code class="docutils literal notranslate"><span class="pre">standard_deviation_to_reference_sst</span></code>).</p>
+<p>The variable <code class="docutils literal notranslate"><span class="pre">adjusted_standard_deviation_error</span></code> shall be included with the
+format requirements shown in <a class="reference internal" href="#id7"><span class="std std-numref">Table 8.9</span></a>.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id7">
+<caption><span class="caption-number">Table 8.9 </span><span class="caption-text">CDL example description of <strong><span style="font-family:courier;">adjusted_standard_deviation_error</span></strong> variable</span><a class="headerlink" href="#id7" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Storage type</strong></p></th>
+<th class="head"><p><strong>Name</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Unit</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>byte</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">adjusted_standard_deviation_error</span></code></p></td>
+<td><p>Total error standard deviation estimate derived from SSES and adjustment method</p></td>
+<td><p>K (kelvin)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>byte adjusted_standard_deviation_error(time, lat, lon) ;
+	adjusted_standard_deviation_error:_FillValue = -128b ;
+	adjusted_standard_deviation_error:long_name = &quot;standard deviation error based on L2P SSES and adjustment method&quot; ;
+	adjusted_standard_deviation_error:units = &quot;K&quot; ;
+	adjusted_standard_deviation_error:coverage_content_type = &quot;qualityInformation&quot; ;
+	adjusted_standard_deviation_error:comment = &quot;Cumulated errors of SSES and adjustment method&quot; ;
+	adjusted_standard_deviation_error:scale_factor = 0.01 ;
+	adjusted_standard_deviation_error:add_offset = 1. ;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="bias-to-reference-sst">
+<span id="l3-bias-to-reference-sst"></span><h3><span class="section-number">8.2.8. </span><code class="docutils literal notranslate"><span class="pre">bias_to_reference_sst</span></code><a class="headerlink" href="#bias-to-reference-sst" title="Link to this heading">#</a></h3>
+<p><strong>Mandatory for adjusted type files.</strong></p>
+<p>This quantity represents the local value of the adjustment to the reference.</p>
+<p>The variable <code class="docutils literal notranslate"><span class="pre">bias_to_reference_sst</span></code> shall be included with the format
+requirements shown in <a class="reference internal" href="#id8"><span class="std std-numref">Table 8.10</span></a>.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id8">
+<caption><span class="caption-number">Table 8.10 </span><span class="caption-text">CDL example description of <strong><span style="font-family:courier;">bias_to_reference_sst</span></strong> variable</span><a class="headerlink" href="#id8" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Storage type</strong></p></th>
+<th class="head"><p><strong>Name</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Unit</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>byte</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bias_to_reference_sst</span></code></p></td>
+<td><p>Bias error derived from comparison with the reference</p></td>
+<td><p>K (kelvin)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>short bias_to_reference_sst(time, lat, lon) ;
+	bias_to_reference_sst:_FillValue = -32768s ;
+	bias_to_reference_sst:long_name = &quot;bias error derived from reference&quot; ;
+	bias_to_reference_sst:units = &quot;K&quot; ;
+	bias_to_reference_sst:comment = &quot;Bias estimate derived from comparison between the original SST (native SSES being applied) and the reference sensor SST (original SST - reference SST)&quot; ;
+	bias_to_reference_sst:coverage_content_type = &quot;qualityInformation&quot; ;
+	bias_to_reference_sst:add_offset = 0. ;
+	bias_to_reference_sst:scale_factor = 0.01 ;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="standard-deviation-to-reference-sst">
+<span id="l3-standard-deviation-to-reference-sst"></span><h3><span class="section-number">8.2.9. </span><code class="docutils literal notranslate"><span class="pre">standard_deviation_to_reference_sst</span></code><a class="headerlink" href="#standard-deviation-to-reference-sst" title="Link to this heading">#</a></h3>
+<p><strong>Mandatory for adjusted type files.</strong></p>
+<p>This quantity represents the local error standard deviation resulting from the
+bias estimation method.</p>
+<p>The variable <code class="docutils literal notranslate"><span class="pre">standard_deviation_to_reference_sst</span></code> shall be included with the
+format requirements shown in <a class="reference internal" href="#id9"><span class="std std-numref">Table 8.11</span></a>.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id9">
+<caption><span class="caption-number">Table 8.11 </span><span class="caption-text">CDL example description of <strong><span style="font-family:courier;">standard_deviation_to_reference_sst</span></strong> variable</span><a class="headerlink" href="#id9" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Storage type</strong></p></th>
+<th class="head"><p><strong>Name</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Unit</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>short</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">standard_deviation_to_reference_sst</span></code></p></td>
+<td><p>Error standard deviation resulting from the bias estimation method</p></td>
+<td><p>K (kelvin)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>byte standard_deviation_to_reference_sst(time, lat, lon) ;
+	standard_deviation_to_reference_sst:_FillValue = -128b ;
+	standard_deviation_to_reference_sst:long_name = &quot;standard deviation of the reference error&quot; ;
+	standard_deviation_to_reference_sst:units = &quot;K&quot; ;
+	standard_deviation_to_reference_sst:coverage_content_type = &quot;qualityInformation&quot; ;
+	standard_deviation_to_reference_sst:comment = &quot;This represents the error standard deviation estimate resulting from the bias estimation method&quot; ;
+	standard_deviation_to_reference_sst:scale_factor = 0.01 ;
+	standard_deviation_to_reference_sst:add_offset = 1. ;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="source-of-sst">
+<span id="l3-source-of-sst"></span><h3><span class="section-number">8.2.10. </span><code class="docutils literal notranslate"><span class="pre">source_of_sst</span></code><a class="headerlink" href="#source-of-sst" title="Link to this heading">#</a></h3>
+<p><strong>Mandatory and only applicable to super-collated (L3S) type files.</strong></p>
+<p>This variable represents the source(s) of SST data when merging the
+values from different input datasets.</p>
+<p>When only one source is used, this variable is not needed and the appropriate
+text string indicating the source is placed in the <code class="docutils literal notranslate"><span class="pre">source</span></code> attribute of the
+<code class="docutils literal notranslate"><span class="pre">sea_surface_temperature</span></code> variable.</p>
+<p>For multiple sources, the GDS-2.1r0 requires the following:</p>
+<ul class="simple">
+<li><p>The variable in question should contain an attribute called <code class="docutils literal notranslate"><span class="pre">flag_meanings</span></code>
+and another one called <code class="docutils literal notranslate"><span class="pre">flag_values</span></code>. The <code class="docutils literal notranslate"><span class="pre">flag_values</span></code> attribute shall
+contain a comma-separated list of the numeric codes for the sources of data
+used whose order matches the comma-separated text strings in the
+<code class="docutils literal notranslate"><span class="pre">flag_meanings</span></code> attribute.</p></li>
+<li><p>These text strings and numeric codes do not need to be unique across different
+data sets or even ancillary variables, but must be consistent within a given
+variable and clearly specified within each netCDF variable and its attributes.
+A best practice for naming the text strings in provided in<br />
+<a class="reference internal" href="naming.html#product-codes"><span class="std std-numref">Section 4.9</span></a>.</p></li>
+</ul>
+<p>In a super-collated file (L3S), the variable <code class="docutils literal notranslate"><span class="pre">source_of_sst</span></code> shall be included
+with the format requirements shown in <a class="reference internal" href="#id10"><span class="std std-numref">Table 8.12</span></a>.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id10">
+<caption><span class="caption-number">Table 8.12 </span><span class="caption-text">CDL example description of <strong><span style="font-family:courier;">source_of_sst</span></strong> variable</span><a class="headerlink" href="#id10" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Storage type</strong></p></th>
+<th class="head"><p><strong>Name</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Unit</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>byte</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">source_of_sst</span></code></p></td>
+<td><p>Origin of the SST at pixel level</p></td>
+<td><p>code</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>byte source_of_sst(time, lat, lon) ;
+	source_of_sst:flag_values = 0b, 20b, 21b, 70b, 72b, 80b, 81b, 53b, 41b, 52b, 42b, 85b, 60b ;
+	source_of_sst:flag_meanings = &quot;no_data VIIRS_NPP-STAR-L2P-v2.80 VIIRS_N20-STAR-L2P-v2.80 AVHRR_SST_METOP_B-OSISAF-L2P-v1.0 AVHRR_SST_METOP_C-OSISAF-L2P-v1.0 SLSTRA-MAR-L2P-v1.0 SLSTRB-MAR-L2P-v1.0 ABI_G18-STAR-L3C-v2.90 SEVIRI_SST-OSISAF-L3C-v1.0 GOES16-OSISAF-L3C-v1.0 SEVIRI_IO_SST-OSISAF-L3C-v1.0 AHI_H09-STAR-L3C-v2.9 AMSR2-REMSS-L2P-v8.2&quot; ;
+	source_of_sst:long_name = &quot;source of sea surface temperature measurement&quot; ;
+	source_of_sst:coverage_content_type = &quot;referenceInformation&quot; ;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="sample-ghrsst-l3-file-cdl-header">
+<h2><span class="section-number">8.3. </span>Sample GHRSST L3 file (CDL header)<a class="headerlink" href="#sample-ghrsst-l3-file-cdl-header" title="Link to this heading">#</a></h2>
+<p>A complete CDL description of a L3S dataset is given below.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>netcdf \20240101000000-IFR-L3S_GHRSST-SSTfnd-ODYSSEA-GLOB_010-v02.2-fv01.0 {
+dimensions:
+	lat = 1600 ;
+	lon = 3600 ;
+	time = 1 ;
+variables:
+	float lat(lat) ;
+		lat:_FillValue = NaNf ;
+		lat:standard_name = &quot;latitude&quot; ;
+		lat:units = &quot;degrees_north&quot; ;
+		lat:axis = &quot;Y&quot; ;
+		lat:long_name = &quot;latitude&quot; ;
+		lat:authority = &quot;CF-1.11, ACDD-1.3&quot; ;
+		lat:valid_range = -90.f, 90.f ;
+		lat:comment = &quot;geographical coordinates, WGS84 projection&quot; ;
+		lat:coverage_content_type = &quot;coordinate&quot; ;
+	float lon(lon) ;
+		lon:_FillValue = NaNf ;
+		lon:standard_name = &quot;longitude&quot; ;
+		lon:units = &quot;degrees_east&quot; ;
+		lon:axis = &quot;X&quot; ;
+		lon:long_name = &quot;longitude&quot; ;
+		lon:authority = &quot;CF-1.11, ACDD-1.3&quot; ;
+		lon:valid_range = -180.f, 180.f ;
+		lon:comment = &quot;geographical coordinates, WGS84 projection&quot; ;
+		lon:coverage_content_type = &quot;coordinate&quot; ;
+	int64 crs ;
+		crs:grid_mapping_name = &quot;latitude_longitude&quot; ;
+		crs:longitude_of_prime_meridian = 0. ;
+		crs:semi_major_axis = 6378137. ;
+		crs:inverse_flattening = 298.257223563 ;
+	short sea_surface_temperature(time, lat, lon) ;
+		sea_surface_temperature:_FillValue = -32768s ;
+		sea_surface_temperature:long_name = &quot;sea surface foundation temperature&quot; ;
+		sea_surface_temperature:units = &quot;K&quot; ;
+		sea_surface_temperature:standard_name = &quot;sea_surface_foundation_temperature&quot; ;
+		sea_surface_temperature:coverage_content_type = &quot;physicalMeasurement&quot; ;
+		sea_surface_temperature:binning_method = &quot;mean&quot; ;
+		sea_surface_temperature:cell_methods = &quot;lat: lon: mean (interval: 0.1 degree_N interval: 0.1 degree_E)&quot; ;
+		sea_surface_temperature:valid_range = -300s, 4500s ;
+		sea_surface_temperature:add_offset = 273.15 ;
+		sea_surface_temperature:scale_factor = 0.01 ;
+	short or_number_of_pixels(time, lat, lon) ;
+		or_number_of_pixels:_FillValue = -32768s ;
+		or_number_of_pixels:long_name = &quot;original number of pixels from the L2Ps contributing to the SST value&quot; ;
+		or_number_of_pixels:units = &quot;1&quot; ;
+		or_number_of_pixels:standard_name = &quot;sea_surface_foundation_temperature number_of_observations&quot; ;
+		or_number_of_pixels:coverage_content_type = &quot;referenceInformation&quot; ;
+	byte sea_surface_temperature_stddev(time, lat, lon) ;
+		sea_surface_temperature_stddev:_FillValue = -128b ;
+		sea_surface_temperature_stddev:long_name = &quot;sea_surface_subskin_temperature&quot; ;
+		sea_surface_temperature_stddev:units = &quot;kelvin&quot; ;
+		sea_surface_temperature_stddev:standard_name = &quot;sea_surface_subskin_temperature&quot; ;
+		sea_surface_temperature_stddev:coverage_content_type = &quot;physicalMeasurement&quot; ;
+		sea_surface_temperature_stddev:binning_method = &quot;std&quot; ;
+		sea_surface_temperature_stddev:cell_methods = &quot;lat: lon: standard_deviation (interval: 0.1 degree_N interval: 0.1 degree_E)&quot; ;
+		sea_surface_temperature_stddev:add_offset = 2.54 ;
+		sea_surface_temperature_stddev:scale_factor = 0.02 ;
+	byte quality_level(time, lat, lon) ;
+		quality_level:_FillValue = -128b ;
+		quality_level:flag_meanings = &quot;no_data bad_data worst_quality low_quality acceptable_quality best_quality&quot; ;
+		quality_level:flag_values = 0LL, 1LL, 2LL, 3LL, 4LL, 5LL ;
+		quality_level:long_name = &quot;quality level of SST pixel&quot; ;
+		quality_level:coverage_content_type = &quot;qualityInformation&quot; ;
+		quality_level:binning_method = &quot;mean&quot; ;
+		quality_level:cell_methods = &quot;lat: lon: mean (interval: 0.1 degree_N interval: 0.1 degree_E)&quot; ;
+		quality_level:valid_range = 0b, 5b ;
+		quality_level:standard_name = &quot;sea_surface_foundation_temperature status_flag&quot; ;
+		quality_level:comment = &quot;These are the overall quality indicators and are used for all GHRSST SSTs&quot; ;
+	byte sses_bias(time, lat, lon) ;
+		sses_bias:_FillValue = -128b ;
+		sses_bias:long_name = &quot;SSES bias estimate&quot; ;
+		sses_bias:units = &quot;K&quot; ;
+		sses_bias:coverage_content_type = &quot;qualityInformation&quot; ;
+		sses_bias:binning_method = &quot;mean&quot; ;
+		sses_bias:cell_methods = &quot;lat: lon: mean (interval: 0.1 degree_N interval: 0.1 degree_E)&quot; ;
+		sses_bias:valid_range = -127b, 127b ;
+		sses_bias:comment = &quot;Bias estimate derived using the techniques described at http://www.ghrsst.org/SSES-Description-of-schemes.html&quot; ;
+		sses_bias:add_offset = 0. ;
+		sses_bias:scale_factor = 0.02 ;
+	byte sses_standard_deviation(time, lat, lon) ;
+		sses_standard_deviation:_FillValue = -128b ;
+		sses_standard_deviation:long_name = &quot;SSES standard deviation&quot; ;
+		sses_standard_deviation:units = &quot;kelvin&quot; ;
+		sses_standard_deviation:coverage_content_type = &quot;qualityInformation&quot; ;
+		sses_standard_deviation:binning_method = &quot;mean&quot; ;
+		sses_standard_deviation:cell_methods = &quot;lat: lon: mean (interval: 0.1 degree_N interval: 0.1 degree_E)&quot; ;
+		sses_standard_deviation:valid_range = -127b, 127b ;
+		sses_standard_deviation:comment = &quot;Standard deviation estimate derived using the techniques described at http://www.ghrsst.org/SSES-Description-of-schemes.html&quot; ;
+		sses_standard_deviation:add_offset = 2.54 ;
+		sses_standard_deviation:scale_factor = 0.02 ;
+	byte satellite_zenith_angle(time, lat, lon) ;
+		satellite_zenith_angle:_FillValue = -128b ;
+		satellite_zenith_angle:long_name = &quot;satellite zenith angle&quot; ;
+		satellite_zenith_angle:units = &quot;angular_degree&quot; ;
+		satellite_zenith_angle:coverage_content_type = &quot;referenceInformation&quot; ;
+		satellite_zenith_angle:binning_method = &quot;mean&quot; ;
+		satellite_zenith_angle:cell_methods = &quot;lat: lon: mean (interval: 0.1 degree_N interval: 0.1 degree_E)&quot; ;
+		satellite_zenith_angle:standard_name = &quot;platform_zenith_angle&quot; ;
+		satellite_zenith_angle:comment = &quot;the satellite zenith angle at the time of the SST observations&quot; ;
+		satellite_zenith_angle:add_offset = 0. ;
+		satellite_zenith_angle:scale_factor = 1. ;
+	short or_latitude(time, lat, lon) ;
+		or_latitude:_FillValue = -32768s ;
+		or_latitude:long_name = &quot;original latitude of the SST value&quot; ;
+		or_latitude:standard_name = &quot;latitude&quot; ;
+		or_latitude:units = &quot;degree_north&quot; ;
+		or_latitude:coverage_content_type = &quot;coordinate&quot; ;
+		or_latitude:authority = &quot;CF-1.11, ACDD-1.3&quot; ;
+		or_latitude:add_offset = 0. ;
+		or_latitude:scale_factor = 0.01 ;
+	short or_longitude(time, lat, lon) ;
+		or_longitude:_FillValue = -32768s ;
+		or_longitude:long_name = &quot;original longitude of the SST value&quot; ;
+		or_longitude:standard_name = &quot;longitude&quot; ;
+		or_longitude:units = &quot;degree_east&quot; ;
+		or_longitude:coverage_content_type = &quot;coordinate&quot; ;
+		or_longitude:authority = &quot;CF-1.11, ACDD-1.3&quot; ;
+		or_longitude:add_offset = 0. ;
+		or_longitude:scale_factor = 0.01 ;
+	short adjusted_sea_surface_temperature(time, lat, lon) ;
+		adjusted_sea_surface_temperature:_FillValue = -32768s ;
+		adjusted_sea_surface_temperature:long_name = &quot;adjusted foundation sea surface temperature&quot; ;
+		adjusted_sea_surface_temperature:units = &quot;K&quot; ;
+		adjusted_sea_surface_temperature:standard_name = &quot;sea_surface_foundation_temperature&quot; ;
+		adjusted_sea_surface_temperature:coverage_content_type = &quot;physicalMeasurement&quot; ;
+		adjusted_sea_surface_temperature:binning_method = &quot;mean&quot; ;
+		adjusted_sea_surface_temperature:cell_methods = &quot;lat: lon: mean (interval: 0.1 degree_N interval: 0.1 degree_E)&quot; ;
+		adjusted_sea_surface_temperature:valid_range = -300s, 4500s ;
+		adjusted_sea_surface_temperature:comment = &quot;The recommended SST variable to use in this product. The original observations were cross-calibrated using a multi-sensor reference field\&quot;&quot; ;
+		adjusted_sea_surface_temperature:add_offset = 273.15 ;
+		adjusted_sea_surface_temperature:scale_factor = 0.01 ;
+	byte solar_zenith_angle(time, lat, lon) ;
+		solar_zenith_angle:_FillValue = -128b ;
+		solar_zenith_angle:long_name = &quot;solar zenith angle&quot; ;
+		solar_zenith_angle:units = &quot;angular_degree&quot; ;
+		solar_zenith_angle:standard_name = &quot;solar_zenith_angle&quot; ;
+		solar_zenith_angle:binning_method = &quot;mean&quot; ;
+		solar_zenith_angle:cell_methods = &quot;lat: lon: mean (interval: 0.1 degree_N interval: 0.1 degree_E)&quot; ;
+		solar_zenith_angle:coverage_content_type = &quot;referenceInformation&quot; ;
+		solar_zenith_angle:comment = &quot;the solar zenith angle at the time of the SST observations&quot; ;
+		solar_zenith_angle:add_offset = 90. ;
+		solar_zenith_angle:scale_factor = 1. ;
+	short bias_to_reference_sst(time, lat, lon) ;
+		bias_to_reference_sst:_FillValue = -32768s ;
+		bias_to_reference_sst:long_name = &quot;bias error derived from reference&quot; ;
+		bias_to_reference_sst:units = &quot;K&quot; ;
+		bias_to_reference_sst:comment = &quot;Bias estimate derived from comparison between the original SST (native SSES being applied) and the reference sensor SST (original SST - reference SST)&quot; ;
+		bias_to_reference_sst:coverage_content_type = &quot;qualityInformation&quot; ;
+		bias_to_reference_sst:add_offset = 0. ;
+		bias_to_reference_sst:scale_factor = 0.01 ;
+	int sst_dtime(time, lat, lon) ;
+		sst_dtime:_FillValue = -2147483648 ;
+		sst_dtime:long_name = &quot;time difference from reference time&quot; ;
+		sst_dtime:comment = &quot;time plus sst_dtime gives each measurement time&quot; ;
+		sst_dtime:units = &quot;second&quot; ;
+		sst_dtime:coverage_content_type = &quot;coordinate&quot; ;
+	double time(time) ;
+		time:_FillValue = 1.e+20 ;
+		time:axis = &quot;T&quot; ;
+		time:long_name = &quot;reference time of sst file&quot; ;
+		time:standard_name = &quot;time&quot; ;
+		time:authority = &quot;CF-1.11, ACDD-1.3&quot; ;
+		time:coverage_content_type = &quot;coordinate&quot; ;
+		time:units = &quot;seconds since 1981-01-01&quot; ;
+		time:calendar = &quot;proleptic_gregorian&quot; ;
+	byte source_of_sst(time, lat, lon) ;
+		source_of_sst:flag_values = 0b, 20b, 21b, 70b, 72b, 80b, 81b, 53b, 41b, 52b, 42b, 85b, 60b ;
+		source_of_sst:flag_meanings = &quot;no_data VIIRS_NPP-STAR-L2P-v2.80 VIIRS_N20-STAR-L2P-v2.80 AVHRR_SST_METOP_B-OSISAF-L2P-v1.0 AVHRR_SST_METOP_C-OSISAF-L2P-v1.0 SLSTRA-MAR-L2P-v1.0 SLSTRB-MAR-L2P-v1.0 ABI_G18-STAR-L3C-v2.90 SEVIRI_SST-OSISAF-L3C-v1.0 GOES16-OSISAF-L3C-v1.0 SEVIRI_IO_SST-OSISAF-L3C-v1.0 AHI_H09-STAR-L3C-v2.9 AMSR2-REMSS-L2P-v8.2&quot; ;
+		source_of_sst:long_name = &quot;source of sea surface temperature measurement&quot; ;
+		source_of_sst:coverage_content_type = &quot;referenceInformation&quot; ;
+	float sum_sst(time, lat, lon) ;
+		sum_sst:_FillValue = 1.e+20f ;
+		sum_sst:long_name = &quot;Sum of original contributing pixel sst values&quot; ;
+		sum_sst:units = &quot;K&quot; ;
+		sum_sst:coverage_content_type = &quot;auxiliaryInformation&quot; ;
+	float sum_square_sst(time, lat, lon) ;
+		sum_square_sst:_FillValue = 1.e+20f ;
+		sum_square_sst:long_name = &quot;Sum of contributing pixel sst value squares&quot; ;
+		sum_square_sst:units = &quot;K2&quot; ;
+		sum_square_sst:coverage_content_type = &quot;auxiliaryInformation&quot; ;
+	byte adjusted_standard_deviation_error(time, lat, lon) ;
+		adjusted_standard_deviation_error:_FillValue = -128b ;
+		adjusted_standard_deviation_error:long_name = &quot;standard deviation error based on L2P SSES and adjustment method&quot; ;
+		adjusted_standard_deviation_error:units = &quot;K&quot; ;
+		adjusted_standard_deviation_error:coverage_content_type = &quot;qualityInformation&quot; ;
+		adjusted_standard_deviation_error:comment = &quot;Cumulated errors of SSES and adjustment method&quot; ;
+		adjusted_standard_deviation_error:scale_factor = 0.01 ;
+		adjusted_standard_deviation_error:add_offset = 1. ;
+	byte standard_deviation_to_reference_sst(time, lat, lon) ;
+		standard_deviation_to_reference_sst:_FillValue = -128b ;
+		standard_deviation_to_reference_sst:long_name = &quot;standard deviation of the reference error&quot; ;
+		standard_deviation_to_reference_sst:units = &quot;K&quot; ;
+		standard_deviation_to_reference_sst:coverage_content_type = &quot;qualityInformation&quot; ;
+		standard_deviation_to_reference_sst:comment = &quot;This represents the error standard deviation estimate resulting from the bias estimation method&quot; ;
+		standard_deviation_to_reference_sst:scale_factor = 0.01 ;
+		standard_deviation_to_reference_sst:add_offset = 1. ;
+
+// global attributes:
+		:file_quality_level = 3LL ;
+		:title = &quot;ODYSSEA Global Sea Surface Temperature Gridded Level 3S Daily Multi-Sensor Observations&quot; ;
+		:id = &quot;ODYSSEA-IFR-L3S-GLO_010-v3&quot; ;
+		:cmems_product_id = &quot;SST_GLO_SST_L3S_NRT_OBSERVATIONS_010_010&quot; ;
+		:reference = &quot;Product User Manual for L3S Odyssea Product over the Global Ocean, v2.1, Nov 2023, https://catalogue.marine.copernicus.eu/documents/PUM/CMEMS-SST-PUM-010-010.pdf&quot; ;
+		:summary = &quot;This dataset provide a times series of daily multi-sensor composite fields of Sea Surface Temperature (SST) foundation at high resolution (HR) on a 0.10 x 0.10 degree grid (approximately 10 x 10 km) for the Global ocean, every 24 hours. It is produced for the Copernicus Marine Service.&quot; ;
+		:metadata_link = &quot;https://resources.marine.copernicus.eu/product-detail/SST_GLO_SST_L3S_NRT_OBSERVATIONS_010_010/INFORMATION&quot; ;
+		:date_metadata_modified = &quot;2023-11-01T00:00:00Z&quot; ;
+		:doi = &quot;https://doi.org/10.48670/moi-00164&quot; ;
+		:processing_level = &quot;L3S&quot; ;
+		:publisher_institution = &quot;Ifremer&quot; ;
+		:publisher_name = &quot;Copernicus Marine Service&quot; ;
+		:publisher_url = &quot;https://marine.copernicus.eu&quot; ;
+		:product_version = &quot;1.0&quot; ;
+		:geospatial_bounds = &quot;POLYGON ((-180.0 -80.0, 180.0 -80.0, 180.0 80.0, -180.0 80.0, -180.0 -80.0))&quot; ;
+		:geospatial_lat_max = 80. ;
+		:geospatial_lat_min = -80. ;
+		:geospatial_lon_max = 180. ;
+		:geospatial_lon_min = -180. ;
+		:spatial_resolution = &quot;0.10 degree&quot; ;
+		:geospatial_lat_resolution = 0.1 ;
+		:geospatial_lon_resolution = 0.1 ;
+		:geospatial_bounds_crs = &quot;EPSG:4326&quot; ;
+		:cdm_data_type = &quot;grid&quot; ;
+		:time_coverage_start = &quot;2023-12-31T12:00:00Z&quot; ;
+		:time_coverage_end = &quot;2024-01-01T12:00:00Z&quot; ;
+		string :platform = &quot;NPP&quot;, &quot;NOAA-20&quot;, &quot;Metop-B&quot;, &quot;Metop-C&quot;, &quot;Sentinel-3A&quot;, &quot;Sentinel-3B&quot;, &quot;GOES-18&quot;, &quot;Meteosat-10&quot;, &quot;GOES-16&quot;, &quot;Meteosat-9&quot;, &quot;Himawari-9&quot;, &quot;GCOM-W&quot; ;
+		string :platform_type = &quot;polar_orbiter&quot;, &quot;polar_orbiter&quot;, &quot;polar_orbiter&quot;, &quot;polar_orbiter&quot;, &quot;polar_orbiter&quot;, &quot;polar_orbiter&quot;, &quot;geostationary&quot;, &quot;geostationary&quot;, &quot;geostationary&quot;, &quot;geostationary&quot;, &quot;geostationary&quot;, &quot;polar_orbiter&quot; ;
+		string :instrument = &quot;VIIRS&quot;, &quot;VIIRS&quot;, &quot;AVHRR/3&quot;, &quot;AVHRR/3&quot;, &quot;SLSTR&quot;, &quot;SLSTR&quot;, &quot;ABI&quot;, &quot;SEVIRI&quot;, &quot;ABI&quot;, &quot;SEVIRI&quot;, &quot;AHI&quot;, &quot;AMSR-2&quot; ;
+		string :instrument_type = &quot;radiometer&quot;, &quot;radiometer&quot;, &quot;radiometer&quot;, &quot;radiometer&quot;, &quot;radiometer&quot;, &quot;radiometer&quot;, &quot;radiometer&quot;, &quot;radiometer&quot;, &quot;radiometer&quot;, &quot;radiometer&quot;, &quot;radiometer&quot;, &quot;radiometer&quot; ;
+		string :band = &quot;infrared&quot;, &quot;infrared&quot;, &quot;infrared&quot;, &quot;infrared&quot;, &quot;infrared&quot;, &quot;infrared&quot;, &quot;infrared&quot;, &quot;infrared&quot;, &quot;infrared&quot;, &quot;infrared&quot;, &quot;infrared&quot;, &quot;microwave&quot; ;
+		:uuid = &quot;a5f14cfc-b38f-11ee-88ca-0cc47a3fe28f&quot; ;
+		:date_created = &quot;2024-01-15T10:20:04Z&quot; ;
+		:date_modified = &quot;2024-01-15T10:20:04Z&quot; ;
+		:date_issued = &quot;2024-01-15T10:20:04Z&quot; ;
+		:netcdf_version_id = &quot;4.9.2 of Sep  1 2023 15:18:59 $&quot; ;
+		:keywords = &quot;Oceans &gt; Ocean Temperature &gt; Sea Surface Temperature&quot; ;
+		:acknowledgment = &quot;Please acknowledge the use of these data with the following statement: this dataset is produced by the Centre de Recherche et d\&#39;Exploitation Satellitaire (CERSAT), at Ifremer, Plouzane (France): It is funded and distributed by Copernicus Marine Service&quot; ;
+		:Conventions = &quot;CF-1.7, ACDD-1.3, ISO 8601&quot; ;
+		:standard_name_vocabulary = &quot;Climate and Forecast (CF) Standard Name Table v79&quot; ;
+		:naming_authority = &quot;org.ghrsst&quot; ;
+		:Metadata_Conventions = &quot;Climate and Forecast (CF) 1.7, Attribute Convention for Data Discovery (ACDD) 1.3&quot; ;
+		:keywords_vocabulary = &quot;NASA Global Change Master Directory (GCMD) Science Keywords&quot; ;
+		:format_version = &quot;GHRSST GDS v2.1&quot; ;
+		:gds_version_id = &quot;2.1&quot; ;
+		:platform_vocabulary = &quot;CEOS mission table&quot; ;
+		:instrument_vocabulary = &quot;CEOS instrument table&quot; ;
+		:institution = &quot;Institut Francais de Recherche pour l\&#39;Exploitation de la mer / Centre d\&#39;Exploitation et de Recherche Satellitaire&quot; ;
+		:institution_abbreviation = &quot;Ifremer / CERSAT&quot; ;
+		:project = &quot;Group for High Resolution Sea Surface Temperature (GHRSST), Copernicus Marine Service (CMEMS)&quot; ;
+		:program = &quot;Copernicus&quot; ;
+		:license = &quot;These data are available free of charge under the CMEMS data policy, refer to http://marine.copernicus.eu/services-portfolio/service-commitments-and-licence/&quot; ;
+		:creator_name = &quot;CERSAT&quot; ;
+		:creator_url = &quot;http://cersat.ifremer.fr&quot; ;
+		:creator_email = &quot;cersat@ifremer.fr&quot; ;
+		:creator_type = &quot;institution&quot; ;
+		:creator_institution = &quot;Ifremer&quot; ;
+		:contributor_name = &quot;Jean-Francois Piolle, Emmanuelle Autret&quot; ;
+		:contributor_role = &quot;principal investigator&quot; ;
+		:contact = &quot;emmanuelle.autret@ifremer.fr;jfpiolle@ifremer.fr&quot; ;
+		:technical_support_contact = &quot;cersat@ifremer.fr&quot; ;
+		:scientific_support_contact = &quot;emmanuelle.autret@ifremer.fr;jfpiolle@ifremer.fr&quot; ;
+		:processing_software = &quot;Telemachus 3.1.2&quot; ;
+		:source = &quot;ODYSSEA&quot; ;
+		:source_version = &quot;3.0.2&quot; ;
+		:history = &quot;file originally produced by Ifremer/CERSAT with ODYSSEA system 3.0.2&quot; ;
+		:geospatial_bounds_vertical_crs = &quot;EPSG:5831&quot; ;
+		:geospatial_lat_units = &quot;degrees_north&quot; ;
+		:geospatial_lon_units = &quot;degrees_east&quot; ;
+		:geospatial_vertical_min = 0. ;
+		:geospatial_vertical_max = 0. ;
+		:temporal_resolution = &quot;daily&quot; ;
+		:time_coverage_resolution = &quot;P1D&quot; ;
+		:time_coverage_duration = &quot;P1D&quot; ;
+		:publisher_email = &quot;cersat@ifremer.fr&quot; ;
+		:publisher_type = &quot;institution&quot; ;
+}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="best-practices">
+<h2><span class="section-number">8.4. </span>Best Practices<a class="headerlink" href="#best-practices" title="Link to this heading">#</a></h2>
+<section id="remapping-level-2-data-to-a-fixed-grid">
+<span id="l2-remapping-best-practice"></span><h3><span class="section-number">8.4.1. </span>Remapping Level 2 Data to a Fixed Grid<a class="headerlink" href="#remapping-level-2-data-to-a-fixed-grid" title="Link to this heading">#</a></h3>
+<p>The remapping procedure consists in remapping the original L2P in swath
+projection onto a fixed grid. This remapping should preserve the traceability of
+the SST at pixel level and keep the best quality data.</p>
+<p>If the original and final grid resolutions are similar, the nearest pixel
+remapping should be adopted. To do so, either a “source to target” or a “target
+to source” approach may be used. The latter, target to source, which consists in
+scanning the target grid points to find the nearest pixel in the source, is
+recommended since it avoids creating holes in the remapped field.</p>
+<p>If the original grid resolution is finer than the output grid,
+<a class="reference internal" href="#regridding1"><span class="std std-numref">Fig. 8.1</span></a> an averaging procedure can be adopted. For these cases the
+best practice is to average the values of all pixels which overlap the product
+cell entirely and which have a L2P confidence record <code class="docutils literal notranslate"><span class="pre">quality_level</span></code> value equal
+to the highest encountered within the cell, to produce a single value.</p>
+<figure class="align-default" id="regridding1">
+<img alt="_images/regridding1.png" src="_images/regridding1.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 8.1 </span><span class="caption-text">To illustrate the approach when the L3 product output grid is over-sampled by
+the L2P input data. All pixels labeled p in the input data are possible
+contributors to the value for new cell A.</span><a class="headerlink" href="#regridding1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The following practices are recommended by the GDS:</p>
+<ol class="arabic simple">
+<li><p>In the case of a smaller L2P input pixel than the grid cell size, L3 data
+product cell values are derived from an average of the L2P pixel which
+completely overlap the product cell and which have a L2P quality record
+<code class="docutils literal notranslate"><span class="pre">quality_level</span></code> value equal to the highest encountered within the cell,
+to produce a single value.</p></li>
+<li><p>For input pixels that straddle the boundary between output grid cells, a<br />
+weighting function may be applied to the input values according to the
+degree of coverage of the output grid cell and according to the SSES.</p></li>
+<li><p>Only the best quality original data within a grid cell should be averaged
+to produce the resulting SST value, to preserve the homogeneity of the
+SST quality (recommendation 1 above). In the case of averaging, the
+number of contributors can be recorded as well as the sum of the SST
+values and the sum of the square values of the SST. The SSES and
+ancillary data (if needed, for instance if there may be more that one
+SSES couple of values (bias and standard deviation) by quality level)
+must be averaged accordingly: the <code class="docutils literal notranslate"><span class="pre">sses_bias</span></code> values are averaged
+similarly as the SST values, the new <code class="docutils literal notranslate"><span class="pre">sses_standard_deviation</span></code> value is
+the square root of the averaged squared values of the contributing
+<code class="docutils literal notranslate"><span class="pre">sses_standard_deviations</span></code>. The averaging should account for the nature
+of the original <code class="docutils literal notranslate"><span class="pre">l2P_flags</span></code>.</p></li>
+<li><p>In the case of a larger pixel than the L3 grid cell size, 2 approaches
+can be adopted:</p>
+<ul class="simple">
+<li><p>The value of the L2P pixel is allocated to the grid cell the closest to
+the pixel centre.</p></li>
+<li><p>The output grid cell takes the value of the L2P pixel in which its
+centre lies. In this case the original latitudes and longitudes of the
+pixel must be recorded, to be able to detect where the original L2P
+pixel value has been duplicated.</p></li>
+</ul>
+</li>
+</ol>
+<p>If the original grid resolution is larger than the output grid (e.g.,
+microwave instruments), as illustrated in <a class="reference internal" href="#regridding2"><span class="std std-numref">Fig. 8.2</span></a>, the following
+practices are recommended by the GDS:</p>
+<figure class="align-default" id="regridding2">
+<img alt="_images/regridding2.png" src="_images/regridding2.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 8.2 </span><span class="caption-text">To illustrate the approach when the L3 output grid is under-sampled by the
+L2P data. Either Grid cell C is assigned the value of pixel p, Or grid cell
+A is assigned the value of pixel p and grid cell B is assigned the weighted
+average of p and q provided they both have quality flags with the same rating.</span><a class="headerlink" href="#regridding2" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="collating-data-from-the-same-sensor-and-platform">
+<span id="collating-best-practice"></span><h3><span class="section-number">8.4.2. </span>Collating Data from the Same Sensor and Platform<a class="headerlink" href="#collating-data-from-the-same-sensor-and-platform" title="Link to this heading">#</a></h3>
+<p>The collating procedure consists of gathering over a unique grid several orbits
+or slots (in the case of a geostationary satellite) of the same sensor on the
+same platform. This process is often known as “binning” the data. The collating
+procedure merges data with different times of observation.</p>
+<ol class="arabic simple">
+<li><p>For situations in which the collation is to be done for data collected within
+the same day, two cases are met in practice: collation of consecutive orbits
+in the case of data collected from polar orbiting sensors, or the merging of
+consecutive slots in the case of geostationary satellites. In both cases
+there may be multiple candidates for a grid cell.
+a. To collate observations from overlapping orbits of the polar orbiting
+sensors, the selection procedure should prioritize data first by using the
+highest available quality data. If multiple observations share the same
+highest quality, one of two approaches should be taken: either the
+observation with the minimum satellite zenith angle should be selected, or
+the observations should be averaged. If the minimum satellite zenith angle
+approach is taken, the corresponding <code class="docutils literal notranslate"><span class="pre">sses_bias</span></code> and
+<code class="docutils literal notranslate"><span class="pre">sses_standard_deviation</span></code> should be selected as well. If the averaging
+approach is followed, the <code class="docutils literal notranslate"><span class="pre">sses_bias</span></code> and <code class="docutils literal notranslate"><span class="pre">sses_standard_deviation</span></code> should be
+averaged similarly (note that the new <code class="docutils literal notranslate"><span class="pre">sses_standard_deviation</span></code> value is the
+square root of the averaged squared values of the contributing
+sses_standard_deviation values). Also in the case of averaging, it is good
+practice to record the number of observations being averaged, the sum of the
+SST values, and the sum of the squared SST values. These values can be stored
+in the <code class="docutils literal notranslate"><span class="pre">or_number_pixels</span></code>, <code class="docutils literal notranslate"><span class="pre">sum_sst</span></code>, and <code class="docutils literal notranslate"><span class="pre">sum_square_sst</span></code> variables
+listed in Sections and 8 and 9.
+b. In the case of geostationary data, the selection procedure must prioritize
+data showing the best quality level, and if equal, data closest to the
+representative time (central time) of the L3 time window. In the case of
+geostationary satellites, remapping is not a preliminary step to the
+collating procedure.</p></li>
+<li><p>If averaging over multiple days, only the best quality original data within a
+grid cell should be averaged to produce the resulting SST value, to preserve
+the homogeneity of the SST quality. The number of contributors can be
+recorded (<code class="docutils literal notranslate"><span class="pre">or_number_pixels</span></code>) as well as the sum of the SST values (
+<code class="docutils literal notranslate"><span class="pre">sum_sst</span></code>) and the sum of the square values of the SST (<code class="docutils literal notranslate"><span class="pre">sum_square_sst</span></code>).
+The SSES values should be averaged accordingly: the <code class="docutils literal notranslate"><span class="pre">sses_bias</span></code> values are
+averaged in the same manner as the SST values and the new
+<code class="docutils literal notranslate"><span class="pre">sses_standard_deviation</span></code> value is the square root of the averaged squared
+values of the contributing <code class="docutils literal notranslate"><span class="pre">sses_standard_deviation</span></code> values. The averaging
+should preserve the nature of the original <code class="docutils literal notranslate"><span class="pre">l2P_flags</span></code>.</p></li>
+</ol>
+</section>
+<section id="sst-adjustments">
+<span id="adjustment-best-practice"></span><h3><span class="section-number">8.4.3. </span>SST Adjustments<a class="headerlink" href="#sst-adjustments" title="Link to this heading">#</a></h3>
+<p>Most of individual sensors show regional biases resulting in limitations of the
+applied algorithms. The objective of the adjustment procedure is to provide a
+correction to these regional biases by comparison with a “reference sensor”,
+supposedly free from such biases. A variety of sources can be adopted as
+references in the adjustment procedure, ranging from AATSR or in situ
+measurement to using a median of sensors approach. The adopted reference must be
+recorded in the <code class="docutils literal notranslate"><span class="pre">adjusted_sea_surface_temperature</span></code> variable “reference”
+attribute.</p>
+<p>The adjustment procedure includes the following steps:</p>
+<ol class="arabic simple">
+<li><p>application of the SSES,</p></li>
+<li><p>determination of the bias adjustment to the reference,</p></li>
+<li><p>evaluation of the error of the adjustment procedure</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A skin to subskin conversion may be needed. In that case, please refer to
+the STVAL recommendations. The type of the SST variables must be recorded in the
+standard_names of the <code class="docutils literal notranslate"><span class="pre">sea_surface_temperature</span></code> and
+<code class="docutils literal notranslate"><span class="pre">adjusted_sea_surface_temperature</span></code> variables. The bias adjustment value at
+pixel and the error of the adjustment procedure must be recorded in the
+corresponding variables (mandatory).</p>
+</div>
+</section>
+<section id="super-collating-data-from-multiple-sensors-and-platforms">
+<span id="supercollating-best-practice"></span><h3><span class="section-number">8.4.4. </span>Super-Collating Data from Multiple Sensors and Platforms<a class="headerlink" href="#super-collating-data-from-multiple-sensors-and-platforms" title="Link to this heading">#</a></h3>
+<p>The building of a super-collated file takes place by merging adjusted collated
+L3 files from various sensors over the same grid and over the same time window.
+There is one input candidate file (and hence one candidate observation) per
+sensor. There may be multiple candidates for a given grid cell originating from
+different sensors. To make the selection from among the candidates, a “decision
+tree” or selection hierarchy should be established a priori. This hierarchy
+depends on the objective of the super-collation procedure, and may be quite
+different for a moderate resolution (10km) super-collated over 24h aiming to
+feed a foundation SST analysis and for a high resolution (2km) hourly subskin
+SST super-collated aiming to feed a diurnal warming analysis, for example.
+Because the hierarchy must be established based on the intended use of the
+super-collated dataset that results, it is out of the scope of this document to
+define any single hierarchy. However, the adopted hierarchy must be described in
+the <code class="docutils literal notranslate"><span class="pre">comment</span></code> attribute of the <code class="docutils literal notranslate"><span class="pre">adjusted_sea_surface_temperature</span></code> variable.
+In addition, it is mandatory to provide the source of the SST (<code class="docutils literal notranslate"><span class="pre">source_of_sst</span></code>)
+at the grid cell level.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="l2p.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">7. </span>Level 2 Pre-processed (L2P) Product Specification</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="l4.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">9. </span>Level 4 (L4) Product Specification</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-description-of-the-ghrsst-l3-data-product">8.1. Overview description of the GHRSST L3 data product</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#l3-data-record-format-specification">8.2. L3 data record format specification</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#or-latitude">8.2.1. <code class="docutils literal notranslate"><span class="pre">or_latitude</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#or-longitude">8.2.2. <code class="docutils literal notranslate"><span class="pre">or_longitude</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#or-number-of-pixels">8.2.3. <code class="docutils literal notranslate"><span class="pre">or_number_of_pixels</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sum-sst">8.2.4. <code class="docutils literal notranslate"><span class="pre">sum_sst</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sum-square-sst">8.2.5. <code class="docutils literal notranslate"><span class="pre">sum_square_sst</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adjusted-sea-surface-temperature">8.2.6. <code class="docutils literal notranslate"><span class="pre">adjusted_sea_surface_temperature</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adjusted-standard-deviation-error">8.2.7. <code class="docutils literal notranslate"><span class="pre">adjusted_standard_deviation_error</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bias-to-reference-sst">8.2.8. <code class="docutils literal notranslate"><span class="pre">bias_to_reference_sst</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-deviation-to-reference-sst">8.2.9. <code class="docutils literal notranslate"><span class="pre">standard_deviation_to_reference_sst</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#source-of-sst">8.2.10. <code class="docutils literal notranslate"><span class="pre">source_of_sst</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-ghrsst-l3-file-cdl-header">8.3. Sample GHRSST L3 file (CDL header)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices">8.4. Best Practices</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#remapping-level-2-data-to-a-fixed-grid">8.4.1. Remapping Level 2 Data to a Fixed Grid</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#collating-data-from-the-same-sensor-and-platform">8.4.2. Collating Data from the Same Sensor and Platform</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sst-adjustments">8.4.3. SST Adjustments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#super-collating-data-from-multiple-sensors-and-platforms">8.4.4. Super-Collating Data from Multiple Sensors and Platforms</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By GHRSST Science Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

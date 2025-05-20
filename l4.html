@@ -1,0 +1,1054 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>9. Level 4 (L4) Product Specification &#8212; The Recommended GHRSST Data Specification (GDS)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'l4';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="8. Level 3 (L3) Product Specification" href="l3.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/ghrsst-logo.png" class="logo__image only-light" alt="The Recommended GHRSST Data Specification (GDS) - Home"/>
+    <script>document.write(`<img src="_static/ghrsst-logo.png" class="logo__image only-dark" alt="The Recommended GHRSST Data Specification (GDS) - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    The Recommended GHRSST Data Specification (GDS) Version 2.1r0
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="conventions.html">1. Document Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">2. Overview of GHRSST and the GDS-2.1r0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sea_surface_temperature.html">3. Sea Surface Temperature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="naming.html">4. GDS Filenames and Supporting Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="structure.html">5. GDS Data Product File Structure and attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coordinates.html">6. Coordinate variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l2p.html">7. Level 2 Pre-processed (L2P) Product Specification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="l3.html">8. Level 3 (L3) Product Specification</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">9. Level 4 (L4) Product Specification</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fl4.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/l4.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Level 4 (L4) Product Specification</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-description-of-the-ghrsst-l4-data-product">9.1. Overview description of the GHRSST L4 data product</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#l4-data-record-format-specification">9.2. L4 data record format specification</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analysed-sst">9.2.1. <code class="docutils literal notranslate"><span class="pre">analysed_sst</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-error">9.3. <code class="docutils literal notranslate"><span class="pre">analysis_error</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sea-ice-fraction">9.4. <code class="docutils literal notranslate"><span class="pre">sea_ice_fraction</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mask">9.5. <code class="docutils literal notranslate"><span class="pre">mask</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-variable-sea-ice-fraction-error">9.6. Optional Variable <strong><span style="font-family:courier;">sea_ice_fraction_error</span></strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-experimental-l4-variables-included-by-data-provider">9.6.1. Optional experimental L4 variables included by data provider</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cdl-example-l4-dataset">9.7. CDL example L4 dataset</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="level-4-l4-product-specification">
+<span id="l4"></span><h1><span class="section-number">9. </span>Level 4 (L4) Product Specification<a class="headerlink" href="#level-4-l4-product-specification" title="Link to this heading">#</a></h1>
+<section id="overview-description-of-the-ghrsst-l4-data-product">
+<h2><span class="section-number">9.1. </span>Overview description of the GHRSST L4 data product<a class="headerlink" href="#overview-description-of-the-ghrsst-l4-data-product" title="Link to this heading">#</a></h2>
+<p>L4 products are the analyzed SST products, usually derived from GHRSST L2P
+products. L4 data products should ideally be made available within the
+GHRSST R/GTS framework to the user community within 24 hours.</p>
+<p>L4 products include gap-free analyzed SST data together with a number of
+ancillary fields that simplify interpretation and application of the SST
+data. Data providers are responsible for providing documentation on their
+analysis procedure. The common format of L4 products allows data users to
+code with the security that as new SST data products are brought on-line,
+very minimal code changes are required to make full use of a new L4 product.
+Time previously spent on coding different I/O routines for each satellite
+data set can be spent working with the data to produce results.</p>
+<p>The GHRSST Science Team determined that there will be 4 mandatory fields
+that form the core data content of a GHRSST L4 data file. In addition to global
+attributes and geo-location information, producers must include the following
+within a L4 file:</p>
+<ul class="simple">
+<li><p>Sea Surface temperature data (SST)</p></li>
+<li><p>Error estimates for SST data</p></li>
+<li><p>Sea ice fraction (only and sea ice covered areas)</p></li>
+<li><p>Land/sea/ice flag</p></li>
+</ul>
+<p>In addition, there are a number of optional fields that may be used at the
+data provider’s discretion.</p>
+<p>The GHRSST L4 file contents are summarized in <a class="reference internal" href="#l4-content-summary"><span class="std std-numref">Table 9.1</span></a>
+below.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="l4-content-summary">
+<caption><span class="caption-number">Table 9.1 </span><span class="caption-text">Summary description of the contents within a GHRSST L4 data product</span><a class="headerlink" href="#l4-content-summary" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Description</p></th>
+<th class="head"><p>Required</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Coordinate variables</strong></p></td>
+<td><p>Information to permit locating data on grids, as defined in <a class="reference internal" href="coordinates.html#coordinate-variables"><span class="std std-numref">Section 6</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Data record variables</strong></p></td>
+<td><p>Core and auxiliary variables as defined in <a class="reference internal" href="#l4-records"><span class="std std-numref">Table 9.2</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Global Attributes</strong></p></td>
+<td><p>A collection of required global attributes describing general characteristics of the file, as defined in section <a class="reference internal" href="structure.html#global-attributes"><span class="std std-numref">Section 5.2</span></a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="l4-data-record-format-specification">
+<h2><span class="section-number">9.2. </span>L4 data record format specification<a class="headerlink" href="#l4-data-record-format-specification" title="Link to this heading">#</a></h2>
+<p>L4 analysed data products are derived from an analysis procedure implemented
+at  regular intervals (daily, six-hourly or other time periods). L4 data
+products include SST, error statistics, sea ice fraction, land/sea/ice mask,
+and  other optional data for each grid-cell. A <strong>6-byte</strong> experimental block
+is available for data providers to test new aspects of the file or
+information specific to the analysis system that will eventually transition
+into a GHRSST standard L4 analysis field once tested.</p>
+<p><a class="reference internal" href="#l4-records"><span class="std std-numref">Table 9.2</span></a> describes the format of GDS L4 variables that should be
+created for each L4 grid cell. In the following sections, each  variable
+within the L4 data file is described in detail.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="l4-records">
+<caption><span class="caption-number">Table 9.2 </span><span class="caption-text">L4 SST product data records</span><a class="headerlink" href="#l4-records" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Variable Name</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Units</p></th>
+<th class="head"><p>Storage type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="#l4-analysed-sst"><span class="std std-ref">analysed_sst</span></a></p></td>
+<td><p>SST from analysis system</p></td>
+<td><p>K (kelvin)</p></td>
+<td><p>short</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#l4-analysis-error"><span class="std std-ref">analysis_error</span></a></p></td>
+<td><p>Error standard deviation estimate</p></td>
+<td><p>K (kelvin)</p></td>
+<td><p>short</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#l4-sea-ice-fraction"><span class="std std-ref">sea_ice_fraction</span></a></p></td>
+<td><p>Fractional Sea Ice area concentration</p></td>
+<td><p>1 (unitless)</p></td>
+<td><p>byte</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#l4-sea-ice-fraction-error"><span class="std std-ref">sea_ice_fraction_error</span></a></p></td>
+<td><p>If the error estimates on the sea ice field are available, it is recommended to provide this information as an experimental field</p></td>
+<td><p>1 (unitless)</p></td>
+<td><p>byte</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#l4-mask"><span class="std std-ref">mask</span></a></p></td>
+<td><p>land/ice/lake mask</p></td>
+<td><p></p></td>
+<td><p>byte</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#l4-optional-fields"><span class="std std-ref">other fields</span></a></p></td>
+<td><p>Optional/experimental fields defined by data provider</p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="analysed-sst">
+<span id="l4-analysed-sst"></span><h3><span class="section-number">9.2.1. </span><code class="docutils literal notranslate"><span class="pre">analysed_sst</span></code><a class="headerlink" href="#analysed-sst" title="Link to this heading">#</a></h3>
+<p>The variable <code class="docutils literal notranslate"><span class="pre">analysed_sst</span></code> will be included with the format requirements shown
+in <a class="reference internal" href="#id1"><span class="std std-numref">Table 9.3</span></a>.</p>
+<p>The data provider is responsible for providing GHRSST with documentation on
+how the analysed SST is determined. Note that the RDAC should place the
+<code class="docutils literal notranslate"><span class="pre">_FillValue</span></code> value in pixels that fall on land.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id1">
+<caption><span class="caption-number">Table 9.3 </span><span class="caption-text">CDL example description of <strong><span style="font-family:courier;">analysed_sst</span></strong> variable</span><a class="headerlink" href="#id1" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Storage type</strong></p></th>
+<th class="head"><p><strong>Name</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Unit</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>short</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">analysed_sst</span></code></p></td>
+<td><p>SST values from analysis systems</p></td>
+<td><p>K (kelvin)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>short analysed_sst(time, lat, lon) ;
+	analysed_sst:_FillValue = -32768s ;
+	analysed_sst:long_name = &quot;analysed sea surface temperature&quot; ;
+	analysed_sst:standard_name = &quot;sea_surface_foundation_temperature&quot; ;
+	analysed_sst:units = &quot;K&quot; ;
+	analysed_sst:coverage_content_type = &quot;physicalMeasurement&quot; ;
+	analysed_sst:add_offset = 273.15 ;
+	analysed_sst:scale_factor = 0.01 ;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="analysis-error">
+<span id="l4-analysis-error"></span><h2><span class="section-number">9.3. </span><code class="docutils literal notranslate"><span class="pre">analysis_error</span></code><a class="headerlink" href="#analysis-error" title="Link to this heading">#</a></h2>
+<p>The variable <code class="docutils literal notranslate"><span class="pre">analysis_error</span></code> will be included with the format requirements
+shown in  <a class="reference internal" href="#id2"><span class="std std-numref">Table 9.4</span></a>.</p>
+<p>The data provider is responsible for providing GHRSST with documentation on how
+<code class="docutils literal notranslate"><span class="pre">analysis_error</span></code> is determined.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id2">
+<caption><span class="caption-number">Table 9.4 </span><span class="caption-text">CDL example description of <span style="font-family:courier;">analysis_error</span> variable</span><a class="headerlink" href="#id2" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Storage type</strong></p></th>
+<th class="head"><p><strong>Name</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Unit</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>short</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">analysis_error</span></code></p></td>
+<td><p>Error estimate from analysis system</p></td>
+<td><p>K (kelvin)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>short analysis_error(time, lat, lon) ;
+	analysis_error:_FillValue = -32768s ;
+	analysis_error:long_name = &quot;estimated error standard deviation of analysed_sst&quot; ;
+	analysis_error:units = &quot;K&quot; ;
+	analysis_error:coverage_content_type = &quot;qualityInformation&quot; ;
+	analysis_error:add_offset = 0. ;
+	analysis_error:scale_factor = 0.01 ;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="sea-ice-fraction">
+<span id="l4-sea-ice-fraction"></span><h2><span class="section-number">9.4. </span><code class="docutils literal notranslate"><span class="pre">sea_ice_fraction</span></code><a class="headerlink" href="#sea-ice-fraction" title="Link to this heading">#</a></h2>
+<p>The variable sea_ice_fraction will be included with the format requirements
+shown in <a class="reference internal" href="#id3"><span class="std std-numref">Table 9.5</span></a>.</p>
+<p>Some SST data are contaminated in part or wholly by sea ice and the L4 variable
+<code class="docutils literal notranslate"><span class="pre">sea_ice_fraction</span></code> is used to quantify the fraction of an area contaminated
+with sea ice. If the error estimates on the sea ice field are available, it
+is recommended to provide this information as an experimental variable called
+<code class="docutils literal notranslate"><span class="pre">sea_ice_fraction_error</span></code>.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id3">
+<caption><span class="caption-number">Table 9.5 </span><span class="caption-text">CDL example description of <strong><span style="font-family:courier;">sea_ice_fraction</span></strong> variable</span><a class="headerlink" href="#id3" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Storage type</strong></p></th>
+<th class="head"><p><strong>Name</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Unit</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>byte</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sea_ice_fraction</span></code></p></td>
+<td><p>Fractional sea ice area concentration</p></td>
+<td><p>1 (unitless)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>byte sea_ice_fraction(time, lat, lon) ;
+	sea_ice_fraction:_FillValue = -128b ;
+	sea_ice_fraction:long_name = &quot;sea ice area fraction&quot; ;
+	sea_ice_fraction:standard_name = &quot;sea_ice_area_fraction&quot; ;
+	sea_ice_fraction:units = &quot;1&quot; ;
+	sea_ice_fraction:coverage_content_type = &quot;auxiliaryInformation&quot; ;
+	sea_ice_fraction:source = &quot;EUMETSAT OSI-SAF&quot; ;
+	sea_ice_fraction:add_offset = 0. ;
+	sea_ice_fraction:scale_factor = 0.01 ;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="mask">
+<span id="l4-mask"></span><h2><span class="section-number">9.5. </span><code class="docutils literal notranslate"><span class="pre">mask</span></code><a class="headerlink" href="#mask" title="Link to this heading">#</a></h2>
+<p>The variable <code class="docutils literal notranslate"><span class="pre">mask</span></code> will be included with the format requirements shown in <a class="reference internal" href="#id4"><span class="std std-numref">Table 9.6</span></a>.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id4">
+<caption><span class="caption-number">Table 9.6 </span><span class="caption-text">CDL example description of <strong><span style="font-family:courier;">mask</span></strong> variable</span><a class="headerlink" href="#id4" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Storage type</strong></p></th>
+<th class="head"><p><strong>Name</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Unit</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>byte</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">mask</span></code></p></td>
+<td><p>land/sea/ice/lake mask</p></td>
+<td><p>none</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>byte mask(time, lat, lon) ;
+	mask:long_name = &quot;land sea ice lake bit mask&quot; ;
+	mask:flag_masks = 1b, 2b, 4b, 8b ;
+	mask:flag_meanings = &quot;sea land lake ice&quot; ;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition-comments admonition">
+<p class="admonition-title">Comments:</p>
+<p>Comments
+This is a land/sea/ice mask with the following bit values:</p>
+<ul class="simple">
+<li><p>Bit 0:1 = water in grid</p></li>
+<li><p>Bit 1:1 = land in grid</p></li>
+<li><p>Bit 2:1 = optional, lake surface in grid</p></li>
+<li><p>Bit 3:1 = sea ice</p></li>
+<li><p>Bit 4:1 = optional, river surface in grid</p></li>
+<li><p>Bits [5-7] spare</p></li>
+</ul>
+<p>Note that the lake and river surface bit values are optional.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">source</span></code> attribute should list any data product used in creating this
+mask, a semi-colon separated list of identifiers
+<strong><span style="font-family:courier;">&lt;provider&gt;_&lt;type_of_mask&gt;_&lt;version_mask&gt;</span></strong>.</p>
+</div>
+</section>
+<section id="optional-variable-sea-ice-fraction-error">
+<span id="l4-sea-ice-fraction-error"></span><h2><span class="section-number">9.6. </span>Optional Variable <strong><span style="font-family:courier;">sea_ice_fraction_error</span></strong><a class="headerlink" href="#optional-variable-sea-ice-fraction-error" title="Link to this heading">#</a></h2>
+<p>If the error estimates on the sea ice field are available, it is recommended
+to provide this information as an optional field called
+<code class="docutils literal notranslate"><span class="pre">sea_ice_fraction_error</span></code>. The data provider is responsible for providing
+GHRSST with documentation on how <code class="docutils literal notranslate"><span class="pre">sea_ice_fraction_error</span></code> is estimated.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id5">
+<caption><span class="caption-number">Table 9.7 </span><span class="caption-text">CDL example description of <strong><span style="font-family:courier;">sea_ice_fraction_error</span></strong> variable</span><a class="headerlink" href="#id5" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Storage type</strong></p></th>
+<th class="head"><p><strong>Name</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Unit</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>byte</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sea_ice_fraction_error</span></code></p></td>
+<td><p>Fractional sea ice area concentration error</p></td>
+<td><p>1</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>byte sea_ice_fraction_error(time, lat, lon) ;
+	sea_ice_fraction_error:_FillValue = -128b ;
+	sea_ice_fraction_error:long_name = &quot;Sea ice area fraction error estimate&quot; ;
+	sea_ice_fraction_error:units = &quot;1&quot; ;
+	sea_ice_fraction_error:source = &quot;EUMETSAT SAF O&amp;SI sea ice version 1.0&quot; ;
+	sea_ice_fraction_error:scale_factor = 0.01 ;
+	sea_ice_fraction_error:add_offset = 0. ;
+	sea_ice_fraction_error:coverage_content_type = &quot;auxiliaryInformation&quot; ;
+	sea_ice_fraction_error:comment = &quot;This will be different for each system&quot; ;
+</pre></div>
+</div>
+</div>
+</div>
+<section id="optional-experimental-l4-variables-included-by-data-provider">
+<span id="l4-optional-fields"></span><h3><span class="section-number">9.6.1. </span>Optional experimental L4 variables included by data provider<a class="headerlink" href="#optional-experimental-l4-variables-included-by-data-provider" title="Link to this heading">#</a></h3>
+<p>Flexibility of L4 product content is provided through the netCDF API, which
+allows fully self-describing fields and additional L4 variables may be included
+by L4 data providers if they are considered relevant for L4 users. The GDS-2.1r0
+also permits the inclusion of R&amp;D variables (e.g. estimates of sea
+ice fraction error, SST anomaly, etc.) and 6 bytes per pixel are available in
+total for optional/experimental variables in any combination (i.e., variables
+can be defined as 6 x byte, 3 x short, 2 x short + 2 x byte, etc). The use of
+optional/experimental variables provides a limited amount of flexibility within
+the GDS-2.1r0 for regional user requirements while maintaining an overall upper
+limit on GDS-2.1r0 L4 products for data management groups and
+archive scaling. In exceptional cases a waiver on the 6 byte ceiling can be
+requested to extend up to 12 bytes per pixel.</p>
+<p>The GDS-2.1r0 issues the following guidance on the inclusion of optional or
+experimental variables within L4 data products:</p>
+<ul class="simple">
+<li><p>The sum total of all experimental variables shall not increase L4 record
+size by more than <strong>6 bytes</strong> per SST pixel. A <strong>waiver</strong> can be requested
+for higher amounts up to 12 bytes.</p></li>
+<li><p>CF-1.7 or later compliance should be maintained for all
+optional/experimental variables. Where available, a standard_name
+attribute should be used.</p></li>
+<li><p>It is permitted to use a provider defined coordinate variable associated
+with experimental fields but this shall be documented in data provider<br />
+documentation.</p></li>
+<li><p>Time difference data (dtime values) should be provided for variables when
+appropriate.</p></li>
+<li><p>The source of data should be indicated: in the single source case as a
+variable attribute; as a dedicated variable when mixed data sources are
+present.</p></li>
+<li><p>Use of experimental variables requires clear documentation by the GHRSST
+producer. They shall provide adequate documentation that describes each
+variable following the CDL examples provided in this document.</p></li>
+<li><p>The variable attribute <code class="docutils literal notranslate"><span class="pre">comment</span></code> shall be used to provide a URL link to a
+full description of each data producer defined variable included in the
+L4 product.</p></li>
+<li><p>Experimental L4 variables if present in an L4 product will be included
+with the minimum format requirements shown in <a class="reference internal" href="#l4-sea-ice-fraction-error"><span class="std std-numref">Section 9.6</span></a></p></li>
+<li><p>Additional global variables may be declared within the L4 product.</p></li>
+</ul>
+</section>
+</section>
+<section id="cdl-example-l4-dataset">
+<h2><span class="section-number">9.7. </span>CDL example L4 dataset<a class="headerlink" href="#cdl-example-l4-dataset" title="Link to this heading">#</a></h2>
+<p>The following CDL has been generated for a detailed example global L4 dataset:</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>netcdf l4_full_example {
+dimensions:
+	lat = 1600 ;
+	lon = 3600 ;
+	time = 1 ;
+variables:
+	float lat(lat) ;
+		lat:long_name = &quot;latitude&quot; ;
+		lat:standard_name = &quot;latitude&quot; ;
+		lat:axis = &quot;Y&quot; ;
+		lat:units = &quot;degrees_north&quot; ;
+		lat:authority = &quot;CF-1.7&quot; ;
+		lat:valid_range = -90., 90. ;
+		lat:coverage_content_type = &quot;coordinate&quot; ;
+		lat:comment = &quot;geographical coordinates, WGS84 projection&quot; ;
+	float lon(lon) ;
+		lon:long_name = &quot;longitude&quot; ;
+		lon:standard_name = &quot;longitude&quot; ;
+		lon:axis = &quot;X&quot; ;
+		lon:units = &quot;degrees_east&quot; ;
+		lon:authority = &quot;CF-1.7&quot; ;
+		lon:valid_range = -180., 180. ;
+		lon:coverage_content_type = &quot;coordinate&quot; ;
+		lon:comment = &quot;geographical coordinates, WGS84 projection&quot; ;
+	short analysed_sst(time, lat, lon) ;
+		analysed_sst:_FillValue = -32768s ;
+		analysed_sst:long_name = &quot;analysed sea surface temperature&quot; ;
+		analysed_sst:standard_name = &quot;sea_surface_foundation_temperature&quot; ;
+		analysed_sst:units = &quot;K&quot; ;
+		analysed_sst:coverage_content_type = &quot;physicalMeasurement&quot; ;
+		analysed_sst:add_offset = 273.15 ;
+		analysed_sst:scale_factor = 0.01 ;
+	short analysis_error(time, lat, lon) ;
+		analysis_error:_FillValue = -32768s ;
+		analysis_error:long_name = &quot;estimated error standard deviation of analysed_sst&quot; ;
+		analysis_error:units = &quot;K&quot; ;
+		analysis_error:coverage_content_type = &quot;qualityInformation&quot; ;
+		analysis_error:add_offset = 0. ;
+		analysis_error:scale_factor = 0.01 ;
+	byte mask(time, lat, lon) ;
+		mask:long_name = &quot;land sea ice lake bit mask&quot; ;
+		mask:flag_masks = 1b, 2b, 4b, 8b ;
+		mask:flag_meanings = &quot;sea land lake ice&quot; ;
+	byte sea_ice_fraction(time, lat, lon) ;
+		sea_ice_fraction:_FillValue = -128b ;
+		sea_ice_fraction:long_name = &quot;sea ice area fraction&quot; ;
+		sea_ice_fraction:standard_name = &quot;sea_ice_area_fraction&quot; ;
+		sea_ice_fraction:units = &quot;1&quot; ;
+		sea_ice_fraction:coverage_content_type = &quot;auxiliaryInformation&quot; ;
+		sea_ice_fraction:source = &quot;EUMETSAT OSI-SAF&quot; ;
+		sea_ice_fraction:add_offset = 0. ;
+		sea_ice_fraction:scale_factor = 0.01 ;
+	double time(time) ;
+		time:long_name = &quot;reference time of field&quot; ;
+		time:standard_name = &quot;time&quot; ;
+		time:axis = &quot;T&quot; ;
+		time:authority = &quot;CF-1.7&quot; ;
+		time:coverage_content_type = &quot;coordinate&quot; ;
+		time:units = &quot;seconds since 1981-01-01&quot; ;
+		time:calendar = &quot;proleptic_gregorian&quot; ;
+	byte sea_ice_fraction_error(time, lat, lon) ;
+		sea_ice_fraction_error:_FillValue = -128b ;
+		sea_ice_fraction_error:long_name = &quot;Sea ice area fraction error estimate&quot; ;
+		sea_ice_fraction_error:units = &quot;1&quot; ;
+		sea_ice_fraction_error:source = &quot;EUMETSAT SAF O&amp;SI sea ice version 1.0&quot; ;
+		sea_ice_fraction_error:scale_factor = 0.01 ;
+		sea_ice_fraction_error:add_offset = 0. ;
+		sea_ice_fraction_error:coverage_content_type = &quot;auxiliaryInformation&quot; ;
+		sea_ice_fraction_error:comment = &quot;This will be different for each system&quot; ;
+	short sst_anomaly(time, lat, lon) ;
+		sst_anomaly:_FillValue = -32768s ;
+		sst_anomaly:long_name = &quot;SST anomaly from a seasonal SST climatology based on data over 2003-2014 period&quot; ;
+		sst_anomaly:units = &quot;K&quot; ;
+		sst_anomaly:source = &quot;ODYSSEA L4&quot; ;
+		sst_anomaly:scale_factor = 0.001 ;
+		sst_anomaly:add_offset = 0. ;
+		sst_anomaly:coverage_content_type = &quot;auxiliaryInformation&quot; ;
+		sst_anomaly:comment = &quot;anomaly reference to the day-of-year average between 2003 and 2014&quot; ;
+
+// global attributes:
+		:Conventions = &quot;CF-1.7, ACDD-1.3, ISO 8601&quot; ;
+		:standard_name_vocabulary = &quot;Climate and Forecast (CF) Standard Name Table v79&quot; ;
+		:naming_authority = &quot;org.ghrsst&quot; ;
+		:netcdf_version_id = &quot;4.9.2 of Sep  1 2023 15:18:59 $&quot; ;
+		:title = &quot;ODYSSEA Global Sea Surface Temperature Gridded Level 4 Daily Multi-Sensor Observations&quot; ;
+		:id = &quot;ODYSSEA-IFR-L4-GLOB_002-v2.1&quot; ;
+		:cmems_product_id = &quot;SST_GLO_PHY_L4_NRT_010_043&quot; ;
+		:summary = &quot;This dataset provide a times series of daily multi-sensor optimal interpolation of Sea Surface Temperature (SST) foundation over Global Ocean on a 0.1 degree resolution grid, every 24 hours. It is produced for the Copernicus Marine Service.&quot; ;
+		:references = &quot;Product User Manual for L4 Odyssea Product over the Global Ocean, v1.0, Jan 2023, https://catalogue.marine.copernicus.eu/documents/PUM/CMEMS-SST-PUM-010-043.pdf&quot; ;
+		:metadata_link = &quot;https://data.marine.copernicus.eu/product/SST_GLO_PHY_L4_NRT_010_043/description&quot; ;
+		:doi = &quot;https://doi.org/10.48670/mds-00321&quot; ;
+		:processing_level = &quot;L4&quot; ;
+		:keywords = &quot;Oceans &gt; Ocean Temperature &gt; Sea Surface Temperature&quot; ;
+		:keywords_vocabulary = &quot;NASA Global Change Master Directory (GCMD) Science Keywords&quot; ;
+		:project = &quot;Copernicus Marine Service&quot; ;
+		:program = &quot;Copernicus, GHRSST&quot; ;
+		:institution = &quot;Institut Francais de Recherche pour l\&#39;Exploitation de la mer / Centre d\&#39;Exploitation et de Recherche Satellitaire&quot; ;
+		:institution_abbreviation = &quot;Ifremer / CERSAT&quot; ;
+		:license = &quot;These data are available free of charge under the CMEMS data policy, refer to http://marine.copernicus.eu/services-portfolio/service-commitments-and-licence/&quot; ;
+		:acknowledgment = &quot;This dataset is funded by Copernicus Marine Service&quot; ;
+		:citation = &quot;Ifremer / CERSAT. 2022. ODYSSEA Global High-Resolution Sea Surface Temperature Gridded Level 4 Daily dataset for Copernicus Marine Service. Ver. 2.1. Ifremer, Plouzane, France. Dataset accessed [YYYY-MM-DD].&quot; ;
+		:contact = &quot;emmanuelle.autret@ifremer.fr;jfpiolle@ifremer.fr&quot; ;
+		:technical_support_contact = &quot;cersat@ifremer.fr&quot; ;
+		:scientific_support_contact = &quot;emmanuelle.autret@ifremer.fr;jfpiolle@ifremer.fr&quot; ;
+		:creator_email = &quot;cersat@ifremer.fr&quot; ;
+		:creator_type = &quot;institution&quot; ;
+		:creator_institution = &quot;Ifremer&quot; ;
+		:creator_name = &quot;CERSAT&quot; ;
+		:creator_url = &quot;http://cersat.ifremer.fr&quot; ;
+		:publisher_institution = &quot;Copernicus Marine Service&quot; ;
+		:publisher_name = &quot;Copernicus Marine Service&quot; ;
+		:publisher_url = &quot;https://marine.copernicus.eu&quot; ;
+		:format_version = &quot;GHRSST GDS v2.1&quot; ;
+		:gds_version_id = &quot;2.1&quot; ;
+		:processing_software = &quot;ODYSSEA OI 2.1&quot; ;
+		:source = &quot;Odyssea L4 processor&quot; ;
+		:source_version = &quot;3.0.2&quot; ;
+		:geospatial_bounds = &quot;POLYGON ((-180 -80.0, 180.0 -80.0, 180.0 80.0, -180 80.0, -180 -80.0))&quot; ;
+		:geospatial_bounds_crs = &quot;EPSG:4326&quot; ;
+		:geospatial_bounds_vertical_crs = &quot;EPSG:5831&quot; ;
+		:geospatial_lat_max = 80. ;
+		:geospatial_lat_min = -80. ;
+		:geospatial_lat_resolution = 0.1 ;
+		:geospatial_lat_units = &quot;degrees_north&quot; ;
+		:geospatial_lon_max = 180. ;
+		:geospatial_lon_min = -180 ;
+		:geospatial_lon_resolution = 0.1 ;
+		:geospatial_lon_units = &quot;degrees_east&quot; ;
+		:geospatial_vertical_min = 0. ;
+		:geospatial_vertical_max = 0. ;
+		:time_coverage_start = &quot;2024-02-28T12:00:00Z&quot; ;
+		:time_coverage_end = &quot;2024-02-29T12:00:00Z&quot; ;
+		:time_coverage_resolution = &quot;P1D&quot; ;
+		:spatial_resolution = &quot; 0.1 degree&quot; ;
+		:temporal_resolution = &quot;daily&quot; ;
+		:cdm_data_type = &quot;grid&quot; ;
+		:source_data = &quot;VIIRS_NPP-STAR-L2P-v2.80 VIIRS_N20-STAR-L2P-v2.80 AVHRR_SST_METOP_B-OSISAF-L2P-v1.0 AVHRR_SST_METOP_C-OSISAF-L2P-v1.0 SLSTRA-MAR-L2P-v1.0 SLSTRB-MAR-L2P-v1.0 ABI_G18-STAR-L3C-v2.90 SEVIRI_SST-OSISAF-L3C-v1.0 GOES16-OSISAF-L3C-v1.0 SEVIRI_IO_SST-OSISAF-L3C-v1.0 AHI_H09-STAR-L3C-v2.9 AMSR2-REMSS-L2P-v8.2&quot; ;
+		:platform = &quot;NPP;NOAA-20;Metop-B;Metop-C;Sentinel-3A;Sentinel-3B;GOES-18;Meteosat-10;GOES-16;Meteosat-9;Himawari-9;GCOM-W&quot; ;
+		:platform_type = &quot;polar_orbiter;polar_orbiter;polar_orbiter;polar_orbiter;polar_orbiter;polar_orbiter;geostationary;geostationary;geostationary;geostationary;geostationary;polar_orbiter&quot; ;
+		:platform_vocabulary = &quot;CEOS mission table&quot; ;
+		:instrument = &quot;VIIRS;VIIRS;AVHRR/3;AVHRR/3;SLSTR;SLSTR;ABI;SEVIRI;ABI;SEVIRI;AHI;AMSR-2&quot; ;
+		:instrument_type = &quot;radiometer;radiometer;radiometer;radiometer;radiometer;radiometer;radiometer;radiometer;radiometer;radiometer;radiometer;radiometer&quot; ;
+		:instrument_vocabulary = &quot;CEOS instrument table&quot; ;
+		:product_version = &quot; 1.0&quot; ;
+		:date_created = &quot;2024-03-05T16:23:28&quot; ;
+		:date_modified = &quot;2024-03-05T16:23:28&quot; ;
+		:date_issued = &quot;2024-03-05T16:23:28&quot; ;
+		:date_metadata_modified = &quot;2023-11-01T00:00:00&quot; ;
+		:history = &quot;Optimally interpolated SST originally produced by Ifremer/CERSAT with ODYSSEA OI processor 2.1, ODYSSEA system 3.0.2&quot; ;
+		:uuid = &quot;2527ec2f-8d70-40d3-b56c-79757ce8574f&quot; ;
+		:file_quality_level = 3 ;
+}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="l3.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">8. </span>Level 3 (L3) Product Specification</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-description-of-the-ghrsst-l4-data-product">9.1. Overview description of the GHRSST L4 data product</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#l4-data-record-format-specification">9.2. L4 data record format specification</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analysed-sst">9.2.1. <code class="docutils literal notranslate"><span class="pre">analysed_sst</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-error">9.3. <code class="docutils literal notranslate"><span class="pre">analysis_error</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sea-ice-fraction">9.4. <code class="docutils literal notranslate"><span class="pre">sea_ice_fraction</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mask">9.5. <code class="docutils literal notranslate"><span class="pre">mask</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-variable-sea-ice-fraction-error">9.6. Optional Variable <strong><span style="font-family:courier;">sea_ice_fraction_error</span></strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-experimental-l4-variables-included-by-data-provider">9.6.1. Optional experimental L4 variables included by data provider</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cdl-example-l4-dataset">9.7. CDL example L4 dataset</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By GHRSST Science Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
