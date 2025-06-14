@@ -176,13 +176,13 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="intro.html">
-                    The Recommended GHRSST Data Specification (GDS) Version 2.1r0
+                    The Recommended GHRSST Data Specification (GDS) Version 2.2r0
                 </a>
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="conventions.html">1. Document Conventions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="overview.html">2. Overview of GHRSST and the GDS-2.1r0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">2. Overview of GHRSST and the GDS-2.2r0</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sea_surface_temperature.html">3. Sea Surface Temperature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="naming.html">4. GDS Filenames and Supporting Conventions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="structure.html">5. GDS Data Product File Structure and attributes</a></li>
@@ -1090,7 +1090,7 @@ values from different input datasets.</p>
 <p>When only one source is used, this variable is not needed and the appropriate
 text string indicating the source is placed in the <code class="docutils literal notranslate"><span class="pre">source</span></code> attribute of the
 <code class="docutils literal notranslate"><span class="pre">sea_surface_temperature</span></code> variable.</p>
-<p>For multiple sources, the GDS-2.1r0 requires the following:</p>
+<p>For multiple sources, the GDS-2.2r0 requires the following:</p>
 <ul class="simple">
 <li><p>The variable in question should contain an attribute called <code class="docutils literal notranslate"><span class="pre">flag_meanings</span></code>
 and another one called <code class="docutils literal notranslate"><span class="pre">flag_values</span></code>. The <code class="docutils literal notranslate"><span class="pre">flag_values</span></code> attribute shall
@@ -1434,10 +1434,10 @@ remapping should be adopted. To do so, either a “source to target” or a “t
 to source” approach may be used. The latter, target to source, which consists in
 scanning the target grid points to find the nearest pixel in the source, is
 recommended since it avoids creating holes in the remapped field.</p>
-<p>If the original grid resolution is finer than the output grid,
-<a class="reference internal" href="#regridding1"><span class="std std-numref">Fig. 8.1</span></a> an averaging procedure can be adopted. For these cases the
-best practice is to average the values of all pixels which overlap the product
-cell entirely and which have a L2P confidence record <code class="docutils literal notranslate"><span class="pre">quality_level</span></code> value equal
+<p>If the original grid resolution is finer than the output grid, as
+illustrated in <a class="reference internal" href="#regridding1"><span class="std std-numref">Fig. 8.1</span></a>, an averaging procedure can be adopted.
+For these cases the best practice is to average the values of all pixels which
+overlap the product cell entirely and which have a L2P confidence record <code class="docutils literal notranslate"><span class="pre">quality_level</span></code> value equal
 to the highest encountered within the cell, to produce a single value.</p>
 <figure class="align-default" id="regridding1">
 <img alt="_images/regridding1.png" src="_images/regridding1.png" />
@@ -1505,28 +1505,32 @@ procedure merges data with different times of observation.</p>
 the same day, two cases are met in practice: collation of consecutive orbits
 in the case of data collected from polar orbiting sensors, or the merging of
 consecutive slots in the case of geostationary satellites. In both cases
-there may be multiple candidates for a grid cell.
-a. To collate observations from overlapping orbits of the polar orbiting
-sensors, the selection procedure should prioritize data first by using the
-highest available quality data. If multiple observations share the same
-highest quality, one of two approaches should be taken: either the
-observation with the minimum satellite zenith angle should be selected, or
-the observations should be averaged. If the minimum satellite zenith angle
-approach is taken, the corresponding <code class="docutils literal notranslate"><span class="pre">sses_bias</span></code> and
-<code class="docutils literal notranslate"><span class="pre">sses_standard_deviation</span></code> should be selected as well. If the averaging
-approach is followed, the <code class="docutils literal notranslate"><span class="pre">sses_bias</span></code> and <code class="docutils literal notranslate"><span class="pre">sses_standard_deviation</span></code> should be
-averaged similarly (note that the new <code class="docutils literal notranslate"><span class="pre">sses_standard_deviation</span></code> value is the
-square root of the averaged squared values of the contributing
-sses_standard_deviation values). Also in the case of averaging, it is good
-practice to record the number of observations being averaged, the sum of the
-SST values, and the sum of the squared SST values. These values can be stored
-in the <code class="docutils literal notranslate"><span class="pre">or_number_pixels</span></code>, <code class="docutils literal notranslate"><span class="pre">sum_sst</span></code>, and <code class="docutils literal notranslate"><span class="pre">sum_square_sst</span></code> variables
-listed in Sections and 8 and 9.
-b. In the case of geostationary data, the selection procedure must prioritize
-data showing the best quality level, and if equal, data closest to the
-representative time (central time) of the L3 time window. In the case of
-geostationary satellites, remapping is not a preliminary step to the
-collating procedure.</p></li>
+there may be multiple candidates for a grid cell.</p>
+<ol class="arabic simple">
+<li><p>To collate observations from overlapping orbits of the polar orbiting
+sensors, the selection procedure should prioritize data first by
+using the highest available quality data. If multiple observations share
+the same highest quality, one of two approaches should be taken:
+either the observation with the minimum satellite zenith angle should
+be selected, or the observations should be averaged. If the minimum
+satellite zenith angle approach is taken, the corresponding
+<code class="docutils literal notranslate"><span class="pre">sses_bias</span></code> and <code class="docutils literal notranslate"><span class="pre">sses_standard_deviation</span></code> should be selected as well.
+If the averaging approach is followed, the <code class="docutils literal notranslate"><span class="pre">sses_bias</span></code> and
+<code class="docutils literal notranslate"><span class="pre">sses_standard_deviation</span></code> should be averaged similarly (note that the
+new <code class="docutils literal notranslate"><span class="pre">sses_standard_deviation</span></code> value is the square root of the
+averaged squared values of the contributing sses_standard_deviation
+values). Also in the case of averaging, it is good practice to record
+the number of observations being averaged, the sum of the SST values,
+and the sum of the squared SST values. These values can be stored in
+the <code class="docutils literal notranslate"><span class="pre">or_number_pixels</span></code>, <code class="docutils literal notranslate"><span class="pre">sum_sst</span></code>, and <code class="docutils literal notranslate"><span class="pre">sum_square_sst</span></code> variables
+listed in Sections and 8 and 9.</p></li>
+<li><p>In the case of geostationary data, the selection procedure must
+prioritize data showing the best quality level, and if equal, data
+closest to the representative time (central time) of the L3 time
+window. In the case of geostationary satellites, remapping is not a
+preliminary step to the collating procedure.</p></li>
+</ol>
+</li>
 <li><p>If averaging over multiple days, only the best quality original data within a
 grid cell should be averaged to produce the resulting SST value, to preserve
 the homogeneity of the SST quality. The number of contributors can be
@@ -1567,12 +1571,12 @@ corresponding variables (mandatory).</p>
 </section>
 <section id="super-collating-data-from-multiple-sensors-and-platforms">
 <span id="supercollating-best-practice"></span><h3><span class="section-number">8.4.4. </span>Super-Collating Data from Multiple Sensors and Platforms<a class="headerlink" href="#super-collating-data-from-multiple-sensors-and-platforms" title="Link to this heading">#</a></h3>
-<p>The building of a super-collated file takes place by merging adjusted collated
+<p>The building of a super-collated file is done by merging adjusted collated
 L3 files from various sensors over the same grid and over the same time window.
 There is one input candidate file (and hence one candidate observation) per
 sensor. There may be multiple candidates for a given grid cell originating from
 different sensors. To make the selection from among the candidates, a “decision
-tree” or selection hierarchy should be established a priori. This hierarchy
+tree” or selection hierarchy should be established beforehand. This hierarchy
 depends on the objective of the super-collation procedure, and may be quite
 different for a moderate resolution (10km) super-collated over 24h aiming to
 feed a foundation SST analysis and for a high resolution (2km) hourly subskin

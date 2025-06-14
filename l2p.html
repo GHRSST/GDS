@@ -178,13 +178,13 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="intro.html">
-                    The Recommended GHRSST Data Specification (GDS) Version 2.1r0
+                    The Recommended GHRSST Data Specification (GDS) Version 2.2r0
                 </a>
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="conventions.html">1. Document Conventions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="overview.html">2. Overview of GHRSST and the GDS-2.1r0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">2. Overview of GHRSST and the GDS-2.2r0</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sea_surface_temperature.html">3. Sea Surface Temperature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="naming.html">4. GDS Filenames and Supporting Conventions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="structure.html">5. GDS Data Product File Structure and attributes</a></li>
@@ -480,16 +480,16 @@ defined reference climatology of SST (<code class="docutils literal notranslate"
 <p>When an L2P file contains all L2Pcore and L2Paux fields together, it will be
 called a <strong>full-L2P</strong> file. Only full L2P data files should be registered
 into the GHRSST R/G TS central catalogue. These distinctions will assist in the
-data management of the GHRSST GDS-2.1r0.</p>
+data management of the GHRSST GDS-2.2r0.</p>
 <p>Missing L2Paux fields not provided by a producer may be added by a GHRSST
 distributor (DAC), if different from the producer, with prior arrangement. In
 this case data required the L2Paux files will be procured, checked for quality
-and interpolated or processed according to the GDS-2.1r0 specification
+and interpolated or processed according to the GDS-2.2r0 specification
 by the DAC.</p>
 <p>Optional experimental fields may be used by producers to provide additional
 information at their discretion. It may be necessary to use an additional
 netCDF coordinate variable when including experimental fields.</p>
-<p>GDS-2.1r0 L2P data products are configured as shown in the table
+<p>GDS-2.2r0 L2P data products are configured as shown in the table
 <a class="reference internal" href="#l2p-content-summary"><span class="std std-numref">Table 7.1</span></a>, which can be used to locate appropriate
 information in this document.</p>
 <div class="pst-scrollable-table-container"><table class="table" id="l2p-content-summary">
@@ -501,7 +501,7 @@ information in this document.</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p><strong>Coordinate variables</strong></p></td>
-<td><p>Information to permit locating data on non-orthogonal grids, as defined in <a class="reference internal" href="coordinates.html#coordinate-variables"><span class="std std-numref">Section 6</span></a></p></td>
+<td><p>Information to allow locating data on non-orthogonal grids, as defined in <a class="reference internal" href="coordinates.html#coordinate-variables"><span class="std std-numref">Section 6</span></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>Data record variables</strong></p></td>
 <td><p>Core and auxiliary variables as defined in <a class="reference internal" href="#l2p-records"><span class="std std-numref">Section 7.2</span></a></p></td>
@@ -1119,7 +1119,7 @@ text string indicating the source is placed in the <code class="docutils literal
 time, then a variable attribute <code class="docutils literal notranslate"><span class="pre">time_offset</span></code> set as the difference time in
 hours is considered sufficient and the variable <code class="docutils literal notranslate"><span class="pre">wind_speed_dtime_from_sst</span></code>
 is not required.</p>
-<p>For multiple sources, the GDS-2.1r0 requires the following:</p>
+<p>For multiple sources, the GDS-2.2r0 requires the following:</p>
 <ul class="simple">
 <li><p>The variable in question should contain an attribute called <code class="docutils literal notranslate"><span class="pre">flag_meanings</span></code>
 and another one called <code class="docutils literal notranslate"><span class="pre">flag_values</span></code>. The <code class="docutils literal notranslate"><span class="pre">flag_values</span></code> attribute shall
@@ -1324,25 +1324,24 @@ is used in the L2P product.</p>
 <p>When only one source is used, this variable is not needed and the appropriate
 text string indicating the source is placed in the source attribute of the
 <code class="docutils literal notranslate"><span class="pre">sea_ice_fraction</span></code> variable.</p>
-<p>For multiple sources, the GDS-2.1r0 requires the following:</p>
+<p>For multiple sources, the GDS-2.2r0 requires the following:</p>
 <ul class="simple">
-<li><p>The variable in question should contain an attribute called
-<code class="docutils literal notranslate"><span class="pre">flag_meanings</span></code> and another one called <code class="docutils literal notranslate"><span class="pre">flag_values</span></code>. The <code class="docutils literal notranslate"><span class="pre">flag_values</span></code><br />
-attribute shall contain a comma-separated list of the numeric codes for
-the sources of data used whose order matches the comma-separated text<br />
-strings in the <code class="docutils literal notranslate"><span class="pre">flag_meanings</span></code> attribute.</p></li>
+<li><p>The variable in question should contain an attribute called <code class="docutils literal notranslate"><span class="pre">flag_meanings</span></code>
+and another one called <code class="docutils literal notranslate"><span class="pre">flag_values</span></code>. The <code class="docutils literal notranslate"><span class="pre">flag_values</span></code> attribute shall
+contain a comma-separated list of the numeric codes for the sources of data
+used whose order matches the comma-separated text strings in the
+<code class="docutils literal notranslate"><span class="pre">flag_meanings</span></code> attribute.</p></li>
 <li><p>These text strings and numeric codes do not need to be unique across
 different data sets or even ancillary variables, but must be consistent
 within a given variable and clearly specified within each netCDF variable
 and its attributes. A best practice for naming the text strings in
 provided in <a class="reference internal" href="naming.html#product-codes"><span class="std std-numref">Section 4.9</span></a>.</p></li>
-<li><p>instead of using a <code class="docutils literal notranslate"><span class="pre">_FillValue</span></code> attribute and value for missing data, it is
+<li><p>Instead of using a <code class="docutils literal notranslate"><span class="pre">_FillValue</span></code> attribute and value for missing data, it is
 recommended to set missing pixel values to <strong>0</strong> and add the corresponding
 <strong>no_data</strong> meaning in <code class="docutils literal notranslate"><span class="pre">flag_meanings</span></code> attribute.</p></li>
-<li></li>
 </ul>
-<p>The variable <code class="docutils literal notranslate"><span class="pre">source_of_sea_ice_fraction</span></code> shall conform to the format<br />
-requirements shown in <a class="reference internal" href="#id12"><span class="std std-numref">Table 7.15</span></a>.</p>
+<p>The variable <code class="docutils literal notranslate"><span class="pre">source_of_sea_ice_fraction</span></code> shall conform to the format requirements
+shown in <a class="reference internal" href="#id12"><span class="std std-numref">Table 7.15</span></a>.</p>
 <div class="pst-scrollable-table-container"><table class="table" id="id12">
 <caption><span class="caption-number">Table 7.15 </span><span class="caption-text">CDL example description of <strong><span style="font-family:courier;">source_of_sea_ice_fraction</span></strong> variable</span><a class="headerlink" href="#id12" title="Link to this table">#</a></caption>
 <thead>
@@ -1458,7 +1457,7 @@ it shall be included with the format requirements shown in the
 </div>
 <p>A single source of <code class="docutils literal notranslate"><span class="pre">aerosol_dynamic_indicator</span></code> has been used in this example
 indicated using the <code class="docutils literal notranslate"><span class="pre">aerosol_dynamic_indicator:source</span></code> and are defined by the
-data provider using the ancillary data naming best practice given in<br />
+data provider using the ancillary data naming best practice given in
 <a class="reference internal" href="naming.html#product-codes"><span class="std std-numref">Section 4.9</span></a>. Since all of the values have the same time, the
 attribute <code class="docutils literal notranslate"><span class="pre">time_offset</span></code> is used instead of the variable
 <code class="docutils literal notranslate"><span class="pre">aerosol_sst_dtime_from_sst</span></code> to indicate the offset in hours from the
@@ -1526,7 +1525,7 @@ codes do not need to be unique across different data sets or even ancillary
 variables, but must be consistent within a given variable and clearly
 specified within each netCDF variable and its attributes. A best practice
 for naming the text strings in provided in <a class="reference internal" href="naming.html#product-codes"><span class="std std-numref">Section 4.9</span></a>.</p>
-<p>instead of using a <code class="docutils literal notranslate"><span class="pre">_FillValue</span></code> attribute and value for missing data, it is
+<p>Instead of using a <code class="docutils literal notranslate"><span class="pre">_FillValue</span></code> attribute and value for missing data, it is
 recommended to set missing pixel values to <strong>0</strong> and add the corresponding
 <strong>no_data</strong> meaning in <code class="docutils literal notranslate"><span class="pre">flag_meanings</span></code> attribute.</p>
 <p>The variable <code class="docutils literal notranslate"><span class="pre">source_of_adi</span></code> shall conform to the with the format requirements
@@ -1570,7 +1569,7 @@ in <a class="reference internal" href="naming.html#product-codes"><span class="s
 <section id="l2p-flags">
 <span id="l2p-l2p-flags"></span><h3><span class="section-number">7.2.15. </span><code class="docutils literal notranslate"><span class="pre">l2p_flags</span></code><a class="headerlink" href="#l2p-flags" title="Link to this heading">#</a></h3>
 <p><strong>Mandatory.</strong></p>
-<p>The GDS-2.1r0 L2P variable <code class="docutils literal notranslate"><span class="pre">l2p_flags</span></code> is used to</p>
+<p>The GDS-2.2r0 L2P variable <code class="docutils literal notranslate"><span class="pre">l2p_flags</span></code> is used to</p>
 <ul class="simple">
 <li><p>Specify the type of input SST data (either infrared or passive microwave
 instrument derived),</p></li>
@@ -1657,7 +1656,7 @@ l2p_flags. It is recommended to use single bits for any information, no
 combination of multiple bits. If that is not possible, then an additional
 experimental byte field should be used instead. Definitions for bits 6-15, if
 used, should be given using the variable comment attribute.</p>
-<p>The L2P variable <code class="docutils literal notranslate"><span class="pre">l2p_flags</span></code> shall be included in GDS-2.1r0 L2P
+<p>The L2P variable <code class="docutils literal notranslate"><span class="pre">l2p_flags</span></code> shall be included in GDS-2.2r0 L2P
 data files with the format requirements shown in <a class="reference internal" href="#id16"><span class="std std-numref">Table 7.20</span></a>.</p>
 <div class="pst-scrollable-table-container"><table class="table" id="id16">
 <caption><span class="caption-number">Table 7.20 </span><span class="caption-text">CDL example description of <strong><span style="font-family:courier;">source_of_adi</span></strong> variable</span><a class="headerlink" href="#id16" title="Link to this table">#</a></caption>
@@ -1855,7 +1854,7 @@ a L2P data product it shall conform to the format requirements shown in
 to assess the magnitude and variability of significant diurnal SST variations,
 for use in diurnal variability correction schemes, for use in L4 SST analysis
 procedures and to interpret the relationship between satellite and in situ SST
-data. In the GDS-2.1r0, it is an optional variable. Ideally a near
+data. In the GDS-2.2r0, it is an optional variable. Ideally a near
 contemporaneous SSI measurement from satellite sensors should be used but this
 is impossible for all areas due to the limited number of geostationary satellite
 sensors available. As a surrogate for a measured SSI value, analysis estimates
@@ -1996,7 +1995,7 @@ data sets or even ancillary variables, but must be consistent within a given
 variable and clearly specified within each netCDF variable and its attributes. A
 best practice for naming the text strings in provided in
 <a class="reference internal" href="naming.html#product-codes"><span class="std std-numref">Section 4.9</span></a>.</p>
-<p>instead of using a <code class="docutils literal notranslate"><span class="pre">_FillValue</span></code> attribute and value for missing data, it is
+<p>Instead of using a <code class="docutils literal notranslate"><span class="pre">_FillValue</span></code> attribute and value for missing data, it is
 recommended to set missing pixel values to <strong>0</strong> and add the corresponding
 <strong>no_data</strong> meaning in <code class="docutils literal notranslate"><span class="pre">flag_meanings</span></code> attribute.</p>
 <p>The variable <code class="docutils literal notranslate"><span class="pre">source_of_ssi</span></code> shall conform to the format requirements shown
@@ -2085,18 +2084,18 @@ in <a class="reference internal" href="naming.html#product-codes"><span class="s
 <span id="l2p-optional-fields"></span><h3><span class="section-number">7.2.22. </span>Optional experimental L2P variables included by data provider<a class="headerlink" href="#optional-experimental-l2p-variables-included-by-data-provider" title="Link to this heading">#</a></h3>
 <p>Flexibility of L2P product content is provided through the netCDF API, which
 allows fully self-describing fields and additional L2P variables may be included
-by L2P data providers if they are considered relevant for L2P users. The GDS-2.1r0
+by L2P data providers if they are considered relevant for L2P users. The GDS-2.2r0
 also permits the inclusion of R&amp;D variables (e.g. channel radiance data sets,
 estimates of Chlorophyll A, fields that facilitate flagging of diurnal
 variability, etc.) and 32 bytes per pixel are available in total for
 optional/experimental variables in any combination (i.e., variables can be
 defined as 32 x byte, 16 x short, 3 x int + 4 x byte, etc). The use of
 optional/experimental variables provides a limited amount of flexibility within
-the GDS-2.1r0 for regional user requirements while maintaining an overall upper
-limit on GDS-2.1r0 L2P products for data management groups and archive scaling. In
+the GDS-2.2r0 for regional user requirements while maintaining an overall upper
+limit on GDS-2.2r0 L2P products for data management groups and archive scaling. In
 exceptional cases a waiver on the 32 byte ceiling can be requested to extend up
 to 64 bytes per pixel.</p>
-<p>The GDS-2.1r0 issues the following guidance on the inclusion of optional or
+<p>The GDS-2.2r0 issues the following guidance on the inclusion of optional or
 experimental variables within L2P data products:</p>
 <ul class="simple">
 <li><p>The sum total of all experimental variables shall not increase L2P record
@@ -2106,7 +2105,7 @@ for   higher amounts up to 64 bytes.</p></li>
 optional/experimental variables. Where available, a standard_name
 attribute should be used.</p></li>
 <li><p>It is permitted to use a provider defined coordinate variable associated
-with experimental fields but this shall be documented in data provider<br />
+with experimental fields but this shall be documented in data provider
 documentation.</p></li>
 <li><p>Time difference data (dtime values) should be provided for variables when
 appropriate.</p></li>
@@ -2162,10 +2161,330 @@ with the minimum format requirements shown in <a class="reference internal" href
 </section>
 <section id="cdl-example-l2p-dataset">
 <h2><span class="section-number">7.3. </span>CDL example L2P dataset<a class="headerlink" href="#cdl-example-l2p-dataset" title="Link to this heading">#</a></h2>
-<p>The following CDL has been generated for a L2P dataset derived from the VIIRS
-sensor on NOAA-20 platform (<a class="reference external" href="https://doi.org/10.5067/GHV20-2PO28">https://doi.org/10.5067/GHV20-2PO28</a>) . It includes a
-number of optional and experimental variables.</p>
-<p><strong>ADD CDL EXAMPLE</strong></p>
+<p>The following CDL has been generated for a L2P dataset by OSI SAF derived from
+the AVHRR sensor on Metop-C platform (<a class="reference external" href="https://doi.org/10.15770/EUM_SAF_OSI_NRT_2013">https://doi.org/10.15770/EUM_SAF_OSI_NRT_2013</a>).
+It includes a number of optional and experimental variables.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>netcdf l2p_full_example {
+dimensions:
+	time = UNLIMITED ; // (1 currently)
+	nj = 1080 ;
+	ni = 2048 ;
+variables:
+	int time(time) ;
+		time:long_name = &quot;reference time of sst file&quot; ;
+		time:standard_name = &quot;time&quot; ;
+		time:axis = &quot;T&quot; ;
+		time:comment = &quot;includes leap seconds since 1981&quot; ;
+		time:coordinates = &quot;lat lon&quot; ;
+		time:units = &quot;seconds since 1981-01-01&quot; ;
+		time:calendar = &quot;proleptic_gregorian&quot; ;
+	float lat(nj, ni) ;
+		lat:long_name = &quot;latitude&quot; ;
+		lat:standard_name = &quot;latitude&quot; ;
+		lat:units = &quot;degrees_north&quot; ;
+		lat:valid_min = -90.f ;
+		lat:valid_max = 90.f ;
+		lat:comment = &quot;geographical coordinates, WGS84 projection&quot; ;
+		lat:coverage_content_type = &quot;coordinate&quot; ;
+		lat:coordinates = &quot;lat lon&quot; ;
+	float lon(nj, ni) ;
+		lon:long_name = &quot;longitude&quot; ;
+		lon:standard_name = &quot;longitude&quot; ;
+		lon:units = &quot;degrees_east&quot; ;
+		lon:valid_min = -180.f ;
+		lon:valid_max = 180.f ;
+		lon:comment = &quot;geographical coordinates, WGS84 projection&quot; ;
+		lon:coverage_content_type = &quot;coordinate&quot; ;
+		lon:coordinates = &quot;lat lon&quot; ;
+	short sea_surface_temperature(time, nj, ni) ;
+		sea_surface_temperature:_FillValue = -32768s ;
+		sea_surface_temperature:long_name = &quot;sea surface subskin temperature&quot; ;
+		sea_surface_temperature:standard_name = &quot;sea_surface_subskin_temperature&quot; ;
+		sea_surface_temperature:units = &quot;K&quot; ;
+		sea_surface_temperature:depth = &quot;1 millimeter&quot; ;
+		sea_surface_temperature:source = &quot;AVHRR_METOP_C&quot; ;
+		sea_surface_temperature:comment = &quot;Temperature of the subskin of the ocean&quot; ;
+		sea_surface_temperature:coverage_content_type = &quot;physicalMeasurement&quot; ;
+		sea_surface_temperature:coordinates = &quot;lat lon&quot; ;
+		sea_surface_temperature:add_offset = 273.15 ;
+		sea_surface_temperature:scale_factor = 0.01 ;
+	short sst_dtime(time, nj, ni) ;
+		sst_dtime:_FillValue = -32768s ;
+		sst_dtime:long_name = &quot;time difference from reference time&quot; ;
+		sst_dtime:units = &quot;s&quot; ;
+		sst_dtime:scale_factor = 1. ;
+		sst_dtime:add_offset = 0. ;
+		sst_dtime:coverage_content_type = &quot;coordinate&quot; ;
+		sst_dtime:comment = &quot;time plus sst_dtime gives seconds after 00:00:00 UTC January 1, 1981&quot; ;
+		sst_dtime:coordinates = &quot;lat lon&quot; ;
+	byte sses_bias(time, nj, ni) ;
+		sses_bias:_FillValue = -128b ;
+		sses_bias:long_name = &quot;SSES bias estimate&quot; ;
+		sses_bias:units = &quot;K&quot; ;
+		sses_bias:comment = &quot;Bias estimate derived using the techniques described at http://www.ghrsst.org/SSES-Description-of-schemes.html&quot; ;
+		sses_bias:coverage_content_type = &quot;qualityInformation&quot; ;
+		sses_bias:coordinates = &quot;lat lon&quot; ;
+		sses_bias:add_offset = 0. ;
+		sses_bias:scale_factor = 0.01 ;
+	byte sses_standard_deviation(time, nj, ni) ;
+		sses_standard_deviation:_FillValue = -128b ;
+		sses_standard_deviation:long_name = &quot;SSES standard deviation&quot; ;
+		sses_standard_deviation:units = &quot;K&quot; ;
+		sses_standard_deviation:comment = &quot;Standard deviation estimate derived using the techniques described at http://www.ghrsst.org/SSES-Description-of-schemes.html&quot; ;
+		sses_standard_deviation:coverage_content_type = &quot;qualityInformation&quot; ;
+		sses_standard_deviation:coordinates = &quot;lat lon&quot; ;
+		sses_standard_deviation:add_offset = 1. ;
+		sses_standard_deviation:scale_factor = 0.01 ;
+	byte dt_analysis(time, nj, ni) ;
+		dt_analysis:_FillValue = -128b ;
+		dt_analysis:long_name = &quot;deviation from SST analysis or reference climatology&quot; ;
+		dt_analysis:units = &quot;K&quot; ;
+		dt_analysis:reference = &quot;OSTIA&quot; ;
+		dt_analysis:comment = &quot;The difference between this SST and the previous day\&#39;s SST analysis&quot; ;
+		dt_analysis:coverage_content_type = &quot;auxiliaryInformation&quot; ;
+		dt_analysis:coordinates = &quot;lat lon&quot; ;
+		dt_analysis:add_offset = 0. ;
+		dt_analysis:scale_factor = 0.1 ;
+	byte wind_speed(time, nj, ni) ;
+		wind_speed:_FillValue = -128b ;
+		wind_speed:long_name = &quot;10m wind speed&quot; ;
+		wind_speed:standard_name = &quot;wind_speed&quot; ;
+		wind_speed:units = &quot;m s-1&quot; ;
+		wind_speed:height = &quot;10 m&quot; ;
+		wind_speed:time_offset = 0. ;
+		wind_speed:source = &quot;WSP-ECMWF-Forecast&quot; ;
+		wind_speed:comment = &quot;These wind speeds were created by the ECMWF and represent winds at 10 metres above the sea surface. &quot; ;
+		wind_speed:coordinates = &quot;lat lon&quot; ;
+		wind_speed:add_offset = 0. ;
+		wind_speed:scale_factor = 1. ;
+	byte sea_ice_fraction(time, nj, ni) ;
+		sea_ice_fraction:_FillValue = -128b ;
+		sea_ice_fraction:long_name = &quot;sea ice fraction&quot; ;
+		sea_ice_fraction:standard_name = &quot;sea_ice_area_fraction&quot; ;
+		sea_ice_fraction:units = &quot;1&quot; ;
+		sea_ice_fraction:time_offset = 3. ;
+		sea_ice_fraction:source = &quot;ICE-OSISAF&quot; ;
+		sea_ice_fraction:comment = &quot;Fractional sea ice cover from OSISAF ice product&quot; ;
+		sea_ice_fraction:coverage_content_type = &quot;auxiliaryInformation&quot; ;
+		sea_ice_fraction:coordinates = &quot;lat lon&quot; ;
+		sea_ice_fraction:add_offset = 0. ;
+		sea_ice_fraction:scale_factor = 0.01 ;
+	byte aerosol_dynamic_indicator(time, nj, ni) ;
+		aerosol_dynamic_indicator:_FillValue = -128b ;
+		aerosol_dynamic_indicator:long_name = &quot;aerosol dynamic indicator&quot; ;
+		aerosol_dynamic_indicator:units = &quot;1&quot; ;
+		aerosol_dynamic_indicator:source = &quot;ADI-NAVO-SDI-V2&quot; ;
+		aerosol_dynamic_indicator:comment = &quot;Estimate of the potential for aerosol contamination based on the NAVO SDI_V2 product, in counts&quot; ;
+		aerosol_dynamic_indicator:coverage_content_type = &quot;auxiliaryInformation&quot; ;
+		aerosol_dynamic_indicator:time_offset = 3. ;
+		aerosol_dynamic_indicator:coordinates = &quot;lat lon&quot; ;
+		aerosol_dynamic_indicator:add_offset = 0. ;
+		aerosol_dynamic_indicator:scale_factor = 0.1 ;
+	byte adi_dtime_from_sst(time, nj, ni) ;
+		adi_dtime_from_sst:_FillValue = -128b ;
+		adi_dtime_from_sst:long_name = &quot;time difference of ADI data from sst measurement&quot; ;
+		adi_dtime_from_sst:units = &quot;hour&quot; ;
+		adi_dtime_from_sst:valid_min = -127b ;
+		adi_dtime_from_sst:valid_max = 127b ;
+		adi_dtime_from_sst:comment = &quot;Difference in hours between the ADI and SST data&quot; ;
+		adi_dtime_from_sst:coordinates = &quot;lat lon&quot; ;
+		adi_dtime_from_sst:add_offset = 0. ;
+		adi_dtime_from_sst:scale_factor = 0.1 ;
+	byte sources_of_adi(time, nj, ni) ;
+		sources_of_adi:_FillValue = -128b ;
+		sources_of_adi:long_name = &quot;sources of aerosol dynamic indicator&quot; ;
+		sources_of_adi:valid_min = 0b ;
+		sources_of_adi:valid_max = 2b ;
+		sources_of_adi:flag_meanings = &quot;no_data AOD-NAAPS-ADI SDI-OSISAF-ADI&quot; ;
+		sources_of_adi:flag_values = 0b, 1b, 2b ;
+		sources_of_adi:comment = &quot;This variable provides a pixel by pixel description of where aerosol optical depth were derived from.&quot; ;
+		sources_of_adi:coordinates = &quot;lat lon&quot; ;
+	short l2p_flags(time, nj, ni) ;
+		l2p_flags:long_name = &quot;L2P flags&quot; ;
+		l2p_flags:flag_meanings = &quot;microwave land ice lake&quot; ;
+		l2p_flags:flag_masks = 1s, 2s, 4s, 8s ;
+		l2p_flags:comment = &quot;These flags are important to properly use the data.&quot; ;
+		l2p_flags:coverage_content_type = &quot;qualityInformation&quot; ;
+		l2p_flags:coordinates = &quot;lat lon&quot; ;
+	byte quality_level(time, nj, ni) ;
+		quality_level:_FillValue = -128b ;
+		quality_level:long_name = &quot;quality level of SST pixel&quot; ;
+		quality_level:flag_meanings = &quot;no_data bad_data worst_quality low_quality acceptable_quality best_quality&quot; ;
+		quality_level:flag_values = 0b, 1b, 2b, 3b, 4b, 5b ;
+		quality_level:comment = &quot;These are the overall quality indicators and are used for all GHRSST SSTs&quot; ;
+		quality_level:coverage_content_type = &quot;qualityInformation&quot; ;
+		quality_level:coordinates = &quot;lat lon&quot; ;
+	byte satellite_zenith_angle(time, nj, ni) ;
+		satellite_zenith_angle:_FillValue = -128b ;
+		satellite_zenith_angle:long_name = &quot;satellite zenith angle&quot; ;
+		satellite_zenith_angle:units = &quot;angular_degree&quot; ;
+		satellite_zenith_angle:comment = &quot;The satellite zenith angle at the time of the SST observations.&quot; ;
+		satellite_zenith_angle:coverage_content_type = &quot;auxiliaryInformation&quot; ;
+		satellite_zenith_angle:standard_name = &quot;sensor_zenith_angle&quot; ;
+		satellite_zenith_angle:coordinates = &quot;lat lon&quot; ;
+		satellite_zenith_angle:add_offset = 0. ;
+		satellite_zenith_angle:scale_factor = 1. ;
+	byte solar_zenith_angle(time, nj, ni) ;
+		solar_zenith_angle:_FillValue = -128b ;
+		solar_zenith_angle:long_name = &quot;solar zenith angle&quot; ;
+		solar_zenith_angle:units = &quot;angular_degree&quot; ;
+		solar_zenith_angle:comment = &quot;The solar zenith angle at the time of the SST observations.&quot; ;
+		solar_zenith_angle:coverage_content_type = &quot;auxiliaryInformation&quot; ;
+		solar_zenith_angle:standard_name = &quot;solar_zenith_angle&quot; ;
+		solar_zenith_angle:coordinates = &quot;lat lon&quot; ;
+		solar_zenith_angle:add_offset = 90. ;
+		solar_zenith_angle:scale_factor = 1. ;
+	byte source_of_wind_speed(time, nj, ni) ;
+		source_of_wind_speed:long_name = &quot;sources of wind speed&quot; ;
+		source_of_wind_speed:flag_meanings = &quot;no_data WSP-ESA-ASCAT-V2 WSP-NCEP-Analysis-V3 WSP-ECMWF-Forecast-V6&quot; ;
+		source_of_wind_speed:flag_values = 0b, 1b, 2b, 3b ;
+		source_of_wind_speed:coverage_content_type = &quot;auxiliaryInformation&quot; ;
+		source_of_wind_speed:comment = &quot;This variable provides a pixel by pixel description of where the wind speeds were derived from.&quot; ;
+		source_of_wind_speed:coordinates = &quot;lat lon&quot; ;
+	byte wind_speed_dtime_from_sst(time, nj, ni) ;
+		wind_speed_dtime_from_sst:_FillValue = -128b ;
+		wind_speed_dtime_from_sst:long_name = &quot;time difference, in hours\&#39;, of wind speed measurement from sst measurement&quot; ;
+		wind_speed_dtime_from_sst:units = &quot;h&quot; ;
+		wind_speed_dtime_from_sst:scale_factor = 0.1 ;
+		wind_speed_dtime_from_sst:add_offset = 0. ;
+		wind_speed_dtime_from_sst:coverage_content_type = &quot;auxiliaryInformation&quot; ;
+		wind_speed_dtime_from_sst:comment = &quot;the hours between the wind speed measurement and the SST observation&quot; ;
+		wind_speed_dtime_from_sst:coordinates = &quot;lat lon&quot; ;
+	byte source_of_sea_ice_fraction(time, nj, ni) ;
+		source_of_sea_ice_fraction:long_name = &quot;sources of sea ice fraction&quot; ;
+		source_of_sea_ice_fraction:flag_meanings = &quot;no_data CE-NSIDC-AMSRE-V3 ICE-ECMWF-Forecast-V3&quot; ;
+		source_of_sea_ice_fraction:flag_values = 0b, 1b, 2b ;
+		source_of_sea_ice_fraction:coverage_content_type = &quot;auxiliaryInformation&quot; ;
+		source_of_sea_ice_fraction:comment = &quot;This variable provides a pixel by pixel description of where the sea ice fraction were derived from.&quot; ;
+		source_of_sea_ice_fraction:coordinates = &quot;lat lon&quot; ;
+	byte sea_ice_fraction_dtime_from_sst(time, nj, ni) ;
+		sea_ice_fraction_dtime_from_sst:_FillValue = -128b ;
+		sea_ice_fraction_dtime_from_sst:long_name = &quot;time difference, in hours, of sea ice fraction measurement from sst measurement&quot; ;
+		sea_ice_fraction_dtime_from_sst:units = &quot;h&quot; ;
+		sea_ice_fraction_dtime_from_sst:scale_factor = 0.1 ;
+		sea_ice_fraction_dtime_from_sst:add_offset = 0. ;
+		sea_ice_fraction_dtime_from_sst:coverage_content_type = &quot;auxiliaryInformation&quot; ;
+		sea_ice_fraction_dtime_from_sst:comment = &quot;the hours between the sea ice fraction measurement and the SST observation&quot; ;
+		sea_ice_fraction_dtime_from_sst:coordinates = &quot;lat lon&quot; ;
+	byte surface_solar_irradiance(time, nj, ni) ;
+		surface_solar_irradiance:long_name = &quot;surface solar irradiance&quot; ;
+		surface_solar_irradiance:standard_name = &quot;surface_downwelling_spherical_irradiance_in_sea_water&quot; ;
+		surface_solar_irradiance:units = &quot;W m-2&quot; ;
+		surface_solar_irradiance:coverage_content_type = &quot;auxiliaryInformation&quot; ;
+		surface_solar_irradiance:comment = &quot;The surface solar irradiance as close to the SST observation times as possible&quot; ;
+		surface_solar_irradiance:scale_factor = 1.36 ;
+		surface_solar_irradiance:add_offset = 127. ;
+		surface_solar_irradiance:source = &quot;SSI-MSG_SEVIRI-V1&quot; ;
+		surface_solar_irradiance:time_offset = 2. ;
+		surface_solar_irradiance:coordinates = &quot;lat lon&quot; ;
+	byte source_of_ssi(time, nj, ni) ;
+		source_of_ssi:long_name = &quot;sources of surface solar irradiance&quot; ;
+		source_of_ssi:flag_meanings = &quot;no_data SSI-MSG_SEVIRI-V1 SSI-NOAA-GOES_E-V1 SSI-NOAA-GOES_W-V1 SSI-ECMWF-V1 SSI-NCEP-V1 SSI-NAAPS-V1 spare&quot; ;
+		source_of_ssi:flag_values = 0b, 1b, 2b, 3b, 4b, 5b, 6b, 7b ;
+		source_of_ssi:coverage_content_type = &quot;auxiliaryInformation&quot; ;
+		source_of_ssi:comment = &quot;This variable provides a pixel by pixel description of where the surface solar irradiances were derived from.&quot; ;
+		source_of_ssi:coordinates = &quot;lat lon&quot; ;
+	byte ssi_dtime_from_sst(time, nj, ni) ;
+		ssi_dtime_from_sst:_FillValue = -128b ;
+		ssi_dtime_from_sst:long_name = &quot;time difference, in hours, of surface solar irradiance measurement from sst measurement&quot; ;
+		ssi_dtime_from_sst:units = &quot;h&quot; ;
+		ssi_dtime_from_sst:scale_factor = 0.1 ;
+		ssi_dtime_from_sst:add_offset = 0. ;
+		ssi_dtime_from_sst:coverage_content_type = &quot;auxiliaryInformation&quot; ;
+		ssi_dtime_from_sst:comment = &quot;the hours between the surface solar irradiance measurement and the SST observation&quot; ;
+		ssi_dtime_from_sst:coordinates = &quot;lat lon&quot; ;
+	byte source_of_adi(time, nj, ni) ;
+		source_of_adi:_FillValue = -128b ;
+		source_of_adi:long_name = &quot;sources of aerosol dynamic indicator&quot; ;
+		source_of_adi:flag_meanings = &quot;no_data AOD-NAAPS-ADI SDI-OSISAF-ADI&quot; ;
+		source_of_adi:flag_values = 0b, 1b, 2b ;
+		source_of_adi:comment = &quot;This variable provides a pixel by pixel description of where aerosol optical depth were derived from&quot; ;
+		source_of_adi:coverage_content_type = &quot;auxiliaryInformation&quot; ;
+		source_of_adi:coordinates = &quot;lat lon&quot; ;
+	byte my_variable(time, nj, ni) ;
+		my_variable:_FillValue = -128b ;
+		my_variable:long_name = &quot;estimated diurnal variability&quot; ;
+		my_variable:standard_name = &quot;&lt;use_a_CF_standard_name_if_available&gt;&quot; ;
+		my_variable:units = &quot;K&quot; ;
+		my_variable:source = &quot;MY-SOURCES-V1&quot; ;
+		my_variable:scale_factor = 1. ;
+		my_variable:add_offset = 0. ;
+		my_variable:coverage_content_type = &quot;auxiliaryInformation&quot; ;
+		my_variable:comment = &quot;This field is fully documented at http://www.mysite.com/my_variable-description.html&quot; ;
+		my_variable:coordinates = &quot;lat lon&quot; ;
+
+// global attributes:
+		:Conventions = &quot;CF-1.4&quot; ;
+		:title = &quot;Sea Surface Temperature&quot; ;
+		:summary = &quot;The L2P product derived from METOP C AVHRR brightness temperatures.&quot; ;
+		:references = &quot;Low Earth Orbiter Sea Surface Temperature Product User Manual, http://www.osi-saf.org&quot; ;
+		:institution = &quot;OSISAF&quot; ;
+		:history = &quot;METEO-FRANCE/CMS LEOSAFO processor&quot; ;
+		:comment = &quot;&quot; ;
+		:license = &quot;All intellectual property rights of the Ocean &amp; Sea Ice SAF products belong to EUMETSAT. The use of these products is granted to every user, free of charge. If users wish to use these products, EUMETSAT\&#39;s copyright credit must be shown by displaying the words \&#39;Copyright EUMETSAT\&#39; under each of the products shown. EUMETSAT offers no warranty and accepts no liability in respect of the Ocean &amp; Sea Ice SAF products. EUMETSAT neither commits to nor guarantees the continuity, availability, or quality or suitability for any purpose of, the Ocean &amp; Sea Ice SAF products.&quot; ;
+		:id = &quot;AVHRR_SST_METOP_C-OSISAF-L2P-v1.0&quot; ;
+		:naming_authority = &quot;org.ghrsst&quot; ;
+		:product_version = &quot;1.0&quot; ;
+		:uuid = &quot;24D2B70C-A848-11EE-B7B8-08F1EA6E84B2&quot; ;
+		:gds_version_id = &quot;2.0&quot; ;
+		:netcdf_version_id = &quot;4.6.3&quot; ;
+		:date_created = &quot;2024-01-01T01:50:30Z&quot; ;
+		:file_quality_level = 2 ;
+		:spatial_resolution = &quot;1 km&quot; ;
+		:time_coverage_start = &quot;2024-01-01T00:01:03Z&quot; ;
+		:time_coverage_end = &quot;2024-01-01T00:04:03Z&quot; ;
+		:source = &quot;AVHRR&quot; ;
+		:platform = &quot;Metop-C&quot; ;
+		:Metadata_Conventions = &quot;Unidata Dataset Discovery v1.0&quot; ;
+		:metadata_link = &quot;N/A&quot; ;
+		:keywords = &quot;Oceans &gt; Ocean Temperature &gt; Sea Surface Temperature &quot; ;
+		:keywords_vocabulary = &quot;NASA Global Change Master Directory (GCMD) Science Keywords&quot; ;
+		:standard_name_vocabulary = &quot;NetCDF Climate and Forecast (CF) Metadata Convention&quot; ;
+		:geospatial_lat_units = &quot;degrees_north&quot; ;
+		:geospatial_lat_resolution = 0.01f ;
+		:geospatial_lon_units = &quot;degrees_east&quot; ;
+		:geospatial_lon_resolution = 0.01f ;
+		:acknowledgment = &quot;In case SAF data (pre-operational or operational) has been used for the study described in a paper the following sentence would be an appropriate reference to the funding coming from EUMETSAT: The data from the EUMETSAT Satellite Application Facility on Ocean &amp; Sea Ice  used in this study are accessible through the SAF\&#39;s homepage http://www.osi-saf.org&quot; ;
+		:creator_name = &quot;O&amp;SI SAF&quot; ;
+		:creator_email = &quot;osi-saf.helpdesk@meteo.fr&quot; ;
+		:creator_url = &quot;http://www.osi-saf.org&quot; ;
+		:project = &quot;Group for High Resolution Sea Surface Temperature&quot; ;
+		:publisher_name = &quot;The GHRSST Project Office&quot; ;
+		:publisher_url = &quot;http://www.ghrsst.org&quot; ;
+		:publisher_email = &quot;ghrsst-po@nceo.ac.uk&quot; ;
+		:processing_level = &quot;L2P&quot; ;
+		:cdm_data_type = &quot;swath&quot; ;
+		:geospatial_lat_min = 66.225f ;
+		:geospatial_lat_max = 89.994f ;
+		:geospatial_lon_max = 180.f ;
+		:geospatial_lon_min = -180.f ;
+		:geospatial_bounds = &quot;POLYGON ((66.2249984741211 -180.0, 89.99400329589844 -180.0, 89.99400329589844 180.0, 66.2249984741211 180.0, 66.2249984741211 -180.0))&quot; ;
+		:geospatial_bounds_crs = &quot;WGS84&quot; ;
+		:instrument = &quot;AVHRR&quot; ;
+		:platform_vocabulary = &quot;CEOS mission table&quot; ;
+		:instrument_vocabulary = &quot;CEOS instrument table&quot; ;
+		:geospatial_vertical_min = 0. ;
+		:geospatial_vertical_max = 0. ;
+		:geospatial_vertical_positive = &quot;up&quot; ;
+		:geospatial_vertical_units = &quot;meters&quot; ;
+		:geospatial_bounds_vertical_crs = &quot;EPSG:5831&quot; ;
+		string :contributor_name = &quot;Stéphane Saux-Picard&quot; ;
+		:contributor_role = &quot;Principal Investigator&quot; ;
+		:creator_type = &quot;group&quot; ;
+		:creator_institution = &quot;Meteo-France&quot; ;
+		:publisher_type = &quot;institution&quot; ;
+		:publisher_institution = &quot;Ifremer&quot; ;
+		:date_modified = &quot;2024-01-01T01:50:30Z&quot; ;
+		:date_issued = &quot;2024-01-01T01:50:30Z&quot; ;
+		:date_metadata_modified = &quot;2020-01-01T12:00:00Z&quot; ;
+		:program = &quot;Group for High Resolution Sea Surface temperature (GHRSST), EUMETSAT Satellite Application Facilities (SAF)&quot; ;
+}
+</pre></div>
+</div>
+</div>
+</div>
 <hr class="footnotes docutils" />
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="footnote1" role="doc-footnote">

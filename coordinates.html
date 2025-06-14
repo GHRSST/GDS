@@ -176,13 +176,13 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="intro.html">
-                    The Recommended GHRSST Data Specification (GDS) Version 2.1r0
+                    The Recommended GHRSST Data Specification (GDS) Version 2.2r0
                 </a>
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="conventions.html">1. Document Conventions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="overview.html">2. Overview of GHRSST and the GDS-2.1r0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">2. Overview of GHRSST and the GDS-2.2r0</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sea_surface_temperature.html">3. Sea Surface Temperature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="naming.html">4. GDS Filenames and Supporting Conventions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="structure.html">5. GDS Data Product File Structure and attributes</a></li>
@@ -420,14 +420,14 @@ on a short, float can be used instead (multiplying the size of these variables
 by two).</p>
 <section id="temporal-coordinates">
 <h2><span class="section-number">6.1. </span>Temporal coordinates<a class="headerlink" href="#temporal-coordinates" title="Link to this heading">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">time</span></code> is the reference time of the SST data array. The GDS-2.1r0
+<p><code class="docutils literal notranslate"><span class="pre">time</span></code> is the reference time of the SST data array. The GDS-2.2r0
 specifies that this reference time should be extracted or computed to the
 nearest second and then coded as continuous UTC time coordinates in
-<strong>seconds from 00:00:00 UTC January 1, 1981</strong> (which is the definition of the
+<em>seconds from 00:00:00 UTC January 1, 1981</em> (which is the definition of the
 GHRSST origin time, chosen to approximate the start of useful AVHRR SST data
-record). Note that the use of UDUNITS in GHRSST implies that that calendar to
+record). Note that the use of UDUNITS in GHRSST implies that the calendar to
 be used is the default mixed Gregorian/Julian calendar.</p>
-<p>The reference time used is dependent on the <Processing Level> of the data and
+<p>The reference time used is dependent on the Processing Level of the data and
 is defined as follows:</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -606,7 +606,7 @@ non-regular lat/lon grid (projection) as shown in
 variable shall be added (for example, <code class="docutils literal notranslate"><span class="pre">Lambert_Azimuthal_Grid</span></code>), following the
 CF-1.7 or later convention. The specific variable attributes
 <code class="docutils literal notranslate"><span class="pre">coordinates</span> <span class="pre">=</span> <span class="pre">&quot;lon</span> <span class="pre">lat&quot;</span></code> and<code class="docutils literal notranslate"><span class="pre">grid_mapping</span> <span class="pre">=</span> <span class="pre">&quot;Lambert_Azimuthal_Grid&quot;</span></code> are
-required for each other variables (like <code class="docutils literal notranslate"><span class="pre">sea_surface_temperature</span></code> in the example
+required for each other variable (like <code class="docutils literal notranslate"><span class="pre">sea_surface_temperature</span></code> in the example
 given in <a class="reference internal" href="#non-regular-grid-coords-projection"><span class="std std-numref">Table 6.2</span></a>).</p>
 <p>Note that variable attributes such as <code class="docutils literal notranslate"><span class="pre">grid_mapping</span></code> may be set differently
 (when using a different kind of projection) or completely removed (for swath

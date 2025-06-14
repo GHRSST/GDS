@@ -175,13 +175,13 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="intro.html">
-                    The Recommended GHRSST Data Specification (GDS) Version 2.1r0
+                    The Recommended GHRSST Data Specification (GDS) Version 2.2r0
                 </a>
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="conventions.html">1. Document Conventions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="overview.html">2. Overview of GHRSST and the GDS-2.1r0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">2. Overview of GHRSST and the GDS-2.2r0</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sea_surface_temperature.html">3. Sea Surface Temperature</a></li>
 <li class="toctree-l1"><a class="reference internal" href="naming.html">4. GDS Filenames and Supporting Conventions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="structure.html">5. GDS Data Product File Structure and attributes</a></li>
@@ -492,17 +492,17 @@ within the L4 data file is described in detail.</p>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#l4-sea-ice-fraction"><span class="std std-ref">sea_ice_fraction</span></a></p></td>
 <td><p>Fractional Sea Ice area concentration</p></td>
-<td><p>1 (unitless)</p></td>
+<td><p>1 (dimensionless)</p></td>
 <td><p>byte</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#l4-sea-ice-fraction-error"><span class="std std-ref">sea_ice_fraction_error</span></a></p></td>
 <td><p>If the error estimates on the sea ice field are available, it is recommended to provide this information as an experimental field</p></td>
-<td><p>1 (unitless)</p></td>
+<td><p>1 (dimensionless)</p></td>
 <td><p>byte</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#l4-mask"><span class="std std-ref">mask</span></a></p></td>
 <td><p>land/ice/lake mask</p></td>
-<td><p></p></td>
+<td><p>mask of bits</p></td>
 <td><p>byte</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#l4-optional-fields"><span class="std std-ref">other fields</span></a></p></td>
@@ -726,18 +726,18 @@ GHRSST with documentation on how <code class="docutils literal notranslate"><spa
 <section id="optional-experimental-l4-variables-included-by-data-provider">
 <span id="l4-optional-fields"></span><h3><span class="section-number">9.6.1. </span>Optional experimental L4 variables included by data provider<a class="headerlink" href="#optional-experimental-l4-variables-included-by-data-provider" title="Link to this heading">#</a></h3>
 <p>Flexibility of L4 product content is provided through the netCDF API, which
-allows fully self-describing fields and additional L4 variables may be included
-by L4 data providers if they are considered relevant for L4 users. The GDS-2.1r0
+allows fully self-describing fields, and additional L4 variables may be included
+by L4 data providers if they are considered relevant for L4 users. The GDS-2.2r0
 also permits the inclusion of R&amp;D variables (e.g. estimates of sea
 ice fraction error, SST anomaly, etc.) and 6 bytes per pixel are available in
 total for optional/experimental variables in any combination (i.e., variables
 can be defined as 6 x byte, 3 x short, 2 x short + 2 x byte, etc). The use of
 optional/experimental variables provides a limited amount of flexibility within
-the GDS-2.1r0 for regional user requirements while maintaining an overall upper
-limit on GDS-2.1r0 L4 products for data management groups and
+the GDS-2.2r0 for regional user requirements while maintaining an overall upper
+limit on GDS-2.2r0 L4 products for data management groups and
 archive scaling. In exceptional cases a waiver on the 6 byte ceiling can be
 requested to extend up to 12 bytes per pixel.</p>
-<p>The GDS-2.1r0 issues the following guidance on the inclusion of optional or
+<p>The GDS-2.2r0 issues the following guidance on the inclusion of optional or
 experimental variables within L4 data products:</p>
 <ul class="simple">
 <li><p>The sum total of all experimental variables shall not increase L4 record
@@ -747,7 +747,7 @@ for higher amounts up to 12 bytes.</p></li>
 optional/experimental variables. Where available, a standard_name
 attribute should be used.</p></li>
 <li><p>It is permitted to use a provider defined coordinate variable associated
-with experimental fields but this shall be documented in data provider<br />
+with experimental fields but this shall be documented in data provider
 documentation.</p></li>
 <li><p>Time difference data (dtime values) should be provided for variables when
 appropriate.</p></li>

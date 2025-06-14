@@ -110,12 +110,13 @@ of the international SST user community.
 ## GHRSST Organization
 Over the last two decades, GHRSST established and now continues to provide an
 internationally distributed suite of user focused services in a sustained 
-Regional/Global Task Sharing (R/GTS) framework [AD-11] that addresses 
+Regional/Global Task Sharing (R/GTS) framework [^footnote5] that addresses 
 international organizational challenges and recognizes the implementing 
 institutional capacities, capabilities, and funding prospects. 
 Long term stewardship, user support and help services, and standards-based data
 management and interoperability have been developed and are operated within the R/GTS
 on a daily basis.
+
 The first GHRSST Level 2P datasets were made available in 2006. Since then the GHRSST R/G
 TS framework did not change up to 2019. Datasets produced from the collection of
 international 14 Regional Data Assembly Centres (RDACs) were ingested by a Global Data
@@ -125,63 +126,83 @@ available for public distribution via a number of access protocols, tools and se
 staged for ingestion. Final archiving and further distribution services were performed by the
 Long-term Stewardship and Reanalysis Facility (LTSRF) located at the NOAA National Center
 for Environmental Information (NCEI). This initial GHRSST R/G TS Framework is presented in
-Figure 6-1.
+{numref}`rgts1`.
 
-Although this initial paradigm has functioned well, it has deviated from its initial design with
-the growing number of producers and datasets. As seen in the dashed box in Figure, a new
-GDAC was set-up in Europe, delivering products not available at the US GDAC, while other
-producers (e.g. CMEMS, Copernicus/EUMETSAT, and JAXA) are also now delivering products
-through their own services without any push to a GDAC. It was recognized by the GHRSST
+```{figure} images/rgts1.png
+---
+name: rgts1
+
+---
+Initial GHRSST Regional/Global Task Sharing (R/GTS) framework
+```
+
+Although this initial paradigm has functioned well, it has deviated from its 
+initial design with the growing number of producers and datasets. As seen in 
+the dashed box in {numref}`rgts1`, a new GDAC was set-up in Europe, delivering 
+products not available at the US GDAC, while other producers (e.g. CMEMS, 
+Copernicus/EUMETSAT, and JAXA) are also now delivering products through 
+their own services without any push to a GDAC. It was recognized by the GHRSST
 data management experts, through discussions from 2017 to 2019, and confirmed at the
 annual GHRSST science team meetings, that a more defined sharing of data management
 resources would be beneficial to the future growth of GHRSST and encourage more
 participation by other potential data producers. The specification of the GHRSST data
 management paradigm for the next years is the focus of the next sections.
 It can be summarised by a more distributed system where no entity, but the GHRSST Project
-Office, plays a central role anymore, as shown on Figure 6-2.
-In the new R/G TS framework, there are now only two types of entities: data producers (GDP
-or GHRSST Data Producers) and distributing centres (DAC or Data Assembly Centre). The two
-roles can be combined by a single institution (for example, EUMETSAT which produces and
-delivers Sentinel-3 A & B products). The GHRSST Project Office (GHRSST-PO) provides and
-maintains on its portal a central catalogue of all GHRSST datasets providing collection
-(dataset) level metadata, and federated search and discovery services. Each DAC must
-implement a minimum set of services for granule data access, search and discovery,
-production/distribution metrics and long-term archiving.
+Office, plays a central role anymore, as shown on {numref}`rgts2`.
 
+```{figure} images/rgts2.png
+---
+name: rgts2
 
-Figure 6-2: Revised architecture proposal. Multiple interfaces are now available to data producers. Each data
+---
+Revised architecture proposal. Multiple interfaces are now available to data producers. Each data
 node implements interface, distribution, archiving and metadata services for the datasets they are
 responsible for. Data and metadata from data producers (GDPs) flow first to a DAC (like PO.DAAC, before as
 the US GDAC). There is no more GDAC with the commitment to host all GHRSST datasets, it is now a shared
 task between DACs and some datasets can be distributed by several DACs. The GHRSST-PO portal allows the
 user to discover and search all GHRSST products and granules without prior knowledge of who is the producer
 or distributor.
+```
+
+In the new R/G TS framework, there are now only two types of entities: data 
+producers (GDP or GHRSST Data Producers) and distributing centres (DAC or 
+Data Assembly Centre). The two roles can be combined by a single institution 
+(for example, EUMETSAT which produces and delivers Sentinel-3 A & B products). 
+The GHRSST Project Office (GHRSST-PO) provides and maintains on its portal a 
+central catalogue of all GHRSST datasets providing collection (dataset) 
+level metadata, and federated search and discovery services. Each DAC must
+implement a minimum set of services for granule data access, search and discovery,
+production/distribution metrics and long-term archiving.
 
 Each component of the R/GTS is independently managed and operated by different
-institutions and agencies. The R/GTS itself is coordinated by the international GHRSST Science
-Team, which receives guidance and advice from the GHRSST Advisory Council. A GHRSST
-Project Office coordinates the overall framework.
+institutions and agencies. The R/GTS itself is coordinated by the 
+international GHRSST Science Team, which receives guidance and advice from the
+GHRSST Advisory Council. A GHRSST  Project Office coordinates the overall 
+framework.
 
-## Overview of the GDS-2.1
+## Overview of the GDS-{{gds_version}}
 The GHRSST R/GTS was made possible through the establishment of a rigorous GHRSST
 Technical Data Specification (GDS), which instructed international satellite data providers on
 how to process satellite data streams, defined the format and content of the data and
 metadata, and documented the basic approaches to providing uncertainty estimates and
-auxiliary data sets. The GHRSST-PP established the first GDS (v1.6) [RD-1], which formed the
+auxiliary data sets. The GHRSST-PP established the first GDS (v1.6), which formed the
 basis of all GHRSST data production from 2005 through today. Since 2010 the Version 2 of the
 GDS has been used in operations, with minor updates occurring from time to time.
 All GHRSST products entering the R/GTS must strictly follow the common GDS when
 generating L2P, L3, L4, and GMPE data. As a result, users with common tools to read data
 from one RDAC can securely use data from any of the others as well as the GDAC and LTSRF
-without a need to re-code. Table 6-1 provides a summary of GDS-2.1 data products and their
-basic characteristics.
+without a need to re-code. {numref}`product_levels` provides a summary of 
+GDS-2.1 data products and their basic characteristics.
+
 The remainder of this document provides the detailed specifications for GHRSST L2P, L3, L4,
 and GMPE products, their file naming convention, metadata requirements, and all necessary
 tables, conventions, and best practices for creating and using GHRSST data.
 
+```{table} Summary description of GHRSST product levels
+:name: product_levels
 
-| SST Product         | L2 Pre-Processed {numref}`l2p`                                                                                                                                                                                                                                                                                                                            | L3 Uncollated  [Section 1010]                                                                         | L3 Collated[Section 10]                                                                             | L3 Super-collated[Section 10]                                                              | Analyzed SST[Section 11]                                                                                                                                            |
-|:--------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| SST Product         | L2 Pre-Processed {numref}`l2p`  | L3 Uncollated  {numref}`l3`  | L3 Collated  {numref}`l3`   | L3 Super-collated  {numref}`l3`  | Analyzed SST  {numref}`l4`   |
+|:--------------------|:--------------------------------|:------------------------------|:-----------------------------|:----------------------------------|:-----------------------------|
 | Acronym             | L2P                                                                                                                                                                                                                                                                                                                                                       | L3U                                                                                                   | L3C                                                                                                 | L3S                                                                                        | L4                                                                                                                                                                  |
 | Description         | Geophysical variables derived from Level 1 source data at the same resolution and location as the Level 1 data, typically in a satellite projection with geographic information. These data form the fundamental basis for higher-level GHRSST products and require ancillary data and uncertainty estimates. No adjustments to input SST have been made. | L2 data granules remapped to a space grid without combining any observations from overlapping orbits. | SST measurements combined from a single instrument into a space-time grid.                          | Multiple passes/scenes of data can be combined. Adjustments may be made to input SST data. | SST measurements combined from multiple instruments into a space-time grid. Multiple passes/scenes of data are combined. Adjustments may be made to input SST data. | Data sets created from the analysis of lower level data that results in gridded, gap-free products. SST data generated from multiple sources of satellite data using optimal interpolation are an example of L4 GHRSST products |
 | Grid specification  | Native to SST data format                                                                                                                                                                                                                                                                                                                                 | Defined by data provider                                                                              | Defined by data provider                                                                            | Defined by data provider                                                                   | Defined by data provider                                                                                                                                            |
@@ -190,6 +211,7 @@ tables, conventions, and best practices for creating and using GHRSST data.
 | Target accuracy     | Native to data stream                                                                                                                                                                                                                                                                                                                                     | Native to data stream                                                                                 | <0.4 K                                                                                              | <0.4 K                                                                                     | < 0.4 K absolute, 0.1 K relative                                                                                                                                    |
 | Error statistics    | Native to data stream if available, sensor specific error statistics otherwise                                                                                                                                                                                                                                                                            | Native to data stream if available, sensor specific error statistics otherwise                        | Derived from input data for each output grid point.                                                 | Derived from input data for each output grid point.                                        | Analysis error defined by data provider for each output grid point (no input data statistics are retained)                                                          |
 | Coverage            | Native to data stream                                                                                                                                                                                                                                                                                                                                     | Native to data stream                                                                                 | Defined by data provider                                                                            | Defined by data provider                                                                   | Defined by data provider                                                                                                                                            |
+```
 
 L3 GHRSST products do not use analysis or interpolation procedures to fill gaps 
 where no observations are available
@@ -220,3 +242,6 @@ http://www.ceos.org/pages/CEOSResponse_1010A.pdf
 I. J. Barton, B. Ward and, J. Murray, 2002. Towards Improved Validation of 
 Satellite Sea Surface Skin Temperature Measurements for Climate Research, 
 J. Climate, Vol. 15, No. 4, pp. 353-369.
+
+[^footnote5]: Piolle, J.-F. (2020). GHRSST R/G TS System Architecture GSA. 
+Zenodo. https://doi.org/10.5281/zenodo.4926440 

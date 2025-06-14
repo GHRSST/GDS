@@ -27,12 +27,12 @@ by two).
 `time` is the reference time of the SST data array. The GDS-{{gds_version}} 
 specifies that this reference time should be extracted or computed to the 
 nearest second and then coded as continuous UTC time coordinates in 
-**seconds from 00:00:00 UTC January 1, 1981** (which is the definition of the
+*seconds from 00:00:00 UTC January 1, 1981* (which is the definition of the
 GHRSST origin time, chosen to approximate the start of useful AVHRR SST data 
-record). Note that the use of UDUNITS in GHRSST implies that that calendar to 
+record). Note that the use of UDUNITS in GHRSST implies that the calendar to 
 be used is the default mixed Gregorian/Julian calendar.
 
-The reference time used is dependent on the <Processing Level> of the data and 
+The reference time used is dependent on the Processing Level of the data and 
 is defined as follows:
 
 | Processing level | Reference time                      |
@@ -151,7 +151,7 @@ non-regular lat/lon grid (projection) as shown in
 variable shall be added (for example, `Lambert_Azimuthal_Grid`), following the 
 CF-1.7 or later convention. The specific variable attributes 
 `coordinates = "lon lat"` and`grid_mapping = "Lambert_Azimuthal_Grid"` are 
-required for each other variables (like `sea_surface_temperature` in the example
+required for each other variable (like `sea_surface_temperature` in the example
 given in {numref}`non_regular_grid_coords_projection`).
 
 Note that variable attributes such as `grid_mapping` may be set differently 
