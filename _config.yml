@@ -30,8 +30,12 @@ repository:
 html:
   use_issues_button: true
   use_repository_button: true
+  comments:
+    hypothesis: true
+
+
 
 parse:
   myst_substitutions:
-    gds_version: 2.1r0
+    gds_version: 2.2r0
     gds_reference_tables: https://www.ghrsst.org/resources/ghrsst-data-specification-gds-tables/

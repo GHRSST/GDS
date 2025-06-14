@@ -1,6 +1,6 @@
 # The Recommended GHRSST Data Specification (GDS) Version {{gds_version}}
 
-A new generation of integrated Sea Surface Temperature (SST) data products are
+A new generation of integrated Sea Surface Temperature (SST) data products is
 being provided by the **[Group for High Resolution Sea Surface Temperature 
 (GHRSST)](https://doi.org/10.1175/BAMS-88-8-1197)**. 
 L2 products are provided by a variety of data providers in a common
@@ -35,7 +35,7 @@ code tables and best practices for identifying sources of SST and ancillary data
 that are used within GHRSST data files.
 
 The GDS document has been developed for data providers who wish to produce any
-level of GHRSST data product and for all users wishing to fully understand
+level of GHRSST data products and for all users wishing to fully understand
 GHRSST product conventions, GHRSST data file contents, GHRSST and Climate
 Forecast definitions for SST, and other useful information. For a complete
 discussion and access to data products and services, see https://www.ghrsst.org,

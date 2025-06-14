@@ -84,7 +84,7 @@ information in this document.
 
 | netCDF File Contents | Description                                                                                               |
 |----------------------|-----------------------------------------------------------------------------------------------------------|
-| **Coordinate variables**  | Information to permit locating data on non-orthogonal grids, as defined in {numref}`coordinate_variables` | 
+| **Coordinate variables**  | Information to allow locating data on non-orthogonal grids, as defined in {numref}`coordinate_variables` | 
 | **Data record variables** | Core and auxiliary variables as defined in {numref}`l2p_records`                                          | 
 | **Global Attributes**     | A collection of required global attributes describing general characteristics of the file, as defined in section {numref}`global_attributes`  |
 ```
@@ -652,22 +652,22 @@ text string indicating the source is placed in the source attribute of the
 `sea_ice_fraction` variable. 
 
 For multiple sources, the GDS-{{gds_version}} requires the following:
-- The variable in question should contain an attribute called 
-  `flag_meanings` and another one called `flag_values`. The `flag_values`  
-  attribute shall contain a comma-separated list of the numeric codes for 
-  the sources of data used whose order matches the comma-separated text  
-  strings in the `flag_meanings` attribute.
+- The variable in question should contain an attribute called `flag_meanings` 
+  and another one called `flag_values`. The `flag_values` attribute shall 
+  contain a comma-separated list of the numeric codes for the sources of data 
+  used whose order matches the comma-separated text strings in the 
+  `flag_meanings` attribute.
 - These text strings and numeric codes do not need to be unique across 
   different data sets or even ancillary variables, but must be consistent 
   within a given variable and clearly specified within each netCDF variable 
   and its attributes. A best practice for naming the text strings in 
   provided in {numref}`product_codes`.
-- instead of using a `_FillValue` attribute and value for missing data, it is 
+- Instead of using a `_FillValue` attribute and value for missing data, it is 
   recommended to set missing pixel values to **0** and add the corresponding 
   **no_data** meaning in `flag_meanings` attribute.
-- 
-The variable `source_of_sea_ice_fraction` shall conform to the format  
-requirements shown in {numref}`l2p_source_of_sea_ice_fraction`.
+
+The variable `source_of_sea_ice_fraction` shall conform to the format requirements 
+shown in {numref}`l2p_source_of_sea_ice_fraction`.
 
 
 ```{table} CDL example description of **<span style="font-family:courier;">source_of_sea_ice_fraction</span>** variable
@@ -757,7 +757,7 @@ it shall be included with the format requirements shown in the
 
 A single source of `aerosol_dynamic_indicator` has been used in this example
 indicated using the `aerosol_dynamic_indicator:source` and are defined by the
-data provider using the ancillary data naming best practice given in  
+data provider using the ancillary data naming best practice given in 
 {numref}`product_codes`. Since all of the values have the same time, the 
 attribute `time_offset` is used instead of the variable 
 `aerosol_sst_dtime_from_sst` to indicate the offset in hours from the
@@ -813,7 +813,7 @@ variables, but must be consistent within a given variable and clearly
 specified within each netCDF variable and its attributes. A best practice 
 for naming the text strings in provided in {numref}`product_codes`.
 
-instead of using a `_FillValue` attribute and value for missing data, it is 
+Instead of using a `_FillValue` attribute and value for missing data, it is 
 recommended to set missing pixel values to **0** and add the corresponding 
 **no_data** meaning in `flag_meanings` attribute.
 
@@ -1181,7 +1181,7 @@ variable and clearly specified within each netCDF variable and its attributes. A
 best practice for naming the text strings in provided in 
 {numref}`product_codes`.
 
-instead of using a `_FillValue` attribute and value for missing data, it is 
+Instead of using a `_FillValue` attribute and value for missing data, it is 
 recommended to set missing pixel values to **0** and add the corresponding 
 **no_data** meaning in `flag_meanings` attribute.
 
@@ -1250,7 +1250,7 @@ experimental variables within L2P data products:
   optional/experimental variables. Where available, a standard_name 
   attribute should be used.
 - It is permitted to use a provider defined coordinate variable associated 
-  with experimental fields but this shall be documented in data provider  
+  with experimental fields but this shall be documented in data provider 
   documentation.
 - Time difference data (dtime values) should be provided for variables when 
   appropriate.
@@ -1284,12 +1284,16 @@ experimental variables within L2P data products:
 
 ## CDL example L2P dataset
 
-The following CDL has been generated for a L2P dataset derived from the VIIRS
-sensor on NOAA-20 platform (https://doi.org/10.5067/GHV20-2PO28) . It includes a
-number of optional and experimental variables.
+The following CDL has been generated for a L2P dataset by OSI SAF derived from 
+the AVHRR sensor on Metop-C platform (https://doi.org/10.15770/EUM_SAF_OSI_NRT_2013). 
+It includes a number of optional and experimental variables.
 
-**ADD CDL EXAMPLE** 
+```{code-cell}
+:tags: [remove-input]
+:name: l2p_full_cdl
 
+!ncdump -h samples/l2p_full_example.nc
+```
 
 [^footnote1]: netCDF Climate and Forecast (CF) Metadata Conventions version 1.7 
 or later available from http://cfconventions.org
