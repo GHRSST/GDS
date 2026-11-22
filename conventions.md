@@ -47,17 +47,25 @@ Pink|Denotes grid variable dimensions|`float lat(nj, ni)`
 ```
 
 ## Definitions of storage types
-Computer storage types referred to in the GDS are defined in {numref}`storage_types` and follow those used in netCDF.
+Computer storage types referred to in the GDS are defined in {numref}`storage_types` and follow those used in netCDF. 
+GHRSST also defines recommended missing values for the `_FillValue` variable attribute.
 
-```{table} Storage type definitions used in the GDS
+```{table} Storage type definitions and recommended missing value used in the GDS
 :name: storage_types
-**Name**|**Storage Type**
-:-----:|:-----:
-byte|8 bit signed integer
-short|16 bit signed integer
-int (or long)|32 bit signed integer
-float|32 bit floating point
-double|64 bit floating point
-string|Character string 
+**Name**|**Storage Type**|**_FillValue
+:-----:|:-----:|:-----:|
+byte|8 bit signed integer | -128
+short|16 bit signed integer | -32768
+int (or long)|32 bit signed integer | 
+float|32 bit floating point | 1e20
+double|64 bit floating point | 1e20
+string|Character string | ''
 ```
 
+
+In order to improve the consistency of these product strings across 
+producers, and avoid maintaining specific GHRSST tables, we recommend to use 
+the CEOS tables as vocabulary for satellite platform and satellite name:
+
+- CEOS platform table: http://database.eohandbook.com/database/missiontable.aspx
+- CEOS sensor table: http://database.eohandbook.com/database/instrumenttable.aspx 

@@ -33,9 +33,14 @@ html:
   comments:
     hypothesis: true
 
+sphinx:
+  config:
+    numfig: true
+    numfig_format:
+      code-block: "Example %s"
 
 
 parse:
   myst_substitutions:
-    gds_version: 2.2r0
+    gds_version: 3.0
     gds_reference_tables: https://www.ghrsst.org/resources/ghrsst-data-specification-gds-tables/

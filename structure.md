@@ -82,6 +82,7 @@ and information on the ACDD recommendations is available at
 https://wiki.esipfed.org/Attribute_Convention_for_Data_Discovery_1-3.
 
 
+
 <style>
     .global-attributes-css { font-size: 12px; width: 100%; table-layout: fixed;} 
     .global-attributes-css tbody tr:nth-child(n+1):nth-child(-n+15) { background: #42d1f5; }
@@ -104,91 +105,1094 @@ https://wiki.esipfed.org/Attribute_Convention_for_Data_Discovery_1-3.
         max-width: 6em;
         word-break: break-all;
     }
-    .global-attributes-css thead tr th:nth-child(5), tbody tr td:nth-child(5) {
-        width: 6em;
-        min-width: 6em;
-        max-width: 6em;
-        word-break: break-all;
-    }
 </style>
 
 ```{table} Mandatory global attributes for GDS-{{gds_version}} netCDF data files (blue are mandatory, purple are optional)
 :name: __global_attributes
 :class: global-attributes-css
-| Global Attribute Name            | Format  | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Example                                                                                                                                                                                                                                                                                                                   | Source |
-|----------------------------------|---------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| ------ |
-| `Conventions`                    | string  | A comma-separated list of the conventions that are followed by the dataset. For files that follow this version of ACDD, include the string '*ACDD-1.3*'.(This attribute is defined in NUG 1.7.)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | `Conventions = "CF 1.7+, ACDD 1.3<br>ISO 8601";`                                                                                                                                                                                                                                                                             | ACDD 1.3<br>CF 1.7++ |
-| `title`                          | string  | A short phrase or sentence describing the dataset. In many discovery systems, the title will be displayed in the results list from a search, and therefore should be human readable and reasonable to display in a list of such names. This attribute is recommended by the NetCDF Users Guide (NUG) and the CF conventions.                                                                                                                                                                                                                                                                                                                                                                                                                                                      | `title = "VIIRS L2P Sea Surface Skin Temperature" ;`                                                                                                                                                                                                                                                                      | ACDD 1.1<br>ACDD 1.3<br>CF 1.7+|
-| `summary`                        | string  | A paragraph describing the dataset, analogous to an abstract for a paper.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | `summary = "Sea surface temperature (SST) retrievals produced at the NASA OBPG for the Visible Infrared Imaging Radiometer Suite (VIIRS) sensor on the Suomi National Polar-Orbiting Parnership (Suomi NPP) platform. These have been reformatted to GHRSST GDS version 2 Level 2P specifications by the JPL PO.DAAC." ;` | ACDD 1.1<br>ACDD 1.3 |
-| `references`                     | string  | Published or web-based references that describe the data or methods used to produce it. Recommend URIs (such as a URL or DOI) for papers or other references. This attribute is defined in the CF conventions.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | `references = "GHRSST Data Processing Specification v2r5" ;`                                                                                                                                                                                                                                                              | ACDD 1.3<br>CF 1.7+ |
-| `institution`                    | string  | The name of the institution principally responsible for originating this data. This attribute is recommended by the CF convention.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | `institution = "NASA Jet Propulsion Laboratory (JPL) Physical Oceanography Distributed Active Archive Center (PO.DAAC)/NASA Goddard Space Flight Center (GSFC), Ocean Biology Processing Group (OBPG)/University of Miami Rosential School of Marine and Atmospheric Science (RSMAS)" ;`                                   |ACDD  1.1, ACDD 1.3<br>CF 1.7+| 
-| `history`                        | string  | Provides an audit trail for modifications to the original data. This attribute is also in the NetCDF Users Guide: 'This is a character array with a line for each invocation of a program that has modified the dataset. Well-behaved generic netCDF applications should append a line containing: date, time of day, user name, program name and command arguments.' To include a more complete description you can append a reference to an ISO Lineage entity; see NOAA EDM ISO Lineage guidance.                                                                                                                                                                                                                                                                              | `history = "VIIRS L2P created at JPL PO.DAAC by combining OBPG SNPP_SST and SNPP_SST3, and outputing to the GHRSST GDS2 netCDF file format" ;`                                                                                                                                                                            | ACDD 1.1<br>ACDD 1.3<br>CF 1.7+ |
-| `comment`                        | string  | Miscellaneous information about the data, not captured elsewhere. This attribute is defined in the CF Conventions.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | `comment = "L2P Core without DT analysis or other ancillary fields; Night, Start Node:Descending, End Node:Descending; WARNING Some applications are unable to properly handle signed byte values. If values are encountered > 127, please subtract 256 from this reported value; Quicklook" ;`                           | ACDD 1.1<br>ACDD 1.3 | 
-| `license`                        | string  | Provide the URL to a standard or specific license, enter "*Freely Distributed*" or "*None*", or describe any restrictions to data access and distribution in free text. GHRSST data sets should be freely and openly available to comply with the R/GTS framework, with no restrictions. However, if a user should submit a simple registration via a web form, for example, the URL could be given here.                                                                                                                                                                                                                                                                                                                                                                             | `license = "GHRSST protocol describes data use as free and open.” ;`                                                                                                                                                                                                                                                      | ACDD 1.1<br>ACDD 1.3| 
-| `id`                             | string  | An identifier for the data set, provided by and unique within its naming authority. The combination of the `naming_authority` and the `id` should be globally unique, but the id can be globally unique by itself also. This id should be a unique string of characters and should not include white space characters.<br><br>Use here the unique GHRSST character string for this product as defined in {numref}`product_codes`.                                                                                                                           | `id = "VIIRS_NPP-JPL-L2P-v2016.0" ;`                                                                                                                                                                                                                                                                                        | ACDD 1.1<br>ACDD 1.3 |
-| `naming_authority`               | string  | The organization that provides the initial id (see above) for the dataset. The naming authority should be uniquely specified by this attribute. We recommend using reverse-DNS naming for the naming authority; URIs are also acceptable. Fixed as “org.ghrsst” following ACDD convention.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | `naming_authority = "org.ghrsst" ;`                                                                                                                                                                                                                                                                                         | ACDD 1.1<br>ACDD 1.3 |
-| `product_version`                | string  | Version identifier of the data file or product as assigned by the data creator. For example, a new algorithm or methodology could result in a new product_version. It may be different than the file version used in the file naming convention ({numref}`naming`).<br>                                                                                                                                                                                                                                                                                                                                                                                                                                        | `product_version = "2016.0" ;`                                                                                                                                                                                                                                                                                              | ACDD 1.3           |
-| `uuid`                           | string  | A uuid (Universal Unique Identifier) is a 128-bit number used to uniquely identify some object or entity on the Internet. Depending on the specific mechanisms used, a uuid is either guaranteed to be different or is, at least, extremely likely to be different from any other uuid generated until 3400 A.D. See http://en.wikipedia.org/wiki/Universally_Unique_Identifier for more information and tools.<br>                                                                                                                                                                                                                                                                                                                                                               | `uuid = "b6ac7651-7b02-44b0-942b-c5dc3c903eba" ;`                                                                                                                                                                                                                                                                           | GDS                |
-| `gds_version_id`                 | string  | GDS version used to create  this data file. For example, “*2.2*”.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |                                                                                                                                                                                                                                                                                                                           | GDS                |
-| `netcdf_version_id`              | string  | Version of netCDF libraries used to create this file. For example, “*4.1.1*”                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                                                                                                                                                                                                                                           | GDS                |
-| `date_created`                   | string  | The date on which this version of the data was created. (Modification of values implies a new version, hence this would be assigned the date of the most recent values modification.) Metadata changes are not considered when assigning the date_created. The ISO 8601:2004 extended date format is recommended.                                                                                                                                                                                                                                                                                                                                                                                                                                                       | `date_created = "2016-10-14T21:00:25" ;`                                                                                                                                                                                                                                                                                    | ACDD 1.1<br>ACDD 1.3 |
-| `date_modified`                  | string  | The date on which the data was last modified. Note that this applies just to the data, not the metadata. The ISO 8601:2004 extended date format is recommended.<br>  <br>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | `date_modified = "2016-10-14T21:00:25" ;`                                                                                                                                                                                                                                                                                   | ACDD 1.1<br>ACDD 1.3 |
-| `date_issued`                    | string  | The date on which this data (including all modifications) was formally issued (i.e., made available to a wider audience). Note that these apply just to the data, not the metadata. The ISO 8601:2004 extended date format is recommended.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | `date_issued = "2016-10-14T21:00:25" ;`                                                                                                                                                                                                                                                                                     | ACDD 1.1<br>ACDD 1.3 |
-| `date_metadata_modified`         | string  | The date on which the metadata was last modified. The ISO 8601:2004 extended date format is recommended.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | `date_metadata_modified = "2016-10-14T21:00:25" ;`                                                                                                                                                                                                                                                                          | ACDD 1.3           |
-| `file_quality_level`             | integer | A code value describing the quality of the data:<br>&emsp; **0** = unknown quality<br>&emsp; **1** = extremely suspect (frequent problems, e.g. with known satellite problems) <br>&emsp; **2** = suspect (occasional problems, e.g. after launch)<br>&emsp; **3** = excellent (no known problems)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |                                                                                                                                                                                                                                                                                                                           | GDS                |
-| `spatial_resolution`             | string  | A string describing the approximate resolution of the product. For example, “*1.1km at nadir*”                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |                                                                                                                                                                                                                                                                                                                           | GDS                |
-| `time_coverage_start`            | string  | Describes the time of the first data point in the data set. Use the ISO 8601:2004 date format, of *yyyy-mm-ddThh:mm:ssZ*. The exact meaning of this attribute depends the type of granule:<br>&emsp; **L2P**: first measurement in granule (identical to ‘time’ netCDF variable)<br>&emsp; **L3U**: start time of granule<br>&emsp; **L3C** and **L3S**: representative start time of first measurement in the collation<br>&emsp; **L4**: representative start time of the analysis (`time_coverage_start` and `time_coverage_end` together represent the valid period of the L4 granule)                                                                                                                                                                                                                             | `time_coverage_start = "2016-09-01T08:12:01" ;`                                                                                                                                                                                                                                                                             | ACDD 1.1<br>ACDD 1.3 |
-| `time_coverage_end`              | string  | Describes the time of the last data point in the data set. Use ISO 8601:2004 date format, of “*yyyy-mm-ddThh:mm:ssZ*”. The exact meaning of this attribute depends the type of granule:<br>>&emsp; **L2P**: last measurement in granule<br>>&emsp; **L3U**: stop time of granule<br>>&emsp; **L3C** and **L3S**: representative stop time of last measurement in collation<br>>&emsp; **L4**: representative stop time of the analysis (`time_coverage_start` and `time_coverage_end` together represent the valid period of the L4 granule)<br>                                                                                                                                                                                                                                                                                     | `time_coverage_end = "2016-09-01T08:17:59" ;`                                                                                                                                                                                                                                                                               | ACDD 1.1<br>ACDD 1.3 |
-| `instrument`                     | string  | Name of the contributing instrument(s) or sensor(s) used to create this data set or product. Indicate the controlled vocabulary used in `instrument_vocabulary`.<br> We recommend for consistency to use the CEOS mission table (http://database.eohandbook.com/database/instrumenttable.aspx). Provide as a comma separated list if there is more than one.                                                                                                                                                                                                                                                                                                                                                                                                                       | `sensor = "VIIRS" ;`                                                                                                                                                                                                                                                                                                      | ACDD 1.3           |
-| `instrument_vocabulary`          | string  | Controlled vocabulary for the names used in the `instrument` attribute.<br>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | `instrument_vocabulary = "CEOS instrument table" ;`                                                                                                                                                                                                                                                                       | ACDD 1.3           |
-| `metadata_link`                  | string  | A URL that gives the location of more complete metadata. A persistent URL is recommended for this attribute. It is recommended to link to the product description in the GHRSST central catalogue.<br>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | `metadata_link = "http://podaac.jpl.nasa.gov/ws/metadata/dataset/?format=iso&shortName=VIIRS-JPL-L2P-v2016.0" ;`                                                                                                                                                                                                            | ACDD 1.3           |
-| `keywords`                       | string  | A comma-separated list of key words and/or phrases. Keywords may be common words or phrases, terms from a controlled vocabulary (GCMD is often used), or URIs for terms from a controlled vocabulary (see also `keywords_vocabulary` attribute).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | `keywords = "Oceans, Ocean Temperature, Sea Surface Temperature , Sea Surface Skin Temperature" ;`                                                                                                                                                                                                                          | ACDD 1.1<br>ACDD 1.3 |
-| `keywords_vocabulary`            | string  | If you are using a controlled vocabulary for the words/phrases in your `keywords` attribute, this is the unique name or identifier of the vocabulary from which keywords are taken. If more than one keyword vocabulary is used, each may be presented with a prefix (e.g.,*NASA Global Change Master Directory (GCMD) Science Keywords* [^footnote8]) and a following comma, so that keywords may optionally be prefixed with the controlled vocabulary key.                                                                                                                                                                                                                                                                                                            | `keywords_vocabulary = "NASA Global Change Master Directory (GCMD) Science Keywords" ;`                                                                                                                                                                                                                              | ACDD 1.1<br>ACDD 1.3 |
-| `standard_name_vocabulary`       | string  | The name and version of the controlled vocabulary from which variable standard names are taken. (Values for any `standard_name` attribute must come from the CF Standard Names vocabulary for the data file or product to comply with CF).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | CF Standard Name Table v27'.                                                                                                                                                                                                                                                                                              | ACDD 1.1<br>ACDD 1.3 |
-| `geospatial_lat_min`             | float   | Describes a simple lower latitude limit; may be part of a 2- or 3-dimensional bounding region. `geospatial_lat_min` specifies the southernmost latitude covered by the dataset.<br>  <br>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | `geospatial_lat_min = -63.1404f ;`                                                                                                                                                                                                                                                                                        | ACDD 1.1<br>ACDD 1.3 |
-| `geospatial_lat_max`             | float   | Describes a simple upper latitude limit; may be part of a 2- or 3-dimensional bounding region. `geospatial_lat_max` specifies the northernmost latitude covered by the dataset.<br>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | `geospatial_lat_max = -36.7432f ;`                                                                                                                                                                                                                                                                                        | ACDD 1.1<br>ACDD 1.3 |
-| `geospatial_lat_units`           | string  | Units for the latitude axis described in `geospatial_lat_min` and `geospatial_lat_max` attributes. These are presumed to be `degree_north`; other options from udunits may be specified instead.<br>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | `geospatial_lat_units = "degrees_north" ;`                                                                                                                                                                                                                                                                                | ACDD 1.1<br>ACDD 1.3 |
-| `geospatial_lat_resolution`      | float   | Information about the targeted spacing of points in latitude. Recommend describing resolution as a number value followed by the units. Examples: *100 meters*, *0.1 degree*. For level 1 and 2 swath data this is an approximation of the pixel resolution.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | `geospatial_lat_resolution = 0.0075f ;`                                                                                                                                                                                                                                                                                   | ACDD 1.1<br>ACDD 1.3 |
-| `geospatial_lon_min`             | float   | Describes a simple longitude limit; may be part of a 2- or 3-dimensional bounding region. `geospatial_lon_min` specifies the westernmost longitude covered by the dataset. See also `geospatial_lon_max`.<br>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | `geospatial_lon_min = -143.09f ;`                                                                                                                                                                                                                                                                                         | ACDD 1.1<br>ACDD 1.3 |
-| `geospatial_lon_max`             | float   | Describes a simple longitude limit; may be part of a 2- or 3-dimensional bounding region. `geospatial_lon_max` specifies the easternmost longitude covered by the dataset. Cases where `geospatial_lon_min` is greater than geospatial_lon_max indicate the bounding box extends from `geospatial_lon_max`, through the longitude range discontinuity meridian (either the antimeridian for -180:180 values, or Prime Meridian for 0:360 values), to `geospatial_lon_min`; for example, `geospatial_lon_min=170` and `geospatial_lon_max=-175` incorporates 15 degrees of longitude (ranges 170 to 180 and -180 to -175). <br>                                                                                                                                                                | `geospatial_lon_max = -88.893f ;`                                                                                                                                                                                                                                                                                         | ACDD 1.1<br>ACDD 1.3 |
-| `geospatial_lon_units`           | string  | Units for the longitude axis described in `geospatial_lon_min` and `geospatial_lon_max` attributes. These are presumed to be `degree_east`; other options from udunits may be specified instead.<br>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | `geospatial_lon_units = "degrees_east" ;`                                                                                                                                                                                                                                                                                 | ACDD 1.1<br>ACDD 1.3 |
-| `geospatial_lon_resolution`      | float   | Information about the targeted spacing of points in longitude. Recommend describing resolution as a number value followed by units. Examples: *100 meters*, *0.1 degree*. For level 1 and 2 swath data this is an approximation of the pixel resolution.<br>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | `geospatial_lon_resolution = 0.0075f ;`                                                                                                                                                                                                                                                                                   | ACDD 1.1<br>ACDD 1.3 |
-| `geospatial_vertical_min`        | float   | Describes the numerically smaller vertical limit; may be part of a 2- or 3-dimensional bounding region. See `geospatial_vertical_positive` and `geospatial_vertical_units`.<br>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | `geospatial_vertical_min = 0.00f ;`                                                                                                                                                                                                                                                                                       | ACDD 1.1<br>ACDD 1.3 |
-| `geospatial_vertical_max`        | float   | Describes the numerically larger vertical limit; may be part of a 2- or 3-dimensional bounding region. See `geospatial_vertical_positive` and `geospatial_vertical_units`.<br>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | `geospatial_vertical_max = 1000.00f ;`                                                                                                                                                                                                                                                                                    | ACDD 1.1<br>ACDD 1.3 |
-| `geospatial_vertical_resolution` | float   | Information about the targeted vertical spacing of points. Example: *25 meters*                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | `geospatial_vertical_resolution = 25.0f ;`                                                                                                                                                                                                                                                                                | ACDD 1.1<br>ACDD 1.3 |
-| `geospatial_vertical_units`      | string  | Units for the vertical axis described in `geospatial_vertical_min` and `geospatial_vertical_max` attributes. The default is *EPSG:4979* (height above the ellipsoid, in meters); other vertical coordinate reference systems may be specified. Note that the common oceanographic practice of using pressure for a vertical coordinate, while not strictly a depth, can be specified using the unit bar. Examples: *EPSG:5829* (instantaneous height above sea level), *EPSG:5831* (instantaneous depth below sea level).                                                                                                                                                                                                                                                           | `geospatial_vertical_units = 'meters' ;`                                                                                                                                                                                                                                                                                  | ACDD 1.1<br>ACDD 1.3 |
-| `geospatial_vertical_positive`   | string  | One of '*up*' or '*down*'. If *up*, vertical values are interpreted as 'altitude', with negative values corresponding to below the reference datum (e.g., under water). If *down*, vertical values are interpreted as 'depth', positive values correspond to below the reference datum. Note that if geospatial_vertical_positive is down ('depth' orientation), the `geospatial_vertical_min` attribute specifies the data's vertical location furthest from the earth's center, and the `geospatial_vertical_max` attribute specifies the location closest to the earth's center.<br>                                                                                                                                                                                                       | `geospatial_vertical_positive = 'down' ;`                                                                                                                                                                                                                                                                                 | ACDD 1.1<br>ACDD 1.3 |
-| `geospatial_bounds`              | string  | Describes the data's 2D or 3D geospatial extent in OGC's Well-Known Text (WKT) Geometry format (reference the OGC Simple Feature Access (SFA) specification). The meaning and order of values for each point's coordinates depends on the coordinate reference system (CRS). The ACDD default is 2D geometry in the EPSG:4326 coordinate reference system. The default may be overridden with geospatial_bounds_crs and geospatial_bounds_vertical_crs (see those attributes). EPSG:4326 coordinate values are latitude (decimal degrees_north) and longitude (decimal degrees_east), in that order. Longitude values in the default case are limited to the (-180, 180) range. Example: "*POLYGON ((40.26 -111.29, 41.26 -111.29, 41.26 -110.29, 40.26 -110.29, 40.26 -111.29))*". | `geospatial_bounds = "(-143.09, -63.1404, -88.893, -36.7432)" ;`                                                                                                                                                                                                                                                          | ACDD 1.1 ACDD 1.3  |
-| `geospatial_bounds_crs`          | string  | The coordinate reference system (CRS) of the point coordinates in the geospatial_bounds attribute. This CRS may be 2-dimensional or 3-dimensional, but together with geospatial_bounds_vertical_crs, if that attribute is supplied, must match the dimensionality, order, and meaning of point coordinate values in the geospatial_bounds attribute. If geospatial_bounds_vertical_crs is also present then this attribute must only specify a 2D CRS. EPSG CRSs are strongly recommended. If this attribute is not specified, the CRS is assumed to be EPSG:4326. Examples: "*EPSG:4979*" (the 3D WGS84 CRS), "*EPSG:4047*".                                                                                                                                                         | `geospatial_bounds_crs = "WGS84" ;`                                                                                                                                                                                                                                                                                       | ACDD 1.3           |
-| `geospatial_bounds_vertical_crs` | string  | The vertical coordinate reference system (CRS) for the Z axis of the point coordinates in the geospatial_bounds attribute. This attribute cannot be used if the CRS in geospatial_bounds_crs is 3-dimensional; to use this attribute, geospatial_bounds_crs must exist and specify a 2D CRS. EPSG CRSs are strongly recommended. There is no default for this attribute when not specified. Examples: "*EPSG:5829*" (instantaneous height above sea level), "*EPSG:5831*" (instantaneous depth below sea level), or "*EPSG:5703*" (NAVD88 height).<br>                                                                                                                                                                                                                            | `geospatial_bounds_vertical_crs = "EPSG:5831" ;`                                                                                                                                                                                                                                                                          | ACDD 1.3           |
-| `acknowledgment`                 | string  | A place to acknowledge various types of support for the project that produced this data.<br>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | `acknowledgment = "The VIIRS L2P sea surface temperature data are sponsored by NASA. Data may be freely distributed" ;`                                                                                                                                                                                                   | ACDD 1.1<br>ACDD 1.3 |
-| `creator_name`                   | string  | The name of the person (or other creator type, such as a RDAC, specified by the `creator_type` attribute) principally responsible for creating this data.<br>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | `creator_name = "JPL PO.DAAC" ;`                                                                                                                                                                                                                                                                                          | ACDD 1.1<br>ACDD 1.3 |
-| `creator_url`                    | string  | The URL of the of the person (or other creator type specified by the `creator_type` attribute) principally responsible for creating this data.<br>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | `creator_url = "http://podaac.jpl.nasa.gov" ;`                                                                                                                                                                                                                                                                            | ACDD 1.1<br>ACDD 1.3 |
-| `creator_email`                  | string  | The email address of the person (or other creator type specified by the `creator_type` attribute) principally responsible for creating this data.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | `creator_email = "ghrsst@jpl.nasa.gov" ;`                                                                                                                                                                                                                                                                                 | ACDD 1.1<br>ACDD 1.3 |
-| `creator_type`                   | string  | Specifies type of creator with one of the following: *person*, *group*, *institution*, or *position*. If this attribute is not specified, the creator is assumed to be a person. For a RDAC, use here *institution*.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | `creator_type = "institution" ;`                                                                                                                                                                                                                                                                                          | ACDD 1.3           |
-| `creator_institution`            | string  | The institution of the creator; should uniquely identify the creator's institution. This attribute's value should be specified even if it matches the value of `publisher_institution`, or if `creator_type` is institution. <br>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | `creator_institution = "JPL PO.DAAC/GHRSST";`                                                                                                                                                                                                                                                                             | ACDD 1.3           |
-| `project`                        | string  | The name of the project(s) principally responsible for originating this data. Multiple projects can be separated by commas, as described under Attribute Content Guidelines. Examples: 'PATMOS-X', 'Extended Continental Shelf Project'.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | `"Group for High Resolution Sea Surface Temperature” ;`                                                                                                                                                                                                                                                                   | ACDD 1.1<br>ACDD 1.3 |
-| `program`                        | string  | The overarching program(s) of which the dataset is a part. A program consists of a set (or portfolio) of related and possibly interdependent projects that meet an overarching objective. Examples:  <br>  'GHRSST', 'NOAA CDR', 'NASA EOS', 'JPSS', 'GOES-R'.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | `program= " NASA Earth Science Data Information and System (ESDIS)" ;`                                                                                                                                                                                                                                                    | ACDD 1.3           |
-| `contributor_name`               | string  | The name of any individuals, projects, or institutions that contributed to the creation of this data. May be presented as free text, or in a structured format compatible with conversion to ncML (e.g., insensitive to changes in whitespace, including end-of-line characters).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | `contributor_name = "PO.DAAC/OBPS/REMAS" ;`                                                                                                                                                                                                                                                                               | ACDD 1.3           |
-| `contributor_role`               | string  | The role of any individuals, projects, or institutions that contributed to the creation of this data. May be presented as free text, or in a structured format compatible with conversion to ncML (e.g., insensitive to changes in whitespace, including end-of-line characters). Multiple roles should be presented in the same order and number as the names in contributor_names.<br>                                                                                                                                                                                                                                                                                                                                                                                          | `contributor_role = "PO.DAAC convert the VIIRSS_NPP SST to GDS2 format, OBPS processed the L2P SST, and RSMAS provided the algorithm model ";`                                                                                                                                                                            | ACDD 1.3           |
-| `publisher_name`                 | string  | The name of the person (or other entity specified by the `publisher_type` attribute) responsible for publishing the data file or product to users, with its current metadata and format.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | `publisher_name = "The GHRSST Project Office" ;`                                                                                                                                                                                                                                                                          | ACDD 1.1<br>ACDD 1.3 |
-| `publisher_url`                  | string  | The URL of the person (or other entity specified by the `publisher_type` attribute) responsible for publishing the data file or product to users, with its current metadata and format.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | `publisher_url = "http://www.ghrsst.org" ;`                                                                                                                                                                                                                                                                               | ACDD 1.1<br>ACDD 1.3 |
-| `publisher_email`                | string  | The email address of the person (or other entity specified by the `publisher_type` attribute) responsible for publishing the data file or product to users, with its current metadata and format.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | `publisher_email = "ghrsst-po@nceo.ac.uk" ;`                                                                                                                                                                                                                                                                              | ACDD 1.1<br>ACDD 1.3 |
-| `publisher_type`                 | string  | Specifies type of publisher with one of the following: *person*, *group*, *institution*, or *position*. If this attribute is not specified, the publisher is assumed to be a person.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | `publisher_type = "institution" ;`                                                                                                                                                                                                                                                                                        | ACDD 1.3           |
-| `publisher_institution`          | string  | The institution that presented the data file or equivalent product to users; should uniquely identify the institution. If `publisher_type` is institution, this should have the same value as `publisher_name`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | `publisher_institution = "PO.DAAC" ;`                                                                                                                                                                                                                                                                                     | ACDD 1.3           |
-| `processing_level`               | string  | A textual description of the processing (or quality control) level of the data. GHRSST definitions are the options: *L2P*, *L3U*, *L3C*, *L3S*, *L4*                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | `processing_level = "L2P" ;`                                                                                                                                                                                                                                                                                              | ACDD 1.1<br>ACDD 1.3 |
-| `cdm_data_type`                  | string  | The data type, as derived from Unidata's Common Data Model Scientific Data types and understood by THREDDS. (This is a THREDDS "dataType", and is different from the CF NetCDF attribute 'featureType', which indicates a Discrete Sampling Geometry file in CF.). *swath* or *grid*.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | `cdm_data_type = "swath" ;`                                                                                                                                                                                                                                                                                               | ACDD 1.1<br>ACDD 1.3 |
+
+| Attribute | Format | Short description |
+|---|---|---|
+| {ref}`Conventions <global-attribute-conventions>` | string | A comma-separated list of the conventions that are followed by the dataset. For files that follow this version of ACDD… |
+| {ref}`title <global-attribute-title>` | string | A short phrase or sentence describing the dataset. In many discovery systems, the title will be displayed in the results… |
+| {ref}`summary <global-attribute-summary>` | string | A paragraph describing the dataset, analogous to an abstract for a paper. |
+| {ref}`references <global-attribute-references>` | string | Published or web-based references that describe the data or methods used to produce it. Recommend URIs (such as a URL or… |
+| {ref}`institution <global-attribute-institution>` | string | The name of the institution principally responsible for originating this data. This attribute is recommended by the CF… |
+| {ref}`history <global-attribute-history>` | string | Provides an audit trail for modifications to the original data. This attribute is also in the NetCDF Users Guide: 'This is a… |
+| {ref}`comment <global-attribute-comment>` | string | Miscellaneous information about the data, not captured elsewhere. This attribute is defined in the CF Conventions. |
+| {ref}`license <global-attribute-license>` | string | Provide the URL to a standard or specific license, enter "*Freely Distributed*" or "*None*", or describe any restrictions to… |
+| {ref}`id <global-attribute-id>` | string | An identifier for the data set, provided by and unique within its naming authority. The combination of the… |
+| {ref}`naming_authority <global-attribute-naming_authority>` | string | The organization that provides the initial id (see above) for the dataset. The naming authority should be uniquely specified… |
+| {ref}`product_version <global-attribute-product_version>` | string | Version identifier of the data file or product as assigned by the data creator. For example, a new algorithm or methodology… |
+| {ref}`uuid <global-attribute-uuid>` | string | A uuid (Universal Unique Identifier) is a 128-bit number used to uniquely identify some object or entity on the Internet… |
+| {ref}`gds_version_id <global-attribute-gds_version_id>` | string | GDS version used to create this data file. For example, “*2.2*”. |
+| {ref}`netcdf_version_id <global-attribute-netcdf_version_id>` | string | Version of netCDF libraries used to create this file. For example, “*4.1.1*” |
+| {ref}`date_created <global-attribute-date_created>` | string | The date on which this version of the data was created. (Modification of values implies a new version, hence this would be… |
+| {ref}`date_modified <global-attribute-date_modified>` | string | The date on which the data was last modified. Note that this applies just to the data, not the metadata. The ISO 8601:2004… |
+| {ref}`date_issued <global-attribute-date_issued>` | string | The date on which this data (including all modifications) was formally issued (i.e., made available to a wider audience)… |
+| {ref}`date_metadata_modified <global-attribute-date_metadata_modified>` | string | The date on which the metadata was last modified. The ISO 8601:2004 extended date format is recommended. |
+| {ref}`file_quality_level <global-attribute-file_quality_level>` | integer | A code value describing the overall quality of the data |
+| {ref}`spatial_resolution <global-attribute-spatial_resolution>` | string | A string describing the approximate resolution of the product. For example, “*1.1km at nadir*” |
+| {ref}`time_coverage_start <global-attribute-time_coverage_start>` | string | Describes the time of the first data point in the data set. Use the ISO 8601:2004 date format, of *yyyy-mm-ddThh:mm:ssZ*… |
+| {ref}`time_coverage_end <global-attribute-time_coverage_end>` | string | Describes the time of the last data point in the data set. Use ISO 8601:2004 date format, of “*yyyy-mm-ddThh:mm:ssZ*”. The… |
+| {ref}`instrument <global-attribute-instrument>` | string | Name of the contributing instrument(s) or sensor(s) used to create this data set or product. Indicate the controlled… |
+| {ref}`instrument_vocabulary <global-attribute-instrument_vocabulary>` | string | Controlled vocabulary for the names used in the `instrument` attribute. |
+| {ref}`metadata_link <global-attribute-metadata_link>` | string | A URL that gives the location of more complete metadata. A persistent URL is recommended for this attribute. It is… |
+| {ref}`keywords <global-attribute-keywords>` | string | A comma-separated list of key words and/or phrases. Keywords may be common words or phrases, terms from a controlled… |
+| {ref}`keywords_vocabulary <global-attribute-keywords_vocabulary>` | string | If you are using a controlled vocabulary for the words/phrases in your `keywords` attribute, this is the unique name or… |
+| {ref}`standard_name_vocabulary <global-attribute-standard_name_vocabulary>` | string | The name and version of the controlled vocabulary from which variable standard names are taken. (Values for any… |
+| {ref}`geospatial_lat_min <global-attribute-geospatial_lat_min>` | float | Describes a simple lower latitude limit; may be part of a 2- or 3-dimensional bounding region. `geospatial_lat_min`… |
+| {ref}`geospatial_lat_max <global-attribute-geospatial_lat_max>` | float | Describes a simple upper latitude limit; may be part of a 2- or 3-dimensional bounding region. `geospatial_lat_max`… |
+| {ref}`geospatial_lat_units <global-attribute-geospatial_lat_units>` | string | Units for the latitude axis described in `geospatial_lat_min` and `geospatial_lat_max` attributes. These are presumed to be… |
+| {ref}`geospatial_lat_resolution <global-attribute-geospatial_lat_resolution>` | float | Information about the targeted spacing of points in latitude. Recommend describing resolution as a number value followed by… |
+| {ref}`geospatial_lon_min <global-attribute-geospatial_lon_min>` | float | Describes a simple longitude limit; may be part of a 2- or 3-dimensional bounding region. `geospatial_lon_min` specifies the… |
+| {ref}`geospatial_lon_max <global-attribute-geospatial_lon_max>` | float | Describes a simple longitude limit; may be part of a 2- or 3-dimensional bounding region. `geospatial_lon_max` specifies the… |
+| {ref}`geospatial_lon_units <global-attribute-geospatial_lon_units>` | string | Units for the longitude axis described in `geospatial_lon_min` and `geospatial_lon_max` attributes. These are presumed to be… |
+| {ref}`geospatial_lon_resolution <global-attribute-geospatial_lon_resolution>` | float | Information about the targeted spacing of points in longitude. Recommend describing resolution as a number value followed by… |
+| {ref}`geospatial_vertical_min <global-attribute-geospatial_vertical_min>` | float | Describes the numerically smaller vertical limit; may be part of a 2- or 3-dimensional bounding region. See… |
+| {ref}`geospatial_vertical_max <global-attribute-geospatial_vertical_max>` | float | Describes the numerically larger vertical limit; may be part of a 2- or 3-dimensional bounding region. See… |
+| {ref}`geospatial_vertical_resolution <global-attribute-geospatial_vertical_resolution>` | float | Information about the targeted vertical spacing of points. Example: *25 meters* |
+| {ref}`geospatial_vertical_units <global-attribute-geospatial_vertical_units>` | string | Units for the vertical axis described in `geospatial_vertical_min` and `geospatial_vertical_max` attributes. The default is… |
+| {ref}`geospatial_vertical_positive <global-attribute-geospatial_vertical_positive>` | string | One of '*up*' or '*down*'. If *up*, vertical values are interpreted as 'altitude', with negative values corresponding to… |
+| {ref}`geospatial_bounds <global-attribute-geospatial_bounds>` | string | Describes the data's 2D or 3D geospatial extent in OGC's Well-Known Text (WKT) Geometry format (reference the OGC Simple… |
+| {ref}`geospatial_bounds_crs <global-attribute-geospatial_bounds_crs>` | string | The coordinate reference system (CRS) of the point coordinates in the geospatial_bounds attribute. This CRS may be… |
+| {ref}`geospatial_bounds_vertical_crs <global-attribute-geospatial_bounds_vertical_crs>` | string | The vertical coordinate reference system (CRS) for the Z axis of the point coordinates in the geospatial_bounds attribute… |
+| {ref}`acknowledgment <global-attribute-acknowledgment>` | string | A place to acknowledge various types of support for the project that produced this data. |
+| {ref}`creator_name <global-attribute-creator_name>` | string | The name of the person (or other creator type, such as a RDAC, specified by the `creator_type` attribute) principally… |
+| {ref}`creator_url <global-attribute-creator_url>` | string | The URL of the of the person (or other creator type specified by the `creator_type` attribute) principally responsible for… |
+| {ref}`creator_email <global-attribute-creator_email>` | string | The email address of the person (or other creator type specified by the `creator_type` attribute) principally responsible… |
+| {ref}`creator_type <global-attribute-creator_type>` | string | Specifies type of creator with one of the following: *person*, *group*, *institution*, or *position*. If this attribute is… |
+| {ref}`creator_institution <global-attribute-creator_institution>` | string | The institution of the creator; should uniquely identify the creator's institution. This attribute's value should be… |
+| {ref}`project <global-attribute-project>` | string | The name of the project(s) principally responsible for originating this data. Multiple projects can be separated by commas… |
+| {ref}`program <global-attribute-program>` | string | The overarching program(s) of which the dataset is a part. A program consists of a set (or portfolio) of related and… |
+| {ref}`contributor_name <global-attribute-contributor_name>` | string | The name of any individuals, projects, or institutions that contributed to the creation of this data. May be presented as… |
+| {ref}`contributor_role <global-attribute-contributor_role>` | string | The role of any individuals, projects, or institutions that contributed to the creation of this data. May be presented as… |
+| {ref}`publisher_name <global-attribute-publisher_name>` | string | The name of the person (or other entity specified by the `publisher_type` attribute) responsible for publishing the data… |
+| {ref}`publisher_url <global-attribute-publisher_url>` | string | The URL of the person (or other entity specified by the `publisher_type` attribute) responsible for publishing the data file… |
+| {ref}`publisher_email <global-attribute-publisher_email>` | string | The email address of the person (or other entity specified by the `publisher_type` attribute) responsible for publishing the… |
+| {ref}`publisher_type <global-attribute-publisher_type>` | string | Specifies type of publisher with one of the following: *person*, *group*, *institution*, or *position*. If this attribute is… |
+| {ref}`publisher_institution <global-attribute-publisher_institution>` | string | The institution that presented the data file or equivalent product to users; should uniquely identify the institution. If… |
+| {ref}`processing_level <global-attribute-processing_level>` | string | A textual description of the processing (or quality control) level of the data. GHRSST definitions are the options: *L2P*… |
+| {ref}`cdm_data_type <global-attribute-cdm_data_type>` | string | The data type, as derived from Unidata's Common Data Model Scientific Data types and understood by THREDDS. (This is a… |
 ```
+
+
+(global-attribute-conventions)=
+### `Conventions`
+
+**Format:** string
+
+**Description:** A comma-separated list of the conventions that are followed by the dataset. For files that follow this version of ACDD, include the string '*ACDD-1.3*'.(This attribute is defined in NUG 1.7.)
+
+**Example**
+
+```text
+Conventions = "CF 1.7+, ACDD 1.3, ISO 8601";
+```
+
+**Source:** ACDD 1.3, CF 1.7++
+
+
+(global-attribute-title)=
+### `title`
+
+**Format:** string
+
+**Description:** A short phrase or sentence describing the dataset. In many discovery systems, the title will be displayed in the results list from a search, and therefore should be human readable and reasonable to display in a list of such names. This attribute is recommended by the NetCDF Users Guide (NUG) and the CF conventions.
+
+**Example**
+
+```text
+title = "VIIRS L2P Sea Surface Skin Temperature" ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3, CF 1.7+
+
+
+(global-attribute-summary)=
+### `summary`
+
+**Format:** string
+
+**Description:** A paragraph describing the dataset, analogous to an abstract for a paper.
+
+**Example**
+
+```text
+summary = "Sea surface temperature (SST) retrievals produced at the NASA OBPG for the Visible Infrared Imaging Radiometer Suite (VIIRS) sensor on the Suomi National Polar-Orbiting Parnership (Suomi NPP) platform. These have been reformatted to GHRSST GDS version 2 Level 2P specifications by the JPL PO.DAAC." ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3
+
+
+(global-attribute-references)=
+(variable-attribute-references)=
+### `references`
+
+**Format:** string
+
+**Description:** Published or web-based references that describe the data or methods used to produce it. Recommend URIs (such as a URL or DOI) for papers or other references. This attribute is defined in the CF conventions.
+
+**Example**
+
+```text
+references = "GHRSST Data Processing Specification v2r5" ;
+```
+
+**Source:** ACDD 1.3, CF 1.7+
+
+
+(global-attribute-institution)=
+### `institution`
+
+**Format:** string
+
+**Description:** The name of the institution principally responsible for originating this data. This attribute is recommended by the CF convention.
+
+**Example**
+
+```text
+institution = "NASA Jet Propulsion Laboratory (JPL) Physical Oceanography Distributed Active Archive Center (PO.DAAC)/NASA Goddard Space Flight Center (GSFC), Ocean Biology Processing Group (OBPG)/University of Miami Rosential School of Marine and Atmospheric Science (RSMAS)" ;
+```
+
+**Source:** ACDD  1.1, ACDD 1.3, CF 1.7+
+
+
+(global-attribute-history)=
+### `history`
+
+**Format:** string
+
+**Description:** Provides an audit trail for modifications to the original data. This attribute is also in the NetCDF Users Guide: 'This is a character array with a line for each invocation of a program that has modified the dataset. Well-behaved generic netCDF applications should append a line containing: date, time of day, user name, program name and command arguments.' To include a more complete description you can append a reference to an ISO Lineage entity; see NOAA EDM ISO Lineage guidance.
+
+**Example**
+
+```text
+history = "VIIRS L2P created at JPL PO.DAAC by combining OBPG SNPP_SST and SNPP_SST3, and outputing to the GHRSST GDS2 netCDF file format" ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3, CF 1.7+
+
+
+(global-attribute-comment)=
+(variable-attribute-comment)=
+### `comment`
+
+**Format:** string
+
+**Description:** Miscellaneous information about the data, not captured elsewhere. This attribute is defined in the CF Conventions.
+
+**Example**
+
+```text
+comment = "L2P Core without DT analysis or other ancillary fields; Night, Start Node:Descending, End Node:Descending; WARNING Some applications are unable to properly handle signed byte values. If values are encountered > 127, please subtract 256 from this reported value; Quicklook" ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3
+
+
+(global-attribute-license)=
+### `license`
+
+**Format:** string
+
+**Description:** Provide the URL to a standard or specific license, enter "*Freely Distributed*" or "*None*", or describe any restrictions to data access and distribution in free text. GHRSST data sets should be freely and openly available to comply with the R/GTS framework, with no restrictions. However, if a user should submit a simple registration via a web form, for example, the URL could be given here.
+
+**Example**
+
+```text
+license = "GHRSST protocol describes data use as free and open.” ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3
+
+
+(global-attribute-id)=
+### `id`
+
+**Format:** string
+
+**Description:** An identifier for the data set, provided by and unique within its naming authority. The combination of the `naming_authority` and the `id` should be globally unique, but the id can be globally unique by itself also. This id should be a unique string of characters and should not include white space characters., , Use here the unique GHRSST character string for this product as defined in {numref}`product_codes`.
+
+**Example**
+
+```text
+id = "VIIRS_NPP-JPL-L2P-v2016.0" ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3
+
+
+(global-attribute-naming_authority)=
+### `naming_authority`
+
+**Format:** string
+
+**Description:** The organization that provides the initial id (see above) for the dataset. The naming authority should be uniquely specified by this attribute. We recommend using reverse-DNS naming for the naming authority; URIs are also acceptable. Fixed as “org.ghrsst” following ACDD convention.
+
+**Example**
+
+```text
+naming_authority = "org.ghrsst" ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3
+
+
+(global-attribute-product_version)=
+### `product_version`
+
+**Format:** string
+
+**Description:** Version identifier of the data file or product as assigned by the data creator. For example, a new algorithm or methodology could result in a new product_version. It may be different than the file version used in the file naming convention ({numref}`naming`)., 
+
+**Example**
+
+```text
+product_version = "2016.0" ;
+```
+
+**Source:** ACDD 1.3
+
+
+(global-attribute-uuid)=
+### `uuid`
+
+**Format:** string
+
+**Description:** A uuid (Universal Unique Identifier) is a 128-bit number used to uniquely identify some object or entity on the Internet. Depending on the specific mechanisms used, a uuid is either guaranteed to be different or is, at least, extremely likely to be different from any other uuid generated until 3400 A.D. See http://en.wikipedia.org/wiki/Universally_Unique_Identifier for more information and tools., 
+
+**Example**
+
+```text
+uuid = "b6ac7651-7b02-44b0-942b-c5dc3c903eba" ;
+```
+
+**Source:** GDS
+
+
+(global-attribute-gds_version_id)=
+### `gds_version_id`
+
+**Format:** string
+
+**Description:** GDS version used to create  this data file. For example, “*2.2*”.
+
+**Source:** GDS
+
+
+(global-attribute-netcdf_version_id)=
+### `netcdf_version_id`
+
+**Format:** string
+
+**Description:** Version of netCDF libraries used to create this file. For example, “*4.1.1*”
+
+**Source:** GDS
+
+
+(global-attribute-date_created)=
+### `date_created`
+
+**Format:** string
+
+**Description:** The date on which this version of the data was created. (Modification of values implies a new version, hence this would be assigned the date of the most recent values modification.) Metadata changes are not considered when assigning the date_created. The ISO 8601:2004 extended date format is recommended.
+
+**Example**
+
+```text
+date_created = "2016-10-14T21:00:25" ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3
+
+
+(global-attribute-date_modified)=
+### `date_modified`
+
+**Format:** string
+
+**Description:** The date on which the data was last modified. Note that this applies just to the data, not the metadata. The ISO 8601:2004 extended date format is recommended.,   , 
+
+**Example**
+
+```text
+date_modified = "2016-10-14T21:00:25" ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3
+
+
+(global-attribute-date_issued)=
+### `date_issued`
+
+**Format:** string
+
+**Description:** The date on which this data (including all modifications) was formally issued (i.e., made available to a wider audience). Note that these apply just to the data, not the metadata. The ISO 8601:2004 extended date format is recommended.
+
+**Example**
+
+```text
+date_issued = "2016-10-14T21:00:25" ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3
+
+
+(global-attribute-date_metadata_modified)=
+### `date_metadata_modified`
+
+**Format:** string
+
+**Description:** The date on which the metadata was last modified. The ISO 8601:2004 extended date format is recommended.
+
+**Example**
+
+```text
+date_metadata_modified = "2016-10-14T21:00:25" ;
+```
+
+**Source:** ACDD 1.3
+
+
+(global-attribute-file_quality_level)=
+### `file_quality_level`
+
+**Format:** integer
+
+**Description:** A code value describing the overall quality of the data, among the following values:
+
+```{table} Codes for file_quality_level attribute
+:name: __codes_file_quality_level
+
+| value | description                                                                                                                                    |
+|-------|------------------------------------------------------------------------------------------------------------------------------------------------|
+| 0     | Unknown quality; the file quality control failed to run for some reason                                                                        |
+| 1     | File was generated, but is unusable (e.g. no valid data or fully cloudy/land scene)                                                            |
+| 2     | Known possible satellite or instrument problems (e.g. commissioning data, ERS-2 gyro failure, or periods excluded due to end-of-life data etc) |
+| 3     | Good data (no known problems)                                                                                                                  |
+```
+
+**Source:** GDS
+
+
+(global-attribute-spatial_resolution)=
+### `spatial_resolution`
+
+**Format:** string
+
+**Description:** A string describing the approximate resolution of the product. For example, “*1.1km at nadir*”
+
+**Source:** GDS
+
+
+(global-attribute-time_coverage_start)=
+### `time_coverage_start`
+
+**Format:** string
+
+**Description:** Describes the time of the first data point in the data set. Use the ISO 8601:2004 date format, of *yyyy-mm-ddThh:mm:ssZ*. The exact meaning of this attribute depends the type of granule:, &emsp; **L2P**: first measurement in granule (identical to ‘time’ netCDF variable), &emsp; **L3U**: start time of granule, &emsp; **L3C** and **L3S**: representative start time of first measurement in the collation, &emsp; **L4**: representative start time of the analysis (`time_coverage_start` and `time_coverage_end` together represent the valid period of the L4 granule)
+
+**Example**
+
+```text
+time_coverage_start = "2016-09-01T08:12:01" ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3
+
+
+(global-attribute-time_coverage_end)=
+### `time_coverage_end`
+
+**Format:** string
+
+**Description:** Describes the time of the last data point in the data set. Use ISO 8601:2004 date format, of “*yyyy-mm-ddThh:mm:ssZ*”. The exact meaning of this attribute depends the type of granule:, >&emsp; **L2P**: last measurement in granule, >&emsp; **L3U**: stop time of granule, >&emsp; **L3C** and **L3S**: representative stop time of last measurement in collation, >&emsp; **L4**: representative stop time of the analysis (`time_coverage_start` and `time_coverage_end` together represent the valid period of the L4 granule), 
+
+**Example**
+
+```text
+time_coverage_end = "2016-09-01T08:17:59" ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3
+
+
+(global-attribute-instrument)=
+### `instrument`
+
+**Format:** string
+
+**Description:** Name of the contributing instrument(s) or sensor(s) used to create this data set or product. Indicate the controlled vocabulary used in `instrument_vocabulary`.,  We recommend for consistency to use the CEOS mission table (http://database.eohandbook.com/database/instrumenttable.aspx). Provide as a comma separated list if there is more than one.
+
+**Example**
+
+```text
+sensor = "VIIRS" ;
+```
+
+**Source:** ACDD 1.3
+
+
+(global-attribute-instrument_vocabulary)=
+### `instrument_vocabulary`
+
+**Format:** string
+
+**Description:** Controlled vocabulary for the names used in the `instrument` attribute., 
+
+**Example**
+
+```text
+instrument_vocabulary = "CEOS instrument table" ;
+```
+
+**Source:** ACDD 1.3
+
+
+(global-attribute-metadata_link)=
+### `metadata_link`
+
+**Format:** string
+
+**Description:** A URL that gives the location of more complete metadata. A persistent URL is recommended for this attribute. It is recommended to link to the product description in the GHRSST central catalogue., 
+
+**Example**
+
+```text
+metadata_link = "http://podaac.jpl.nasa.gov/ws/metadata/dataset/?format=iso&shortName=VIIRS-JPL-L2P-v2016.0" ;
+```
+
+**Source:** ACDD 1.3
+
+
+(global-attribute-keywords)=
+### `keywords`
+
+**Format:** string
+
+**Description:** A comma-separated list of key words and/or phrases. Keywords may be common words or phrases, terms from a controlled vocabulary (GCMD is often used), or URIs for terms from a controlled vocabulary (see also `keywords_vocabulary` attribute).
+
+**Example**
+
+```text
+keywords = "Oceans, Ocean Temperature, Sea Surface Temperature , Sea Surface Skin Temperature" ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3
+
+
+(global-attribute-keywords_vocabulary)=
+### `keywords_vocabulary`
+
+**Format:** string
+
+**Description:** If you are using a controlled vocabulary for the words/phrases in your `keywords` attribute, this is the unique name or identifier of the vocabulary from which keywords are taken. If more than one keyword vocabulary is used, each may be presented with a prefix (e.g.,*NASA Global Change Master Directory (GCMD) Science Keywords* [^footnote8]) and a following comma, so that keywords may optionally be prefixed with the controlled vocabulary key.
+
+**Example**
+
+```text
+keywords_vocabulary = "NASA Global Change Master Directory (GCMD) Science Keywords" ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3
+
+
+(global-attribute-standard_name_vocabulary)=
+### `standard_name_vocabulary`
+
+**Format:** string
+
+**Description:** The name and version of the controlled vocabulary from which variable standard names are taken. (Values for any `standard_name` attribute must come from the CF Standard Names vocabulary for the data file or product to comply with CF).
+
+**Example**
+
+```text
+CF Standard Name Table v27'.
+```
+
+**Source:** ACDD 1.1, ACDD 1.3
+
+
+(global-attribute-geospatial_lat_min)=
+### `geospatial_lat_min`
+
+**Format:** float
+
+**Description:** Describes a simple lower latitude limit; may be part of a 2- or 3-dimensional bounding region. `geospatial_lat_min` specifies the southernmost latitude covered by the dataset.,   , 
+
+**Example**
+
+```text
+geospatial_lat_min = -63.1404f ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3
+
+
+(global-attribute-geospatial_lat_max)=
+### `geospatial_lat_max`
+
+**Format:** float
+
+**Description:** Describes a simple upper latitude limit; may be part of a 2- or 3-dimensional bounding region. `geospatial_lat_max` specifies the northernmost latitude covered by the dataset., 
+
+**Example**
+
+```text
+geospatial_lat_max = -36.7432f ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3
+
+
+(global-attribute-geospatial_lat_units)=
+### `geospatial_lat_units`
+
+**Format:** string
+
+**Description:** Units for the latitude axis described in `geospatial_lat_min` and `geospatial_lat_max` attributes. These are presumed to be `degree_north`; other options from udunits may be specified instead., 
+
+**Example**
+
+```text
+geospatial_lat_units = "degrees_north" ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3
+
+
+(global-attribute-geospatial_lat_resolution)=
+### `geospatial_lat_resolution`
+
+**Format:** float
+
+**Description:** Information about the targeted spacing of points in latitude. Recommend describing resolution as a number value followed by the units. Examples: *100 meters*, *0.1 degree*. For level 1 and 2 swath data this is an approximation of the pixel resolution.
+
+**Example**
+
+```text
+geospatial_lat_resolution = 0.0075f ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3
+
+
+(global-attribute-geospatial_lon_min)=
+### `geospatial_lon_min`
+
+**Format:** float
+
+**Description:** Describes a simple longitude limit; may be part of a 2- or 3-dimensional bounding region. `geospatial_lon_min` specifies the westernmost longitude covered by the dataset. See also `geospatial_lon_max`., 
+
+**Example**
+
+```text
+geospatial_lon_min = -143.09f ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3
+
+
+(global-attribute-geospatial_lon_max)=
+### `geospatial_lon_max`
+
+**Format:** float
+
+**Description:** Describes a simple longitude limit; may be part of a 2- or 3-dimensional bounding region. `geospatial_lon_max` specifies the easternmost longitude covered by the dataset. Cases where `geospatial_lon_min` is greater than geospatial_lon_max indicate the bounding box extends from `geospatial_lon_max`, through the longitude range discontinuity meridian (either the antimeridian for -180:180 values, or Prime Meridian for 0:360 values), to `geospatial_lon_min`; for example, `geospatial_lon_min=170` and `geospatial_lon_max=-175` incorporates 15 degrees of longitude (ranges 170 to 180 and -180 to -175). , 
+
+**Example**
+
+```text
+geospatial_lon_max = -88.893f ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3
+
+
+(global-attribute-geospatial_lon_units)=
+### `geospatial_lon_units`
+
+**Format:** string
+
+**Description:** Units for the longitude axis described in `geospatial_lon_min` and `geospatial_lon_max` attributes. These are presumed to be `degree_east`; other options from udunits may be specified instead., 
+
+**Example**
+
+```text
+geospatial_lon_units = "degrees_east" ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3
+
+
+(global-attribute-geospatial_lon_resolution)=
+### `geospatial_lon_resolution`
+
+**Format:** float
+
+**Description:** Information about the targeted spacing of points in longitude. Recommend describing resolution as a number value followed by units. Examples: *100 meters*, *0.1 degree*. For level 1 and 2 swath data this is an approximation of the pixel resolution., 
+
+**Example**
+
+```text
+geospatial_lon_resolution = 0.0075f ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3
+
+
+(global-attribute-geospatial_vertical_min)=
+### `geospatial_vertical_min`
+
+**Format:** float
+
+**Description:** Describes the numerically smaller vertical limit; may be part of a 2- or 3-dimensional bounding region. See `geospatial_vertical_positive` and `geospatial_vertical_units`., 
+
+**Example**
+
+```text
+geospatial_vertical_min = 0.00f ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3
+
+
+(global-attribute-geospatial_vertical_max)=
+### `geospatial_vertical_max`
+
+**Format:** float
+
+**Description:** Describes the numerically larger vertical limit; may be part of a 2- or 3-dimensional bounding region. See `geospatial_vertical_positive` and `geospatial_vertical_units`., 
+
+**Example**
+
+```text
+geospatial_vertical_max = 1000.00f ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3
+
+
+(global-attribute-geospatial_vertical_resolution)=
+### `geospatial_vertical_resolution`
+
+**Format:** float
+
+**Description:** Information about the targeted vertical spacing of points. Example: *25 meters*
+
+**Example**
+
+```text
+geospatial_vertical_resolution = 25.0f ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3
+
+
+(global-attribute-geospatial_vertical_units)=
+### `geospatial_vertical_units`
+
+**Format:** string
+
+**Description:** Units for the vertical axis described in `geospatial_vertical_min` and `geospatial_vertical_max` attributes. The default is *EPSG:4979* (height above the ellipsoid, in meters); other vertical coordinate reference systems may be specified. Note that the common oceanographic practice of using pressure for a vertical coordinate, while not strictly a depth, can be specified using the unit bar. Examples: *EPSG:5829* (instantaneous height above sea level), *EPSG:5831* (instantaneous depth below sea level).
+
+**Example**
+
+```text
+geospatial_vertical_units = 'meters' ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3
+
+
+(global-attribute-geospatial_vertical_positive)=
+### `geospatial_vertical_positive`
+
+**Format:** string
+
+**Description:** One of '*up*' or '*down*'. If *up*, vertical values are interpreted as 'altitude', with negative values corresponding to below the reference datum (e.g., under water). If *down*, vertical values are interpreted as 'depth', positive values correspond to below the reference datum. Note that if geospatial_vertical_positive is down ('depth' orientation), the `geospatial_vertical_min` attribute specifies the data's vertical location furthest from the earth's center, and the `geospatial_vertical_max` attribute specifies the location closest to the earth's center., 
+
+**Example**
+
+```text
+geospatial_vertical_positive = 'down' ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3
+
+
+(global-attribute-geospatial_bounds)=
+### `geospatial_bounds`
+
+**Format:** string
+
+**Description:** Describes the data's 2D or 3D geospatial extent in OGC's Well-Known Text (WKT) Geometry format (reference the OGC Simple Feature Access (SFA) specification). The meaning and order of values for each point's coordinates depends on the coordinate reference system (CRS). The ACDD default is 2D geometry in the EPSG:4326 coordinate reference system. The default may be overridden with geospatial_bounds_crs and geospatial_bounds_vertical_crs (see those attributes). EPSG:4326 coordinate values are latitude (decimal degrees_north) and longitude (decimal degrees_east), in that order. Longitude values in the default case are limited to the (-180, 180) range. Example: "*POLYGON ((40.26 -111.29, 41.26 -111.29, 41.26 -110.29, 40.26 -110.29, 40.26 -111.29))*".
+
+**Example**
+
+```text
+geospatial_bounds = "(-143.09, -63.1404, -88.893, -36.7432)" ;
+```
+
+**Source:** ACDD 1.1 ACDD 1.3
+
+
+(global-attribute-geospatial_bounds_crs)=
+### `geospatial_bounds_crs`
+
+**Format:** string
+
+**Description:** The coordinate reference system (CRS) of the point coordinates in the geospatial_bounds attribute. This CRS may be 2-dimensional or 3-dimensional, but together with geospatial_bounds_vertical_crs, if that attribute is supplied, must match the dimensionality, order, and meaning of point coordinate values in the geospatial_bounds attribute. If geospatial_bounds_vertical_crs is also present then this attribute must only specify a 2D CRS. EPSG CRSs are strongly recommended. If this attribute is not specified, the CRS is assumed to be EPSG:4326. Examples: "*EPSG:4979*" (the 3D WGS84 CRS), "*EPSG:4047*".
+
+**Example**
+
+```text
+geospatial_bounds_crs = "WGS84" ;
+```
+
+**Source:** ACDD 1.3
+
+
+(global-attribute-geospatial_bounds_vertical_crs)=
+### `geospatial_bounds_vertical_crs`
+
+**Format:** string
+
+**Description:** The vertical coordinate reference system (CRS) for the Z axis of the point coordinates in the geospatial_bounds attribute. This attribute cannot be used if the CRS in geospatial_bounds_crs is 3-dimensional; to use this attribute, geospatial_bounds_crs must exist and specify a 2D CRS. EPSG CRSs are strongly recommended. There is no default for this attribute when not specified. Examples: "*EPSG:5829*" (instantaneous height above sea level), "*EPSG:5831*" (instantaneous depth below sea level), or "*EPSG:5703*" (NAVD88 height)., 
+
+**Example**
+
+```text
+geospatial_bounds_vertical_crs = "EPSG:5831" ;
+```
+
+**Source:** ACDD 1.3
+
+
+(global-attribute-acknowledgment)=
+### `acknowledgment`
+
+**Format:** string
+
+**Description:** A place to acknowledge various types of support for the project that produced this data., 
+
+**Example**
+
+```text
+acknowledgment = "The VIIRS L2P sea surface temperature data are sponsored by NASA. Data may be freely distributed" ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3
+
+
+(global-attribute-creator_name)=
+### `creator_name`
+
+**Format:** string
+
+**Description:** The name of the person (or other creator type, such as a RDAC, specified by the `creator_type` attribute) principally responsible for creating this data., 
+
+**Example**
+
+```text
+creator_name = "JPL PO.DAAC" ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3
+
+
+(global-attribute-creator_url)=
+### `creator_url`
+
+**Format:** string
+
+**Description:** The URL of the of the person (or other creator type specified by the `creator_type` attribute) principally responsible for creating this data., 
+
+**Example**
+
+```text
+creator_url = "http://podaac.jpl.nasa.gov" ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3
+
+
+(global-attribute-creator_email)=
+### `creator_email`
+
+**Format:** string
+
+**Description:** The email address of the person (or other creator type specified by the `creator_type` attribute) principally responsible for creating this data.
+
+**Example**
+
+```text
+creator_email = "ghrsst@jpl.nasa.gov" ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3
+
+
+(global-attribute-creator_type)=
+### `creator_type`
+
+**Format:** string
+
+**Description:** Specifies type of creator with one of the following: *person*, *group*, *institution*, or *position*. If this attribute is not specified, the creator is assumed to be a person. For a RDAC, use here *institution*.
+
+**Example**
+
+```text
+creator_type = "institution" ;
+```
+
+**Source:** ACDD 1.3
+
+
+(global-attribute-creator_institution)=
+### `creator_institution`
+
+**Format:** string
+
+**Description:** The institution of the creator; should uniquely identify the creator's institution. This attribute's value should be specified even if it matches the value of `publisher_institution`, or if `creator_type` is institution. , 
+
+**Example**
+
+```text
+creator_institution = "JPL PO.DAAC/GHRSST";
+```
+
+**Source:** ACDD 1.3
+
+
+(global-attribute-project)=
+### `project`
+
+**Format:** string
+
+**Description:** The name of the project(s) principally responsible for originating this data. Multiple projects can be separated by commas, as described under Attribute Content Guidelines. Examples: 'PATMOS-X', 'Extended Continental Shelf Project'.
+
+**Example**
+
+```text
+"Group for High Resolution Sea Surface Temperature” ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3
+
+
+(global-attribute-program)=
+### `program`
+
+**Format:** string
+
+**Description:** The overarching program(s) of which the dataset is a part. A program consists of a set (or portfolio) of related and possibly interdependent projects that meet an overarching objective. Examples:  ,   'GHRSST', 'NOAA CDR', 'NASA EOS', 'JPSS', 'GOES-R'.
+
+**Example**
+
+```text
+program= " NASA Earth Science Data Information and System (ESDIS)" ;
+```
+
+**Source:** ACDD 1.3
+
+
+(global-attribute-contributor_name)=
+### `contributor_name`
+
+**Format:** string
+
+**Description:** The name of any individuals, projects, or institutions that contributed to the creation of this data. May be presented as free text, or in a structured format compatible with conversion to ncML (e.g., insensitive to changes in whitespace, including end-of-line characters).
+
+**Example**
+
+```text
+contributor_name = "PO.DAAC/OBPS/REMAS" ;
+```
+
+**Source:** ACDD 1.3
+
+
+(global-attribute-contributor_role)=
+### `contributor_role`
+
+**Format:** string
+
+**Description:** The role of any individuals, projects, or institutions that contributed to the creation of this data. May be presented as free text, or in a structured format compatible with conversion to ncML (e.g., insensitive to changes in whitespace, including end-of-line characters). Multiple roles should be presented in the same order and number as the names in contributor_names., 
+
+**Example**
+
+```text
+contributor_role = "PO.DAAC convert the VIIRSS_NPP SST to GDS2 format, OBPS processed the L2P SST, and RSMAS provided the algorithm model ";
+```
+
+**Source:** ACDD 1.3
+
+
+(global-attribute-publisher_name)=
+### `publisher_name`
+
+**Format:** string
+
+**Description:** The name of the person (or other entity specified by the `publisher_type` attribute) responsible for publishing the data file or product to users, with its current metadata and format.
+
+**Example**
+
+```text
+publisher_name = "The GHRSST Project Office" ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3
+
+
+(global-attribute-publisher_url)=
+### `publisher_url`
+
+**Format:** string
+
+**Description:** The URL of the person (or other entity specified by the `publisher_type` attribute) responsible for publishing the data file or product to users, with its current metadata and format.
+
+**Example**
+
+```text
+publisher_url = "http://www.ghrsst.org" ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3
+
+
+(global-attribute-publisher_email)=
+### `publisher_email`
+
+**Format:** string
+
+**Description:** The email address of the person (or other entity specified by the `publisher_type` attribute) responsible for publishing the data file or product to users, with its current metadata and format.
+
+**Example**
+
+```text
+publisher_email = "ghrsst-po@nceo.ac.uk" ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3
+
+
+(global-attribute-publisher_type)=
+### `publisher_type`
+
+**Format:** string
+
+**Description:** Specifies type of publisher with one of the following: *person*, *group*, *institution*, or *position*. If this attribute is not specified, the publisher is assumed to be a person.
+
+**Example**
+
+```text
+publisher_type = "institution" ;
+```
+
+**Source:** ACDD 1.3
+
+
+(global-attribute-publisher_institution)=
+### `publisher_institution`
+
+**Format:** string
+
+**Description:** The institution that presented the data file or equivalent product to users; should uniquely identify the institution. If `publisher_type` is institution, this should have the same value as `publisher_name`.
+
+**Example**
+
+```text
+publisher_institution = "PO.DAAC" ;
+```
+
+**Source:** ACDD 1.3
+
+
+(global-attribute-processing_level)=
+### `processing_level`
+
+**Format:** string
+
+**Description:** A textual description of the processing (or quality control) level of the data. GHRSST definitions are the options: *L2P*, *L3U*, *L3C*, *L3S*, *L4*
+
+**Example**
+
+```text
+processing_level = "L2P" ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3
+
+
+(global-attribute-cdm_data_type)=
+### `cdm_data_type`
+
+**Format:** string
+
+**Description:** The data type, as derived from Unidata's Common Data Model Scientific Data types and understood by THREDDS. (This is a THREDDS "dataType", and is different from the CF NetCDF attribute 'featureType', which indicates a Discrete Sampling Geometry file in CF.). *swath* or *grid*.
+
+**Example**
+
+```text
+cdm_data_type = "swath" ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3
+
+
+The unique numerical values and text strings for GHRSST SST datasets are 
+established by agreement between the relevant RDAC, GDAC, and the LSTRF, 
+following the Best Practice defined later in this section. The GHRSST L2P, 
+L3, and L4 product specifications ({numref}`l2p`, {numref}`l3`, 
+{numref}`l4`, respectively) also require the providing RDAC to use 
+these text strings directly within the netCDF global attribute `source` to 
+indicate the sources of SST used to create the product. In the event that a 
+non-GHRSST dataset is used as a source, as in the case of an L2P product 
+that uses a Level 1 dataset as its source, it too must have an established 
+text string following the best practice below (to the extent possible).
+
+The associated numeric codes are used in some L3S files, which must describe 
+the SST sources pixel-by-pixel in a variable named `source_of_sst` if more 
+than one SST source is used.  If only one source is used, the variable 
+`source_of_sst` is not needed and instead the source is indicated simply by
+using the text string in the global attribute`source` (see 
+{numref}`__l3_source_of_sst`). 
+
+
+
+
+filename convention and within
+the GHRSST unique data set codes described in {numref}`product_codes`. The 
+satellite platform and satellite sensor entries are also used in the netCDF 
+global attributes, `platform` and `instrument` GHRSST product files.  See 
+{numref}`global_attributes` for more information on the required 
+**global attributes**.
+
+In order to improve the consistency of these product strings across 
+producers, and avoid maintaining specific GHRSST tables, we recommend to use 
+the CEOS tables as vocabulary for satellite platform and satellite name:
+
+- CEOS platform table: http://database.eohandbook.com/database/missiontable.aspx
+- CEOS sensor table: http://database.eohandbook.com/database/instrumenttable.aspx 
+
+Details on each of the filename convention components are 
+provided in {numref}`indicative_date` through {numref}`segregator`. 
+
+
+
 
 (variable_attributes)=
 ## Variable Attributes
+
 
 <style>
     .var-attributes-css { font-size: 12px; width: 100%; table-layout: fixed;} 
     .var-attributes-css tbody tr:nth-child(n+1):nth-child(-n+4) { background:#dfadf7; }
     .var-attributes-css tbody tr:nth-child(5) { background: #42d1f5; }
     .var-attributes-css tbody tr:nth-child(n+6):nth-child(-n+21) { background:#dfadf7; }
-    .var-attributes-css thead tr th:nth-child(1), tbody tr td:nth-child(2) {
+    .var-attributes-css thead tr th:nth-child(1), .var-attributes-css tbody tr td:nth-child(1) {
         width: 13em;
         min-width: 13em;
         max-width: 13em;
@@ -200,42 +1204,365 @@ https://wiki.esipfed.org/Attribute_Convention_for_Data_Discovery_1-3.
         max-width: 7em;
         word-break: break-all;
     }
-    .var-attributes-css thead tr th:nth-child(5), tbody tr td:nth-child(5) {
-        width: 6em;
-        min-width: 6em;
-        max-width: 6em;
-        word-break: break-all;
-    }
 </style>
 
 ```{table} Variable attributes for GDS-2.1 netCDF data files (blue are mandatory, purple are optional, orange are deprecated attributes from previous GDS versions)
 :name: var_attributes
 :class: "var-attributes-css"
 
-| Variable Attribute Name | Format                                      | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |                                                                               | Source                     |
-|-------------------------|---------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------|----------------------------|
-| `_FillValue`              | Must be the same as the packed variable type | Assigned value in the data file designating a null or missing observation.<br>This value must be of the same type as the storage (packed) type; should be set as the minimum value for this type. Note that some netCDF readers are unable to cope with signed bytes and may, in these cases, report fill as 128. Some cases will be reported as unsigned bytes 0 to 255. Required for the majority of variables except mask and l2p_flags.<br>Best practices specifies that for satellite datasets there should not be a `_FillVlalue` for geolocation or time variables.                                                                                                                                       | `_FillValue = -32767s ;`                                                        | CF 1.7+                     |
-| `units`                   | String                                      | The units of the variable's data values. This attribute value should be a valid udunits[^footnote6] string. The `units` attribute is recommended by the NetCDF Users Guide, the COARDS convention, and the CF convention. For a given variable (e.g. wind speed), these must be the same for each dataset. Required for the majority of variables except mask, quality_level, and l2p_flags.                                                                                                                                                                                                                                                                                        | `units = "K" ;`                                                            | ACDD 1.1<br>ACDD 1.3<br>CF 1.7+ |
-| `scale_factor`            | Must be expressed in the unpacked data type | Slope of scaling relationship applied to transform measuement data to appropriate geophysical quantity representations. Should not be used if the `scale_factor` is '1' and `add_offset` is '0'<br>To be multiplied by the variable to recover the original value. Defined by the producer. Valid values within `value_range` should be transformed by scale_factor and add_offset, otherwise skipped to avoid floating point errors.<br>                                                                                                                                                                                                                                                                     |`scale_factor = 0.005f ;`                                                       | CF 1.7+                     |
-| `add_offset`              | Must be expressed in the unpacked data type | Intercept of scaling relationship applied to transform measurement data to appropriate geophysical quantity representations. Should not be used if the `scale_factor` is '1' and `add_offset` is '0'<br>To be added to the variable after multiplying by the scale factor to recover the original value. If only one of `scale_factor` or `add_offset` is needed, then both should be included anyway to avoid ambiguity, with `scale_factor` defaulting to 1.0 and `add_offset` defaulting to 0.0. Defined by the producer. Valid values within `value_range` should be transformed by `scale_factor` and `add_offset`, otherwise skipped to avoid floating point errors.                                                | `add_offset = 273.15f ;`                                                        | CF 1.7+                     |
-| `long_name`               | String                                      | A long descriptive name for the variable (not necessarily from a controlled vocabulary). This attribute is recommended by the NetCDF Users Guide, the COARDS convention, and the CF convention.  |   `long_name = "sea surface temperature" ;` | ACDD 1.1<br>ACDD 1.3<br>CF 1.7+ |
-| `valid_range`             | Must be the same as the packed variable type | Comma separated minimum and maximum values of the physical quantity defining the valid measurement range. The fill value should be outside this valid range. Note that some netCDF readers are unable to cope with signed bytes and may, in these cases, report valid min as 129. Some cases as unsigned bytes 0 to 255. Values outside of the `valid_range` will be treated as missing values. When all values except the one in `_FillValue` are valid, this attribute is not required. It is therefore not necessary in GDS for variables for which the `_FillValue` attribute is defined.  | `valid_range = -32767s, 32767 ;`  | CF 1.7+        |
-| `standard_name`           | String                                      | A long descriptive name for the variable taken from a controlled vocabulary of variable names. We require using the CF convention and the variable names from the CF standard name table[^footnote7]. This attribute is recommended by the CF convention. Do not include this attribute if no standard_name exists.                                                                                                                                                                                                                                                                 | `standard_name = "sea_surface_skin_temperature" ;`                              | ACDD 1.1<br>ACDD 1.3<br>CF 1.7+ |
-| `comment`                 | String                                      | Optional attribute field allowing provision of further free-form information about the variable or the methods used to produce it.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | `comment = "sea surface temperature from 11 and 12 um (thermal IR) channels" ;` | CF 1.7+                     |
-| `source`                  | string                                      | For L2P and L3 files: For a data variable with a single source, use the GHRSST unique string if the source is a GHRSST SST product. For other sources, following the best practice described in Section {numref}`product_codes` to create the character string.<br>If the data variable contains multiple sources, set this string to be the relevant “source of” variable name. For example, if multiple wind speed sources are used, set `source = source_of_wind_speed`.<br><br>For L4 and GMPE files: follow the source convention used for the global attribute of the same name, but provide in the comma-separated list only the sources relevant to this variable.                   |  `source = "ECMWF" ;`    | CF 1.7+ |
-| `references`              | string                                      | Published or web-based references that describe the data or methods used to produce it. Note that while at least one reference is required in the global attributes (See {numref}`global_attributes`), references to this specific data variable may also be given.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |                                                                               | CF 1.7+                     |
-| `axis`                    | String                                      | Corresponding variable axis for plotting (eg. X, Y, Z).<br>For use with coordinate variables only. The attribute `axis` may be attached to a coordinate variable and given one of the values “X”, “Y”, “Z”, or “T”, which stand for a longitude, latitude, vertical, or time axis respectively[^footnote1].                                                                                                                                                                                                                                                                                                                                                                                             | `axis = "Y";`                                                                   | CF 1.7+                     |
-| `positive`                | String                                      | For use with a vertical coordinate variables only. May have the value “up” or “down”. For example, if an oceanographic netCDF file encodes the depth of the surface as 0 and the depth of 1000 meters as 1000 then the axis would set positive to “down”. If a depth of 1000 meters was encoded as -1000, then positive would be set to “up”. See the section on vertical coordinate in CF Convention[^footnote1] | `positive = "up" ;` | CF 1.7+                     |
-| `coordinates`             | String                                      | This attribute contains a space separated list of all the coordinates corresponding to the variable. The list should contain all the auxiliary coordinate variables and optionally the coordinate variables.<br><br>See the section on coordinate system in CF Convention[^footnote1]. This attribute must be provided if the data are on a non-regular lat/lon grid (map projection or swath data).                                                                                                                                                                                                                                                                                                                                                          | `coordinates = "time lat lon";`                                                 | CF 1.7+                     |
-| `grid_mapping`            | String                                      | Describes the horizontal coordinate system used by the data. The grid_mapping attribute should point to a variable which would contain the parameters corresponding to the coordinate system. That named variable is called a grid mapping variable and is of arbitrary type since it contains no data. Its purpose is to act as a container for the attributes that define the mapping. There are typically several parameters associated with each coordinate system. CF defines a separate attributes for each of the parameters. Some examples are `semi_major_axis`, `inverse_flattening`, `false_easting`. See the section on mappings-and-projections in CF Convention[^footnote1].                                              | `grid_mapping = "geostationary";`                                                | CF 1.7+                     |
-| `flag_meanings`           | String                                      | Define the physical meaning of each `flag_masks` bit field or `flag_values` value with a single text string.                                                                                                                                                                               | `flag_meanings = "microwave land ice lake river" ;`                             | CF 1.7+                     |
-| `flag_values`             | Must be the same as the variable type       | Its values identify the flagged conditions by performing a bitwise AND of the variable value and each flag masks value. For example, if the variable value is of type unsigned byte and equal to 5 and the flag_masks are 1b, 2b, 4b, 8b, 16b, 32b. The binary encoding of 5 is 00000101 and the binary encoding of the flags are 00000001, 00000010, 00000100, 00001000, 00010000, 00100000. Now bitwide AND of the value with the masks returns 00000001, 00000000, 00000100, 00000000, 00000000, 00000000 respectively or 1b,0,4b,0,0,0,0,0 in decimal. So the masks corresponding to 1b and 4b are ""true"", rest are ""false"". Used primarily for quality_level and “source_of_xxx” variables.                                           | `flag_values = 1b, 5b ;`                                                        | CF 1.7+                     |
-| `flag_masks`              | Must be the same as the variable type       | A number of independent Boolean conditions using bit field notation by setting unique bits in each `flag_masks` value. The `flag_masks` attribute is the same type as the variable to which it is attached, and contains a list of values matching unique bit fields. (CF document, Flags section[^footnote1]). Used primarily for `l2p_flags` variable. | `flag_masks = 1b, 2b, 4b, 8b, 16b;`                                             | CF 1.7+                     |
-| `depth`                   | String                                      | Use this to indicate the depth for which the SST data are valid.    |   `depth= "1m" ;`                                                                                | GDS                        |
-| `height`                  | String                                      | Use this to indicate the height for which the wind data are specified.   |   `height= "10m" ;`    | GDS                        |
-| `time_offset`             | float | Difference in hours between an ancillary field such as wind_speed and the SST observation time     |  `time_offset= 3. ;`      | GDS                        |
-| `coverage_content_type`   | String                                      | An ISO 19115-3 code to indicate the source of the data `MD_CoverageContentTypeCode` [^footnote5]. For example, *image*, *thematicClassification*, *physicalMeasurement*, *auxiliaryInformation*, *qualityInformation*, *referenceInformation*, *modelResult*, or *coordinate*.                                                                                                                                                                                                                                                                                                                          | `coverage_content_type = "physicalMeasurement" ;`                               | ACDD 1.1<br>ACDD 1.3         |
+| Attribute | Format | Short description |
+|---|---|---|
+| {ref}`_FillValue <variable-attribute-_fillvalue>` | Must be the same as the packed variable type | Assigned value in the data file designating a null or missing observation. This value must be of the same type as the… |
+| {ref}`units <variable-attribute-units>` | String | The units of the variable's data values. This attribute value should be a valid udunits[^footnote6] string. The `units`… |
+| {ref}`scale_factor <variable-attribute-scale_factor>` | Must be expressed in the unpacked data type | Slope of scaling relationship applied to transform measuement data to appropriate geophysical quantity representations… |
+| {ref}`add_offset <variable-attribute-add_offset>` | Must be expressed in the unpacked data type | Intercept of scaling relationship applied to transform measurement data to appropriate geophysical quantity representations… |
+| {ref}`long_name <variable-attribute-long_name>` | String | A long descriptive name for the variable (not necessarily from a controlled vocabulary). This attribute is recommended by… |
+| {ref}`valid_range <variable-attribute-valid_range>` | Must be the same as the packed variable type | Comma separated minimum and maximum values of the physical quantity defining the valid measurement range. The fill value… |
+| {ref}`standard_name <variable-attribute-standard_name>` | String | A long descriptive name for the variable taken from a controlled vocabulary of variable names. We require using the CF… |
+| {ref}`comment <variable-attribute-comment>` | String | Optional attribute field allowing provision of further free-form information about the variable or the methods used to… |
+| {ref}`source <variable-attribute-source>` | string | For L2P and L3 files: For a data variable with a single source, use the GHRSST unique string if the source is a GHRSST SST… |
+| {ref}`references <variable-attribute-references>` | string | Published or web-based references that describe the data or methods used to produce it. Note that while at least one… |
+| {ref}`axis <variable-attribute-axis>` | String | Corresponding variable axis for plotting (eg. X, Y, Z). For use with coordinate variables only. The attribute `axis` may be… |
+| {ref}`positive <variable-attribute-positive>` | String | For use with a vertical coordinate variables only. May have the value “up” or “down”. For example, if an oceanographic… |
+| {ref}`coordinates <variable-attribute-coordinates>` | String | This attribute contains a space separated list of all the coordinates corresponding to the variable. The list should contain… |
+| {ref}`grid_mapping <variable-attribute-grid_mapping>` | String | Describes the horizontal coordinate system used by the data. The grid_mapping attribute should point to a variable which… |
+| {ref}`flag_meanings <variable-attribute-flag_meanings>` | String | Define the physical meaning of each `flag_masks` bit field or `flag_values` value with a single text string. |
+| {ref}`flag_values <variable-attribute-flag_values>` | Must be the same as the variable type | Its values identify the flagged conditions by performing a bitwise AND of the variable value and each flag masks value. For… |
+| {ref}`flag_masks <variable-attribute-flag_masks>` | Must be the same as the variable type | A number of independent Boolean conditions using bit field notation by setting unique bits in each `flag_masks` value. The… |
+| {ref}`depth <variable-attribute-depth>` | String | Use this to indicate the depth for which the SST data are valid. |
+| {ref}`height <variable-attribute-height>` | String | Use this to indicate the height for which the wind data are specified. |
+| {ref}`time_offset <variable-attribute-time_offset>` | float | Difference in hours between an ancillary field such as wind_speed and the SST observation time |
+| {ref}`coverage_content_type <variable-attribute-coverage_content_type>` | String | An ISO 19115-3 code to indicate the source of the data `MD_CoverageContentTypeCode` [^footnote5]. For example, *image*… |
 ```
+
+
+(variable-attribute-_fillvalue)=
+### `_FillValue`
+
+**Format:** Must be the same as the packed variable type
+
+**Description:** Assigned value in the data file designating a null or missing observation., This value must be of the same type as the storage (packed) type; should be set as the minimum value for this type. Note that some netCDF readers are unable to cope with signed bytes and may, in these cases, report fill as 128. Some cases will be reported as unsigned bytes 0 to 255. Required for the majority of variables except mask and l2p_flags., Best practices specifies that for satellite datasets there should not be a `_FillVlalue` for geolocation or time variables.
+
+**Example**
+
+```text
+_FillValue = -32767s ;
+```
+
+**Source:** CF 1.7+
+
+
+(variable-attribute-units)=
+### `units`
+
+**Format:** String
+
+**Description:** The units of the variable's data values. This attribute value should be a valid udunits[^footnote6] string. The `units` attribute is recommended by the NetCDF Users Guide, the COARDS convention, and the CF convention. For a given variable (e.g. wind speed), these must be the same for each dataset. Required for the majority of variables except mask, quality_level, and l2p_flags.
+
+**Example**
+
+```text
+units = "K" ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3, CF 1.7+
+
+
+(variable-attribute-scale_factor)=
+### `scale_factor`
+
+**Format:** Must be expressed in the unpacked data type
+
+**Description:** Slope of scaling relationship applied to transform measuement data to appropriate geophysical quantity representations. Should not be used if the `scale_factor` is '1' and `add_offset` is '0', To be multiplied by the variable to recover the original value. Defined by the producer. Valid values within `value_range` should be transformed by scale_factor and add_offset, otherwise skipped to avoid floating point errors., 
+
+**Example**
+
+```text
+scale_factor = 0.005f ;
+```
+
+**Source:** CF 1.7+
+
+
+(variable-attribute-add_offset)=
+### `add_offset`
+
+**Format:** Must be expressed in the unpacked data type
+
+**Description:** Intercept of scaling relationship applied to transform measurement data to appropriate geophysical quantity representations. Should not be used if the `scale_factor` is '1' and `add_offset` is '0', To be added to the variable after multiplying by the scale factor to recover the original value. If only one of `scale_factor` or `add_offset` is needed, then both should be included anyway to avoid ambiguity, with `scale_factor` defaulting to 1.0 and `add_offset` defaulting to 0.0. Defined by the producer. Valid values within `value_range` should be transformed by `scale_factor` and `add_offset`, otherwise skipped to avoid floating point errors.
+
+**Example**
+
+```text
+add_offset = 273.15f ;
+```
+
+**Source:** CF 1.7+
+
+
+(variable-attribute-long_name)=
+### `long_name`
+
+**Format:** String
+
+**Description:** A long descriptive name for the variable (not necessarily from a controlled vocabulary). This attribute is recommended by the NetCDF Users Guide, the COARDS convention, and the CF convention.
+
+**Example**
+
+```text
+long_name = "sea surface temperature" ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3, CF 1.7+
+
+
+(variable-attribute-valid_range)=
+### `valid_range`
+
+**Format:** Must be the same as the packed variable type
+
+**Description:** Comma separated minimum and maximum values of the physical quantity defining the valid measurement range. The fill value should be outside this valid range. Note that some netCDF readers are unable to cope with signed bytes and may, in these cases, report valid min as 129. Some cases as unsigned bytes 0 to 255. Values outside of the `valid_range` will be treated as missing values. When all values except the one in `_FillValue` are valid, this attribute is not required. It is therefore not necessary in GDS for variables for which the `_FillValue` attribute is defined.
+
+**Example**
+
+```text
+valid_range = -32767s, 32767 ;
+```
+
+**Source:** CF 1.7+
+
+
+(variable-attribute-standard_name)=
+### `standard_name`
+
+**Format:** String
+
+**Description:** A long descriptive name for the variable taken from a controlled vocabulary of variable names. We require using the CF convention and the variable names from the CF standard name table[^footnote7]. This attribute is recommended by the CF convention. Do not include this attribute if no standard_name exists.
+
+**Example**
+
+```text
+standard_name = "sea_surface_skin_temperature" ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3, CF 1.7+
+
+
+### `comment`
+
+**Format:** String
+
+**Description:** Optional attribute field allowing provision of further free-form information about the variable or the methods used to produce it.
+
+**Example**
+
+```text
+comment = "sea surface temperature from 11 and 12 um (thermal IR) channels" ;
+```
+
+**Source:** CF 1.7+
+
+
+(variable-attribute-source)=
+### `source`
+
+**Format:** string
+
+**Description:** For L2P and L3 files: For a data variable with a single source, use the GHRSST unique string if the source is a GHRSST SST product. For other sources, following the best practice described in Section {numref}`product_codes` to create the character string., If the data variable contains multiple sources, set this string to be the relevant “source of” variable name. For example, if multiple wind speed sources are used, set `source = source_of_wind_speed`., , For L4 and GMPE files: follow the source convention used for the global attribute of the same name, but provide in the comma-separated list only the sources relevant to this variable.
+
+**Example**
+
+```text
+source = "ECMWF" ;
+```
+
+**Source:** CF 1.7+
+
+
+### `references`
+
+**Format:** string
+
+**Description:** Published or web-based references that describe the data or methods used to produce it. Note that while at least one reference is required in the global attributes (See {numref}`global_attributes`), references to this specific data variable may also be given.
+
+**Source:** CF 1.7+
+
+
+(variable-attribute-axis)=
+### `axis`
+
+**Format:** String
+
+**Description:** Corresponding variable axis for plotting (eg. X, Y, Z)., For use with coordinate variables only. The attribute `axis` may be attached to a coordinate variable and given one of the values “X”, “Y”, “Z”, or “T”, which stand for a longitude, latitude, vertical, or time axis respectively[^footnote1].
+
+**Example**
+
+```text
+axis = "Y";
+```
+
+**Source:** CF 1.7+
+
+
+(variable-attribute-positive)=
+### `positive`
+
+**Format:** String
+
+**Description:** For use with a vertical coordinate variables only. May have the value “up” or “down”. For example, if an oceanographic netCDF file encodes the depth of the surface as 0 and the depth of 1000 meters as 1000 then the axis would set positive to “down”. If a depth of 1000 meters was encoded as -1000, then positive would be set to “up”. See the section on vertical coordinate in CF Convention[^footnote1]
+
+**Example**
+
+```text
+positive = "up" ;
+```
+
+**Source:** CF 1.7+
+
+
+(variable-attribute-coordinates)=
+### `coordinates`
+
+**Format:** String
+
+**Description:** This attribute contains a space separated list of all the coordinates corresponding to the variable. The list should contain all the auxiliary coordinate variables and optionally the coordinate variables., , See the section on coordinate system in CF Convention[^footnote1]. This attribute must be provided if the data are on a non-regular lat/lon grid (map projection or swath data).
+
+**Example**
+
+```text
+coordinates = "time lat lon";
+```
+
+**Source:** CF 1.7+
+
+
+(variable-attribute-grid_mapping)=
+### `grid_mapping`
+
+**Format:** String
+
+**Description:** Describes the horizontal coordinate system used by the data. The grid_mapping attribute should point to a variable which would contain the parameters corresponding to the coordinate system. That named variable is called a grid mapping variable and is of arbitrary type since it contains no data. Its purpose is to act as a container for the attributes that define the mapping. There are typically several parameters associated with each coordinate system. CF defines a separate attributes for each of the parameters. Some examples are `semi_major_axis`, `inverse_flattening`, `false_easting`. See the section on mappings-and-projections in CF Convention[^footnote1].
+
+**Example**
+
+```text
+grid_mapping = "geostationary";
+```
+
+**Source:** CF 1.7+
+
+
+(variable-attribute-flag_meanings)=
+### `flag_meanings`
+
+**Format:** String
+
+**Description:** Define the physical meaning of each `flag_masks` bit field or `flag_values` value with a single text string.
+
+**Example**
+
+```text
+flag_meanings = "microwave land ice lake river" ;
+```
+
+**Source:** CF 1.7+
+
+
+(variable-attribute-flag_values)=
+### `flag_values`
+
+**Format:** Must be the same as the variable type
+
+**Description:** Its values identify the flagged conditions by performing a bitwise AND of the variable value and each flag masks value. For example, if the variable value is of type unsigned byte and equal to 5 and the flag_masks are 1b, 2b, 4b, 8b, 16b, 32b. The binary encoding of 5 is 00000101 and the binary encoding of the flags are 00000001, 00000010, 00000100, 00001000, 00010000, 00100000. Now bitwide AND of the value with the masks returns 00000001, 00000000, 00000100, 00000000, 00000000, 00000000 respectively or 1b,0,4b,0,0,0,0,0 in decimal. So the masks corresponding to 1b and 4b are ""true"", rest are ""false"". Used primarily for quality_level and “source_of_xxx” variables.
+
+**Example**
+
+```text
+flag_values = 1b, 5b ;
+```
+
+**Source:** CF 1.7+
+
+
+(variable-attribute-flag_masks)=
+### `flag_masks`
+
+**Format:** Must be the same as the variable type
+
+**Description:** A number of independent Boolean conditions using bit field notation by setting unique bits in each `flag_masks` value. The `flag_masks` attribute is the same type as the variable to which it is attached, and contains a list of values matching unique bit fields. (CF document, Flags section[^footnote1]). Used primarily for `l2p_flags` variable.
+
+**Example**
+
+```text
+flag_masks = 1b, 2b, 4b, 8b, 16b;
+```
+
+**Source:** CF 1.7+
+
+
+(variable-attribute-depth)=
+### `depth`
+
+**Format:** String
+
+**Description:** Use this to indicate the depth for which the SST data are valid.
+
+**Example**
+
+```text
+depth= "1m" ;
+```
+
+**Source:** GDS
+
+
+(variable-attribute-height)=
+### `height`
+
+**Format:** String
+
+**Description:** Use this to indicate the height for which the wind data are specified.
+
+**Example**
+
+```text
+height= "10m" ;
+```
+
+**Source:** GDS
+
+
+(variable-attribute-time_offset)=
+### `time_offset`
+
+**Format:** float
+
+**Description:** Difference in hours between an ancillary field such as wind_speed and the SST observation time
+
+**Example**
+
+```text
+time_offset= 3. ;
+```
+
+**Source:** GDS
+
+
+(variable-attribute-coverage_content_type)=
+### `coverage_content_type`
+
+**Format:** String
+
+**Description:** An ISO 19115-3 code to indicate the source of the data `MD_CoverageContentTypeCode` [^footnote5]. For example, *image*, *thematicClassification*, *physicalMeasurement*, *auxiliaryInformation*, *qualityInformation*, *referenceInformation*, *modelResult*, or *coordinate*.
+
+**Example**
+
+```text
+coverage_content_type = "physicalMeasurement" ;
+```
+
+**Source:** ACDD 1.1, ACDD 1.3
+
 
 [^footnote1]: netCDF Climate and Forecast (CF) Metadata Conventions version 1.7 
 or later available from http://cfconventions.org

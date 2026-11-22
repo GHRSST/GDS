@@ -9,10 +9,15 @@ chapters:
 - file: conventions
 - file: overview
 - file: sea_surface_temperature
+- file: processing_level
 - file: naming
 - file: structure
 - file: coordinates
+- file: temperature
+- file: uncertainties
+- file: auxiliary
 - file: l2p
 - file: l3
 - file: l4
-
+- file: optimization
+- file: changes

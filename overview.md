@@ -108,14 +108,11 @@ development, GHRSST was able to develop confidently and purposefully to address 
 of the international SST user community.
 
 ## GHRSST Organization
-Over the last two decades, GHRSST established and now continues to provide an
-internationally distributed suite of user focused services in a sustained 
-Regional/Global Task Sharing (R/GTS) framework [^footnote5] that addresses 
-international organizational challenges and recognizes the implementing 
-institutional capacities, capabilities, and funding prospects. 
-Long term stewardship, user support and help services, and standards-based data
-management and interoperability have been developed and are operated within the R/GTS
-on a daily basis.
+Over the last two decades, GHRSST established and now continues to provide an internationally distributed suite of user 
+focused services in a sustained Regional/Global Task Sharing (R/GTS) framework [^footnote5] that addresses international 
+organizational challenges and recognizes the implementing institutional capacities, capabilities, and funding prospects. 
+Long term stewardship, user support and help services, and standards-based data management and interoperability have 
+been developed and are operated within the R/GTS on a daily basis.
 
 The first GHRSST Level 2P datasets were made available in 2006. Since then the GHRSST R/G
 TS framework did not change up to 2019. Datasets produced from the collection of
@@ -181,40 +178,19 @@ GHRSST Advisory Council. A GHRSST  Project Office coordinates the overall
 framework.
 
 ## Overview of the GDS-{{gds_version}}
-The GHRSST R/GTS was made possible through the establishment of a rigorous GHRSST
-Technical Data Specification (GDS), which instructed international satellite data providers on
-how to process satellite data streams, defined the format and content of the data and
-metadata, and documented the basic approaches to providing uncertainty estimates and
-auxiliary data sets. The GHRSST-PP established the first GDS (v1.6), which formed the
-basis of all GHRSST data production from 2005 through today. Since 2010 the Version 2 of the
-GDS has been used in operations, with minor updates occurring from time to time.
-All GHRSST products entering the R/GTS must strictly follow the common GDS when
-generating L2P, L3, L4, and GMPE data. As a result, users with common tools to read data
-from one RDAC can securely use data from any of the others as well as the GDAC and LTSRF
-without a need to re-code. {numref}`product_levels` provides a summary of 
-GDS-2.1 data products and their basic characteristics.
+The GHRSST R/GTS was made possible through the establishment of a rigorous GHRSST Technical Data Specification (GDS), 
+which instructed international satellite data providers on how to process satellite data streams, defined the format and 
+content of the data and metadata, and documented the basic approaches to providing uncertainty estimates and auxiliary 
+data sets. The GHRSST-PP established the first GDS (v1.6), which formed the basis of all GHRSST data production from 
+2005 to 2010. Since 2010 the Version 2 of the GDS has been used in operations, with minor updates occurring from time to time.
+All GHRSST products entering the R/GTS must strictly follow the common GDS when generating L2P, L3 and L4 data. As a 
+result, users with common tools to read data from any GHRSST producers can securely use data from any of the others 
+producers without a need to re-code. {numref}`product_levels` provides a summary of GDS-{{gds_version}} data products 
+and their basic characteristics.
 
-The remainder of this document provides the detailed specifications for GHRSST L2P, L3, L4,
-and GMPE products, their file naming convention, metadata requirements, and all necessary
-tables, conventions, and best practices for creating and using GHRSST data.
-
-```{table} Summary description of GHRSST product levels
-:name: product_levels
-
-| SST Product         | L2 Pre-Processed {numref}`l2p`  | L3 Uncollated  {numref}`l3`  | L3 Collated  {numref}`l3`   | L3 Super-collated  {numref}`l3`  | Analyzed SST  {numref}`l4`   |
-|:--------------------|:--------------------------------|:------------------------------|:-----------------------------|:----------------------------------|:-----------------------------|
-| Acronym             | L2P                                                                                                                                                                                                                                                                                                                                                       | L3U                                                                                                   | L3C                                                                                                 | L3S                                                                                        | L4                                                                                                                                                                  |
-| Description         | Geophysical variables derived from Level 1 source data at the same resolution and location as the Level 1 data, typically in a satellite projection with geographic information. These data form the fundamental basis for higher-level GHRSST products and require ancillary data and uncertainty estimates. No adjustments to input SST have been made. | L2 data granules remapped to a space grid without combining any observations from overlapping orbits. | SST measurements combined from a single instrument into a space-time grid.                          | Multiple passes/scenes of data can be combined. Adjustments may be made to input SST data. | SST measurements combined from multiple instruments into a space-time grid. Multiple passes/scenes of data are combined. Adjustments may be made to input SST data. | Data sets created from the analysis of lower level data that results in gridded, gap-free products. SST data generated from multiple sources of satellite data using optimal interpolation are an example of L4 GHRSST products |
-| Grid specification  | Native to SST data format                                                                                                                                                                                                                                                                                                                                 | Defined by data provider                                                                              | Defined by data provider                                                                            | Defined by data provider                                                                   | Defined by data provider                                                                                                                                            |
-| Temporal resolution | Native to SST data stream                                                                                                                                                                                                                                                                                                                                 | Native to data stream                                                                                 | Defined by data provider                                                                            | Defined by data provider                                                                   | Defined by data provider                                                                                                                                            |
-| Delivery timescale  | As available, Ideally within 3 hours from acquisition at satellite                                                                                                                                                                                                                                                                                        | As available, Ideally within 3 hours from acquisition at satellite                                    | As available, Ideally within 3 hours from acquisition at satellite                                  | As available, Ideally within 3 hours from acquisition at satellite                         | Analyzed product processing window as defined by data provider.                                                                                                     |
-| Target accuracy     | Native to data stream                                                                                                                                                                                                                                                                                                                                     | Native to data stream                                                                                 | <0.4 K                                                                                              | <0.4 K                                                                                     | < 0.4 K absolute, 0.1 K relative                                                                                                                                    |
-| Error statistics    | Native to data stream if available, sensor specific error statistics otherwise                                                                                                                                                                                                                                                                            | Native to data stream if available, sensor specific error statistics otherwise                        | Derived from input data for each output grid point.                                                 | Derived from input data for each output grid point.                                        | Analysis error defined by data provider for each output grid point (no input data statistics are retained)                                                          |
-| Coverage            | Native to data stream                                                                                                                                                                                                                                                                                                                                     | Native to data stream                                                                                 | Defined by data provider                                                                            | Defined by data provider                                                                   | Defined by data provider                                                                                                                                            |
-```
-
-L3 GHRSST products do not use analysis or interpolation procedures to fill gaps 
-where no observations are available
+The remainder of this document provides the detailed specifications for GHRSST L2P, L3 and L4 products, their file naming 
+convention, metadata requirements, and all necessary tables, conventions, and best practices for creating and using 
+GHRSST data.
 
 
 [^footnote0]: Donlon, C. J., I. Robinson, K. S Casey, J. Vazquez-Cuervo, E Armstrong, O. Arino, C.
