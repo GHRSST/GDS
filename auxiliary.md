@@ -145,50 +145,37 @@ as shown in the example above following the guidelines in {numref}`dt_analysis_c
   - Surface wind speed at 10m height. Resolution should be no less than 1 m s-1
 ```
 
-The L2P variable `wind_speed` contains a best estimate of the **10m surface
-wind speed, ideally at the time of SST data acquisition** (although this is
-rarely possible). Wind speed measurements are required within the GDS as an
-indicator of the turbulent state of the air sea interface to interpret the
-relationship between satellite and subsurface SST data and assess the severity
-of any skin SST temperature deviation, thermal stratification and for use in
-diurnal variability adjustment schemes. At low wind speeds, especially in clear
-sky conditions, stronger diurnal variability is expected leading to higher
-surface layer temperature gradients and the potential for significant
-de-coupling of the skin/sub-skin SST from the SST at depth.
+The variable `wind_speed` contains a best estimate of the **10m surface wind speed, ideally at the time of SST data 
+acquisition** (although this is rarely possible). Wind speed measurements are required within the GDS as an indicator 
+of the turbulent state of the air sea interface to interpret the relationship between satellite and subsurface SST data 
+and assess the severity of any skin SST temperature deviation, thermal stratification and for use in diurnal variability 
+adjustment schemes. At low wind speeds, especially in clear sky conditions, stronger diurnal variability is expected 
+leading to higher surface layer temperature gradients and the potential for significant de-coupling of the skin/sub-skin 
+SST from the SST at depth.
 
-Ideally a near contemporaneous wind speed measurement from satellite sensors
-should be used but this is impossible for all sensors due to the limited number
-of satellite wind speed sensors available. As a surrogate for a measured wind
-speed value, analysis product estimates (e.g., from numerical weather prediction
-models) may be used as an indication of the surface wind speed. The GDS
-specifies the following rules:
+Ideally a near contemporaneous wind speed measurement from satellite sensors should be used but this is impossible for 
+all sensors due to the limited number of satellite wind speed sensors available. As a surrogate for a measured wind
+speed value, analysis product estimates (e.g., from numerical weather prediction models) may be used as an indication of
+the surface wind speed. The GDS specifies the following rules:
 
-> Simultaneous microwave 10m wind speed measurements obtained from the same
-> instrument providing the SST measurement shall be used when available to set the
-> L2P confidence data variable `wind_speed`.
-> In the absence of a simultaneous surface wind speed measurement, an analysis
-> product estimated 10m surface wind speed shall be used to set the L2P variable 
-> `wind_speed`.
+> Simultaneous microwave 10m wind speed measurements obtained from the same instrument providing the SST measurement 
+> shall be used when available to set the auxiliary data variable `wind_speed`. In the absence of a simultaneous 
+> surface wind speed measurement, an analysis or forecast product of the estimated 10m surface wind speed shall be used 
+> to set the variable `wind_speed`.
 
-The difference in time expressed in hours between the time of SST measurement
-and the time of wind speed data should be entered into the L2P confidence data
-variable `wind_speed_dtime_from_sst` as described in 
-{numref}`auxiliary_dtime`. In the case of an analysis field, 
-this should be the central (mean) time of an integrated value.
-If all of the wind speeds have a single time value, as in the case of an
-analysis or model that gives the wind speeds at an instant in time, then the 
-`wind_speed_dtime_from_sst` variable is not needed and instead a variable level
-attribute named `time_offset` is used. The attribute `time_offset` should
-store the difference in hours between the `wind_speed` and the reference time,
-stored in the variable `time`.
+The difference in time expressed in hours between the time of SST measurement and the time of wind speed data should be 
+entered into the confidence data variable `wind_speed_dtime_from_sst` as described in {numref}`auxiliary_dtime`. In the 
+case of an analysis or forecast field, this should be the central (mean) time of an integrated value. 
+If all of the wind speeds have a single time value, as in the case of an analysis or model that gives the wind speeds at 
+an instant in time, then the `wind_speed_dtime_from_sst` variable is not needed and instead a variable level attribute 
+named `time_offset` is used. The attribute `time_offset` should store the difference in hours between the `wind_speed` 
+and the reference time, stored in the variable `time`.
 
-If a single source of data is used in the L2P variable `wind_speed` 
-(recommended), the L2P variable `source_of_wind_speed` is not required and a 
-`source` variable attribute of `wind_speed` is sufficient. In that case, it 
-shall be a single source text string defined by the data provider using the text
-string naming best practice given in {numref}`product_codes`.
+If a single source of data is used in the variable `wind_speed` (recommended), the variable `source_of_wind_speed` is 
+not required and a `source` variable attribute of `wind_speed` is sufficient. In that case, it shall be a single source 
+text string defined by the data provider using the text string naming best practice given in {numref}`product_codes`.
 
-If multiple sources of data are used, source information should be indicated in the L2P variable `source_of_wind_speed` 
+If multiple sources of data are used, source information should be indicated in the variable `source_of_wind_speed` 
 as defined by the data provider and as described in detail in {numref}`auxiliary_source`, and the  `source` variable 
 attribute of `wind_speed` shall have the value `source_of_wind_speed`. In addition, the units of all sources used in the 
 file shall be identical.
@@ -219,11 +206,10 @@ variables:
 ```
 
 
-A single source of wind data is shown in this example which is reported as 
-`wind_speed:source = "ECMWF_Anaylsis_V2"` the code has been defined by the data
-provider using the ancillary data naming rules given in {numref}`product_codes`. 
-Since all of the wind speeds have the same time, the attribute `time_offset` is
-used instead of the variable `wind_speed_dtime_from_sst`.
+A single source of wind data is shown in this example which is reported as `wind_speed:source = "ECMWF_Anaylsis_V2"` the
+code has been defined by the data provider using the ancillary data naming rules given in {numref}`product_codes`. 
+Since all of the wind speeds have the same time, the attribute `time_offset` is used instead of the variable 
+`wind_speed_dtime_from_sst`.
 
 (__sea_ice_fraction)=
 ### `sea_ice_fraction`
@@ -314,79 +300,79 @@ A single source of sea ice fraction data is shown in this example which is repor
 instead of the variable `sea_ice_fraction_dtime_from_sst`.
 
 
-(__l2p_aerosol_dynamic_indicator)=
+(__aerosol_dynamic_indicator)=
 ### `aerosol_dynamic_indicator`
 
-**Mandatory (only for infrared instruments).**
+```{list-table} Specifications of **<span style="font-family:courier;">aerosol_dynamic_indicator</span>** variable
+:widths: 20 80
+:name: spec_aerosol_dynamic_indicator
 
-The L2P variable `aerosol_dynamic_indicator` contains an indicator of potential
-atmospheric aerosol contamination of infrared satellite SST data.
-Infrared-absorbing atmospheric aerosols are a major source of error in
-satellite-derived sea surface temperature retrievals. Atmospheric aerosol, such
-as Saharan dust outbreaks, volcanic eruptions or from coastal mega cities causes
-errors in the atmospheric correction of top of the atmosphere radiances when
-retrieving SST from infrared and visible band data sets. A systematic bias in
-the tropical North Atlantic Ocean and Arabian Sea due to desert dust outflows in
-those regions is apparent.
-
-An aerosol indicator (e.g., derived from satellite measurements or models) 
-value is assigned to the L2P variable `aerosol_dynamic_indicator` for each 
-corresponding infrared retrieved SST measurement pixel using data chosen 
-by the data provider to indicate aerosol contamination. The aerosol 
-indicator data nearest in space and time to the input pixel SST value 
-should  be used. In the case of microwave SST measurements there is no
-requirement to include the `aerosol_dynamic_indicator` L2P variable as 
-microwave SST retrievals are not affected by atmospheric aerosols. However,
-microwave SST data providers may include `aerosol_dynamic_indicator` in an 
-L2P product.
-
-If a single source of data is used in the L2P variable 
-`aerosol_dynamic_indicator`, the L2P variable `source_of_adi` is not 
-required and instead the `source` variable attribute value in 
-`aerosol_dynamic_indicator` is sufficient. It shall be a single source 
-text string defined by the data provider using the text string naming best 
-practice given in {numref}`product_codes`. If all the times have the same 
-value, then using a variable attribute `time_offset` with variable 
-`aerosol_dynamic_indicator` is sufficient and the variable 
-`adi_dtime_from_sst` is not required.
-
-If multiple sources of ADI information are used then, the `source` 
-variable attribute of `aerosol_dynamic_indicator` variable shall have the 
-value `source_of_adi`. In addition, the units of all sources used in the 
-file shall be identical. 
-
-The difference in time expressed in hours between the time of SST measurement
-and the time of aerosol indicator data should be entered into the L2P variable 
-`adi_dtime_from_sst` as described in {numref}`__l2p_adi_dtime_from_sst`. In 
-the case of an analysis field, this should be the central (mean) time of an 
-integrated value.
-
-If the variable `aerosol_dynamic_indicator` is provided in an L2P product,
-it shall be included with the format requirements shown in the 
-{numref}`l2p_aerosol_dynamic_indicator`.
-
-```{table} CDL example description of **<span style="font-family:courier;">aerosol_dynamic_indicator</span>** variable
-:name: l2p_aerosol_dynamic_indicator
-
-| **Storage type** | **Name**     | **Description**                  | **Unit** |
-|-------------------|--------------|----------------------------------|----------|
-| byte | `aerosol_dynamic_indicator` | Indicator of potential aerosol contamination of infrared satellite data | Provider defined |
+* - **Applicability**
+  - Only for infrared instruments. L2P, L3U, L3C: Mandatory ; L3S: Optional
+* - **Science data type**
+  - Provider defined 
+* - **Unit**
+  - Provider defined
+* - **Description**
+  - Indicator of potential aerosol contamination of infrared satellite data
 ```
 
-```{code-cell}
-:tags: [remove-input]
-:name: l2p_aerosol_dynamic_indicator
+The L2P variable `aerosol_dynamic_indicator` contains an indicator of potential atmospheric aerosol contamination of 
+infrared satellite SST data. Infrared-absorbing atmospheric aerosols are a major source of error in satellite-derived 
+sea surface temperature retrievals. Atmospheric aerosol, such as Saharan dust outbreaks, volcanic eruptions or from 
+coastal mega cities causes errors in the atmospheric correction of top of the atmosphere radiances when retrieving SST 
+from infrared and visible band data sets. A systematic bias in the tropical North Atlantic Ocean and Arabian Sea due to
+desert dust outflows in those regions is apparent.
 
-!ncdump -h samples/l2p_full_example.nc | grep $'[ , \t]aerosol_dynamic_indicator[(,:]'| sed 's/[[:space:]]//'
+An aerosol indicator (e.g., derived from satellite measurements or models) value is assigned to the L2P variable 
+`aerosol_dynamic_indicator` for each corresponding infrared retrieved SST measurement pixel using data chosen 
+by the data provider to indicate aerosol contamination. The aerosol indicator data nearest in space and time to the input
+pixel SST value should  be used. In the case of microwave SST measurements there is no requirement to include the 
+`aerosol_dynamic_indicator` L2P variable as microwave SST retrievals are not affected by atmospheric aerosols. However,
+microwave SST data providers may include `aerosol_dynamic_indicator` in an L2P product.
+
+If a single source of data is used in the L2P variable `aerosol_dynamic_indicator`, the L2P variable `source_of_adi` is 
+not required and instead the `source` variable attribute value in `aerosol_dynamic_indicator` is sufficient. It shall be 
+a single source text string defined by the data provider using the text string naming best practice given in 
+{numref}`product_codes`. If all the times have the same value, then using a variable attribute `time_offset` with variable 
+`aerosol_dynamic_indicator` is sufficient and the variable `adi_dtime_from_sst` is not required.
+
+If multiple sources of ADI information are used then, the `source` variable attribute of `aerosol_dynamic_indicator` 
+variable shall have the value `source_of_adi`. In addition, the units of all sources used in the file shall be identical. 
+
+The difference in time expressed in hours between the time of SST measurement and the time of aerosol indicator data 
+should be entered into the variable `adi_dtime_from_sst` as described in {numref}`__l2p_adi_dtime_from_sst`. In 
+the case of an analysis field, this should be the central (mean) time of an integrated value.
+
+
+
+**Example:**
+
+```{code-block}
+---
+caption: CDL for `aerosol_dynamic_indicator` variable in a L2P file
+name: ex_aerosol_dynamic_indicator
+---
+dimensions:
+	time = UNLIMITED ; // (1 currently)
+	nj = 1080 ;
+	ni = 2048 ;
+variables:
+    float aerosol_dynamic_indicator(time, nj, ni) ;
+        aerosol_dynamic_indicator:_FillValue = 1e20 ;
+        aerosol_dynamic_indicator:long_name = "aerosol dynamic indicator" ;
+        aerosol_dynamic_indicator:units = "1" ;
+        aerosol_dynamic_indicator:source = "ADI-NAVO-SDI-V2" ;
+        aerosol_dynamic_indicator:comment = "Estimate of the potential for aerosol contamination based on the NAVO SDI_V2 product, in counts" ;
+        aerosol_dynamic_indicator:coverage_content_type = "auxiliaryInformation" ;
+        aerosol_dynamic_indicator:time_offset = 3. ;
+        aerosol_dynamic_indicator:coordinates = "lat lon" ;
 ```
 
-A single source of `aerosol_dynamic_indicator` has been used in this example
-indicated using the `aerosol_dynamic_indicator:source` and are defined by the
-data provider using the ancillary data naming best practice given in 
-{numref}`product_codes`. Since all of the values have the same time, the 
-attribute `time_offset` is used instead of the variable 
-`aerosol_sst_dtime_from_sst` to indicate the offset in hours from the
-reference variable `sst_dtime`.
+A single source of `aerosol_dynamic_indicator` has been used in this example, indicated using the 
+`aerosol_dynamic_indicator:source` and defined by the data provider using the ancillary data naming best practice 
+given in {numref}`product_codes`. Since all of the values have the same time, the attribute `time_offset` is used 
+instead of the variable `aerosol_sst_dtime_from_sst` to indicate the offset in hours from the pixel time variable `time`.
 
 
 (__l2p_adi_dtime_from_sst)=

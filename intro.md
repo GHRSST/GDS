@@ -3,8 +3,8 @@
 A new generation of integrated Sea Surface Temperature (SST) data products is being provided by the 
 **[Group for High Resolution Sea Surface Temperature(GHRSST)](https://doi.org/10.1175/BAMS-88-8-1197)** since 2004. 
 [Level 2P](./l2p.md) products are provided by a variety of data providers in a common format. [Level 3](./l3.md) and 
-[Level 4](./l4.md) products combine, in near-real time, various SST data products from several different satellite 
-sensors and in situ observations and maintain fine spatial and temporal resolution needed by SST inputs to a variety of 
+[Level 4](./l4.md) products combine, in near-real time, various SST data products from one or several different satellite 
+sensors and possibly in situ observations and maintain fine spatial and temporal resolution needed by SST inputs to a variety of 
 ocean and atmosphere applications in the operational and scientific communities. Retrospective reanalysis products are 
 provided in a non-real time critical offline manner. All GHRSST products have a **standard format**, include 
 **uncertainty estimates** for each measurement, and are served to the international user community free of charge 
@@ -20,7 +20,7 @@ guidance on how data providers might implement SST processing chains that contri
 
 This document first provides an overview of GHRSST followed by detailed technical specifications of the adopted file 
 naming specification and supporting definitions and conventions used throughout GHRSST and the technical specifications 
-for all GHRSST Level 2P, Level 3, Level 4. 
+for all GHRSST Level 2P, Level 3 (and its different flavours: L3U, L3C and L3S), Level 4. 
 
 In addition, the GDS {{gds_version}} Technical Specification provides controlled vocabularies and best practices for 
 identifying sources of SST and ancillary data that are used within GHRSST data files.
